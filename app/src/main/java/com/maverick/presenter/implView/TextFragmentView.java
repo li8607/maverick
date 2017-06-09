@@ -9,5 +9,5 @@ import java.util.List;
  */
 public interface TextFragmentView extends IBaseFragment {
 
-    void refreshAdapter(List<GifInfo> list);
+    void refreshAdapter(List<GifInfo> list, boolean clean);
 }

@@ -6,6 +6,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.Priority;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.drawable.GlideDrawable;
+import com.bumptech.glide.request.RequestListener;
 import com.maverick.R;
 
 /**
@@ -15,5 +17,9 @@ public class GlideUtil {
 
     public static void loadImage(Context context, String url, ImageView imageView) {
         Glide.with(context).load(url).priority(Priority.HIGH).skipMemoryCache(true).fitCenter().error(R.mipmap.fail).diskCacheStrategy(DiskCacheStrategy.SOURCE).crossFade().into(imageView);
+    }
+
+    public static void loadImage(Context context, String url, ImageView imageView, RequestListener requestListener) {
+        Glide.with(context).load(url).priority(Priority.HIGH).skipMemoryCache(true).fitCenter().error(R.mipmap.fail).diskCacheStrategy(DiskCacheStrategy.SOURCE).crossFade().listener(requestListener).into(imageView);
     }
 }

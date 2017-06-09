@@ -176,12 +176,12 @@ public class GifFragment extends Fragment {
                 String str = response.body().string();
                 final GifInfoObj mGifInfoObj = (GifInfoObj) JsonUtil.stringToObject(str, GifInfoObj.class);
 
-                if (mGifInfoObj == null || mGifInfoObj.showapi_res_body == null || mGifInfoObj.showapi_res_body.contentlist == null) {
-                    Toast.makeText(getContext(), "网络异常", Toast.LENGTH_SHORT).show();
+                if (getActivity() == null || getContext() == null) {
                     return;
                 }
 
-                if (getActivity() == null) {
+                if (mGifInfoObj == null || mGifInfoObj.showapi_res_body == null || mGifInfoObj.showapi_res_body.contentlist == null) {
+                    Toast.makeText(getContext(), "网络异常", Toast.LENGTH_SHORT).show();
                     return;
                 }
 

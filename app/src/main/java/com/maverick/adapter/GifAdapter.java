@@ -23,6 +23,7 @@ import com.bumptech.glide.request.target.Target;
 import com.maverick.DetailActivity;
 import com.maverick.R;
 import com.maverick.bean.GifInfo;
+import com.maverick.util.GlideUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,19 +82,13 @@ public class GifAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             imgUrl = gifInfo.img;
             mLoading.setVisibility(View.VISIBLE);
-            Glide.with(mContext).load(imgUrl).priority(Priority.HIGH).skipMemoryCache(true).fitCenter().error(R.mipmap.fail).diskCacheStrategy(DiskCacheStrategy.SOURCE).crossFade().listener(this).into(mImageView);
-//            Glide.with(mContext).load(gifInfo.img).asBitmap().priority(Priority.HIGH).skipMemoryCache(true).fitCenter().error(R.mipmap.fail).diskCacheStrategy(DiskCacheStrategy.RESULT).placeholder(R.mipmap.logo).listener(this).into(mImageView);
-//            Glide.with(mContext).load(gifInfo.img).asBitmap().into(mImageView);
+            GlideUtil.loadImage(mContext, imgUrl, mImageView);
         }
 
         @Override
         public void onClick(View v) {
             mLoading.setVisibility(View.VISIBLE);
-
             DetailActivity.launch((Activity) mContext, mImageView, mGifInfo);
-
-//            Glide.with(mContext).load(imgUrl).priority(Priority.HIGH).skipMemoryCache(true).fitCenter().error(R.mipmap.fail).diskCacheStrategy(DiskCacheStrategy.SOURCE).crossFade().listener(this).into(mImageView);
-//            Glide.with(mContext).load(imgUrl).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(mImageView);
         }
 
         @Override

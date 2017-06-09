@@ -26,8 +26,6 @@ public class TextFragmentPresenterImpl extends BasePresenter implements TextFrag
 
     private TextFragmentView mTextFragmentView;
 
-    private List<GifInfo> mList = new ArrayList<>();
-
     public TextFragmentPresenterImpl(Context context, TextFragmentView view) {
         this.mTextFragmentView = view;
     }
@@ -54,12 +52,7 @@ public class TextFragmentPresenterImpl extends BasePresenter implements TextFrag
                             return;
                         }
 
-                        if (clean) {
-                            mList.clear();
-                        }
-
-                        mList.addAll(gifInfoObj.showapi_res_body.contentlist);
-                        mTextFragmentView.refreshAdapter(mList);
+                        mTextFragmentView.refreshAdapter(gifInfoObj.showapi_res_body.contentlist, clean);
                     }
 
                     @Override
@@ -76,6 +69,5 @@ public class TextFragmentPresenterImpl extends BasePresenter implements TextFrag
                         Log.e("lmf", "onComplete");
                     }
                 });
-
     }
 }

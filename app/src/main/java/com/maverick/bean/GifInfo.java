@@ -12,6 +12,7 @@ public class GifInfo implements Serializable {
     public String img;
     public String type;
     public String ct;
+    public String text;
 
     @Override
     public String toString() {
