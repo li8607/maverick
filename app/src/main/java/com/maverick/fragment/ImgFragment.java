@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.maverick.R;
 import com.maverick.adapter.ImgAdapter;
@@ -26,7 +27,7 @@ import java.util.List;
 /**
  * Created by ll on 2017/5/22.
  */
-public class ImgFragment extends Fragment implements ImgFragmentView {
+public class ImgFragment extends BaseFragment implements ImgFragmentView {
 
     private ImgAdapter mImgAdapter;
     private ImgFragmentPresenter mImplImgFragmentPresenter;
@@ -171,5 +172,13 @@ public class ImgFragment extends Fragment implements ImgFragmentView {
         mImgAdapter.notifyDataSetChanged();
         mError.setVisibility(View.GONE);
         mSwipeRefreshLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void randomReFresh() {
+        if (!isLoading) {
+            mPage = (int) (Math.random() * 223 + 1);
+            mImplImgFragmentPresenter.getImgList(mPage, true);
+        }
     }
 }

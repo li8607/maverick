@@ -35,7 +35,7 @@ import okhttp3.Response;
 /**
  * Created by ll on 2017/5/18.
  */
-public class GifFragment extends Fragment {
+public class GifFragment extends BaseFragment {
 
     private GifAdapter mGifAdapter;
     private PullLoadMoreRecyclerView mRecyclerView;
@@ -163,6 +163,11 @@ public class GifFragment extends Fragment {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
+
+                if (getActivity() == null || getActivity().isFinishing()) {
+                    return;
+                }
+
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -173,6 +178,11 @@ public class GifFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+
+                if (getActivity() == null || getActivity().isFinishing()) {
+                    return;
+                }
+
                 String str = response.body().string();
                 final GifInfoObj mGifInfoObj = (GifInfoObj) JsonUtil.stringToObject(str, GifInfoObj.class);
 
@@ -193,5 +203,17 @@ public class GifFragment extends Fragment {
                 });
             }
         });
+    }
+
+    @Override
+    public void randomReFresh() {
+        if (mRecyclerView.isLoadMore()) {
+            Toast.makeText(getContext(), "正在加载更多，请稍后刷新", Toast.LENGTH_SHORT).show();
+            mSwipeRefreshLayout.setRefreshing(false);
+            return;
+        }
+
+        mPage = (int) (Math.random() * 18 + 1);
+        postAsynHttp(mPage, true);
     }
 }

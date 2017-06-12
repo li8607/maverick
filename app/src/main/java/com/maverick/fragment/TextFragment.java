@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Created by ll on 2017/5/22.
  */
-public class TextFragment extends Fragment implements TextFragmentView {
+public class TextFragment extends BaseFragment implements TextFragmentView {
 
     private TextFragmentPresenterImpl mTextFragmentPresenterImpl;
     private TextAdapter mTextAdapter;
@@ -172,5 +172,13 @@ public class TextFragment extends Fragment implements TextFragmentView {
 
         error.setVisibility(View.VISIBLE);
         mSwipeRefreshLayout.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void randomReFresh() {
+        if (!isLoading) {
+            mPage = (int) (Math.random() * 223 + 1);
+            mTextFragmentPresenterImpl.getImgList(1, true);
+        }
     }
 }

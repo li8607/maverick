@@ -15,12 +15,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.maverick.fragment.BaseFragment;
 import com.maverick.fragment.GifFragment;
 import com.maverick.fragment.ImgFragment;
 import com.maverick.fragment.TextFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private BaseFragment mBaseFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +57,7 @@ public class MainActivity extends AppCompatActivity
 
     private Fragment getFragmentById(int id) {
 
-        Fragment fragment;
+        BaseFragment fragment;
 
         switch (id) {
             case R.id.nav_gif:
@@ -71,6 +74,8 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
 
+        mBaseFragment = fragment;
+
         return fragment;
     }
 
@@ -85,7 +90,7 @@ public class MainActivity extends AppCompatActivity
             if (System.currentTimeMillis() - exitTime > 2000) {
                 Toast.makeText(MainActivity.this, "再点一次，退出", Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
-            }else {
+            } else {
                 super.onBackPressed();
             }
         }
@@ -106,7 +111,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_exit) {
+            super.onBackPressed();
+            return true;
+        } else if (id == R.id.action_refresh) {
+            mBaseFragment.randomReFresh();
             return true;
         }
 
