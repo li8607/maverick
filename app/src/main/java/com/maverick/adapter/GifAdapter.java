@@ -82,12 +82,11 @@ public class GifAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
             imgUrl = gifInfo.img;
             mLoading.setVisibility(View.VISIBLE);
-            GlideUtil.loadImage(mContext, imgUrl, mImageView);
+            GlideUtil.loadImage(mContext, imgUrl, mImageView, this);
         }
 
         @Override
         public void onClick(View v) {
-            mLoading.setVisibility(View.VISIBLE);
             DetailActivity.launch((Activity) mContext, mImageView, mGifInfo);
         }
 
