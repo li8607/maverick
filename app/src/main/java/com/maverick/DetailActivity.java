@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.maverick.bean.GifInfo;
+import com.maverick.dialog.MultifunctionalDialog;
 import com.maverick.util.GlideUtil;
 
 /**
@@ -25,6 +26,7 @@ import com.maverick.util.GlideUtil;
  */
 public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_IMAGE = "DetailActivity:image";
+    private String mImgUrl;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,7 +37,9 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final GifInfo gifInfo = (GifInfo) intent.getSerializableExtra(EXTRA_IMAGE);
 
-        GlideUtil.loadImage(this, gifInfo.img, image_detail, new RequestListener() {
+        mImgUrl = gifInfo.img;
+
+        GlideUtil.loadImage(this, mImgUrl, image_detail, new RequestListener() {
             @Override
             public boolean onException(Exception e, Object model, Target target, boolean isFirstResource) {
                 return false;
@@ -55,10 +59,23 @@ public class DetailActivity extends AppCompatActivity {
 //            window.setNavigationBarColor(getResources().getColor(R.color.colorStatusBarBackground));
             getWindow().setStatusBarColor(Color.TRANSPARENT);// Color.TRANSPARENT = 0 表示#00000000即透明颜色
 //            getWindow().setNavigationBarColor(Color.TRANSPARENT);
-        }else if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
+
+        image_detail.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                showMultifunctionalDialog();
+                return true;
+            }
+        });
+    }
+
+    private void showMultifunctionalDialog() {
+        MultifunctionalDialog mMultifunctionalDialog = MultifunctionalDialog.newInstance(mImgUrl);
+        mMultifunctionalDialog.show(getFragmentManager(), "MultifunctionalDialog");
     }
 
     public static void launch(Activity activity, View transitionView, GifInfo info) {
