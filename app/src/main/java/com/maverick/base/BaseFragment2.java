@@ -7,47 +7,50 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
+import android.view.ViewGroup;
 
 import com.maverick.presenter.BasePresenter;
 
 /**
- * Created by limingfei on 2017/9/25.
+ * Created by Administrator on 2017/9/25.
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseFragment2 extends Fragment {
 
     private BasePresenter mBasePresenter;
+    private View mView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏 第一种方法
         super.onCreate(savedInstanceState);
-        onActivityCreated(savedInstanceState);
-    }
-
-    private void onActivityCreated(Bundle savedInstanceState) {
-        @LayoutRes int layoutResID = getRootViewId();
-        if (layoutResID != 0) {
-            this.setContentView(layoutResID);
-        }
-
         this.mBasePresenter = this.onCreatePresenter();
-        this.onInitView();
-        this.onInitData(savedInstanceState);
     }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        @LayoutRes int layoutResID = getRootViewId();
+        mView = null;
+        if (layoutResID != 0) {
+            mView = inflater.inflate(layoutResID, container, false);
+        }
+        onInitView(mView);
+        onInitData(savedInstanceState);
+        return mView;
+    }
+
 
     protected abstract BasePresenter onCreatePresenter();
 
     protected abstract int getRootViewId();
 
-    protected abstract void onInitView();
+    protected abstract void onInitView(View view);
 
     protected abstract void onInitData(Bundle savedInstanceState);
 
     public <T extends View> T findView(int id) {
-        return (T) findViewById(id);
+        return (T) mView.findViewById(id);
     }
 
     public <T extends View> T findView(View view, int id) {
@@ -55,26 +58,27 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public void replaceFragment(@IdRes int containerViewId, @Nullable Fragment fragment) {
-        if (containerViewId == 0 || fragment == null || getSupportFragmentManager() == null)
+        if (containerViewId == 0 || fragment == null || getChildFragmentManager() == null)
             return;
 
-        FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
+        FragmentTransaction fragmentTransaction = this.getChildFragmentManager().beginTransaction();
         fragmentTransaction.replace(containerViewId, fragment);
         fragmentTransaction.commitAllowingStateLoss();
     }
 
     public void showDialogFragment(@Nullable DialogFragment dialogFragment) {
-        if (dialogFragment == null || getSupportFragmentManager() == null)
+        if (dialogFragment == null || getChildFragmentManager() == null)
             return;
 
-        FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
+        FragmentTransaction fragmentTransaction = this.getChildFragmentManager().beginTransaction();
 
         String tag = dialogFragment.getClass().getName();
-        Fragment fragment = this.getSupportFragmentManager().findFragmentByTag(tag);
+        Fragment fragment = this.getChildFragmentManager().findFragmentByTag(tag);
         if (fragment != null) {
             fragmentTransaction.remove(fragment);
         }
 
         dialogFragment.show(fragmentTransaction, tag);
     }
+
 }

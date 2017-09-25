@@ -1,12 +1,23 @@
 package com.maverick;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.maverick.base.BaseActivity;
 import com.maverick.bean.ButtonInfo;
+import com.maverick.fragment.BeautyFragment;
+import com.maverick.fragment.JokeFragment;
+import com.maverick.fragment.MyFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +28,9 @@ import java.util.List;
 public class MainActivity2 extends BaseActivity {
 
     private RadioGroup radio_group;
+    private RadioButton radio_0;
+    private RadioButton radio_1;
+    private RadioButton radio_2;
 
     @Override
     protected com.maverick.presenter.BasePresenter onCreatePresenter() {
@@ -31,30 +45,80 @@ public class MainActivity2 extends BaseActivity {
     @Override
     protected void onInitView() {
         radio_group = findView(R.id.radio_group);
+
+        radio_0 = findView(R.id.radio_0);
+        radio_1 = findView(R.id.radio_1);
+        radio_2 = findView(R.id.radio_2);
+
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        radio_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.radio_0:
+                        switchFragment(JokeFragment.newInstance());
+                        break;
+                    case R.id.radio_1:
+                        switchFragment(BeautyFragment.newInstance());
+                        break;
+                    case R.id.radio_2:
+                        switchFragment(MyFragment.newInstance());
+                        break;
+                }
+            }
+        });
     }
 
     @Override
     protected void onInitData(Bundle savedInstanceState) {
 
         List<ButtonInfo> list = new ArrayList<>();
-        list.add(getButtonInfo("文本笑话", R.drawable.ic_menu_gallery));
-        list.add(getButtonInfo("图文笑话", R.drawable.ic_menu_camera));
-        list.add(getButtonInfo("动图笑话", R.drawable.ic_menu_manage));
+        list.add(getButtonInfo("笑话", R.drawable.ic_menu_gallery));
+        list.add(getButtonInfo("美女", R.drawable.ic_menu_camera));
+        list.add(getButtonInfo("我的", R.drawable.ic_menu_manage));
 
 
         for (int i = 0; i < list.size(); i++) {
-            radio_group.addView(getRadioButton(list.get(i)));
+            ButtonInfo buttonInfo = list.get(i);
+
+            switch (i) {
+                case 0:
+                    setRadioButtonData(radio_0, buttonInfo);
+                    break;
+                case 1:
+                    setRadioButtonData(radio_1, buttonInfo);
+                    break;
+                case 2:
+                    setRadioButtonData(radio_2, buttonInfo);
+                    break;
+            }
         }
+
+        radio_0.setChecked(true);
+        switchFragment(JokeFragment.newInstance());
     }
 
-    private View getRadioButton(ButtonInfo buttonInfo) {
+    private void switchFragment(Fragment fragment) {
+        replaceFragment(R.id.content, fragment);
+    }
 
-        RadioButton radioButton = new RadioButton(this);
+    private void showToast(String str) {
+        Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
+    }
+
+    private void setRadioButtonData(RadioButton radioButton, ButtonInfo buttonInfo) {
+
+        radioButton.setButtonDrawable(null);
         radioButton.setText(buttonInfo.getName());
-//        radioButton.setCompoundDrawables();
-//        radioButton.setB
+        radioButton.setGravity(Gravity.CENTER);
+        radioButton.setTextColor(getColorStateList(R.color.selector_radiobutton_text_color_main));
 
-        return null;
+        Drawable drawable = getDrawable(buttonInfo.getIconId());
+        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        radioButton.setCompoundDrawables(null, drawable, null, null);
     }
 
     public ButtonInfo getButtonInfo(String name, int iconId) {
@@ -63,5 +127,4 @@ public class MainActivity2 extends BaseActivity {
         buttonInfo.setIconId(iconId);
         return buttonInfo;
     }
-
 }
