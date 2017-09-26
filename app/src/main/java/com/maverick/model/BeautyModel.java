@@ -1,19 +1,13 @@
 package com.maverick.model;
 
-import android.text.TextUtils;
 import android.util.Log;
 
-import com.android.wonderokhttp.http.HttpUtil;
-import com.android.wonderokhttp.http.listener.JsonHttpListener;
 import com.maverick.api.BeautyApi;
 import com.maverick.bean.BeautyInfo;
 import com.maverick.bean.BeautyItemInfo;
 import com.maverick.imodel.IBeautyModel;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
