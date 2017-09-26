@@ -8,16 +8,7 @@ import java.util.List;
  */
 public class BeautyInfo implements Serializable {
 
-    private boolean error;
     private List<BeautyItemInfo> results;
-
-    public boolean isError() {
-        return error;
-    }
-
-    public void setError(boolean error) {
-        this.error = error;
-    }
 
     public List<BeautyItemInfo> getResults() {
         return results;
@@ -25,5 +16,12 @@ public class BeautyInfo implements Serializable {
 
     public void setResults(List<BeautyItemInfo> results) {
         this.results = results;
+    }
+
+    @Override
+    public String toString() {
+        return "BeautyInfo{" +
+                ", results=" + results +
+                '}';
     }
 }

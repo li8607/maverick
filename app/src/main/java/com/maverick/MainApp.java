@@ -3,6 +3,8 @@ package com.maverick;
 import android.app.Application;
 import android.content.Context;
 
+import com.android.wonderokhttp.http.HttpUtil;
+
 /**
  * Created by ll on 2017/5/22.
  */

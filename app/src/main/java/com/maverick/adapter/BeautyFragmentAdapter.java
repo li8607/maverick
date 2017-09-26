@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.maverick.R;
 import com.maverick.bean.BeautyItemInfo;
 import com.maverick.util.GlideUtil;
+import com.maverick.weight.RatioImageView;
 
 import java.util.List;
 
@@ -48,15 +49,23 @@ public class BeautyFragmentAdapter extends RecyclerView.Adapter {
         this.mList = beautyItemInfos;
     }
 
+    public void setMoreData(List<BeautyItemInfo> beautyItemInfos) {
+        if(mList != null) {
+            mList.addAll(beautyItemInfos);
+        }
+    }
+
     public class BeautyHolder extends RecyclerView.ViewHolder {
 
-        private final ImageView image;
+        private final RatioImageView image;
         private final TextView title;
 
         public BeautyHolder(View itemView) {
             super(itemView);
-            image = (ImageView) itemView.findViewById(R.id.image);
+            image = (RatioImageView) itemView.findViewById(R.id.image);
             title = (TextView) itemView.findViewById(R.id.title);
+
+            image.setOriginalSize(1, 1);
         }
 
         public void bindData(BeautyItemInfo beautyItemInfo) {

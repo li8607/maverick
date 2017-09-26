@@ -95,7 +95,25 @@ public class ApiManager {
         }
 
         return mImgApi;
+    }
 
+    public ImgApi getBeautyApi() {
+
+        if(mImgApi == null) {
+
+            synchronized (mObject) {
+                mImgApi = new Retrofit.Builder()
+                        .baseUrl(UrlData.BEAUTY_BASE)
+                        .addCallAdapterFactory(RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io()))
+                        .client(client)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build()
+                        .create(ImgApi.class);
+            }
+
+        }
+
+        return mImgApi;
     }
 
 }

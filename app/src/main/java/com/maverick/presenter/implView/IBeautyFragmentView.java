@@ -14,4 +14,8 @@ public interface IBeautyFragmentView {
     void onShowEmptyView();
 
     void onShowErrorView();
+
+    void onLoadMoreSuccess(List<BeautyItemInfo> beautyInfo, boolean isHasMore);
+
+    void onLoadMoreFail();
 }

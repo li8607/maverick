@@ -19,5 +19,9 @@ public class UrlData {
 
 
 
+    public static String BEAUTY_BASE = "http://gank.io/api/";
+
+
+
 
 }

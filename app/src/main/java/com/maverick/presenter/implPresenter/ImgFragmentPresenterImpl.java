@@ -76,6 +76,5 @@ public class ImgFragmentPresenterImpl extends BasePresenter implements ImgFragme
                         Log.e("lmf", "onComplete");
                     }
                 });
-
     }
 }

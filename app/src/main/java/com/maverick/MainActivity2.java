@@ -3,6 +3,7 @@ package com.maverick;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
@@ -114,9 +115,18 @@ public class MainActivity2 extends BaseActivity {
         radioButton.setButtonDrawable(null);
         radioButton.setText(buttonInfo.getName());
         radioButton.setGravity(Gravity.CENTER);
-        radioButton.setTextColor(getColorStateList(R.color.selector_radiobutton_text_color_main));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            radioButton.setTextColor(getColorStateList(R.color.selector_radiobutton_text_color_main));
+        }else {
+            radioButton.setTextColor(getResources().getColorStateList(R.color.selector_radiobutton_text_color_main));
+        }
 
-        Drawable drawable = getDrawable(buttonInfo.getIconId());
+        Drawable drawable;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            drawable = getDrawable(buttonInfo.getIconId());
+        }else {
+            drawable = getResources().getDrawable(buttonInfo.getIconId());
+        }
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
         radioButton.setCompoundDrawables(null, drawable, null, null);
     }
