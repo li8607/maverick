@@ -1,0 +1,87 @@
+package com.maverick.adapter;
+
+import android.app.Activity;
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.maverick.DetailActivity;
+import com.maverick.R;
+import com.maverick.bean.BigImgInfo;
+import com.maverick.model.HistoryModel;
+import com.maverick.util.GlideUtil;
+import com.maverick.weight.RatioImageView;
+
+import java.util.List;
+
+import cntv.greendaolibrary.dbbean.History;
+
+/**
+ * Created by Administrator on 2017/9/27.
+ */
+public class BrowsingHistoryActivityAdapter extends RecyclerView.Adapter {
+
+    private List<History> mList;
+    private Context mContext;
+
+    public BrowsingHistoryActivityAdapter(Context context) {
+        this.mContext = context;
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_history, parent, false);
+        return new HistoryHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        HistoryHolder historyHolder = (HistoryHolder) holder;
+        historyHolder.bindData(mList.get(position));
+    }
+
+    @Override
+    public int getItemCount() {
+        return mList == null ? 0 : mList.size();
+    }
+
+    public void setData(List<History> histories) {
+        this.mList = histories;
+    }
+
+    public class HistoryHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        private final RatioImageView image;
+        private final TextView title;
+        private History mHistory;
+
+        public HistoryHolder(View itemView) {
+            super(itemView);
+            image = (RatioImageView) itemView.findViewById(R.id.image);
+            title = (TextView) itemView.findViewById(R.id.title);
+
+            image.setOriginalSize(1, 1);
+            itemView.setOnClickListener(this);
+        }
+
+        public void bindData(History history) {
+            this.mHistory = history;
+            GlideUtil.loadImage(mContext, mHistory.getHistoryimage(), image);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (mHistory == null) {
+                return;
+            }
+
+            BigImgInfo bigImgInfo = new BigImgInfo();
+            bigImgInfo.setImg(mHistory.getHistoryimage());
+            DetailActivity.launch((Activity) mContext, image, bigImgInfo);
+        }
+    }
+}
