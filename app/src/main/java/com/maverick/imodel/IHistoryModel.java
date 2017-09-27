@@ -21,6 +21,12 @@ public interface IHistoryModel {
 
     List<History> getGifHistory();
 
+    List<History> getTodayHistory();
+
+    List<History> getSevenDaysHistory();
+
+    List<History> getEarlierHistory();
+
     boolean insertHistoryDB(History history);
 
     boolean deleteHistoryDB(History history);

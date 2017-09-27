@@ -30,11 +30,19 @@ public class BrowsingHistoryActivityPresenter extends BasePresenter {
     }
 
     public void loadData() {
-        List<History> list = HistoryModel.newInstance().getBeautyHistory();
-        if (list != null && list.size() > 0) {
-            mView.onShowSuccessView(list);
-        } else {
-            mView.onShowEmptyView();
-        }
+//        List<History> list = HistoryModel.newInstance().getBeautyHistory();
+//        if (list != null && list.size() > 0) {
+//            mView.onShowSuccessView(list);
+//        } else {
+//            mView.onShowEmptyView();
+//        }
+
+        List<History> list = HistoryModel.newInstance().getTodayHistory();
+        Log.e(TAG, "getTodayHistory = " + list);
+        List<History> list2 = HistoryModel.newInstance().getSevenDaysHistory();
+        Log.e(TAG, "getSevenDaysHistory = " + list2);
+        List<History> list3 = HistoryModel.newInstance().getEarlierHistory();
+        Log.e(TAG, "getEarlierHistory = " + list3);
+
     }
 }

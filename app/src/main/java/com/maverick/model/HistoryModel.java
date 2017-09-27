@@ -2,8 +2,11 @@ package com.maverick.model;
 
 import com.maverick.MainApp;
 import com.maverick.imodel.IHistoryModel;
+import com.maverick.util.TimeUtils;
 
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import cntv.greendaolibrary.dbbean.History;
 import cntv.greendaolibrary.dbbean.HistoryDao;
@@ -64,6 +67,28 @@ public class HistoryModel implements IHistoryModel {
     @Override
     public List<History> getGifHistory() {
         List<History> list = mDao.queryBuilder().where(HistoryDao.Properties.HistoryType.eq("1"), HistoryDao.Properties.HistoryItemType.eq("3")).build().list();
+        return list;
+    }
+
+    @Override
+    public List<History> getTodayHistory() {
+        long zero = TimeUtils.getStartTimeOfDay(new Date());
+        List<History> list = mDao.queryBuilder().where(HistoryDao.Properties.HistoryTime.ge(zero)).build().list();
+        return list;
+    }
+
+    @Override
+    public List<History> getSevenDaysHistory() {
+        long today = TimeUtils.getStartTimeOfDay(new Date());
+        long zero = TimeUtils.getStartTimeOfDay(new Date(System.currentTimeMillis() - 7 * 24 * 3600 * 1000));
+        List<History> list = mDao.queryBuilder().where(HistoryDao.Properties.HistoryTime.ge(zero), HistoryDao.Properties.HistoryTime.lt(today)).build().list();
+        return list;
+    }
+
+    @Override
+    public List<History> getEarlierHistory() {
+        long zero = TimeUtils.getStartTimeOfDay(new Date(System.currentTimeMillis() - 7 * 24 * 3600 * 1000));
+        List<History> list = mDao.queryBuilder().where(HistoryDao.Properties.HistoryTime.lt(zero)).build().list();
         return list;
     }
 
