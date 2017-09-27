@@ -2,6 +2,7 @@ package cntv.greendaolibrary.dbbean.manager;
 
 import android.content.Context;
 
+import cntv.greendaolibrary.dbbean.CollectDao;
 import cntv.greendaolibrary.dbbean.DaoMaster;
 import cntv.greendaolibrary.dbbean.DaoSession;
 import cntv.greendaolibrary.dbbean.HistoryDao;
@@ -33,5 +34,10 @@ public class DBManager {
     public static HistoryDao getHistoryDao(Context context) {
         DaoSession daoSession = getDaoSession(context);
         return daoSession == null ? null : daoSession.getHistoryDao();
+    }
+
+    public static CollectDao getCollectDao(Context context) {
+        DaoSession daoSession = getDaoSession(context);
+        return daoSession == null ? null : daoSession.getCollectDao();
     }
 }
