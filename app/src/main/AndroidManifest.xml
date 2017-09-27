@@ -38,6 +38,10 @@
             android:name=".DetailActivity"
             android:theme="@style/BaseAppTheme" />
 
+        <activity
+            android:name=".BrowsingHistoryActivity"
+            android:theme="@style/BaseAppTheme" />
+
     </application>
 
 </manifest>

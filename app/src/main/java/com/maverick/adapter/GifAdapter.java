@@ -17,10 +17,13 @@ import com.maverick.DetailActivity;
 import com.maverick.R;
 import com.maverick.bean.BigImgInfo;
 import com.maverick.bean.GifInfo;
+import com.maverick.model.HistoryModel;
 import com.maverick.util.GlideUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cntv.greendaolibrary.dbbean.History;
 
 /**
  * Created by ll on 2017/5/18.
@@ -89,6 +92,15 @@ public class GifAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         @Override
         public void onClick(View v) {
+
+            History history = new History();
+            history.setHistoryimage(mGifInfo.img);
+            history.setHistoryName(mGifInfo.title);
+            history.setHistoryType("1");
+            history.setHistoryItemType("3");
+            history.setHistoryTime(System.currentTimeMillis());
+            HistoryModel.newInstance().insertHistoryDB(history);
+
             BigImgInfo bigImgInfo = new BigImgInfo();
             bigImgInfo.setImg(mGifInfo.img);
             DetailActivity.launch((Activity) mContext, mImageView, bigImgInfo);

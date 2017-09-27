@@ -3,6 +3,7 @@ package com.maverick.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,13 @@ import com.maverick.DetailActivity;
 import com.maverick.R;
 import com.maverick.bean.BeautyItemInfo;
 import com.maverick.bean.BigImgInfo;
+import com.maverick.model.HistoryModel;
 import com.maverick.util.GlideUtil;
 import com.maverick.weight.RatioImageView;
 
 import java.util.List;
+
+import cntv.greendaolibrary.dbbean.History;
 
 /**
  * Created by Administrator on 2017/9/26.
@@ -53,12 +57,12 @@ public class BeautyFragmentAdapter extends RecyclerView.Adapter {
     }
 
     public void setMoreData(List<BeautyItemInfo> beautyItemInfos) {
-        if(mList != null) {
+        if (mList != null) {
             mList.addAll(beautyItemInfos);
         }
     }
 
-    public class BeautyHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class BeautyHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final RatioImageView image;
         private final TextView title;
@@ -80,9 +84,16 @@ public class BeautyFragmentAdapter extends RecyclerView.Adapter {
 
         @Override
         public void onClick(View v) {
-            if(mBeautyItemInfo == null) {
+            if (mBeautyItemInfo == null) {
                 return;
             }
+
+            History history = new History();
+            history.setHistoryimage(mBeautyItemInfo.getUrl());
+            history.setHistoryName(mBeautyItemInfo.getWho());
+            history.setHistoryType("2");
+            history.setHistoryTime(System.currentTimeMillis());
+            HistoryModel.newInstance().insertHistoryDB(history);
 
             BigImgInfo bigImgInfo = new BigImgInfo();
             bigImgInfo.setImg(mBeautyItemInfo.getUrl());

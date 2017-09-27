@@ -4,12 +4,14 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.View;
 
 import com.maverick.R;
 import com.maverick.adapter.BeautyFragmentAdapter;
 import com.maverick.base.BaseFragment2;
 import com.maverick.bean.BeautyItemInfo;
+import com.maverick.model.HistoryModel;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.BeautyFragmentPresenter;
 import com.maverick.presenter.implView.IBeautyFragmentView;
@@ -17,6 +19,8 @@ import com.maverick.util.DensityUtil;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import java.util.List;
+
+import cntv.greendaolibrary.dbbean.History;
 
 /**
  * Created by limingfei on 2017/9/26.
