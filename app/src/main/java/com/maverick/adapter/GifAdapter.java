@@ -1,9 +1,7 @@
 package com.maverick.adapter;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
-import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -13,11 +11,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.bumptech.glide.DrawableRequestBuilder;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.maverick.DetailActivity;
@@ -33,11 +26,7 @@ import java.util.List;
  */
 public class GifAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<GifInfo> mGifInfoList = new ArrayList<>();
-
-    public void setList(List<GifInfo> list) {
-        this.mGifInfoList = list;
-    }
+    private List<GifInfo> mList;
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -48,12 +37,24 @@ public class GifAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         GifAdapterViewHolder mGifAdapterViewHolder = (GifAdapterViewHolder) holder;
-        mGifAdapterViewHolder.setData(mGifInfoList.get(position));
+        mGifAdapterViewHolder.setData(mList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mGifInfoList.size();
+        return mList == null ? 0 : mList.size();
+    }
+
+    public void setData(List<GifInfo> list) {
+        if (list != null) {
+            this.mList = list;
+        }
+    }
+
+    public void setMoreData(List<GifInfo> list) {
+        if (list != null) {
+            this.mList.addAll(list);
+        }
     }
 
     public class GifAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, RequestListener {

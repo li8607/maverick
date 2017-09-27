@@ -35,6 +35,12 @@ public class JokeApiInvokeProxy implements JokeApi{
         return call;
     }
 
+    public Call<GifInfoObj> getGifList(String appid, String sign, String page, String maxResult) {
+        Call<GifInfoObj> call = mJokeApi.getGifList(appid, sign, page, maxResult);
+        mCallList.add(call);
+        return call;
+    }
+
     //额外提供一个方法用于取消所有Call
     public void cancelAll(Call... excludes) {
         if (excludes.length > 0) {

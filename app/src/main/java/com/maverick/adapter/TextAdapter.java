@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +13,6 @@ import com.maverick.DetailActivity;
 import com.maverick.R;
 import com.maverick.bean.GifInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -80,7 +78,6 @@ public class TextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void setData(GifInfo gifInfo) {
             this.gifInfo = gifInfo;
             String text = gifInfo.text;
-            Log.e("lmf", "text = " + text);
             if (!TextUtils.isEmpty(text)) {
                 mTitle.setText(text);
             }

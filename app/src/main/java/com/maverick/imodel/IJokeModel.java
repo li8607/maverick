@@ -13,12 +13,19 @@ public interface IJokeModel {
 
     void requestImgData(int page, int num, OnImgResultListener listener);
 
+    void requestGifData(int page, int num, OnGifResultListener listener);
+
     interface OnTextResultListener {
         void onSuccess(GifInfoObj infoObj);
         void onFail();
     }
 
     interface OnImgResultListener {
+        void onSuccess(GifInfoObj infoObj);
+        void onFail();
+    }
+
+    interface OnGifResultListener {
         void onSuccess(GifInfoObj infoObj);
         void onFail();
     }
