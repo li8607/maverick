@@ -8,6 +8,9 @@ import java.util.List;
  * Created by limingfei on 2017/9/26.
  */
 public interface IBeautyModel {
+
+    void release();
+
     void requestData(int page, int num, OnResultListener listener);
 
     interface OnResultListener {

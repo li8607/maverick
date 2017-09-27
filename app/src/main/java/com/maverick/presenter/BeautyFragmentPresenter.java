@@ -60,4 +60,8 @@ public class BeautyFragmentPresenter extends BasePresenter {
         });
     }
 
+    @Override
+    public void release() {
+        mModel.release();
+    }
 }

@@ -101,10 +101,6 @@ public class BeautyFragment extends BaseFragment2 implements IBeautyFragmentView
 
     @Override
     public void onShowSuccessView(List<BeautyItemInfo> beautyItemInfos) {
-
-        if (getActivity() == null || getActivity().isFinishing()) {
-            return;
-        }
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
         mBeautyFragmentAdapter.setData(beautyItemInfos);
         mBeautyFragmentAdapter.notifyDataSetChanged();
@@ -112,17 +108,11 @@ public class BeautyFragment extends BaseFragment2 implements IBeautyFragmentView
 
     @Override
     public void onShowEmptyView() {
-        if (getActivity() == null || getActivity().isFinishing()) {
-            return;
-        }
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
     }
 
     @Override
     public void onShowErrorView() {
-        if (getActivity() == null || getActivity().isFinishing()) {
-            return;
-        }
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
     }
 

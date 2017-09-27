@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class TextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<GifInfo> mList = new ArrayList<>();
+    private List<GifInfo> mList;
 
     private Context mContext;
 
@@ -46,15 +46,17 @@ public class TextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return mList == null ? 0 : mList.size();
     }
 
     public void setData(List<GifInfo> list) {
-        this.mList = list;
+        if (list != null) {
+            this.mList = list;
+        }
     }
 
     public void setMoreData(List<GifInfo> list) {
-        if (mList != null) {
+        if(list != null) {
             mList.addAll(list);
         }
     }

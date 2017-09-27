@@ -2,54 +2,54 @@ package com.maverick.fragment;
 
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.maverick.R;
 import com.maverick.adapter.TextAdapter;
+import com.maverick.base.BaseFragment2;
 import com.maverick.bean.GifInfo;
-import com.maverick.presenter.implPresenter.TextFragmentPresenterImpl;
+import com.maverick.presenter.BasePresenter;
+import com.maverick.presenter.TextFragmentPresenter2;
 import com.maverick.presenter.implView.TextFragmentView;
+import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import java.util.List;
 
 /**
  * Created by ll on 2017/5/22.
  */
-public class TextFragment extends BaseFragment implements TextFragmentView {
+public class TextFragment extends BaseFragment2 implements TextFragmentView {
 
-    private TextFragmentPresenterImpl mTextFragmentPresenterImpl;
+    private TextFragmentPresenter2 mPresenter;
     private TextAdapter mTextAdapter;
     private LinearLayoutManager mLinearLayoutManager;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
-
-    private boolean isLoading;
-    private int mPage = 1;
-    private TextView error;
-    private View loading;
+    private PullLoadMoreRecyclerView pullLoadMoreRecyclerView;
 
     public static TextFragment newInstance() {
         TextFragment fragment = new TextFragment();
         return fragment;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected BasePresenter onCreatePresenter() {
+        mPresenter = new TextFragmentPresenter2(getContext(), this);
+        return mPresenter;
+    }
 
-        mTextFragmentPresenterImpl = new TextFragmentPresenterImpl(getContext(), this);
+    @Override
+    protected int getRootViewId() {
+        return R.layout.fragment_text;
+    }
 
-        View view = inflater.inflate(R.layout.fragment_text, null);
+    @Override
+    protected void onInitView(View view) {
 
-        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        pullLoadMoreRecyclerView = findView(R.id.recyclerView);
+
+        RecyclerView mRecyclerView = pullLoadMoreRecyclerView.getRecyclerView();
         mLinearLayoutManager = new LinearLayoutManager(getContext());
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
@@ -72,113 +72,60 @@ public class TextFragment extends BaseFragment implements TextFragmentView {
             }
         });
 
-        RecyclerView.OnScrollListener loadmoreListener = new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (dy > 0) //向下滚动
-                {
-                    int visibleItemCount = mLinearLayoutManager.getChildCount();
-                    int totalItemCount = mLinearLayoutManager.getItemCount();
-                    int pastVisiblesItems = mLinearLayoutManager.findFirstVisibleItemPosition();
-
-                    if (!isLoading && (visibleItemCount + pastVisiblesItems) >= totalItemCount && !mSwipeRefreshLayout.isRefreshing()) {
-                        isLoading = true;
-                        mPage += 1;
-                        loadMoreDate();
-                    }
-                }
-            }
-        };
-        mRecyclerView.addOnScrollListener(loadmoreListener);
-
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
-
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        pullLoadMoreRecyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
             @Override
             public void onRefresh() {
-                if (!isLoading) {
-                    mPage = 1;
-                    mTextFragmentPresenterImpl.getImgList(1, true);
-                }
+                mPresenter.refreshData();
             }
-        });
 
-        error = (TextView) view.findViewById(R.id.error);
-        loading = view.findViewById(R.id.loading);
-
-        error.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                error.setVisibility(View.GONE);
-                loading.setVisibility(View.VISIBLE);
-                mTextFragmentPresenterImpl.getImgList(1, true);
+            public void onLoadMore() {
+                mPresenter.loadMoreData();
             }
         });
-
-        return view;
-    }
-
-    private void loadMoreDate() {
-        mTextFragmentPresenterImpl.getImgList(mPage, true);
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        loading.setVisibility(View.VISIBLE);
-        mTextFragmentPresenterImpl.getImgList(1, true);
+    protected void onInitData(Bundle savedInstanceState) {
+        mPresenter.refreshData();
+    }
+
+//    public void randomReFresh() {
+//        if (!isLoading) {
+//            mPage = (int) (Math.random() * 223 + 1);
+//            mPresenter.getImgList(1, true);
+//        }
+//    }
+
+    @Override
+    public void onShowSuccessView(List<GifInfo> gifInfos) {
+        pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+        pullLoadMoreRecyclerView.setHasMore(true);
+        mTextAdapter.setData(gifInfos);
+        mTextAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void refreshAdapter(List<GifInfo> list, boolean clean) {
-        isLoading = false;
-        mSwipeRefreshLayout.setRefreshing(false);
-        error.setVisibility(View.GONE);
-        mSwipeRefreshLayout.setVisibility(View.VISIBLE);
-
-        if (!clean) {
-            mTextAdapter.setData(list);
-            mTextAdapter.notifyDataSetChanged();
-        } else {
-            int startPosition = mTextAdapter.getItemCount();
-            mTextAdapter.setMoreData(list);
-            mTextAdapter.notifyItemRangeChanged(startPosition, list.size());
-        }
+    public void onShowEmptyView() {
+        pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
     }
 
     @Override
-    public void showLoading() {
-        loading.setVisibility(View.VISIBLE);
+    public void onShowErrorView() {
+        pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
     }
 
     @Override
-    public void hideLoading() {
-        loading.setVisibility(View.GONE);
+    public void onLoadMoreSuccess(List<GifInfo> beautyInfo, boolean isHasMore) {
+        pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+        pullLoadMoreRecyclerView.setHasMore(isHasMore);
+        int startPosition = mTextAdapter.getItemCount();
+        mTextAdapter.setMoreData(beautyInfo);
+        mTextAdapter.notifyItemRangeInserted(startPosition, beautyInfo.size());
     }
 
     @Override
-    public void showError() {
-
-        if (isLoading) {
-            isLoading = false;
-            return;
-        }
-
-        error.setVisibility(View.VISIBLE);
-        mSwipeRefreshLayout.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void randomReFresh() {
-        if (!isLoading) {
-            mPage = (int) (Math.random() * 223 + 1);
-            mTextFragmentPresenterImpl.getImgList(1, true);
-        }
+    public void onLoadMoreFail() {
+        pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
     }
 }

@@ -40,6 +40,13 @@ public abstract class BaseFragment2 extends Fragment {
         return mView;
     }
 
+    @Override
+    public void onDestroyView() {
+        if(mBasePresenter != null) {
+            mBasePresenter.release();
+        }
+        super.onDestroyView();
+    }
 
     protected abstract BasePresenter onCreatePresenter();
 

@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity
 
     private Fragment getFragmentById(int id) {
 
-        BaseFragment fragment;
+        BaseFragment fragment = null;
 
         switch (id) {
             case R.id.nav_gif:
@@ -67,14 +67,14 @@ public class MainActivity extends AppCompatActivity
                 fragment = ImgFragment.newInstance();
                 break;
             case R.id.nav_text:
-                fragment = TextFragment.newInstance();
+//                fragment = TextFragment.newInstance();
                 break;
             default:
                 fragment = GifFragment.newInstance();
                 break;
         }
 
-        mBaseFragment = fragment;
+//        mBaseFragment = fragment;
 
         return fragment;
     }
