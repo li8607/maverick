@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.maverick.DetailActivity;
 import com.maverick.R;
+import com.maverick.bean.BigImgInfo;
 import com.maverick.bean.GifInfo;
 import com.maverick.util.GlideUtil;
 
@@ -87,7 +88,9 @@ public class ImgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         @Override
         public void onClick(View v) {
-            DetailActivity.launch((Activity) mContext, mImageView, mGifInfo);
+            BigImgInfo bigImgInfo = new BigImgInfo();
+            bigImgInfo.setImg(mGifInfo.img);
+            DetailActivity.launch((Activity) mContext, mImageView, bigImgInfo);
         }
     }
 }

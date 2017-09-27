@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.maverick.bean.BigImgInfo;
 import com.maverick.bean.GifInfo;
 import com.maverick.dialog.MultifunctionalDialog;
 import com.maverick.util.GlideUtil;
@@ -35,9 +37,9 @@ public class DetailActivity extends AppCompatActivity {
         final ImageView image_detail = (ImageView) findViewById(R.id.image_detail);
         ViewCompat.setTransitionName(image_detail, EXTRA_IMAGE);
         Intent intent = getIntent();
-        final GifInfo gifInfo = (GifInfo) intent.getSerializableExtra(EXTRA_IMAGE);
+        final BigImgInfo gifInfo = (BigImgInfo) intent.getSerializableExtra(EXTRA_IMAGE);
 
-        mImgUrl = gifInfo.img;
+        mImgUrl = gifInfo.getImg();
 
         GlideUtil.loadImage(this, mImgUrl, image_detail, new RequestListener() {
             @Override
@@ -78,9 +80,9 @@ public class DetailActivity extends AppCompatActivity {
         mMultifunctionalDialog.show(getFragmentManager(), "MultifunctionalDialog");
     }
 
-    public static void launch(Activity activity, View transitionView, GifInfo info) {
+    public static void launch(Activity activity, View transitionView, BigImgInfo info) {
 
-        if (info == null || TextUtils.isEmpty(info.img)) {
+        if (info == null || TextUtils.isEmpty(info.getImg())) {
             return;
         }
 
@@ -89,9 +91,9 @@ public class DetailActivity extends AppCompatActivity {
         Intent intent = new Intent(activity, DetailActivity.class);
         intent.putExtra(EXTRA_IMAGE, info);
 
-//        ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
+        ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
 
-        activity.startActivity(intent);
+//        activity.startActivity(intent);
     }
 
 }

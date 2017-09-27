@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.maverick.DetailActivity;
 import com.maverick.R;
+import com.maverick.bean.BigImgInfo;
 import com.maverick.bean.GifInfo;
 
 import java.util.List;
@@ -67,12 +68,6 @@ public class TextAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public MyViewHolder(final View itemView) {
             super(itemView);
             mTitle = (TextView) itemView.findViewById(R.id.title);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    DetailActivity.launch((Activity) mContext, itemView, gifInfo);
-                }
-            });
         }
 
         public void setData(GifInfo gifInfo) {
