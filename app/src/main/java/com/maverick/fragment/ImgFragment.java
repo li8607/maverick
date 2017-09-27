@@ -2,71 +2,58 @@ package com.maverick.fragment;
 
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.maverick.R;
 import com.maverick.adapter.ImgAdapter;
+import com.maverick.base.BaseFragment2;
 import com.maverick.bean.GifInfo;
-import com.maverick.presenter.ImgFragmentPresenter;
-import com.maverick.presenter.implPresenter.ImgFragmentPresenterImpl;
+import com.maverick.presenter.BasePresenter;
+import com.maverick.presenter.ImgFragmentPresenter2;
 import com.maverick.presenter.implView.ImgFragmentView;
+import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import java.util.List;
 
 /**
  * Created by ll on 2017/5/22.
  */
-public class ImgFragment extends BaseFragment implements ImgFragmentView {
+public class ImgFragment extends BaseFragment2 implements ImgFragmentView {
 
     private ImgAdapter mImgAdapter;
-    private ImgFragmentPresenter mImplImgFragmentPresenter;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
     private LinearLayoutManager mLinearLayoutManager;
-    private ProgressBar mProgressBar;
-    private TextView mError;
+    private ImgFragmentPresenter2 mPresenter;
+    private PullLoadMoreRecyclerView pullLoadMoreRecyclerView;
 
     public static ImgFragment newInstance() {
         ImgFragment imgFragment = new ImgFragment();
         return imgFragment;
     }
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    protected BasePresenter onCreatePresenter() {
+        mPresenter = new ImgFragmentPresenter2(getContext(), this);
+        return mPresenter;
+    }
 
-        mImplImgFragmentPresenter = new ImgFragmentPresenterImpl(getContext(), this);
+    @Override
+    protected int getRootViewId() {
+        return R.layout.fragment_img;
+    }
 
-        View view = inflater.inflate(R.layout.fragment_img, null);
-
-        RecyclerView mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+    @Override
+    protected void onInitView(View view) {
+        pullLoadMoreRecyclerView = findView(R.id.recyclerView);
+        RecyclerView mRecyclerView = pullLoadMoreRecyclerView.getRecyclerView();
         mLinearLayoutManager = new LinearLayoutManager(getContext());
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
         mImgAdapter = new ImgAdapter(getContext());
         mRecyclerView.setAdapter(mImgAdapter);
-
-        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (!isLoading) {
-                    mPage = 1;
-                    mImplImgFragmentPresenter.getImgList(mPage, true);
-                }
-            }
-        });
 
         final int bottom = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getContext().getResources().getDisplayMetrics()));
 
@@ -82,103 +69,53 @@ public class ImgFragment extends BaseFragment implements ImgFragmentView {
             }
         });
 
-        RecyclerView.OnScrollListener loadmoreListener = new RecyclerView.OnScrollListener() {
+        pullLoadMoreRecyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
+            public void onRefresh() {
+                mPresenter.refreshData();
             }
 
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (dy > 0) //向下滚动
-                {
-                    int visibleItemCount = mLinearLayoutManager.getChildCount();
-                    int totalItemCount = mLinearLayoutManager.getItemCount();
-                    int pastVisiblesItems = mLinearLayoutManager.findFirstVisibleItemPosition();
-
-                    if (!isLoading && (visibleItemCount + pastVisiblesItems) >= totalItemCount && !mSwipeRefreshLayout.isRefreshing()) {
-                        isLoading = true;
-                        mPage += 1;
-                        loadMoreDate();
-                    }
-                }
-            }
-        };
-        mRecyclerView.addOnScrollListener(loadmoreListener);
-
-        mProgressBar = (ProgressBar) view.findViewById(R.id.loading);
-
-        mError = (TextView) view.findViewById(R.id.error);
-
-        mError.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mError.setVisibility(View.INVISIBLE);
-                mPage = 1;
-                mImplImgFragmentPresenter.getImgList(mPage, true);
+            public void onLoadMore() {
+                mPresenter.loadMoreData();
             }
         });
-
-        return view;
-    }
-
-    private void loadMoreDate() {
-        mImplImgFragmentPresenter.getImgList(mPage, false);
-    }
-
-    private int mPage = 1;
-
-    private boolean isLoading;
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        mSwipeRefreshLayout.setRefreshing(true);
-        mImplImgFragmentPresenter.getImgList(mPage, true);
     }
 
     @Override
-    public void showLoading() {
-        if (mImgAdapter.getItemCount() <= 0) {
-            mProgressBar.setVisibility(View.VISIBLE);
-        }
+    protected void onInitData(Bundle savedInstanceState) {
+        mPresenter.refreshData();
     }
 
     @Override
-    public void hideLoading() {
-        if (mProgressBar.getVisibility() == View.VISIBLE) {
-            mProgressBar.setVisibility(View.INVISIBLE);
-        }
-    }
-
-    @Override
-    public void showError() {
-
-        if (isLoading) {
-            isLoading = false;
-            return;
-        }
-
-        mError.setVisibility(View.VISIBLE);
-        mSwipeRefreshLayout.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void refreshAdapter(List<GifInfo> list) {
-        isLoading = false;
-        mSwipeRefreshLayout.setRefreshing(false);
-        mImgAdapter.setData(list);
+    public void onShowSuccessView(List<GifInfo> beautyInfo) {
+        pullLoadMoreRecyclerView.setHasMore(true);
+        pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+        mImgAdapter.setData(beautyInfo);
         mImgAdapter.notifyDataSetChanged();
-        mError.setVisibility(View.GONE);
-        mSwipeRefreshLayout.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void randomReFresh() {
-        if (!isLoading) {
-            mPage = (int) (Math.random() * 223 + 1);
-            mImplImgFragmentPresenter.getImgList(mPage, true);
-        }
+    public void onShowEmptyView() {
+        pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+    }
+
+    @Override
+    public void onShowErrorView() {
+        pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+    }
+
+    @Override
+    public void onLoadMoreSuccess(List<GifInfo> beautyInfo, boolean isHasMore) {
+        pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+        pullLoadMoreRecyclerView.setHasMore(isHasMore);
+        int startPosition = mImgAdapter.getItemCount();
+        mImgAdapter.setMoreData(beautyInfo);
+        mImgAdapter.notifyItemRangeInserted(startPosition, beautyInfo.size());
+    }
+
+    @Override
+    public void onLoadMoreFail() {
+        pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
     }
 }

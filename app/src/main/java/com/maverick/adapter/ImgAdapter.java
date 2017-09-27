@@ -45,14 +45,22 @@ public class ImgAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return mList == null ? 0 : mList.size();
     }
 
     public void setData(List<GifInfo> list) {
-        mList = list;
+        if (list != null) {
+            this.mList = list;
+        }
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public void setMoreData(List<GifInfo> list) {
+        if (list != null) {
+            this.mList.addAll(list);
+        }
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final ImageView mImageView;
         private final TextView mTitle;

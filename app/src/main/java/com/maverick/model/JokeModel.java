@@ -37,7 +37,7 @@ public class JokeModel implements IJokeModel {
     }
 
     @Override
-    public void requestTextData(int page, int num, final OnResultListener listener) {
+    public void requestTextData(int page, int num, final OnTextResultListener listener) {
 
         if (listener == null) {
             return;
@@ -52,6 +52,43 @@ public class JokeModel implements IJokeModel {
         JokeApi jokeApi = retrofit.create(JokeApi.class);
         mJokeApiInvokeProxy = new JokeApiInvokeProxy(jokeApi);
         Call<GifInfoObj> call = mJokeApiInvokeProxy.getTextList(APPID_VALUE, SIGN_VALUE, page + "", num + "");
+        call.enqueue(new Callback<GifInfoObj>() {
+            @Override
+            public void onResponse(Call<GifInfoObj> call, Response<GifInfoObj> response) {
+                GifInfoObj gifInfoObj = response.body();
+                if (gifInfoObj != null) {
+                    listener.onSuccess(gifInfoObj);
+                    Log.e(TAG, "请求成功了");
+                } else {
+                    listener.onFail();
+                    Log.e(TAG, "请求失败了");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GifInfoObj> call, Throwable t) {
+                listener.onFail();
+                Log.e(TAG, "请求失败了");
+            }
+        });
+    }
+
+    @Override
+    public void requestImgData(int page, int num, final OnImgResultListener listener) {
+
+        if (listener == null) {
+            return;
+        }
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                //增加返回值为String的支持
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        JokeApi jokeApi = retrofit.create(JokeApi.class);
+        mJokeApiInvokeProxy = new JokeApiInvokeProxy(jokeApi);
+        Call<GifInfoObj> call = mJokeApiInvokeProxy.getImgList(APPID_VALUE, SIGN_VALUE, page + "", num + "");
         call.enqueue(new Callback<GifInfoObj>() {
             @Override
             public void onResponse(Call<GifInfoObj> call, Response<GifInfoObj> response) {

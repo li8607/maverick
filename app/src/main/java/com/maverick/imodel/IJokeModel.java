@@ -9,9 +9,16 @@ public interface IJokeModel {
 
     void release();
 
-    void requestTextData(int page, int num, OnResultListener listener);
+    void requestTextData(int page, int num, OnTextResultListener listener);
 
-    interface OnResultListener {
+    void requestImgData(int page, int num, OnImgResultListener listener);
+
+    interface OnTextResultListener {
+        void onSuccess(GifInfoObj infoObj);
+        void onFail();
+    }
+
+    interface OnImgResultListener {
         void onSuccess(GifInfoObj infoObj);
         void onFail();
     }

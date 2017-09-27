@@ -5,26 +5,34 @@ import android.content.Context;
 import com.maverick.bean.GifInfoObj;
 import com.maverick.imodel.IJokeModel;
 import com.maverick.model.JokeModel;
-import com.maverick.presenter.implView.TextFragmentView;
+import com.maverick.presenter.implView.ImgFragmentView;
 
 /**
  * Created by ll on 2017/5/22.
  */
-public class TextFragmentPresenter2 extends BasePresenter {
+public class ImgFragmentPresenter2 extends BasePresenter{
 
-    private TextFragmentView mView;
+    private ImgFragmentView mView;
+
     private final IJokeModel mModel;
     private int mPage = 1;
     private int mNum = 20;
 
-    public TextFragmentPresenter2(Context context, TextFragmentView view) {
+    public ImgFragmentPresenter2(Context context, ImgFragmentView view) {
         this.mView = view;
         this.mModel = new JokeModel();
     }
 
+    @Override
+    public void release() {
+        if(mModel != null) {
+            mModel.release();
+        }
+    }
+
     public void refreshData() {
 
-        mModel.requestTextData(1, mNum, new IJokeModel.OnTextResultListener() {
+        mModel.requestImgData(1, mNum, new IJokeModel.OnImgResultListener() {
             @Override
             public void onSuccess(GifInfoObj infoObj) {
 
@@ -44,15 +52,8 @@ public class TextFragmentPresenter2 extends BasePresenter {
         });
     }
 
-    @Override
-    public void release() {
-        if (mModel != null) {
-            mModel.release();
-        }
-    }
-
     public void loadMoreData() {
-        mModel.requestTextData(mPage + 1, mNum, new IJokeModel.OnTextResultListener() {
+        mModel.requestImgData(mPage + 1, mNum, new IJokeModel.OnImgResultListener() {
             @Override
             public void onSuccess(GifInfoObj infoObj) {
                 mView.onLoadMoreSuccess(infoObj.showapi_res_body.contentlist, true);

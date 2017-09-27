@@ -61,16 +61,16 @@ public class MainActivity extends AppCompatActivity
 
         switch (id) {
             case R.id.nav_gif:
-                fragment = GifFragment.newInstance();
+//                fragment = GifFragment.newInstance();
                 break;
             case R.id.nav_img:
-                fragment = ImgFragment.newInstance();
+//                fragment = ImgFragment.newInstance();
                 break;
             case R.id.nav_text:
 //                fragment = TextFragment.newInstance();
                 break;
             default:
-                fragment = GifFragment.newInstance();
+//                fragment = GifFragment.newInstance();
                 break;
         }
 

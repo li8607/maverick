@@ -10,7 +10,15 @@ import java.util.List;
 /**
  * Created by ll on 2017/5/22.
  */
-public interface ImgFragmentView extends IBaseFragment {
+public interface ImgFragmentView {
 
-    void refreshAdapter(List<GifInfo> list);
+    void onShowSuccessView(List<GifInfo> beautyInfo);
+
+    void onShowEmptyView();
+
+    void onShowErrorView();
+
+    void onLoadMoreSuccess(List<GifInfo> beautyInfo, boolean isHasMore);
+
+    void onLoadMoreFail();
 }
