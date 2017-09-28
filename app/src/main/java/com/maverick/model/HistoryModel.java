@@ -99,14 +99,6 @@ public class HistoryModel implements IHistoryModel {
 
     @Override
     public boolean insertHistoryDB(History history) {
-
-        List<History> list = mDao.queryBuilder().where(HistoryDao.Properties.Historyimage.eq(history.getHistoryimage())).orderDesc(HistoryDao.Properties.HistoryTime).build().list();
-
-        if(list.size() > 0) {
-
-        }
-
-
         return mDao.insertOrReplace(history) != -1;
     }
 

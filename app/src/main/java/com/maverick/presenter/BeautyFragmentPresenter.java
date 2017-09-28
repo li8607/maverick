@@ -5,9 +5,12 @@ import android.content.Context;
 import com.maverick.bean.BeautyItemInfo;
 import com.maverick.imodel.IBeautyModel;
 import com.maverick.model.BeautyModel;
+import com.maverick.model.HistoryModel;
 import com.maverick.presenter.implView.IBeautyFragmentView;
 
 import java.util.List;
+
+import cntv.greendaolibrary.dbbean.History;
 
 /**
  * Created by limingfei on 2017/9/26.
@@ -31,6 +34,16 @@ public class BeautyFragmentPresenter extends BasePresenter {
             @Override
             public void onSuccess(List<BeautyItemInfo> beautyInfos) {
                 if (beautyInfos != null && beautyInfos.size() >= 1) {
+
+                    for (int i = 0; i < beautyInfos.size(); i++) {
+                        History history = new History();
+                        history.setHistoryimage(beautyInfos.get(i).getUrl());
+                        history.setHistoryName(beautyInfos.get(i).getWho());
+                        history.setHistoryType("2");
+                        history.setHistoryTime(System.currentTimeMillis());
+                        HistoryModel.newInstance().insertHistoryDB(history);
+                    }
+
                     mView.onShowSuccessView(beautyInfos);
                 } else {
                     mView.onShowEmptyView();

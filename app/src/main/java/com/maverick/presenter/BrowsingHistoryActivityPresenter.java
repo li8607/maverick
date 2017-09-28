@@ -3,6 +3,7 @@ package com.maverick.presenter;
 import android.content.Context;
 import android.util.Log;
 
+import com.maverick.R;
 import com.maverick.model.HistoryModel;
 import com.maverick.presenter.implView.IBrowsingHistoryActivityView;
 
@@ -36,20 +37,20 @@ public class BrowsingHistoryActivityPresenter extends BasePresenter {
         List<History> today = HistoryModel.newInstance().getTodayHistory();
         Log.e(TAG, "today = " + today);
         if(today != null && today.size() > 0) {
-            String str = "今天";
+            String str = mContext.getResources().getString(R.string.history_today);
             list.add(str);
             list.addAll(today);
         }
         List<History> sevenDay = HistoryModel.newInstance().getSevenDaysHistory();
         if(sevenDay != null && sevenDay.size() > 0) {
-            String str = "七天内";
+            String str = mContext.getResources().getString(R.string.history_seven_day);
             list.add(str);
             list.addAll(sevenDay);
         }
         Log.e(TAG, "sevenDay = " + sevenDay);
         List<History> earlier = HistoryModel.newInstance().getEarlierHistory();
         if(earlier != null && earlier.size() > 0) {
-            String str = "更早以前";
+            String str = mContext.getResources().getString(R.string.history_earlier);
             list.add(str);
             list.addAll(earlier);
         }
