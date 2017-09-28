@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.maverick.DetailActivity;
 import com.maverick.R;
 import com.maverick.bean.BigImgInfo;
+import com.maverick.model.HistoryModel;
 import com.maverick.util.GlideUtil;
 import com.maverick.weight.RatioImageView;
 
@@ -117,6 +118,9 @@ public class BrowsingHistoryActivityAdapter extends RecyclerView.Adapter {
             if (mHistory == null) {
                 return;
             }
+
+            mHistory.setHistoryTime(System.currentTimeMillis());
+            HistoryModel.newInstance().insertHistoryDB(mHistory);
 
             BigImgInfo bigImgInfo = new BigImgInfo();
             bigImgInfo.setImg(mHistory.getHistoryimage());
