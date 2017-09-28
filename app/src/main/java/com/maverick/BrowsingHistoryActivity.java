@@ -97,7 +97,7 @@ public class BrowsingHistoryActivity extends BaseActivity implements IBrowsingHi
     }
 
     @Override
-    public void onShowSuccessView(List<History> histories) {
+    public void onShowSuccessView(List<Object> histories) {
         mBrowsingHistoryActivityAdapter.setData(histories);
         mBrowsingHistoryActivityAdapter.notifyDataSetChanged();
     }

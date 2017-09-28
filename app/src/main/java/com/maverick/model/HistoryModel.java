@@ -1,5 +1,7 @@
 package com.maverick.model;
 
+import android.util.Log;
+
 import com.maverick.MainApp;
 import com.maverick.imodel.IHistoryModel;
 import com.maverick.util.TimeUtils;
@@ -17,6 +19,7 @@ import cntv.greendaolibrary.dbbean.manager.DBManager;
  */
 public class HistoryModel implements IHistoryModel {
 
+    private String TAG = getClass().getSimpleName();
     private static HistoryDao mDao;
     private static HistoryModel mHistoryModel;
 
@@ -73,21 +76,23 @@ public class HistoryModel implements IHistoryModel {
     @Override
     public List<History> getTodayHistory() {
         long zero = TimeUtils.getStartTimeOfDay(new Date());
-        List<History> list = mDao.queryBuilder().where(HistoryDao.Properties.HistoryTime.ge(zero)).build().list();
+        Log.e(TAG, "getTodayHistory zero = " + zero);
+        List<History> list = mDao.queryBuilder().where(HistoryDao.Properties.HistoryTime.gt(zero)).build().list();
         return list;
     }
 
     @Override
     public List<History> getSevenDaysHistory() {
         long today = TimeUtils.getStartTimeOfDay(new Date());
-        long zero = TimeUtils.getStartTimeOfDay(new Date(System.currentTimeMillis() - 7 * 24 * 3600 * 1000));
-        List<History> list = mDao.queryBuilder().where(HistoryDao.Properties.HistoryTime.ge(zero), HistoryDao.Properties.HistoryTime.lt(today)).build().list();
+        long zero = TimeUtils.getSevenDayStartTimeOfDay();
+        Log.e(TAG, "getSevenDaysHistory zero = " + zero);
+        List<History> list = mDao.queryBuilder().where(HistoryDao.Properties.HistoryTime.between(zero, today)).build().list();
         return list;
     }
 
     @Override
     public List<History> getEarlierHistory() {
-        long zero = TimeUtils.getStartTimeOfDay(new Date(System.currentTimeMillis() - 7 * 24 * 3600 * 1000));
+        long zero = TimeUtils.getSevenDayStartTimeOfDay();
         List<History> list = mDao.queryBuilder().where(HistoryDao.Properties.HistoryTime.lt(zero)).build().list();
         return list;
     }

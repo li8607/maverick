@@ -16,7 +16,18 @@ public class TimeUtils {
         day.set(Calendar.SECOND, 0);
         day.set(Calendar.MILLISECOND, 0);
 
-        return date.getTime();
+        return day.getTimeInMillis();
+    }
+
+    public static long getSevenDayStartTimeOfDay() {
+        Calendar day = Calendar.getInstance();
+        day.setTime(new Date());
+        day.set(Calendar.HOUR_OF_DAY, 0);
+        day.set(Calendar.MINUTE, 0);
+        day.set(Calendar.SECOND, 0);
+        day.set(Calendar.MILLISECOND, 0);
+
+        return day.getTimeInMillis() - 7 * 24 * 3600 * 1000;
     }
 
 }

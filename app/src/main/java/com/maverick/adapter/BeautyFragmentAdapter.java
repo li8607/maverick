@@ -16,8 +16,10 @@ import com.maverick.bean.BeautyItemInfo;
 import com.maverick.bean.BigImgInfo;
 import com.maverick.model.HistoryModel;
 import com.maverick.util.GlideUtil;
+import com.maverick.util.TimeUtils;
 import com.maverick.weight.RatioImageView;
 
+import java.util.Date;
 import java.util.List;
 
 import cntv.greendaolibrary.dbbean.History;
