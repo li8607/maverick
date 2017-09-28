@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.maverick.DetailActivity;
@@ -25,10 +28,16 @@ import cntv.greendaolibrary.dbbean.History;
  */
 public class BrowsingHistoryActivityAdapter extends RecyclerView.Adapter {
 
+    private String TAG = getClass().getSimpleName();
+
     private List<Object> mList;
     private Context mContext;
     public static final int TITLE = 1;
     public static final int IMAGE = 2;
+
+    public static final int STATE_EDIT = 1;
+    public static final int STATE_NO_EDIT = 2;
+    public int stateEdit = STATE_NO_EDIT;
 
     public BrowsingHistoryActivityAdapter(Context context) {
         this.mContext = context;
@@ -85,19 +94,35 @@ public class BrowsingHistoryActivityAdapter extends RecyclerView.Adapter {
         this.mList = histories;
     }
 
-    public class HistoryImageHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public List<Object> getData() {
+        return mList;
+    }
+
+    public int getStateEdit() {
+        return stateEdit;
+    }
+
+    public void setStateEdit(int stateEdit) {
+        this.stateEdit = stateEdit;
+    }
+
+    public class HistoryImageHolder extends RecyclerView.ViewHolder implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
         private final RatioImageView image;
         private final TextView type;
         private History mHistory;
+        private final CheckBox checkbox;
 
         public HistoryImageHolder(View itemView) {
             super(itemView);
             image = (RatioImageView) itemView.findViewById(R.id.image);
             type = (TextView) itemView.findViewById(R.id.type);
+            checkbox = (CheckBox) itemView.findViewById(R.id.checkbox);
+
 
             image.setOriginalSize(1, 1);
             itemView.setOnClickListener(this);
+            checkbox.setOnCheckedChangeListener(this);
         }
 
         public void bindData(History history) {
@@ -111,6 +136,9 @@ public class BrowsingHistoryActivityAdapter extends RecyclerView.Adapter {
             } else if (TextUtils.equals(type, "2")) {
                 this.type.setText("美女");
             }
+
+            checkbox.setVisibility(stateEdit == STATE_EDIT ? View.VISIBLE : View.INVISIBLE);
+            checkbox.setChecked(mHistory.isCheck());
         }
 
         @Override
@@ -119,12 +147,24 @@ public class BrowsingHistoryActivityAdapter extends RecyclerView.Adapter {
                 return;
             }
 
+            if (stateEdit == STATE_EDIT) {
+                checkbox.setChecked(!checkbox.isChecked());
+                return;
+            }
+
+
             mHistory.setHistoryTime(System.currentTimeMillis());
             HistoryModel.newInstance().insertHistoryDB(mHistory);
 
             BigImgInfo bigImgInfo = new BigImgInfo();
             bigImgInfo.setImg(mHistory.getHistoryimage());
             DetailActivity.launch((Activity) mContext, image, bigImgInfo);
+        }
+
+        @Override
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            Log.e(TAG, "onCheckedChanged = " + isChecked);
+            mHistory.setCheck(isChecked);
         }
     }
 
@@ -142,5 +182,15 @@ public class BrowsingHistoryActivityAdapter extends RecyclerView.Adapter {
                 this.title.setText(title);
             }
         }
+    }
+
+    private OnAdapterListener mOnAdapterListener;
+
+    public void setOnAdapterListener(OnAdapterListener listener) {
+        this.mOnAdapterListener = listener;
+    }
+
+    public interface OnAdapterListener {
+        void onCheck();
     }
 }

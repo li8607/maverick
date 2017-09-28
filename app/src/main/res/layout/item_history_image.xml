@@ -21,12 +21,20 @@
             android:id="@+id/type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/image"
             android:layout_alignBottom="@+id/image"
-            android:textSize="10sp"
+            android:layout_alignLeft="@+id/image"
             android:maxLines="1"
             android:padding="4dp"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="10sp" />
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignRight="@+id/image"
+            android:layout_alignTop="@+id/image"
+            android:visibility="gone" />
 
     </RelativeLayout>
 

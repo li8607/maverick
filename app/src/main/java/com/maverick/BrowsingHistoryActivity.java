@@ -4,10 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.maverick.adapter.BrowsingHistoryActivityAdapter;
@@ -26,10 +28,16 @@ import cntv.greendaolibrary.dbbean.History;
  */
 public class BrowsingHistoryActivity extends BaseActivity implements IBrowsingHistoryActivityView, View.OnClickListener {
 
+    private static final int CHECK_ALL_STATE = 1;
+    private static final int CHECK_NO_ALL_STATE = 2;
+    private int check_state = CHECK_NO_ALL_STATE;
+
     private BrowsingHistoryActivityPresenter mPresenter;
     private BrowsingHistoryActivityAdapter mBrowsingHistoryActivityAdapter;
     private GridLayoutManager mGridLayoutManager;
     private int spanCount = 4;
+    private View linearLayout;
+    private Button btn_check_or_cancel;
 
     public static void launch(Context context) {
         Intent intent = new Intent(context, BrowsingHistoryActivity.class);
@@ -50,10 +58,42 @@ public class BrowsingHistoryActivity extends BaseActivity implements IBrowsingHi
     @Override
     protected void onInitView() {
 
+        linearLayout = findView(R.id.linearLayout);
+        final View btn_root = findView(R.id.btn_root);
+        btn_check_or_cancel = findView(R.id.btn_check_or_cancel);
+        btn_check_or_cancel.setOnClickListener(this);
+        Button btn_delete = findView(R.id.btn_delete);
+        btn_delete.setOnClickListener(this);
+
         View back = findView(R.id.back);
         back.setOnClickListener(this);
         TextView title = findView(R.id.title);
         title.setText("浏览记录");
+
+        final TextView edit = findView(R.id.edit);
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int stateEdit = mBrowsingHistoryActivityAdapter.getStateEdit();
+                switch (stateEdit) {
+                    case BrowsingHistoryActivityAdapter.STATE_EDIT:
+                        mBrowsingHistoryActivityAdapter.setStateEdit(BrowsingHistoryActivityAdapter.STATE_NO_EDIT);
+                        cancelAll();
+                        check_state = CHECK_NO_ALL_STATE;
+                        btn_check_or_cancel.setText("全选");
+                        mBrowsingHistoryActivityAdapter.notifyDataSetChanged();
+                        edit.setText("编辑");
+                        btn_root.setVisibility(View.GONE);
+                        break;
+                    case BrowsingHistoryActivityAdapter.STATE_NO_EDIT:
+                        mBrowsingHistoryActivityAdapter.setStateEdit(BrowsingHistoryActivityAdapter.STATE_EDIT);
+                        mBrowsingHistoryActivityAdapter.notifyDataSetChanged();
+                        edit.setText("取消编辑");
+                        btn_root.setVisibility(View.VISIBLE);
+                        break;
+                }
+            }
+        });
 
         final RecyclerView recyclerView = findView(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -121,6 +161,52 @@ public class BrowsingHistoryActivity extends BaseActivity implements IBrowsingHi
             case R.id.back:
                 onBackPressed();
                 break;
+            case R.id.btn_check_or_cancel:
+                switch (check_state) {
+                    case CHECK_ALL_STATE:
+                        cancelAll();
+                        mBrowsingHistoryActivityAdapter.notifyDataSetChanged();
+                        check_state = CHECK_NO_ALL_STATE;
+                        btn_check_or_cancel.setText("全选");
+                        break;
+                    case CHECK_NO_ALL_STATE:
+                        checkAll();
+                        mBrowsingHistoryActivityAdapter.notifyDataSetChanged();
+                        check_state = CHECK_ALL_STATE;
+                        btn_check_or_cancel.setText("取消全选");
+                        break;
+                }
+                break;
+        }
+    }
+
+    public void checkAll() {
+        List<Object> list = mBrowsingHistoryActivityAdapter.getData();
+
+        if (list == null || list.size() < 1) {
+            return;
+        }
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) instanceof History) {
+                History history = (History) list.get(i);
+                history.setCheck(true);
+            }
+        }
+    }
+
+    public void cancelAll() {
+        List<Object> list = mBrowsingHistoryActivityAdapter.getData();
+
+        if (list == null || list.size() < 1) {
+            return;
+        }
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) instanceof History) {
+                History history = (History) list.get(i);
+                history.setCheck(false);
+            }
         }
     }
 }
