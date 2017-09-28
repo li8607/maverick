@@ -77,7 +77,7 @@ public class HistoryModel implements IHistoryModel {
     public List<History> getTodayHistory() {
         long zero = TimeUtils.getStartTimeOfDay(new Date());
         Log.e(TAG, "getTodayHistory zero = " + zero);
-        List<History> list = mDao.queryBuilder().where(HistoryDao.Properties.HistoryTime.gt(zero)).build().list();
+        List<History> list = mDao.queryBuilder().where(HistoryDao.Properties.HistoryTime.gt(zero)).orderDesc(HistoryDao.Properties.HistoryTime).build().list();
         return list;
     }
 
@@ -86,14 +86,14 @@ public class HistoryModel implements IHistoryModel {
         long today = TimeUtils.getStartTimeOfDay(new Date());
         long zero = TimeUtils.getSevenDayStartTimeOfDay();
         Log.e(TAG, "getSevenDaysHistory zero = " + zero);
-        List<History> list = mDao.queryBuilder().where(HistoryDao.Properties.HistoryTime.between(zero, today)).build().list();
+        List<History> list = mDao.queryBuilder().where(HistoryDao.Properties.HistoryTime.between(zero, today)).orderDesc(HistoryDao.Properties.HistoryTime).build().list();
         return list;
     }
 
     @Override
     public List<History> getEarlierHistory() {
         long zero = TimeUtils.getSevenDayStartTimeOfDay();
-        List<History> list = mDao.queryBuilder().where(HistoryDao.Properties.HistoryTime.lt(zero)).build().list();
+        List<History> list = mDao.queryBuilder().where(HistoryDao.Properties.HistoryTime.lt(zero)).orderDesc(HistoryDao.Properties.HistoryTime).build().list();
         return list;
     }
 
