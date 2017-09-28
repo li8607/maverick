@@ -87,13 +87,13 @@ public class BrowsingHistoryActivityAdapter extends RecyclerView.Adapter {
     public class HistoryImageHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final RatioImageView image;
-        private final TextView title;
+        private final TextView type;
         private History mHistory;
 
         public HistoryImageHolder(View itemView) {
             super(itemView);
             image = (RatioImageView) itemView.findViewById(R.id.image);
-            title = (TextView) itemView.findViewById(R.id.title);
+            type = (TextView) itemView.findViewById(R.id.type);
 
             image.setOriginalSize(1, 1);
             itemView.setOnClickListener(this);
@@ -102,6 +102,14 @@ public class BrowsingHistoryActivityAdapter extends RecyclerView.Adapter {
         public void bindData(History history) {
             this.mHistory = history;
             GlideUtil.loadImage(mContext, mHistory.getHistoryimage(), image);
+
+            String type = history.getHistoryType();
+
+            if (TextUtils.equals(type, "1")) {
+                this.type.setText("笑话");
+            } else if (TextUtils.equals(type, "2")) {
+                this.type.setText("美女");
+            }
         }
 
         @Override

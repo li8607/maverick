@@ -30,7 +30,6 @@ public class BrowsingHistoryActivity extends BaseActivity implements IBrowsingHi
     private BrowsingHistoryActivityAdapter mBrowsingHistoryActivityAdapter;
     private GridLayoutManager mGridLayoutManager;
     private int spanCount = 4;
-    private int count = 0;
 
     public static void launch(Context context) {
         Intent intent = new Intent(context, BrowsingHistoryActivity.class);
@@ -57,6 +56,7 @@ public class BrowsingHistoryActivity extends BaseActivity implements IBrowsingHi
         title.setText("浏览记录");
 
         final RecyclerView recyclerView = findView(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
         mGridLayoutManager = new GridLayoutManager(this, spanCount);
         mGridLayoutManager.setOrientation(GridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(mGridLayoutManager);
@@ -68,36 +68,21 @@ public class BrowsingHistoryActivity extends BaseActivity implements IBrowsingHi
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
 
-                int position = parent.getChildAdapterPosition(view);
-
                 RecyclerView.ViewHolder viewHolder = parent.findContainingViewHolder(view);
 
                 int viewType = viewHolder.getItemViewType();
 
+                outRect.bottom = DensityUtil.dip2px(BrowsingHistoryActivity.this, 10);
+
                 switch (viewType) {
                     case BrowsingHistoryActivityAdapter.TITLE:
-                        count = 0;
+                        if (parent.getChildAdapterPosition(view) == 0) {
+                            outRect.top = DensityUtil.dip2px(BrowsingHistoryActivity.this, 10);
+                        }
                         break;
                     case BrowsingHistoryActivityAdapter.IMAGE:
-                        ++count;
-                        if (count % spanCount == 1) {
-                            outRect.left = DensityUtil.dip2px(BrowsingHistoryActivity.this, 10);
-                            outRect.right = DensityUtil.dip2px(BrowsingHistoryActivity.this, 5);
-                        } else if (count % spanCount == 0) {
-                            outRect.left = DensityUtil.dip2px(BrowsingHistoryActivity.this, 5);
-                            outRect.right = DensityUtil.dip2px(BrowsingHistoryActivity.this, 10);
-                        } else {
-                            outRect.left = DensityUtil.dip2px(BrowsingHistoryActivity.this, 5);
-                            outRect.right = DensityUtil.dip2px(BrowsingHistoryActivity.this, 5);
-                        }
-
-                        if (position < spanCount) {
-                            outRect.top = DensityUtil.dip2px(BrowsingHistoryActivity.this, 10);
-                        } else {
-                            outRect.top = DensityUtil.dip2px(BrowsingHistoryActivity.this, 5);
-                        }
-
-                        outRect.bottom = DensityUtil.dip2px(BrowsingHistoryActivity.this, 5);
+                        outRect.left = DensityUtil.dip2px(BrowsingHistoryActivity.this, 5);
+                        outRect.right = DensityUtil.dip2px(BrowsingHistoryActivity.this, 5);
                         break;
                 }
             }

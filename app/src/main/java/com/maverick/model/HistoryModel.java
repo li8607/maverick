@@ -99,7 +99,7 @@ public class HistoryModel implements IHistoryModel {
 
     @Override
     public boolean insertHistoryDB(History history) {
-        return mDao.insert(history) != -1;
+        return mDao.insertOrReplace(history) != -1;
     }
 
     @Override
