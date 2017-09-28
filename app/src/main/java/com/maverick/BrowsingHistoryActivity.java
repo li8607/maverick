@@ -30,6 +30,7 @@ public class BrowsingHistoryActivity extends BaseActivity implements IBrowsingHi
     private BrowsingHistoryActivityAdapter mBrowsingHistoryActivityAdapter;
     private GridLayoutManager mGridLayoutManager;
     private int spanCount = 4;
+    private int count = 0;
 
     public static void launch(Context context) {
         Intent intent = new Intent(context, BrowsingHistoryActivity.class);
@@ -69,24 +70,46 @@ public class BrowsingHistoryActivity extends BaseActivity implements IBrowsingHi
 
                 int position = parent.getChildAdapterPosition(view);
 
-                if (position % spanCount == 0) {
-                    outRect.left = DensityUtil.dip2px(BrowsingHistoryActivity.this, 10);
-                    outRect.right = DensityUtil.dip2px(BrowsingHistoryActivity.this, 5);
-                } else if (position % spanCount == spanCount - 1) {
-                    outRect.left = DensityUtil.dip2px(BrowsingHistoryActivity.this, 5);
-                    outRect.right = DensityUtil.dip2px(BrowsingHistoryActivity.this, 10);
-                } else {
-                    outRect.left = DensityUtil.dip2px(BrowsingHistoryActivity.this, 5);
-                    outRect.right = DensityUtil.dip2px(BrowsingHistoryActivity.this, 5);
-                }
+                RecyclerView.ViewHolder viewHolder = parent.findContainingViewHolder(view);
 
-                if (position < spanCount) {
-                    outRect.top = DensityUtil.dip2px(BrowsingHistoryActivity.this, 10);
-                } else {
-                    outRect.top = DensityUtil.dip2px(BrowsingHistoryActivity.this, 5);
-                }
+                int viewType = viewHolder.getItemViewType();
 
-                outRect.bottom = DensityUtil.dip2px(BrowsingHistoryActivity.this, 5);
+                switch (viewType) {
+                    case BrowsingHistoryActivityAdapter.TITLE:
+                        count = 0;
+                        break;
+                    case BrowsingHistoryActivityAdapter.IMAGE:
+                        ++count;
+                        if (count % spanCount == 1) {
+                            outRect.left = DensityUtil.dip2px(BrowsingHistoryActivity.this, 10);
+                            outRect.right = DensityUtil.dip2px(BrowsingHistoryActivity.this, 5);
+                        } else if (count % spanCount == 0) {
+                            outRect.left = DensityUtil.dip2px(BrowsingHistoryActivity.this, 5);
+                            outRect.right = DensityUtil.dip2px(BrowsingHistoryActivity.this, 10);
+                        } else {
+                            outRect.left = DensityUtil.dip2px(BrowsingHistoryActivity.this, 5);
+                            outRect.right = DensityUtil.dip2px(BrowsingHistoryActivity.this, 5);
+                        }
+
+                        if (position < spanCount) {
+                            outRect.top = DensityUtil.dip2px(BrowsingHistoryActivity.this, 10);
+                        } else {
+                            outRect.top = DensityUtil.dip2px(BrowsingHistoryActivity.this, 5);
+                        }
+
+                        outRect.bottom = DensityUtil.dip2px(BrowsingHistoryActivity.this, 5);
+                        break;
+                }
+            }
+        });
+
+        mGridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                if (mBrowsingHistoryActivityAdapter.getItemViewType(position) == BrowsingHistoryActivityAdapter.TITLE) {
+                    return 4;
+                }
+                return 1;
             }
         });
     }
