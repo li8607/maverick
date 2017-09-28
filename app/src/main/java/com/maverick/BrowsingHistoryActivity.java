@@ -14,11 +14,13 @@ import android.widget.TextView;
 
 import com.maverick.adapter.BrowsingHistoryActivityAdapter;
 import com.maverick.base.BaseActivity;
+import com.maverick.model.HistoryModel;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.BrowsingHistoryActivityPresenter;
 import com.maverick.presenter.implView.IBrowsingHistoryActivityView;
 import com.maverick.util.DensityUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cntv.greendaolibrary.dbbean.History;
@@ -38,6 +40,7 @@ public class BrowsingHistoryActivity extends BaseActivity implements IBrowsingHi
     private int spanCount = 4;
     private View linearLayout;
     private Button btn_check_or_cancel;
+    private Button btn_delete;
 
     public static void launch(Context context) {
         Intent intent = new Intent(context, BrowsingHistoryActivity.class);
@@ -62,7 +65,7 @@ public class BrowsingHistoryActivity extends BaseActivity implements IBrowsingHi
         final View btn_root = findView(R.id.btn_root);
         btn_check_or_cancel = findView(R.id.btn_check_or_cancel);
         btn_check_or_cancel.setOnClickListener(this);
-        Button btn_delete = findView(R.id.btn_delete);
+        btn_delete = findView(R.id.btn_delete);
         btn_delete.setOnClickListener(this);
 
         View back = findView(R.id.back);
@@ -137,6 +140,37 @@ public class BrowsingHistoryActivity extends BaseActivity implements IBrowsingHi
                 return 1;
             }
         });
+
+        mBrowsingHistoryActivityAdapter.setOnAdapterListener(new BrowsingHistoryActivityAdapter.OnAdapterListener() {
+            @Override
+            public void onItemClick(History history) {
+
+                if (history.isCheck()) {
+                    if (isCheckAll()) {
+                        check_state = CHECK_ALL_STATE;
+                        btn_check_or_cancel.setText("取消全选");
+                    } else {
+                        check_state = CHECK_NO_ALL_STATE;
+                        btn_check_or_cancel.setText("全选");
+                    }
+
+                    btn_delete.setAlpha(1.0f);
+                    btn_delete.setClickable(true);
+                } else {
+                    check_state = CHECK_NO_ALL_STATE;
+                    btn_check_or_cancel.setText("全选");
+
+                    if (isCheck()) {
+                        btn_delete.setAlpha(1.0f);
+                        btn_delete.setClickable(true);
+                    } else {
+                        btn_delete.setAlpha(0.5f);
+                        btn_delete.setClickable(false);
+                    }
+
+                }
+            }
+        });
     }
 
     @Override
@@ -168,16 +202,89 @@ public class BrowsingHistoryActivity extends BaseActivity implements IBrowsingHi
                         mBrowsingHistoryActivityAdapter.notifyDataSetChanged();
                         check_state = CHECK_NO_ALL_STATE;
                         btn_check_or_cancel.setText("全选");
+
+                        btn_delete.setAlpha(0.5f);
+                        btn_delete.setClickable(false);
                         break;
                     case CHECK_NO_ALL_STATE:
                         checkAll();
                         mBrowsingHistoryActivityAdapter.notifyDataSetChanged();
                         check_state = CHECK_ALL_STATE;
                         btn_check_or_cancel.setText("取消全选");
+
+                        btn_delete.setAlpha(1.0f);
+                        btn_delete.setClickable(true);
                         break;
                 }
                 break;
+            case R.id.btn_delete:
+                delete();
+                break;
         }
+    }
+
+    public void delete() {
+        List<Object> list = mBrowsingHistoryActivityAdapter.getData();
+        if (list == null || list.size() < 1) {
+            return;
+        }
+
+        List<History> histories = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) instanceof History) {
+                History history = (History) list.get(i);
+                if (history.isCheck()) {
+                    histories.add(history);
+                }
+            }
+        }
+
+        if (list.removeAll(histories)) {
+            mBrowsingHistoryActivityAdapter.notifyDataSetChanged();
+        }
+
+        HistoryModel.newInstance().deleteHistoryDBList(histories);
+
+        btn_delete.setAlpha(0.5f);
+        btn_delete.setClickable(false);
+    }
+
+    public boolean isCheck() {
+        List<Object> list = mBrowsingHistoryActivityAdapter.getData();
+
+        if (list == null || list.size() < 1) {
+            return false;
+        }
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) instanceof History) {
+                History history = (History) list.get(i);
+                if (history.isCheck()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public boolean isCheckAll() {
+        List<Object> list = mBrowsingHistoryActivityAdapter.getData();
+
+        if (list == null || list.size() < 1) {
+            return false;
+        }
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) instanceof History) {
+                History history = (History) list.get(i);
+                if (!history.isCheck()) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     public void checkAll() {

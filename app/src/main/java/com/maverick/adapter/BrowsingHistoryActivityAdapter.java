@@ -149,6 +149,9 @@ public class BrowsingHistoryActivityAdapter extends RecyclerView.Adapter {
 
             if (stateEdit == STATE_EDIT) {
                 checkbox.setChecked(!checkbox.isChecked());
+                if(mOnAdapterListener != null) {
+                    mOnAdapterListener.onItemClick(mHistory);
+                }
                 return;
             }
 
@@ -191,6 +194,6 @@ public class BrowsingHistoryActivityAdapter extends RecyclerView.Adapter {
     }
 
     public interface OnAdapterListener {
-        void onCheck();
+        void onItemClick(History history);
     }
 }
