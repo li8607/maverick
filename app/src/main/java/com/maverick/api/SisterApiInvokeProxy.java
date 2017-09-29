@@ -23,8 +23,8 @@ public class SisterApiInvokeProxy {
         this.mSisterApi = sisterApi;
     }
 
-    public Call<SisterInfoObj> getSisterList(@Field("showapi_appid") String appid, @Field("showapi_sign") String sign, @Field("page") String page, @Field("maxResult") String maxResult) {
-        Call<SisterInfoObj> call = mSisterApi.getSisterList(appid, sign, page, maxResult);
+    public Call<SisterInfoObj> getSisterList(String appid, String sign, String type, String title, String page) {
+        Call<SisterInfoObj> call = mSisterApi.getSisterList(appid, sign, type, title, page);
         mCallList.add(call);
         return call;
     }

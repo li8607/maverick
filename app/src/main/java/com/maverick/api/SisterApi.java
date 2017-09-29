@@ -14,8 +14,9 @@ public interface SisterApi {
 
     @FormUrlEncoded
     @POST("255-1")
-    Call<SisterInfoObj> getSisterList(@Field("showapi_appid") String appid,
-                                      @Field("showapi_sign") String sign,
-                                      @Field("page") String page,
-                                      @Field("maxResult") String maxResult);
+    Call<SisterInfoObj> getSisterList(@Field("showapi_appid") String appid
+            , @Field("showapi_sign") String sign
+            , @Field("type") String type
+            , @Field("title") String title
+            , @Field("page") String page);
 }

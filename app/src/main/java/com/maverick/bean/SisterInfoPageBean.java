@@ -53,4 +53,15 @@ public class SisterInfoPageBean implements Serializable {
     public void setMaxResult(String maxResult) {
         this.maxResult = maxResult;
     }
+
+    @Override
+    public String toString() {
+        return "SisterInfoPageBean{" +
+                "allNum='" + allNum + '\'' +
+                ", allPages='" + allPages + '\'' +
+                ", contentlist=" + contentlist +
+                ", currentPage='" + currentPage + '\'' +
+                ", maxResult='" + maxResult + '\'' +
+                '}';
+    }
 }

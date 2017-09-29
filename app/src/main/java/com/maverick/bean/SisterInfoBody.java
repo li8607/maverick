@@ -25,4 +25,12 @@ public class SisterInfoBody implements Serializable{
     public void setRet_code(String ret_code) {
         this.ret_code = ret_code;
     }
+
+    @Override
+    public String toString() {
+        return "SisterInfoBody{" +
+                "pagebean=" + pagebean +
+                ", ret_code='" + ret_code + '\'' +
+                '}';
+    }
 }

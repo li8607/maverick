@@ -34,4 +34,13 @@ public class SisterInfoObj implements Serializable{
     public void setShowapi_res_body(SisterInfoBody showapi_res_body) {
         this.showapi_res_body = showapi_res_body;
     }
+
+    @Override
+    public String toString() {
+        return "SisterInfoObj{" +
+                "showapi_res_code='" + showapi_res_code + '\'' +
+                ", showapi_res_error='" + showapi_res_error + '\'' +
+                ", showapi_res_body=" + showapi_res_body +
+                '}';
+    }
 }
