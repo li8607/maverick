@@ -11,17 +11,7 @@ public class UrlData {
     public static String SIGN_KEY = "showapi_sign";
     public static String SIGN_VALUE = "6a18218edf664c8fbe531171ec3113dd";
 
-    public static String GIF = "http://route.showapi.com/341-3";
-
-    public static String IMG = "http://route.showapi.com/341-2";
-
     public static String BASE = "http://route.showapi.com/";
 
-
-
     public static String BEAUTY_BASE = "http://gank.io/api/";
-
-
-
-
 }
