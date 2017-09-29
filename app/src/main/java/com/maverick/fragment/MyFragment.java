@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.maverick.BrowsingHistoryActivity;
+import com.maverick.CollectActivity;
 import com.maverick.R;
 import com.maverick.adapter.MyFragmentAdapter;
 import com.maverick.base.BaseFragment2;
@@ -80,7 +81,7 @@ public class MyFragment extends BaseFragment2 {
                 if (TextUtils.equals(myInfo.getmType(), "0")) {
                     BrowsingHistoryActivity.launch(getContext());
                 } else if (TextUtils.equals(myInfo.getmType(), "1")) {
-
+                    CollectActivity.launch(getContext());
                 } else if (TextUtils.equals(myInfo.getmType(), "2")) {
 
                 }

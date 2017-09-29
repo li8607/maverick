@@ -1,15 +1,18 @@
 package com.maverick.presenter;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.maverick.bean.BeautyItemInfo;
 import com.maverick.imodel.IBeautyModel;
 import com.maverick.model.BeautyModel;
+import com.maverick.model.CollectModel;
 import com.maverick.model.HistoryModel;
 import com.maverick.presenter.implView.IBeautyFragmentView;
 
 import java.util.List;
 
+import cntv.greendaolibrary.dbbean.Collect;
 import cntv.greendaolibrary.dbbean.History;
 
 /**
@@ -42,6 +45,14 @@ public class BeautyFragmentPresenter extends BasePresenter {
                         history.setHistoryType("2");
                         history.setHistoryTime(System.currentTimeMillis());
                         HistoryModel.newInstance().insertHistoryDB(history);
+
+                        Collect collect = new Collect();
+                        collect.setCollectImage(beautyInfos.get(i).getUrl());
+                        collect.setCollectName(beautyInfos.get(i).getWho());
+                        collect.setCollectType("2");
+                        collect.setCollectTime(System.currentTimeMillis());
+                        boolean result = CollectModel.newInstance().insertCollectDB(collect);
+                        Log.e(TAG, "result = " + result);
                     }
 
                     mView.onShowSuccessView(beautyInfos);
