@@ -9,19 +9,10 @@ public class UrlData {
     public static String APPID_VALUE = "38350";
 
     public static String SIGN_KEY = "showapi_sign";
-    public static String SIGN_VALUE = "6a18218edf664c8fbe531171ec3113dd";
-
-    public static String GIF = "http://route.showapi.com/341-3";
-
-    public static String IMG = "http://route.showapi.com/341-2";
+//    public static String SIGN_VALUE = "6a18218edf664c8fbe531171ec3113dd";
+    public static String SIGN_VALUE = "e7c7d866a5cf4d5eb91e45709ae9f118";
 
     public static String BASE = "http://route.showapi.com/";
 
-
-
     public static String BEAUTY_BASE = "http://gank.io/api/";
-
-
-
-
 }

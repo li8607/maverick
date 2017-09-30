@@ -12,7 +12,7 @@ import retrofit2.Call;
 /**
  * Created by limingfei on 2017/9/27.
  */
-public class JokeApiInvokeProxy implements JokeApi{
+public class JokeApiInvokeProxy {
 
     private JokeApi mJokeApi;
 

@@ -16,9 +16,11 @@ import android.widget.Toast;
 
 import com.maverick.base.BaseActivity;
 import com.maverick.bean.ButtonInfo;
+import com.maverick.bean.SisterDetailInfo;
 import com.maverick.fragment.BeautyFragment;
 import com.maverick.fragment.JokeFragment;
 import com.maverick.fragment.MyFragment;
+import com.maverick.fragment.SisterFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,7 @@ public class MainActivity2 extends BaseActivity {
     private RadioButton radio_0;
     private RadioButton radio_1;
     private RadioButton radio_2;
+    private RadioButton radio_3;
 
     @Override
     protected com.maverick.presenter.BasePresenter onCreatePresenter() {
@@ -50,6 +53,7 @@ public class MainActivity2 extends BaseActivity {
         radio_0 = findView(R.id.radio_0);
         radio_1 = findView(R.id.radio_1);
         radio_2 = findView(R.id.radio_2);
+        radio_3 = findView(R.id.radio_3);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -66,6 +70,9 @@ public class MainActivity2 extends BaseActivity {
                         switchFragment(BeautyFragment.newInstance());
                         break;
                     case R.id.radio_2:
+                        switchFragment(SisterFragment.newInstance(new SisterDetailInfo()));
+                        break;
+                    case R.id.radio_3:
                         switchFragment(MyFragment.newInstance());
                         break;
                 }
@@ -79,6 +86,7 @@ public class MainActivity2 extends BaseActivity {
         List<ButtonInfo> list = new ArrayList<>();
         list.add(getButtonInfo("笑话", R.drawable.ic_menu_gallery));
         list.add(getButtonInfo("美女", R.drawable.ic_menu_camera));
+        list.add(getButtonInfo("百思不得姐", R.drawable.ic_menu_send));
         list.add(getButtonInfo("我的", R.drawable.ic_menu_manage));
 
 
@@ -94,6 +102,9 @@ public class MainActivity2 extends BaseActivity {
                     break;
                 case 2:
                     setRadioButtonData(radio_2, buttonInfo);
+                    break;
+                case 3:
+                    setRadioButtonData(radio_3, buttonInfo);
                     break;
             }
         }
@@ -117,14 +128,14 @@ public class MainActivity2 extends BaseActivity {
         radioButton.setGravity(Gravity.CENTER);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             radioButton.setTextColor(getColorStateList(R.color.selector_radiobutton_text_color_main));
-        }else {
+        } else {
             radioButton.setTextColor(getResources().getColorStateList(R.color.selector_radiobutton_text_color_main));
         }
 
         Drawable drawable;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             drawable = getDrawable(buttonInfo.getIconId());
-        }else {
+        } else {
             drawable = getResources().getDrawable(buttonInfo.getIconId());
         }
         drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());

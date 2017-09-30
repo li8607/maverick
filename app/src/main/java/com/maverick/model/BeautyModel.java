@@ -6,6 +6,7 @@ import com.maverick.api.BeautyApi;
 import com.maverick.api.BeautyApiInvokeProxy;
 import com.maverick.bean.BeautyInfo;
 import com.maverick.bean.BeautyItemInfo;
+import com.maverick.global.UrlData;
 import com.maverick.imodel.IBeautyModel;
 
 import java.util.ArrayList;
@@ -39,9 +40,8 @@ public class BeautyModel implements IBeautyModel {
             return;
         }
 
-        String url = "http://gank.io/api/";
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
+                .baseUrl(UrlData.BEAUTY_BASE)
                 //增加返回值为String的支持
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

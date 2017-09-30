@@ -5,6 +5,7 @@ import android.util.Log;
 import com.maverick.api.JokeApi;
 import com.maverick.api.JokeApiInvokeProxy;
 import com.maverick.bean.GifInfoObj;
+import com.maverick.global.UrlData;
 import com.maverick.imodel.IJokeModel;
 
 import retrofit2.Call;
@@ -19,14 +20,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class JokeModel implements IJokeModel {
 
     private String TAG = getClass().getSimpleName();
-
-    private String APPID_KEY = "showapi_appid";
-    private String APPID_VALUE = "38350";
-
-    private String SIGN_KEY = "showapi_sign";
-    private String SIGN_VALUE = "6a18218edf664c8fbe531171ec3113dd";
-
-    private String url = "http://route.showapi.com/";
     private JokeApiInvokeProxy mJokeApiInvokeProxy;
 
     @Override
@@ -44,14 +37,14 @@ public class JokeModel implements IJokeModel {
         }
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
+                .baseUrl(UrlData.BASE)
                 //增加返回值为String的支持
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         JokeApi jokeApi = retrofit.create(JokeApi.class);
         mJokeApiInvokeProxy = new JokeApiInvokeProxy(jokeApi);
-        Call<GifInfoObj> call = mJokeApiInvokeProxy.getTextList(APPID_VALUE, SIGN_VALUE, page + "", num + "");
+        Call<GifInfoObj> call = mJokeApiInvokeProxy.getTextList(UrlData.APPID_VALUE, UrlData.SIGN_VALUE, page + "", num + "");
         call.enqueue(new Callback<GifInfoObj>() {
             @Override
             public void onResponse(Call<GifInfoObj> call, Response<GifInfoObj> response) {
@@ -81,14 +74,14 @@ public class JokeModel implements IJokeModel {
         }
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
+                .baseUrl(UrlData.BASE)
                 //增加返回值为String的支持
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         JokeApi jokeApi = retrofit.create(JokeApi.class);
         mJokeApiInvokeProxy = new JokeApiInvokeProxy(jokeApi);
-        Call<GifInfoObj> call = mJokeApiInvokeProxy.getImgList(APPID_VALUE, SIGN_VALUE, page + "", num + "");
+        Call<GifInfoObj> call = mJokeApiInvokeProxy.getImgList(UrlData.APPID_VALUE, UrlData.SIGN_VALUE, page + "", num + "");
         call.enqueue(new Callback<GifInfoObj>() {
             @Override
             public void onResponse(Call<GifInfoObj> call, Response<GifInfoObj> response) {
@@ -118,14 +111,14 @@ public class JokeModel implements IJokeModel {
         }
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(url)
+                .baseUrl(UrlData.BASE)
                 //增加返回值为String的支持
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         JokeApi jokeApi = retrofit.create(JokeApi.class);
         mJokeApiInvokeProxy = new JokeApiInvokeProxy(jokeApi);
-        Call<GifInfoObj> call = mJokeApiInvokeProxy.getGifList(APPID_VALUE, SIGN_VALUE, page + "", num + "");
+        Call<GifInfoObj> call = mJokeApiInvokeProxy.getGifList(UrlData.APPID_VALUE, UrlData.SIGN_VALUE, page + "", num + "");
         call.enqueue(new Callback<GifInfoObj>() {
             @Override
             public void onResponse(Call<GifInfoObj> call, Response<GifInfoObj> response) {
