@@ -8,7 +8,6 @@ import android.view.View;
 
 import com.maverick.R;
 import com.maverick.adapter.CollectFragmentAdapter;
-import com.maverick.base.BaseFragment2;
 import com.maverick.bean.CollectTabInfo;
 import com.maverick.presenter.BasePresenter;
 
@@ -18,7 +17,7 @@ import java.util.List;
 /**
  * Created by limingfei on 2017/9/29.
  */
-public class CollectFragment extends BaseFragment2 {
+public class CollectFragment extends BaseEditFragment {
 
     private static final String KEY_INFOS = "CollectTabInfos";
 
@@ -75,14 +74,7 @@ public class CollectFragment extends BaseFragment2 {
         List<CollectTabInfo> list = (List<CollectTabInfo>) getArguments().getSerializable(KEY_INFOS);
         mCollectFragmentAdapter = new CollectFragmentAdapter(getChildFragmentManager(), list);
         mCollectFragmentAdapter.setOnCollectFragmentListener(mOnCollectFragmentListener);
-        mCollectFragmentAdapter.setOnCollectItemFragmentListener(new CollectItemFragment.OnCollectItemFragmentListener() {
-            @Override
-            public void onCheckState(int checkState) {
-                if(mOnCollectFragmentListener != null) {
-                    mOnCollectFragmentListener.onCheckState(checkState);
-                }
-            }
-        });
+        mCollectFragmentAdapter.setOnBaseEditFragmentListener(mOnBaseEditFragmentListener);
         viewpager.setAdapter(mCollectFragmentAdapter);
         tab_layout.setupWithViewPager(viewpager);
     }
@@ -93,9 +85,9 @@ public class CollectFragment extends BaseFragment2 {
             if (fragment instanceof CollectFragment) {
                 CollectFragment collectFragment = (CollectFragment) fragment;
                 return collectFragment.getStateEdit();
-            } else if (fragment instanceof CollectItemFragment) {
-                CollectItemFragment collectItemFragment = (CollectItemFragment) fragment;
-                return collectItemFragment.getStateEdit();
+            } else if (fragment instanceof BaseEditFragment) {
+                BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
+                return baseEditFragment.getStateEdit();
             }
         }
         return -1;
@@ -107,9 +99,9 @@ public class CollectFragment extends BaseFragment2 {
             if (fragment instanceof CollectFragment) {
                 CollectFragment collectFragment = (CollectFragment) fragment;
                 collectFragment.setStateEdit(stateEdit);
-            } else if (fragment instanceof CollectItemFragment) {
-                CollectItemFragment collectItemFragment = (CollectItemFragment) fragment;
-                collectItemFragment.setStateEdit(stateEdit);
+            } else if (fragment instanceof BaseEditFragment) {
+                BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
+                baseEditFragment.setStateEdit(stateEdit);
             }
         }
     }
@@ -120,9 +112,9 @@ public class CollectFragment extends BaseFragment2 {
             if (fragment instanceof CollectFragment) {
                 CollectFragment collectFragment = (CollectFragment) fragment;
                 collectFragment.delete();
-            } else if (fragment instanceof CollectItemFragment) {
-                CollectItemFragment collectItemFragment = (CollectItemFragment) fragment;
-                collectItemFragment.delete();
+            } else if (fragment instanceof BaseEditFragment) {
+                BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
+                baseEditFragment.delete();
             }
         }
     }
@@ -133,9 +125,9 @@ public class CollectFragment extends BaseFragment2 {
             if (fragment instanceof CollectFragment) {
                 CollectFragment collectFragment = (CollectFragment) fragment;
                 return collectFragment.getCheckState();
-            } else if (fragment instanceof CollectItemFragment) {
-                CollectItemFragment collectItemFragment = (CollectItemFragment) fragment;
-                return collectItemFragment.getCheckState();
+            } else if (fragment instanceof BaseEditFragment) {
+                BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
+                return baseEditFragment.getCheckState();
             }
         }
         return -1;
@@ -147,9 +139,9 @@ public class CollectFragment extends BaseFragment2 {
             if (fragment instanceof CollectFragment) {
                 CollectFragment collectFragment = (CollectFragment) fragment;
                  collectFragment.setCheckState(checkState);
-            } else if (fragment instanceof CollectItemFragment) {
-                CollectItemFragment collectItemFragment = (CollectItemFragment) fragment;
-                 collectItemFragment.setCheckState(checkState);
+            } else if (fragment instanceof BaseEditFragment) {
+                BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
+                 baseEditFragment.setCheckState(checkState);
             }
         }
     }
@@ -162,7 +154,5 @@ public class CollectFragment extends BaseFragment2 {
 
     public interface OnCollectFragmentListener {
         void onPageSelected();
-
-        void onCheckState(int checkState);
     }
 }

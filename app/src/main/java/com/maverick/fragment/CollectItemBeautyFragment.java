@@ -24,7 +24,7 @@ import cntv.greendaolibrary.dbbean.Collect;
 /**
  * Created by limingfei on 2017/9/29.
  */
-public class CollectItemBeautyFragment extends CollectItemFragment implements ICollectItemBeautyFragmentView {
+public class CollectItemBeautyFragment extends BaseEditFragment implements ICollectItemBeautyFragmentView {
 
     private static final int spanCount = 3;
     private CollectItemBeautyFragmentAdapter mCollectItemBeautyFragmentAdapter;
@@ -76,8 +76,8 @@ public class CollectItemBeautyFragment extends CollectItemFragment implements IC
             @Override
             public void onItemClick(int position, Collect collect) {
                 checkState = getClickCheckState();
-                if (mOnCollectItemFragmentListener != null) {
-                    mOnCollectItemFragmentListener.onCheckState(checkState);
+                if (mOnBaseEditFragmentListener != null) {
+                    mOnBaseEditFragmentListener.onCheckState(checkState);
                 }
             }
         });
@@ -252,8 +252,8 @@ public class CollectItemBeautyFragment extends CollectItemFragment implements IC
         }
 
         checkState = STATE_NO_ALL_CHECK;
-        if (mOnCollectItemFragmentListener != null) {
-            mOnCollectItemFragmentListener.onCheckState(checkState);
+        if (mOnBaseEditFragmentListener != null) {
+            mOnBaseEditFragmentListener.onCheckState(checkState);
         }
     }
 

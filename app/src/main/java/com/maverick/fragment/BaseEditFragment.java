@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.maverick.R;
 import com.maverick.base.BaseFragment2;
@@ -12,12 +11,10 @@ import com.maverick.bean.CollectTabInfo;
 import com.maverick.global.Tag;
 import com.maverick.presenter.BasePresenter;
 
-import cntv.greendaolibrary.dbbean.Collect;
-
 /**
  * Created by limingfei on 2017/9/29.
  */
-public class CollectItemFragment extends BaseFragment2 {
+public class BaseEditFragment extends BaseFragment2 {
 
     public static final int STATE_EDIT = 1;
     public static final int STATE_NO_EDIT = 2;
@@ -30,8 +27,8 @@ public class CollectItemFragment extends BaseFragment2 {
 
     private TextView title;
 
-    public static CollectItemFragment newInstance(CollectTabInfo collectTabInfo) {
-        CollectItemFragment fragment = new CollectItemFragment();
+    public static BaseEditFragment newInstance(CollectTabInfo collectTabInfo) {
+        BaseEditFragment fragment = new BaseEditFragment();
 
         Bundle bundle = new Bundle();
         bundle.putSerializable(Tag.KEY_INFO, collectTabInfo);
@@ -106,8 +103,8 @@ public class CollectItemFragment extends BaseFragment2 {
                 break;
         }
 
-        if(mOnCollectItemFragmentListener != null) {
-            mOnCollectItemFragmentListener.onCheckState(checkState);
+        if(mOnBaseEditFragmentListener != null) {
+            mOnBaseEditFragmentListener.onCheckState(checkState);
         }
     }
 
@@ -117,13 +114,13 @@ public class CollectItemFragment extends BaseFragment2 {
     public void cancelAll() {
     }
 
-    protected OnCollectItemFragmentListener mOnCollectItemFragmentListener;
+    protected OnBaseEditFragmentListener mOnBaseEditFragmentListener;
 
-    public void setOnCollectItemFragmentListener(OnCollectItemFragmentListener listener) {
-        this.mOnCollectItemFragmentListener = listener;
+    public void setOnBaseEditFragmentListener(OnBaseEditFragmentListener listener) {
+        this.mOnBaseEditFragmentListener = listener;
     }
 
-    public interface OnCollectItemFragmentListener {
+    public interface OnBaseEditFragmentListener {
         void onCheckState(int checkState);
     }
 }

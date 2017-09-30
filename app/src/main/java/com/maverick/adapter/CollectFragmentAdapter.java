@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.maverick.bean.CollectTabInfo;
 import com.maverick.fragment.CollectItemBeautyFragment;
-import com.maverick.fragment.CollectItemFragment;
+import com.maverick.fragment.BaseEditFragment;
 import com.maverick.fragment.CollectFragment;
 
 import java.util.List;
@@ -36,17 +36,17 @@ public class CollectFragmentAdapter extends FragmentStatePagerAdapter {
                 break;
             case 2:
                 CollectItemBeautyFragment collectItemBeautyFragment = CollectItemBeautyFragment.newInstance(mList.get(position));
-                collectItemBeautyFragment.setOnCollectItemFragmentListener(mOnCollectItemFragmentListener);
+                collectItemBeautyFragment.setOnBaseEditFragmentListener(mOnBaseEditFragmentListener);
                 fragment = collectItemBeautyFragment;
                 break;
             case 3:
-                fragment = CollectItemFragment.newInstance(mList.get(position));
+                fragment = BaseEditFragment.newInstance(mList.get(position));
                 break;
             case 4:
-                fragment = CollectItemFragment.newInstance(mList.get(position));
+                fragment = BaseEditFragment.newInstance(mList.get(position));
                 break;
             case 5:
-                fragment = CollectItemFragment.newInstance(mList.get(position));
+                fragment = BaseEditFragment.newInstance(mList.get(position));
                 break;
             default:
                 fragment = new Fragment();
@@ -71,9 +71,9 @@ public class CollectFragmentAdapter extends FragmentStatePagerAdapter {
         this.mOnCollectFragmentListener = listener;
     }
 
-    private CollectItemFragment.OnCollectItemFragmentListener mOnCollectItemFragmentListener;
+    private BaseEditFragment.OnBaseEditFragmentListener mOnBaseEditFragmentListener;
 
-    public void setOnCollectItemFragmentListener(CollectItemFragment.OnCollectItemFragmentListener listener) {
-        this.mOnCollectItemFragmentListener = listener;
+    public void setOnBaseEditFragmentListener(BaseEditFragment.OnBaseEditFragmentListener listener) {
+        this.mOnBaseEditFragmentListener = listener;
     }
 }

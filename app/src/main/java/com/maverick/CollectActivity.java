@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.maverick.base.BaseActivity;
 import com.maverick.bean.CollectTabInfo;
 import com.maverick.fragment.CollectFragment;
-import com.maverick.fragment.CollectItemFragment;
+import com.maverick.fragment.BaseEditFragment;
 import com.maverick.presenter.BasePresenter;
 
 import java.util.ArrayList;
@@ -22,7 +22,7 @@ import java.util.List;
 public class CollectActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView edit;
-    private CollectFragment mCollectFragment;
+    private BaseEditFragment mBaseEditFragment;
     private View btn_root;
     private Button btn_delete;
     private Button btn_check_or_cancel;
@@ -63,32 +63,27 @@ public class CollectActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     protected void onInitData(Bundle savedInstanceState) {
-        List<CollectTabInfo> list = new ArrayList<>();
-        list.add(getCollectTabInfo("笑话", 1));
-        list.add(getCollectTabInfo("美女", 2));
-        mCollectFragment = CollectFragment.newInstance(list);
-        replaceFragment(R.id.collect_content, mCollectFragment);
 
-        mCollectFragment.setOnCollectFragmentListener(new CollectFragment.OnCollectFragmentListener() {
-            @Override
-            public void onPageSelected() {
-                closeEdit();
-            }
+
+        mBaseEditFragment = getBaseEditFragment();
+        replaceFragment(R.id.collect_content, mBaseEditFragment);
+
+        mBaseEditFragment.setOnBaseEditFragmentListener(new BaseEditFragment.OnBaseEditFragmentListener() {
 
             @Override
             public void onCheckState(int checkState) {
                 switch (checkState) {
-                    case CollectItemFragment.STATE_ALL_CHECK:
+                    case BaseEditFragment.STATE_ALL_CHECK:
                         btn_delete.setAlpha(1.0f);
                         btn_delete.setClickable(true);
                         btn_check_or_cancel.setText("取消全选");
                         break;
-                    case CollectItemFragment.STATE_NO_ALL_CHECK:
+                    case BaseEditFragment.STATE_NO_ALL_CHECK:
                         btn_delete.setAlpha(0.5f);
                         btn_delete.setClickable(false);
                         btn_check_or_cancel.setText("全选");
                         break;
-                    case CollectItemFragment.STATE_CHECK:
+                    case BaseEditFragment.STATE_CHECK:
                         btn_delete.setAlpha(1.0f);
                         btn_delete.setClickable(true);
                         btn_check_or_cancel.setText("全选");
@@ -96,6 +91,21 @@ public class CollectActivity extends BaseActivity implements View.OnClickListene
                 }
             }
         });
+    }
+
+    public BaseEditFragment getBaseEditFragment() {
+        List<CollectTabInfo> list = new ArrayList<>();
+        list.add(getCollectTabInfo("笑话", 1));
+        list.add(getCollectTabInfo("美女", 2));
+        CollectFragment collectFragment = CollectFragment.newInstance(list);
+        collectFragment.setOnCollectFragmentListener(new CollectFragment.OnCollectFragmentListener() {
+            @Override
+            public void onPageSelected() {
+                closeEdit();
+            }
+        });
+
+        return collectFragment;
     }
 
     private CollectTabInfo getCollectTabInfo(String title, int type) {
@@ -121,28 +131,28 @@ public class CollectActivity extends BaseActivity implements View.OnClickListene
                 onBackPressed();
                 break;
             case R.id.edit:
-                int edit_state = mCollectFragment.getStateEdit();
+                int edit_state = mBaseEditFragment.getStateEdit();
                 switch (edit_state) {
-                    case CollectItemFragment.STATE_EDIT:
+                    case BaseEditFragment.STATE_EDIT:
                         closeEdit();
                         break;
-                    case CollectItemFragment.STATE_NO_EDIT:
+                    case BaseEditFragment.STATE_NO_EDIT:
                         openEdit();
                         break;
                 }
                 break;
             case R.id.btn_delete:
-                mCollectFragment.delete();
+                mBaseEditFragment.delete();
                 break;
             case R.id.btn_check_or_cancel:
-                int check_state = mCollectFragment.getCheckState();
+                int check_state = mBaseEditFragment.getCheckState();
                 switch (check_state) {
-                    case CollectItemFragment.STATE_ALL_CHECK:
-                        mCollectFragment.setCheckState(CollectItemFragment.STATE_NO_ALL_CHECK);
+                    case BaseEditFragment.STATE_ALL_CHECK:
+                        mBaseEditFragment.setCheckState(BaseEditFragment.STATE_NO_ALL_CHECK);
                         break;
-                    case CollectItemFragment.STATE_NO_ALL_CHECK:
-                    case CollectItemFragment.STATE_CHECK:
-                        mCollectFragment.setCheckState(CollectItemFragment.STATE_ALL_CHECK);
+                    case BaseEditFragment.STATE_NO_ALL_CHECK:
+                    case BaseEditFragment.STATE_CHECK:
+                        mBaseEditFragment.setCheckState(BaseEditFragment.STATE_ALL_CHECK);
                         break;
                 }
                 break;
@@ -150,7 +160,7 @@ public class CollectActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void openEdit() {
-        mCollectFragment.setStateEdit(CollectItemFragment.STATE_EDIT);
+        mBaseEditFragment.setStateEdit(BaseEditFragment.STATE_EDIT);
         edit.setText("取消编辑");
         btn_root.setVisibility(View.VISIBLE);
         btn_check_or_cancel.setText("全选");
@@ -160,7 +170,7 @@ public class CollectActivity extends BaseActivity implements View.OnClickListene
     }
 
     private void closeEdit() {
-        mCollectFragment.setStateEdit(CollectItemFragment.STATE_NO_EDIT);
+        mBaseEditFragment.setStateEdit(BaseEditFragment.STATE_NO_EDIT);
         edit.setText("编辑");
         btn_root.setVisibility(View.GONE);
         btn_check_or_cancel.setText("全选");
