@@ -53,6 +53,9 @@ public class SisterFragmentPresenter extends BasePresenter {
 
                     for (int i = 0; i < list.size(); i++) {
                         Log.e(TAG, "" + list.get(i).getImage2());
+                        SisterInfo sisterInfo = list.get(i);
+                        sisterInfo.setComment(getRandom(sisterInfo.getLove()) + "");
+                        sisterInfo.setShare(getRandom(sisterInfo.getLove()) + "");
                     }
 
                     mView.onShowSuccessView(list);
@@ -90,5 +93,20 @@ public class SisterFragmentPresenter extends BasePresenter {
                 mView.onLoadMoreFail();
             }
         });
+    }
+
+    public int getRandom(String ding) {
+        int dingCount = getString2Int(ding);
+        return (int) (Math.random() * dingCount);
+    }
+
+    public int getString2Int(String str) {
+
+        try {
+            return Integer.parseInt(str);
+        } catch (Exception e) {
+
+        }
+        return 0;
     }
 }

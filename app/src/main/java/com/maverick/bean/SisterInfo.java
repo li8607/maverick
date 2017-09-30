@@ -27,7 +27,9 @@ public class SisterInfo implements Serializable {
     private String weixin_url;
     private String width;
     private String profile_image;
-    private String profile_name;
+
+    private String comment;
+    private String share;
 
     public String getCreate_time() {
         return create_time;
@@ -189,11 +191,19 @@ public class SisterInfo implements Serializable {
         this.profile_image = profile_image;
     }
 
-    public String getProfile_name() {
-        return profile_name;
+    public String getComment() {
+        return comment;
     }
 
-    public void setProfile_name(String profile_name) {
-        this.profile_name = profile_name;
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public String getShare() {
+        return share;
+    }
+
+    public void setShare(String share) {
+        this.share = share;
     }
 }

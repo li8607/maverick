@@ -28,15 +28,21 @@ public class SisterImageHolder extends RecyclerView.ViewHolder implements View.O
     private final ImageView image_head;
     private final TextView time;
     private final TextView content;
+    private final TextView text_ding_count, text_cai_count, text_share_count, text_comment_count;
 
     public SisterImageHolder(View itemView) {
         super(itemView);
         image = (RatioImageView) itemView.findViewById(R.id.image);
-        image.setOriginalSize(1, 1);
+        image.setOriginalSize(16, 9);
 
         image_head = (ImageView) itemView.findViewById(R.id.image_head);
         time = (TextView) itemView.findViewById(R.id.time);
         content = (TextView) itemView.findViewById(R.id.content);
+
+        text_ding_count = (TextView) itemView.findViewById(R.id.text_ding_count);
+        text_cai_count = (TextView) itemView.findViewById(R.id.text_cai_count);
+        text_share_count = (TextView) itemView.findViewById(R.id.text_share_count);
+        text_comment_count = (TextView) itemView.findViewById(R.id.text_comment_count);
 
         image.setOnClickListener(this);
     }
@@ -47,13 +53,31 @@ public class SisterImageHolder extends RecyclerView.ViewHolder implements View.O
         GlideUtil.loadCircleImage(context, mSisterInfo.getProfile_image(), image_head);
 
         if (!TextUtils.isEmpty(sisterInfo.getCreate_time())) {
-            time.setText(sisterInfo.getCreate_time());
+            time.setText(sisterInfo.getCreate_time().trim());
         }
 
         if (!TextUtils.isEmpty(sisterInfo.getText())) {
-            content.setText(sisterInfo.getText());
+            Log.e(TAG, "sisterInfo.getText() = " + sisterInfo.getText());
+            content.setText(sisterInfo.getText().trim());
+        }
+
+        if (!TextUtils.isEmpty(sisterInfo.getLove())) {
+            text_ding_count.setText(sisterInfo.getLove().trim());
+        }
+
+        if (!TextUtils.isEmpty(sisterInfo.getHate())) {
+            text_cai_count.setText(sisterInfo.getHate().trim());
+        }
+
+        if (!TextUtils.isEmpty(sisterInfo.getShare())) {
+            text_share_count.setText(sisterInfo.getShare().trim());
+        }
+
+        if (!TextUtils.isEmpty(sisterInfo.getComment())) {
+            text_comment_count.setText(sisterInfo.getComment().trim());
         }
     }
+
 
     @Override
     public void onClick(View v) {

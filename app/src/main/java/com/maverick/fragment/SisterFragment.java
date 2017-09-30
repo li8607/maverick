@@ -1,5 +1,6 @@
 package com.maverick.fragment;
 
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -70,6 +71,13 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
             @Override
             public void onLoadMore() {
 
+            }
+        });
+
+        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                outRect.bottom = getResources().getDimensionPixelSize(R.dimen.x1);
             }
         });
     }

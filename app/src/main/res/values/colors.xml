@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <color name="colorWhite">#ffffff</color>
+
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
@@ -8,4 +11,12 @@
     <color name="colorStatusBarBackground">#66000000</color>
 
     <color name="click_background">#aaaaaa</color>
+    
+    <color name="sister_divider_color">#e6e6e6</color>
+    <color name="sister_time_color">#949494</color>
+    <color name="sister_content_color">#333333</color>
+
+    <color name="sister_count_color">#929292</color>
+    <color name="sister_count_select_color">#ff2d55</color>
+
 </resources>
