@@ -3,14 +3,18 @@ package com.maverick;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.maverick.base.BaseActivity;
 import com.maverick.bean.CollectTabInfo;
+import com.maverick.bean.MyInfo;
+import com.maverick.fragment.BrowsingHistoryFragment;
 import com.maverick.fragment.CollectFragment;
 import com.maverick.fragment.BaseEditFragment;
+import com.maverick.global.Tag;
 import com.maverick.presenter.BasePresenter;
 
 import java.util.ArrayList;
@@ -19,16 +23,18 @@ import java.util.List;
 /**
  * Created by limingfei on 2017/9/29.
  */
-public class CollectActivity extends BaseActivity implements View.OnClickListener {
+public class DataBankActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView edit;
     private BaseEditFragment mBaseEditFragment;
     private View btn_root;
     private Button btn_delete;
     private Button btn_check_or_cancel;
+    private TextView title;
 
-    public static void launch(Context context) {
-        Intent intent = new Intent(context, CollectActivity.class);
+    public static void launch(Context context, MyInfo myInfo) {
+        Intent intent = new Intent(context, DataBankActivity.class);
+        intent.putExtra(Tag.KEY_INFO, myInfo);
         context.startActivity(intent);
     }
 
@@ -46,8 +52,7 @@ public class CollectActivity extends BaseActivity implements View.OnClickListene
     protected void onInitView() {
         View back = findView(R.id.back);
         back.setOnClickListener(this);
-        TextView title = findView(R.id.title);
-        title.setText("收藏");
+        title = findView(R.id.title);
 
         edit = findView(R.id.edit);
         edit.setOnClickListener(this);
@@ -64,8 +69,14 @@ public class CollectActivity extends BaseActivity implements View.OnClickListene
     @Override
     protected void onInitData(Bundle savedInstanceState) {
 
+        MyInfo myInfo = (MyInfo) getIntent().getSerializableExtra(Tag.KEY_INFO);
 
-        mBaseEditFragment = getBaseEditFragment();
+        mBaseEditFragment = getBaseEditFragment(myInfo);
+
+        if (mBaseEditFragment == null) {
+            return;
+        }
+
         replaceFragment(R.id.collect_content, mBaseEditFragment);
 
         mBaseEditFragment.setOnBaseEditFragmentListener(new BaseEditFragment.OnBaseEditFragmentListener() {
@@ -93,19 +104,37 @@ public class CollectActivity extends BaseActivity implements View.OnClickListene
         });
     }
 
-    public BaseEditFragment getBaseEditFragment() {
-        List<CollectTabInfo> list = new ArrayList<>();
-        list.add(getCollectTabInfo("笑话", 1));
-        list.add(getCollectTabInfo("美女", 2));
-        CollectFragment collectFragment = CollectFragment.newInstance(list);
-        collectFragment.setOnCollectFragmentListener(new CollectFragment.OnCollectFragmentListener() {
-            @Override
-            public void onPageSelected() {
-                closeEdit();
-            }
-        });
+    public BaseEditFragment getBaseEditFragment(MyInfo myInfo) {
 
-        return collectFragment;
+        BaseEditFragment baseEditFragment = null;
+
+        if (TextUtils.equals(myInfo.getType(), "0")) {
+            //浏览记录
+            baseEditFragment = BrowsingHistoryFragment.newInstance();
+            if(!TextUtils.isEmpty(myInfo.getTitle())) {
+                title.setText(myInfo.getTitle());
+            }
+        } else if (TextUtils.equals(myInfo.getType(), "1")) {
+            //收藏
+            List<CollectTabInfo> list = new ArrayList<>();
+            list.add(getCollectTabInfo("笑话", 1));
+            list.add(getCollectTabInfo("美女", 2));
+            CollectFragment collectFragment = CollectFragment.newInstance(list);
+            collectFragment.setOnCollectFragmentListener(new CollectFragment.OnCollectFragmentListener() {
+                @Override
+                public void onPageSelected() {
+                    closeEdit();
+                }
+            });
+            baseEditFragment = collectFragment;
+
+            if(!TextUtils.isEmpty(myInfo.getTitle())) {
+                title.setText(myInfo.getTitle());
+            }
+        }
+
+
+        return baseEditFragment;
     }
 
     private CollectTabInfo getCollectTabInfo(String title, int type) {

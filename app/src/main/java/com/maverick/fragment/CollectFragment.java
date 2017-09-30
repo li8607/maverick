@@ -82,10 +82,7 @@ public class CollectFragment extends BaseEditFragment {
     public int getStateEdit() {
         Fragment fragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
         if (fragment != null) {
-            if (fragment instanceof CollectFragment) {
-                CollectFragment collectFragment = (CollectFragment) fragment;
-                return collectFragment.getStateEdit();
-            } else if (fragment instanceof BaseEditFragment) {
+             if (fragment instanceof BaseEditFragment) {
                 BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
                 return baseEditFragment.getStateEdit();
             }
@@ -96,10 +93,7 @@ public class CollectFragment extends BaseEditFragment {
     public void setStateEdit(int stateEdit) {
         Fragment fragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
         if (fragment != null) {
-            if (fragment instanceof CollectFragment) {
-                CollectFragment collectFragment = (CollectFragment) fragment;
-                collectFragment.setStateEdit(stateEdit);
-            } else if (fragment instanceof BaseEditFragment) {
+             if (fragment instanceof BaseEditFragment) {
                 BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
                 baseEditFragment.setStateEdit(stateEdit);
             }
@@ -109,10 +103,7 @@ public class CollectFragment extends BaseEditFragment {
     public void delete() {
         Fragment fragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
         if (fragment != null) {
-            if (fragment instanceof CollectFragment) {
-                CollectFragment collectFragment = (CollectFragment) fragment;
-                collectFragment.delete();
-            } else if (fragment instanceof BaseEditFragment) {
+           if (fragment instanceof BaseEditFragment) {
                 BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
                 baseEditFragment.delete();
             }
@@ -122,10 +113,7 @@ public class CollectFragment extends BaseEditFragment {
     public int getCheckState() {
         Fragment fragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
         if (fragment != null) {
-            if (fragment instanceof CollectFragment) {
-                CollectFragment collectFragment = (CollectFragment) fragment;
-                return collectFragment.getCheckState();
-            } else if (fragment instanceof BaseEditFragment) {
+           if (fragment instanceof BaseEditFragment) {
                 BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
                 return baseEditFragment.getCheckState();
             }
@@ -136,10 +124,7 @@ public class CollectFragment extends BaseEditFragment {
     public void setCheckState(int checkState) {
         Fragment fragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
         if (fragment != null) {
-            if (fragment instanceof CollectFragment) {
-                CollectFragment collectFragment = (CollectFragment) fragment;
-                 collectFragment.setCheckState(checkState);
-            } else if (fragment instanceof BaseEditFragment) {
+            if (fragment instanceof BaseEditFragment) {
                 BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
                  baseEditFragment.setCheckState(checkState);
             }

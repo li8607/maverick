@@ -39,11 +39,7 @@
             android:theme="@style/BaseAppTheme" />
 
         <activity
-            android:name=".BrowsingHistoryActivity"
-            android:theme="@style/BaseAppTheme" />
-
-        <activity
-            android:name=".CollectActivity"
+            android:name=".DataBankActivity"
             android:theme="@style/BaseAppTheme" />
     </application>
 

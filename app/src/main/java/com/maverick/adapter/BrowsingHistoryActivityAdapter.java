@@ -35,9 +35,7 @@ public class BrowsingHistoryActivityAdapter extends RecyclerView.Adapter {
     public static final int TITLE = 1;
     public static final int IMAGE = 2;
 
-    public static final int STATE_EDIT = 1;
-    public static final int STATE_NO_EDIT = 2;
-    public int stateEdit = STATE_NO_EDIT;
+    private boolean editState;
 
     public BrowsingHistoryActivityAdapter(Context context) {
         this.mContext = context;
@@ -98,12 +96,8 @@ public class BrowsingHistoryActivityAdapter extends RecyclerView.Adapter {
         return mList;
     }
 
-    public int getStateEdit() {
-        return stateEdit;
-    }
-
-    public void setStateEdit(int stateEdit) {
-        this.stateEdit = stateEdit;
+    public void setEditState(boolean editState) {
+        this.editState = editState;
     }
 
     public class HistoryImageHolder extends RecyclerView.ViewHolder implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
@@ -137,7 +131,7 @@ public class BrowsingHistoryActivityAdapter extends RecyclerView.Adapter {
                 this.type.setText("美女");
             }
 
-            checkbox.setVisibility(stateEdit == STATE_EDIT ? View.VISIBLE : View.INVISIBLE);
+            checkbox.setVisibility(editState ? View.VISIBLE : View.INVISIBLE);
             checkbox.setChecked(mHistory.isCheck());
         }
 
@@ -147,14 +141,13 @@ public class BrowsingHistoryActivityAdapter extends RecyclerView.Adapter {
                 return;
             }
 
-            if (stateEdit == STATE_EDIT) {
+            if (editState) {
                 checkbox.setChecked(!checkbox.isChecked());
                 if (mOnAdapterListener != null) {
                     mOnAdapterListener.onItemClick(mHistory);
                 }
                 return;
             }
-
 
             mHistory.setHistoryTime(System.currentTimeMillis());
             HistoryModel.newInstance().insertHistoryDB(mHistory);

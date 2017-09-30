@@ -8,12 +8,10 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
-import com.maverick.BrowsingHistoryActivity;
-import com.maverick.CollectActivity;
+import com.maverick.DataBankActivity;
 import com.maverick.R;
 import com.maverick.adapter.MyFragmentAdapter;
 import com.maverick.base.BaseFragment2;
-import com.maverick.bean.JokeTabInfo;
 import com.maverick.bean.MyInfo;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.util.DensityUtil;
@@ -78,22 +76,22 @@ public class MyFragment extends BaseFragment2 {
             @Override
             public void onItemClick(int position, MyInfo myInfo) {
                 Toast.makeText(getContext(), myInfo.getTitle(), Toast.LENGTH_SHORT).show();
-                if (TextUtils.equals(myInfo.getmType(), "0")) {
-                    BrowsingHistoryActivity.launch(getContext());
-                } else if (TextUtils.equals(myInfo.getmType(), "1")) {
-                    CollectActivity.launch(getContext());
-                } else if (TextUtils.equals(myInfo.getmType(), "2")) {
+                if (TextUtils.equals(myInfo.getType(), "0")) {
+                    DataBankActivity.launch(getContext(), myInfo);
+                } else if (TextUtils.equals(myInfo.getType(), "1")) {
+                    DataBankActivity.launch(getContext(), myInfo);
+                } else if (TextUtils.equals(myInfo.getType(), "2")) {
 
                 }
             }
         });
     }
 
-    private MyInfo getMyInfo(String title, int icon, String mType) {
+    private MyInfo getMyInfo(String title, int icon, String type) {
         MyInfo myInfo = new MyInfo();
         myInfo.setTitle(title);
         myInfo.setIcon(icon);
-        myInfo.setmType(mType);
+        myInfo.setType(type);
         return myInfo;
     }
 }

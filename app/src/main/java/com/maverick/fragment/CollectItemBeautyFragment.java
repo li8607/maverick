@@ -170,6 +170,17 @@ public class CollectItemBeautyFragment extends BaseEditFragment implements IColl
     }
 
     @Override
+    public boolean isSelectorAll() {
+        List<Collect> list = mCollectItemBeautyFragmentAdapter.getData();
+
+        if (list == null || list.size() < 1) {
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
     public void selectorAll() {
         super.selectorAll();
 
@@ -243,9 +254,10 @@ public class CollectItemBeautyFragment extends BaseEditFragment implements IColl
         if (tempList.size() == 1) {
             Collect collect = tempList.get(0);
             mCollectItemBeautyFragmentAdapter.notifyItemRemoved(list.indexOf(collect));
+            mCollectItemBeautyFragmentAdapter.notifyItemChanged(list.indexOf(collect));
             list.remove(collect);
             CollectModel.newInstance().deleteCollectDB(collect);
-        }else if(tempList.size() > 1) {
+        } else if (tempList.size() > 1) {
             list.removeAll(tempList);
             mCollectItemBeautyFragmentAdapter.notifyDataSetChanged();
             CollectModel.newInstance().deleteCollectDBList(tempList);
@@ -254,6 +266,10 @@ public class CollectItemBeautyFragment extends BaseEditFragment implements IColl
         checkState = STATE_NO_ALL_CHECK;
         if (mOnBaseEditFragmentListener != null) {
             mOnBaseEditFragmentListener.onCheckState(checkState);
+        }
+
+        if (list.size() == 0) {
+            onShowEmptyView();
         }
     }
 

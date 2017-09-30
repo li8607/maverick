@@ -96,16 +96,27 @@ public class BaseEditFragment extends BaseFragment2 {
         this.checkState = checkState;
         switch (checkState) {
             case STATE_ALL_CHECK:
-                selectorAll();
+                if (isSelectorAll()) {
+                    selectorAll();
+                } else {
+                    this.checkState = STATE_NO_ALL_CHECK;
+                }
                 break;
             case STATE_NO_ALL_CHECK:
                 cancelAll();
                 break;
         }
 
-        if(mOnBaseEditFragmentListener != null) {
-            mOnBaseEditFragmentListener.onCheckState(checkState);
+        if (mOnBaseEditFragmentListener != null) {
+            mOnBaseEditFragmentListener.onCheckState(this.checkState);
         }
+    }
+
+    /**
+     * 是否可以全选，默认不可以
+     */
+    public boolean isSelectorAll() {
+        return false;
     }
 
     public void selectorAll() {
