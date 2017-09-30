@@ -10,6 +10,7 @@ import com.maverick.adapter.SisterFragmentAdapter;
 import com.maverick.base.BaseFragment2;
 import com.maverick.bean.SisterDetailInfo;
 import com.maverick.bean.SisterInfo;
+import com.maverick.global.Tag;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.SisterFragmentPresenter;
 import com.maverick.presenter.implView.ISisterFragmentView;
@@ -31,7 +32,7 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
         SisterFragment fragment = new SisterFragment();
 
         Bundle bundle = new Bundle();
-        bundle.putSerializable("tag", sisterDetailInfo);
+        bundle.putSerializable(Tag.KEY_INFO, sisterDetailInfo);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -75,7 +76,7 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
 
     @Override
     protected void onInitData(Bundle savedInstanceState) {
-        mSisterDetailInfo = (SisterDetailInfo) getArguments().getSerializable("tag");
+        mSisterDetailInfo = (SisterDetailInfo) getArguments().getSerializable(Tag.KEY_INFO);
         mPresenter.refreshData(mSisterDetailInfo);
     }
 

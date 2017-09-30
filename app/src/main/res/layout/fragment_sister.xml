@@ -5,6 +5,8 @@
 
     <com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView
         android:id="@+id/recyclerView"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView>
 

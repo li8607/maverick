@@ -26,6 +26,8 @@ public class SisterInfo implements Serializable {
     private String voiceuri;
     private String weixin_url;
     private String width;
+    private String profile_image;
+    private String profile_name;
 
     public String getCreate_time() {
         return create_time;
@@ -177,5 +179,21 @@ public class SisterInfo implements Serializable {
 
     public void setWidth(String width) {
         this.width = width;
+    }
+
+    public String getProfile_image() {
+        return profile_image;
+    }
+
+    public void setProfile_image(String profile_image) {
+        this.profile_image = profile_image;
+    }
+
+    public String getProfile_name() {
+        return profile_name;
+    }
+
+    public void setProfile_name(String profile_name) {
+        this.profile_name = profile_name;
     }
 }
