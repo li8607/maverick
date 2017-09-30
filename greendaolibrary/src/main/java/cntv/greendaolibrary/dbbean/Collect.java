@@ -11,7 +11,6 @@ import org.greenrobot.greendao.annotation.Property;
 @Entity
 public class Collect {
     @Id
-    private Long id;
     @Property(nameInDb = "COLLECTIMAGE")
     private String collectImage;
     @Property(nameInDb = "COLLECTNAME")
@@ -22,6 +21,7 @@ public class Collect {
     private String collectItemType;  // 1.文本；2.图片；3.动图;
     @Property(nameInDb = "COLLECTTYPE")
     private String collectType;  // 1.笑话；2.美女
+    private boolean isCheck;
     public String getCollectType() {
         return this.collectType;
     }
@@ -52,21 +52,30 @@ public class Collect {
     public void setCollectImage(String collectImage) {
         this.collectImage = collectImage;
     }
-    public Long getId() {
-        return this.id;
+
+    public boolean isCheck() {
+        return isCheck;
     }
-    public void setId(Long id) {
-        this.id = id;
+
+    public void setCheck(boolean check) {
+        isCheck = check;
     }
-    @Generated(hash = 25065693)
-    public Collect(Long id, String collectImage, String collectName,
-            long collectTime, String collectItemType, String collectType) {
-        this.id = id;
+    public boolean getIsCheck() {
+        return this.isCheck;
+    }
+    public void setIsCheck(boolean isCheck) {
+        this.isCheck = isCheck;
+    }
+
+    @Generated(hash = 453729045)
+    public Collect(String collectImage, String collectName, long collectTime,
+            String collectItemType, String collectType, boolean isCheck) {
         this.collectImage = collectImage;
         this.collectName = collectName;
         this.collectTime = collectTime;
         this.collectItemType = collectItemType;
         this.collectType = collectType;
+        this.isCheck = isCheck;
     }
     @Generated(hash = 1726975718)
     public Collect() {
