@@ -1,14 +1,19 @@
 package com.maverick.presenter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.media.MediaMetadataRetriever;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.maverick.bean.SisterDetailInfo;
 import com.maverick.bean.SisterInfo;
+import com.maverick.global.Tag;
 import com.maverick.imodel.ISisterFragmentModel;
 import com.maverick.model.SisterFragmentModel;
 import com.maverick.presenter.implView.ISisterFragmentView;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -54,8 +59,11 @@ public class SisterFragmentPresenter extends BasePresenter {
                     for (int i = 0; i < list.size(); i++) {
                         Log.e(TAG, "" + list.get(i).getImage2());
                         SisterInfo sisterInfo = list.get(i);
-                        sisterInfo.setComment(getRandom(sisterInfo.getLove()) + "");
-                        sisterInfo.setShare(getRandom(sisterInfo.getLove()) + "");
+//                        sisterInfo.setComment(getRandom(sisterInfo.getLove()) + "");
+//                        sisterInfo.setShare(getRandom(sisterInfo.getLove()) + "");
+//                        if(TextUtils.equals(sisterInfo.getType(), Tag.SISTER_VIDEO)) {
+//                            sisterInfo.setVideo_image(getNetVideoBitmap(sisterInfo.getVideo_uri()));
+//                        }
                     }
 
                     mView.onShowSuccessView(list);
@@ -70,6 +78,31 @@ public class SisterFragmentPresenter extends BasePresenter {
                 mView.onShowErrorView();
             }
         });
+    }
+
+    /**
+     * 服务器返回url，通过url去获取视频的第一帧
+     * Android 原生给我们提供了一个MediaMetadataRetriever类
+     * 提供了获取url视频第一帧的方法,返回Bitmap对象
+     *
+     * @param videoUrl
+     * @return
+     */
+    public static Bitmap getNetVideoBitmap(String videoUrl) {
+        Bitmap bitmap = null;
+
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        try {
+            //根据url获取缩略图
+            retriever.setDataSource(videoUrl, new HashMap());
+            //获得第一帧图片
+            bitmap = retriever.getFrameAtTime();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } finally {
+            retriever.release();
+        }
+        return bitmap;
     }
 
     public void loadMoreData() {

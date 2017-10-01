@@ -10,7 +10,10 @@ import android.view.ViewGroup;
 
 import com.maverick.R;
 import com.maverick.adapter.holder.SisterImageHolder;
+import com.maverick.adapter.holder.SisterTextHolder;
+import com.maverick.adapter.holder.SisterVideoHolder;
 import com.maverick.bean.SisterInfo;
+import com.maverick.global.Tag;
 
 import java.util.List;
 
@@ -22,6 +25,8 @@ public class SisterFragmentAdapter extends RecyclerView.Adapter {
     private String TAG = getClass().getSimpleName();
 
     public static final int IMAGE = 1;
+    public static final int TEXT = 2;
+    public static final int VIDEO = 3;
 
     private List<SisterInfo> mList;
     private Context mContext;
@@ -40,6 +45,14 @@ public class SisterFragmentAdapter extends RecyclerView.Adapter {
                 holder = new SisterImageHolder(LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_sister_image, parent, false));
                 break;
+            case TEXT:
+                holder = new SisterTextHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_sister_text, parent, false));
+                break;
+            case VIDEO:
+                holder = new SisterVideoHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_sister_video, parent, false));
+                break;
             default:
                 holder = new RecyclerView.ViewHolder(new View(parent.getContext())) {
                 };
@@ -50,9 +63,9 @@ public class SisterFragmentAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof SisterImageHolder) {
-            SisterImageHolder sisterImageHolder = (SisterImageHolder) holder;
-            sisterImageHolder.bindData(mContext, mList.get(position));
+        if (holder instanceof SisterTextHolder) {
+            SisterTextHolder sisterTextHolder = (SisterTextHolder) holder;
+            sisterTextHolder.bindData(mContext, mList.get(position));
         }
     }
 
@@ -61,20 +74,20 @@ public class SisterFragmentAdapter extends RecyclerView.Adapter {
         SisterInfo sisterInfo = mList.get(position);
         String type = sisterInfo.getType();
         Log.e(TAG, type);
-        if (TextUtils.equals(type, "10")) {
+        if (TextUtils.equals(type, Tag.SISTER_IMAGE)) {
             //图片
             return IMAGE;
-        } else if (TextUtils.equals(type, "29")) {
+        } else if (TextUtils.equals(type, Tag.SISTER_TEXT)) {
             //段子
-
-        } else if (TextUtils.equals(type, "31")) {
+            return TEXT;
+        } else if (TextUtils.equals(type, Tag.SISTER_AUDIO)) {
             //声音
-
-        } else if (TextUtils.equals(type, "41 ")) {
+            return VIDEO;
+        } else if (TextUtils.equals(type, Tag.SISTER_VIDEO)) {
             //视频
-
+            return VIDEO;
         }
-        return IMAGE;
+        return TEXT;
     }
 
     @Override
@@ -84,5 +97,11 @@ public class SisterFragmentAdapter extends RecyclerView.Adapter {
 
     public void setData(List<SisterInfo> list) {
         this.mList = list;
+    }
+
+    public void setMoreData(List<SisterInfo> list) {
+        if (mList != null) {
+            mList.addAll(list);
+        }
     }
 }

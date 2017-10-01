@@ -11,13 +11,20 @@
 
     <include layout="@layout/item_sister_content" />
 
-    <com.maverick.weight.RatioImageView
-        android:layout_marginTop="@dimen/y5"
-        android:id="@+id/image"
-        android:layout_width="match_parent"
+    <FrameLayout
+        android:id="@+id/video_root"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:scaleType="centerCrop" />
+        android:layout_marginBottom="@dimen/y5">
+
+        <com.maverick.weight.MyImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop" />
+
+    </FrameLayout>
 
     <include layout="@layout/item_sister_bottom" />
 </LinearLayout>

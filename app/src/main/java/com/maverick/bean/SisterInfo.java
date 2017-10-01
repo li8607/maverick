@@ -1,5 +1,7 @@
 package com.maverick.bean;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 
 /**
@@ -21,12 +23,14 @@ public class SisterInfo implements Serializable {
     private String type;
     private String videotime;
     private String video_uri;
+    private Bitmap video_image;
     private String voicelength;
     private String voicetime;
     private String voiceuri;
     private String weixin_url;
     private String width;
     private String profile_image;
+    private String name;
 
     private String comment;
     private String share;
@@ -205,5 +209,21 @@ public class SisterInfo implements Serializable {
 
     public void setShare(String share) {
         this.share = share;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Bitmap getVideo_image() {
+        return video_image;
+    }
+
+    public void setVideo_image(Bitmap video_image) {
+        this.video_image = video_image;
     }
 }

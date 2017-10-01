@@ -12,6 +12,7 @@
     <string name="img_save">保存图片</string>
     <string name="share">分享</string>
     <string name="cancel">取消</string>
+    <string name="comment">评论</string>
 
     <string name="history_today">今天</string>
     <string name="history_seven_day">七天内</string>

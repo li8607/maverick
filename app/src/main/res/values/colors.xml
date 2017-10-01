@@ -14,6 +14,7 @@
     
     <color name="sister_divider_color">#e6e6e6</color>
     <color name="sister_time_color">#949494</color>
+    <color name="sister_name_color">#4373a9</color>
     <color name="sister_content_color">#333333</color>
 
     <color name="sister_count_color">#929292</color>

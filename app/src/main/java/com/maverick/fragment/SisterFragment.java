@@ -70,7 +70,7 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
 
             @Override
             public void onLoadMore() {
-
+                mPresenter.loadMoreData();
             }
         });
 
@@ -107,8 +107,12 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
     }
 
     @Override
-    public void onLoadMoreSuccess(List<SisterInfo> beautyInfo, boolean isHasMore) {
+    public void onLoadMoreSuccess(List<SisterInfo> list, boolean isHasMore) {
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+        pullLoadMoreRecyclerView.setHasMore(isHasMore);
+        int positionStart = mSisterFragmentAdapter.getItemCount();
+        mSisterFragmentAdapter.setMoreData(list);
+        mSisterFragmentAdapter.notifyItemRangeInserted(positionStart, list.size());
     }
 
     @Override
