@@ -5,7 +5,10 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.maverick.R;
 import com.maverick.adapter.BeautyFragmentAdapter;
@@ -32,6 +35,7 @@ public class BeautyFragment extends BaseFragment2 implements IBeautyFragmentView
     private BeautyFragmentAdapter mBeautyFragmentAdapter;
     private BeautyFragmentPresenter mPresenter;
     private PullLoadMoreRecyclerView pullLoadMoreRecyclerView;
+    private ViewGroup root;
 
     public static BeautyFragment newInstance() {
         BeautyFragment fragment = new BeautyFragment();
@@ -51,6 +55,9 @@ public class BeautyFragment extends BaseFragment2 implements IBeautyFragmentView
 
     @Override
     protected void onInitView(View view) {
+
+        root = findView(R.id.root);
+
         pullLoadMoreRecyclerView = findView(R.id.recyclerView);
         pullLoadMoreRecyclerView.setHasMore(true);
         pullLoadMoreRecyclerView.setPullRefreshEnable(true);
@@ -100,7 +107,8 @@ public class BeautyFragment extends BaseFragment2 implements IBeautyFragmentView
 
     @Override
     protected void onInitData(Bundle savedInstanceState) {
-        mPresenter.refreshData();
+        pullLoadMoreRecyclerView.setRefreshing(true);
+        pullLoadMoreRecyclerView.refresh();
     }
 
     @Override
@@ -113,11 +121,43 @@ public class BeautyFragment extends BaseFragment2 implements IBeautyFragmentView
     @Override
     public void onShowEmptyView() {
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+
+        View view = View.inflate(root.getContext(), R.layout.view_empty, null);
+
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams.gravity = Gravity.CENTER;
+
+        root.addView(view, layoutParams);
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                root.removeView(v);
+                pullLoadMoreRecyclerView.setRefreshing(true);
+                pullLoadMoreRecyclerView.refresh();
+            }
+        });
     }
 
     @Override
     public void onShowErrorView() {
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+
+        View view = View.inflate(root.getContext(), R.layout.view_error, null);
+
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams.gravity = Gravity.CENTER;
+
+        root.addView(view, layoutParams);
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                root.removeView(v);
+                pullLoadMoreRecyclerView.setRefreshing(true);
+                pullLoadMoreRecyclerView.refresh();
+            }
+        });
     }
 
     @Override

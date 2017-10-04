@@ -5,9 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.maverick.bean.JokeTabInfo;
-import com.maverick.fragment.GifFragment;
-import com.maverick.fragment.ImgFragment;
-import com.maverick.fragment.TextFragment;
+import com.maverick.fragment.JokeItemFragment;
 
 import java.util.List;
 
@@ -24,25 +22,8 @@ public class JokeFragmentAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-
         JokeTabInfo jokeTabInfo = mList.get(position);
-        Fragment fragment;
-        switch (jokeTabInfo.getType()) {
-            case 0:
-                fragment = TextFragment.newInstance();
-                break;
-            case 1:
-                fragment = ImgFragment.newInstance();
-                break;
-            case 2:
-                fragment = GifFragment.newInstance();
-                break;
-            default:
-                fragment = new Fragment();
-                break;
-        }
-
-        return fragment;
+        return JokeItemFragment.newInstance(jokeTabInfo);
     }
 
     @Override

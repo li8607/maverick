@@ -12,17 +12,22 @@
     <include layout="@layout/item_sister_content" />
 
     <FrameLayout
-        android:id="@+id/video_root"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/y5">
+        android:background="#000"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x227"
+        android:layout_marginTop="@dimen/y5">
 
-        <com.maverick.weight.MyImageView
-            android:id="@+id/image"
+        <FrameLayout
+            android:id="@+id/video_root"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop" />
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/list_item_btn"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:src="@drawable/video_click_play_selector" />
 
     </FrameLayout>
 

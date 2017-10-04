@@ -14,6 +14,7 @@ import com.maverick.adapter.holder.SisterTextHolder;
 import com.maverick.adapter.holder.SisterVideoHolder;
 import com.maverick.bean.SisterInfo;
 import com.maverick.global.Tag;
+import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
 
 import java.util.List;
 
@@ -63,7 +64,13 @@ public class SisterFragmentAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof SisterTextHolder) {
+
+        if(holder instanceof SisterVideoHolder) {
+            SisterVideoHolder sisterVideoHolder = (SisterVideoHolder) holder;
+            sisterVideoHolder.setListVideoUtil(listVideoUtil);
+            sisterVideoHolder.setRecyclerAdapter(this);
+            sisterVideoHolder.bindData(mContext, mList.get(position));
+        }else if (holder instanceof SisterTextHolder) {
             SisterTextHolder sisterTextHolder = (SisterTextHolder) holder;
             sisterTextHolder.bindData(mContext, mList.get(position));
         }
@@ -103,5 +110,11 @@ public class SisterFragmentAdapter extends RecyclerView.Adapter {
         if (mList != null) {
             mList.addAll(list);
         }
+    }
+
+    private ListVideoUtil listVideoUtil;
+
+    public void setListVideoUtil(ListVideoUtil listVideoUtil) {
+        this.listVideoUtil = listVideoUtil;
     }
 }

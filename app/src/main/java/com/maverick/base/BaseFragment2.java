@@ -42,7 +42,7 @@ public abstract class BaseFragment2 extends Fragment {
 
     @Override
     public void onDestroyView() {
-        if(mBasePresenter != null) {
+        if (mBasePresenter != null) {
             mBasePresenter.release();
         }
         super.onDestroyView();
@@ -88,4 +88,7 @@ public abstract class BaseFragment2 extends Fragment {
         dialogFragment.show(fragmentTransaction, tag);
     }
 
+    public boolean onBackPressed() {
+        return false;
+    }
 }

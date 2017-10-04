@@ -1,26 +1,27 @@
 package com.maverick;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.maverick.base.BaseActivity;
+import com.maverick.base.BaseFragment2;
 import com.maverick.bean.ButtonInfo;
 import com.maverick.bean.SisterDetailInfo;
 import com.maverick.fragment.BeautyFragment;
 import com.maverick.fragment.JokeFragment;
 import com.maverick.fragment.MyFragment;
 import com.maverick.fragment.SisterFragment;
+import com.maverick.weight.ToolbarView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,11 @@ public class MainActivity2 extends BaseActivity {
     private RadioButton radio_1;
     private RadioButton radio_2;
     private RadioButton radio_3;
+    private JokeFragment mJokeFragment;
+    private BeautyFragment mBeautyFragment;
+    private SisterFragment mSisterFragment;
+    private MyFragment mMyFragment;
+    private TextView title;
 
     @Override
     protected com.maverick.presenter.BasePresenter onCreatePresenter() {
@@ -55,25 +61,40 @@ public class MainActivity2 extends BaseActivity {
         radio_2 = findView(R.id.radio_2);
         radio_3 = findView(R.id.radio_3);
 
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        title = (TextView) findViewById(R.id.title);
+        title.setVisibility(View.VISIBLE);
 
         radio_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.radio_0:
-                        switchFragment(JokeFragment.newInstance());
+                        if (mJokeFragment == null) {
+                            mJokeFragment = JokeFragment.newInstance();
+                        }
+                        switchFragment(mJokeFragment);
+                        title.setText(radio_0.getText());
                         break;
                     case R.id.radio_1:
-                        switchFragment(BeautyFragment.newInstance());
+                        if (mBeautyFragment == null) {
+                            mBeautyFragment = BeautyFragment.newInstance();
+                        }
+                        switchFragment(mBeautyFragment);
+                        title.setText(radio_1.getText());
                         break;
                     case R.id.radio_2:
-                        switchFragment(SisterFragment.newInstance(new SisterDetailInfo()));
+                        if (mSisterFragment == null) {
+                            mSisterFragment = SisterFragment.newInstance(new SisterDetailInfo());
+                        }
+                        switchFragment(mSisterFragment);
+                        title.setText(radio_2.getText());
                         break;
                     case R.id.radio_3:
-                        switchFragment(MyFragment.newInstance());
+                        if (mMyFragment == null) {
+                            mMyFragment = MyFragment.newInstance();
+                        }
+                        switchFragment(mMyFragment);
+                        title.setText(radio_3.getText());
                         break;
                 }
             }
@@ -83,15 +104,15 @@ public class MainActivity2 extends BaseActivity {
     @Override
     protected void onInitData(Bundle savedInstanceState) {
 
-        List<ButtonInfo> list = new ArrayList<>();
-        list.add(getButtonInfo("笑话", R.drawable.ic_menu_gallery));
-        list.add(getButtonInfo("美女", R.drawable.ic_menu_camera));
-        list.add(getButtonInfo("百思不得姐", R.drawable.ic_menu_send));
-        list.add(getButtonInfo("我的", R.drawable.ic_menu_manage));
+        List<ButtonInfo> mList = new ArrayList<>();
+        mList.add(getButtonInfo("笑话", R.drawable.bottom_joke_selector));
+        mList.add(getButtonInfo("美女", R.drawable.bottom_beauty_selector));
+        mList.add(getButtonInfo("百思不得姐", R.drawable.bottom_sister_selector));
+        mList.add(getButtonInfo("我的", R.drawable.bottom_my_selector));
 
 
-        for (int i = 0; i < list.size(); i++) {
-            ButtonInfo buttonInfo = list.get(i);
+        for (int i = 0; i < mList.size(); i++) {
+            ButtonInfo buttonInfo = mList.get(i);
 
             switch (i) {
                 case 0:
@@ -110,11 +131,34 @@ public class MainActivity2 extends BaseActivity {
         }
 
         radio_0.setChecked(true);
-        switchFragment(JokeFragment.newInstance());
+        if (mJokeFragment == null) {
+            mJokeFragment = JokeFragment.newInstance();
+        }
+        switchFragment(mJokeFragment);
     }
 
-    private void switchFragment(Fragment fragment) {
-        replaceFragment(R.id.content, fragment);
+    private BaseFragment2 mFragment;
+
+    private void switchFragment(BaseFragment2 fragment) {
+
+        if (fragment == null || fragment.isVisible() || fragment.equals(mFragment)) {
+            return;
+        }
+
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        if (mFragment != null && mFragment.isAdded()) {
+            transaction.hide(mFragment);
+        }
+
+        if (!fragment.isAdded()) {
+            transaction.add(R.id.content, fragment, "");
+        } else {
+            transaction.show(fragment);
+        }
+
+        transaction.commitAllowingStateLoss();
+        this.mFragment = fragment;
     }
 
     private void showToast(String str) {
@@ -138,7 +182,7 @@ public class MainActivity2 extends BaseActivity {
         } else {
             drawable = getResources().getDrawable(buttonInfo.getIconId());
         }
-        drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+        drawable.setBounds(0, 0, getResources().getDimensionPixelSize(R.dimen.x16), getResources().getDimensionPixelSize(R.dimen.x16));
         radioButton.setCompoundDrawables(null, drawable, null, null);
     }
 
@@ -147,5 +191,13 @@ public class MainActivity2 extends BaseActivity {
         buttonInfo.setName(name);
         buttonInfo.setIconId(iconId);
         return buttonInfo;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mFragment != null && mFragment.onBackPressed()) {
+            return;
+        }
+        super.onBackPressed();
     }
 }

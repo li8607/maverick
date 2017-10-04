@@ -1,26 +1,14 @@
 package com.maverick.adapter.holder;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.media.MediaMetadataRetriever;
-import android.media.ThumbnailUtils;
-import android.net.Uri;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.maverick.R;
+import com.maverick.adapter.SisterFragmentAdapter;
 import com.maverick.bean.SisterInfo;
-import com.maverick.util.GlideUtil;
-import com.maverick.util.MyVideoThumbLoader;
-import com.maverick.weight.MyImageView;
-import com.maverick.weight.RatioImageView;
-
-import java.util.HashMap;
-
-import tv.danmaku.ijk.media.example.widget.media.IjkVideoView;
-import tv.danmaku.ijk.media.player.IjkMediaPlayer;
+import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
 
 
 /**
@@ -28,54 +16,57 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer;
  */
 public class SisterVideoHolder extends SisterTextHolder {
 
+    public final static String TAG = "RecyclerView2List";
+
     private SisterInfo mSisterInfo;
-    private final MyImageView image;
+    private final ImageView image;
     private final ViewGroup video_root;
-    private MyVideoThumbLoader mVideoThumbLoader;
+    private ListVideoUtil listVideoUtil;
+    private final View list_item_btn;
 
     public SisterVideoHolder(View itemView) {
         super(itemView);
-        image = (MyImageView) itemView.findViewById(R.id.image);
+        image = new ImageView(itemView.getContext());
+        list_item_btn = itemView.findViewById(R.id.list_item_btn);
 
-//        image.setOnClickListener(this);
-        itemView.setOnClickListener(this);
+        list_item_btn.setOnClickListener(this);
 
         video_root = (ViewGroup) itemView.findViewById(R.id.video_root);
-
-        mVideoThumbLoader = new MyVideoThumbLoader(itemView.getContext());
     }
 
     public void bindData(Context context, SisterInfo sisterInfo) {
         super.bindData(context, sisterInfo);
         this.mSisterInfo = sisterInfo;
-        name.setText("（视频）");
-        Log.e(TAG, "sisterInfo = " + sisterInfo.getVideo_uri());
-        image.setTag(sisterInfo.getVideo_uri());
-        mVideoThumbLoader.showThumbByAsynctack(sisterInfo.getVideo_uri(), image);
+        listVideoUtil.addVideoPlayer(getAdapterPosition(), image, TAG, video_root, list_item_btn);
     }
 
 
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        openVideo();
+        openVideo(v);
     }
 
-    private void openVideo() {
-        IjkVideoView ijkVideoView = new IjkVideoView(video_root.getContext());
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        video_root.addView(ijkVideoView, layoutParams);
+    private void openVideo(View v) {
 
         if (mSisterInfo.getVideo_uri() == null) {
-            Log.e(TAG, "mSisterInfo.getVideo_uri() == null");
             return;
         }
 
-        IjkMediaPlayer.loadLibrariesOnce(null);
-        IjkMediaPlayer.native_profileBegin("libijkplayer.so");
+        listVideoUtil.setPlayPositionAndTag(getAdapterPosition(), TAG);
+        listVideoUtil.setTitle(mSisterInfo.getText());
+        listVideoUtil.startPlay(mSisterInfo.getVideo_uri());
 
-        Log.e(TAG, "mSisterInfo.getVideo_uri() = " + mSisterInfo.getVideo_uri());
-        ijkVideoView.setVideoURI(Uri.parse(mSisterInfo.getVideo_uri()));
-        ijkVideoView.start();
+        sisterFragmentAdapter.notifyDataSetChanged();
+    }
+
+    public void setListVideoUtil(ListVideoUtil listVideoUtil) {
+        this.listVideoUtil = listVideoUtil;
+    }
+
+    private SisterFragmentAdapter sisterFragmentAdapter;
+
+    public void setRecyclerAdapter(SisterFragmentAdapter sisterFragmentAdapter) {
+        this.sisterFragmentAdapter = sisterFragmentAdapter;
     }
 }

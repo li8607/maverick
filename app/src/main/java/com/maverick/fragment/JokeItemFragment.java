@@ -5,15 +5,20 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.maverick.R;
-import com.maverick.adapter.TextAdapter;
+import com.maverick.adapter.JokeItemFragmentAdapter;
 import com.maverick.base.BaseFragment2;
 import com.maverick.bean.GifInfo;
+import com.maverick.bean.JokeTabInfo;
+import com.maverick.global.Tag;
 import com.maverick.presenter.BasePresenter;
-import com.maverick.presenter.TextFragmentPresenter2;
-import com.maverick.presenter.implView.TextFragmentView;
+import com.maverick.presenter.JokeItemFragmentPresenter;
+import com.maverick.presenter.implView.IJokeItemFragmentView;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import java.util.List;
@@ -21,21 +26,28 @@ import java.util.List;
 /**
  * Created by ll on 2017/5/22.
  */
-public class TextFragment extends BaseFragment2 implements TextFragmentView {
+public class JokeItemFragment extends BaseFragment2 implements IJokeItemFragmentView {
 
-    private TextFragmentPresenter2 mPresenter;
-    private TextAdapter mTextAdapter;
+    private JokeItemFragmentPresenter mPresenter;
+    private JokeItemFragmentAdapter mJokeItemFragmentAdapter;
     private LinearLayoutManager mLinearLayoutManager;
     private PullLoadMoreRecyclerView pullLoadMoreRecyclerView;
+    private FrameLayout root;
+    private JokeTabInfo mJokeTabInfo;
 
-    public static TextFragment newInstance() {
-        TextFragment fragment = new TextFragment();
+    public static JokeItemFragment newInstance(JokeTabInfo jokeTabInfo) {
+        JokeItemFragment fragment = new JokeItemFragment();
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(Tag.KEY_INFO, jokeTabInfo);
+        fragment.setArguments(bundle);
+
         return fragment;
     }
 
     @Override
     protected BasePresenter onCreatePresenter() {
-        mPresenter = new TextFragmentPresenter2(getContext(), this);
+        mPresenter = new JokeItemFragmentPresenter(getContext(), this);
         return mPresenter;
     }
 
@@ -47,6 +59,8 @@ public class TextFragment extends BaseFragment2 implements TextFragmentView {
     @Override
     protected void onInitView(View view) {
 
+        root = findView(R.id.root);
+
         pullLoadMoreRecyclerView = findView(R.id.recyclerView);
 
         RecyclerView mRecyclerView = pullLoadMoreRecyclerView.getRecyclerView();
@@ -54,8 +68,8 @@ public class TextFragment extends BaseFragment2 implements TextFragmentView {
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        mTextAdapter = new TextAdapter(getContext());
-        mRecyclerView.setAdapter(mTextAdapter);
+        mJokeItemFragmentAdapter = new JokeItemFragmentAdapter(getContext());
+        mRecyclerView.setAdapter(mJokeItemFragmentAdapter);
 
 
         final int bottom = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getContext().getResources().getDisplayMetrics()));
@@ -75,7 +89,7 @@ public class TextFragment extends BaseFragment2 implements TextFragmentView {
         pullLoadMoreRecyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
             @Override
             public void onRefresh() {
-                mPresenter.refreshData();
+                mPresenter.refreshData(mJokeTabInfo);
             }
 
             @Override
@@ -87,7 +101,12 @@ public class TextFragment extends BaseFragment2 implements TextFragmentView {
 
     @Override
     protected void onInitData(Bundle savedInstanceState) {
-        mPresenter.refreshData();
+
+        mJokeTabInfo = (JokeTabInfo) getArguments().getSerializable(Tag.KEY_INFO);
+
+        pullLoadMoreRecyclerView.setRefreshing(true);
+        pullLoadMoreRecyclerView.refresh();
+//        mPresenter.refreshData();
     }
 
 //    public void randomReFresh() {
@@ -101,27 +120,59 @@ public class TextFragment extends BaseFragment2 implements TextFragmentView {
     public void onShowSuccessView(List<GifInfo> gifInfos) {
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
         pullLoadMoreRecyclerView.setHasMore(true);
-        mTextAdapter.setData(gifInfos);
-        mTextAdapter.notifyDataSetChanged();
+        mJokeItemFragmentAdapter.setData(gifInfos);
+        mJokeItemFragmentAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onShowEmptyView() {
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+
+        View view = View.inflate(root.getContext(), R.layout.view_empty, null);
+
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams.gravity = Gravity.CENTER;
+
+        root.addView(view, layoutParams);
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                root.removeView(v);
+                pullLoadMoreRecyclerView.setRefreshing(true);
+                pullLoadMoreRecyclerView.refresh();
+            }
+        });
     }
 
     @Override
     public void onShowErrorView() {
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+
+        View view = View.inflate(root.getContext(), R.layout.view_error, null);
+
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams.gravity = Gravity.CENTER;
+
+        root.addView(view, layoutParams);
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                root.removeView(v);
+                pullLoadMoreRecyclerView.setRefreshing(true);
+                pullLoadMoreRecyclerView.refresh();
+            }
+        });
     }
 
     @Override
     public void onLoadMoreSuccess(List<GifInfo> beautyInfo, boolean isHasMore) {
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
         pullLoadMoreRecyclerView.setHasMore(isHasMore);
-        int startPosition = mTextAdapter.getItemCount();
-        mTextAdapter.setMoreData(beautyInfo);
-        mTextAdapter.notifyItemRangeInserted(startPosition, beautyInfo.size());
+        int startPosition = mJokeItemFragmentAdapter.getItemCount();
+        mJokeItemFragmentAdapter.setMoreData(beautyInfo);
+        mJokeItemFragmentAdapter.notifyItemRangeInserted(startPosition, beautyInfo.size());
     }
 
     @Override

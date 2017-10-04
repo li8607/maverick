@@ -3,8 +3,8 @@
 
     <color name="colorWhite">#ffffff</color>
 
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#ff2d55</color>
+    <color name="colorPrimaryDark">#ff2d55</color>
     <color name="colorAccent">#FF4081</color>
 
     <color name="colorBackground">#333333</color>
@@ -19,5 +19,18 @@
 
     <color name="sister_count_color">#929292</color>
     <color name="sister_count_select_color">#ff2d55</color>
+
+    <color name="tool_bar_background_color">#ff2d55</color>
+
+    <color name="bottom_bar_background_color">#f6f6f6</color>
+    <color name="bottom_bar_line_background_color">#ececec</color>
+
+    <color name="tab_layout_text_select_color">#ffffff</color>
+    <color name="tab_layout_text_color">#ffabc7</color>
+    <color name="tab_layout_indicator_color">#ffffff</color>
+
+    <color name="result_text_color">#333333</color>
+
+    <color name="joke_time_color">#b6b6b6</color>
 
 </resources>

@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by ll on 2017/5/22.
  */
-public interface TextFragmentView {
+public interface IJokeItemFragmentView {
 
     void onShowSuccessView(List<GifInfo> beautyInfo);
 

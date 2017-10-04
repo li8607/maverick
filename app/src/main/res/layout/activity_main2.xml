@@ -1,54 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:clipChildren="true"
-    android:clipToPadding="true"
-    android:layout_height="match_parent">
+    android:clipToPadding="true">
 
-    <android.support.design.widget.CoordinatorLayout
-        android:fitsSystemWindows="true"
-        android:layout_above="@+id/radio_group"
+    <include
+        android:id="@+id/toolbar_root"
+        layout="@layout/tool_bar_layout" />
+
+    <include layout="@layout/content_main2" />
+
+    <View
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <android.support.design.widget.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:layout_scrollFlags="scroll|enterAlways"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
-
-        </android.support.design.widget.AppBarLayout>
-
-        <include layout="@layout/content_main2" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_margin="@dimen/fab_margin"
-            android:src="@android:drawable/ic_dialog_email" />
-
-    </android.support.design.widget.CoordinatorLayout>
+        android:layout_height="@dimen/x1"
+        android:layout_above="@+id/radio_group"
+        android:background="@color/bottom_bar_line_background_color" />
 
     <RadioGroup
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp"
-        android:layout_alignParentBottom="true"
         android:id="@+id/radio_group"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="@dimen/y30"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bottom_bar_background_color"
+        android:orientation="horizontal"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp">
 
         <RadioButton
+            android:textSize="@dimen/x8"
             android:id="@+id/radio_0"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -56,6 +36,7 @@
             android:button="@null" />
 
         <RadioButton
+            android:textSize="@dimen/x8"
             android:id="@+id/radio_1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -63,6 +44,7 @@
             android:button="@null" />
 
         <RadioButton
+            android:textSize="@dimen/x8"
             android:id="@+id/radio_2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -70,6 +52,7 @@
             android:button="@null" />
 
         <RadioButton
+            android:textSize="@dimen/x8"
             android:id="@+id/radio_3"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -78,5 +61,8 @@
 
     </RadioGroup>
 
-
+    <FrameLayout
+        android:id="@+id/video_full_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </RelativeLayout>

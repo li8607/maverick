@@ -11,6 +11,7 @@ import com.maverick.adapter.JokeFragmentAdapter;
 import com.maverick.base.BaseFragment2;
 import com.maverick.bean.ButtonInfo;
 import com.maverick.bean.JokeTabInfo;
+import com.maverick.global.Tag;
 import com.maverick.presenter.BasePresenter;
 
 import java.util.ArrayList;
@@ -54,9 +55,9 @@ public class JokeFragment extends BaseFragment2 {
     protected void onInitData(Bundle savedInstanceState) {
 
         List<JokeTabInfo> list = new ArrayList<>();
-        list.add(getJokeTabInfo("文本笑话", 0));
-        list.add(getJokeTabInfo("图文笑话", 1));
-        list.add(getJokeTabInfo("动图笑话", 2));
+        list.add(getJokeTabInfo("文本笑话", Tag.JOKE_TAB_TEXT));
+        list.add(getJokeTabInfo("图文笑话", Tag.JOKE_TAB_IMG));
+        list.add(getJokeTabInfo("动图笑话", Tag.JOKE_TAB_GIF));
 
         mJokeFragmentAdapter.setData(list);
         mJokeFragmentAdapter.notifyDataSetChanged();

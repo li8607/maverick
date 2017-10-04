@@ -16,9 +16,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.maverick.fragment.BaseFragment;
-import com.maverick.fragment.GifFragment;
-import com.maverick.fragment.ImgFragment;
-import com.maverick.fragment.TextFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -67,7 +64,7 @@ public class MainActivity extends AppCompatActivity
 //                fragment = ImgFragment.newInstance();
                 break;
             case R.id.nav_text:
-//                fragment = TextFragment.newInstance();
+//                fragment = JokeItemFragment.newInstance();
                 break;
             default:
 //                fragment = GifFragment.newInstance();

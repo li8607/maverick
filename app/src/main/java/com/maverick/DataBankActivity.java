@@ -51,8 +51,11 @@ public class DataBankActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void onInitView() {
         View back = findView(R.id.back);
+        back.setVisibility(View.VISIBLE);
         back.setOnClickListener(this);
+
         title = findView(R.id.title);
+        title.setVisibility(View.VISIBLE);
 
         edit = findView(R.id.edit);
         edit.setOnClickListener(this);
