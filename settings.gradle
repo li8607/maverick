@@ -1,1 +1,1 @@
-include ':app', ':greendaolibrary', ':ijkplayer-java', ':ijkplayer-example', ':ijkplayer-exo'
+include ':app', ':greendaolibrary'
