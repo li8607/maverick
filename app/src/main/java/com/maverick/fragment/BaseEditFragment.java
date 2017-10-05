@@ -25,8 +25,6 @@ public class BaseEditFragment extends BaseFragment2 {
     public static final int STATE_ALL_CHECK = 3;
     public int checkState = STATE_NO_ALL_CHECK;
 
-    private TextView title;
-
     public static BaseEditFragment newInstance(CollectTabInfo collectTabInfo) {
         BaseEditFragment fragment = new BaseEditFragment();
 
@@ -44,20 +42,15 @@ public class BaseEditFragment extends BaseFragment2 {
 
     @Override
     protected int getRootViewId() {
-        return R.layout.fragment_collect_item;
+        return R.layout.item_collect_beauty;
     }
 
     @Override
     protected void onInitView(View view) {
-        title = findView(R.id.title);
     }
 
     @Override
     protected void onInitData(Bundle savedInstanceState) {
-        CollectTabInfo collectTabInfo = (CollectTabInfo) getArguments().getSerializable(Tag.KEY_INFO);
-        if (!TextUtils.isEmpty(collectTabInfo.getTitle())) {
-            title.setText(collectTabInfo.getTitle());
-        }
     }
 
     public int getStateEdit() {

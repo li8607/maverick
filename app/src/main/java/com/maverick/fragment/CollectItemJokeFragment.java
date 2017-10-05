@@ -1,8 +1,7 @@
 package com.maverick.fragment;
 
-import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.View;
@@ -11,13 +10,15 @@ import android.widget.FrameLayout;
 
 import com.maverick.R;
 import com.maverick.adapter.CollectItemBeautyFragmentAdapter;
+import com.maverick.adapter.CollectItemJokeFragmentAdapter;
+import com.maverick.adapter.holder.CollectJokeImgViewHolder;
+import com.maverick.adapter.holder.CollectJokeTextViewHolder;
 import com.maverick.bean.CollectTabInfo;
 import com.maverick.global.Tag;
 import com.maverick.model.CollectModel;
 import com.maverick.presenter.BasePresenter;
-import com.maverick.presenter.CollectItemBeautyFragmentPresenter;
-import com.maverick.presenter.implView.ICollectItemBeautyFragmentView;
-import com.maverick.util.DensityUtil;
+import com.maverick.presenter.CollectItemJokeFragmentPresenter;
+import com.maverick.presenter.implView.ICollectItemJokeFragmentView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,35 +26,35 @@ import java.util.List;
 import cntv.greendaolibrary.dbbean.Collect;
 
 /**
- * Created by limingfei on 2017/9/29.
+ * Created by limingfei on 2017/10/4.
  */
-public class CollectItemBeautyFragment extends BaseEditFragment implements ICollectItemBeautyFragmentView {
+public class CollectItemJokeFragment extends BaseEditFragment implements ICollectItemJokeFragmentView {
 
-    private static final int spanCount = 3;
-    private CollectItemBeautyFragmentAdapter mCollectItemBeautyFragmentAdapter;
-    private CollectItemBeautyFragmentPresenter mPresenter;
+    private CollectItemJokeFragmentAdapter mAdapter;
+    private CollectItemJokeFragmentPresenter mPresenter;
     private RecyclerView recyclerView;
     private ViewGroup root;
+    private CollectTabInfo mCollectTabInfo;
 
-    public static CollectItemBeautyFragment newInstance(CollectTabInfo collectTabInfo) {
-        CollectItemBeautyFragment fragment = new CollectItemBeautyFragment();
+    public static CollectItemJokeFragment newInstance(CollectTabInfo collectTabInfo) {
+        CollectItemJokeFragment fragment = new CollectItemJokeFragment();
 
         Bundle bundle = new Bundle();
         bundle.putSerializable(Tag.KEY_INFO, collectTabInfo);
-        fragment.setArguments(bundle);
 
+        fragment.setArguments(bundle);
         return fragment;
     }
 
     @Override
     protected BasePresenter onCreatePresenter() {
-        mPresenter = new CollectItemBeautyFragmentPresenter(getContext(), this);
+        mPresenter = new CollectItemJokeFragmentPresenter(getContext(), this);
         return mPresenter;
     }
 
     @Override
     protected int getRootViewId() {
-        return R.layout.item_collect_beauty;
+        return R.layout.item_collect_joke;
     }
 
     @Override
@@ -63,22 +64,17 @@ public class CollectItemBeautyFragment extends BaseEditFragment implements IColl
         root = findView(R.id.root);
 
         recyclerView = findView(R.id.recyclerView);
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), spanCount);
-        layoutManager.setOrientation(GridLayoutManager.VERTICAL);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        mCollectItemBeautyFragmentAdapter = new CollectItemBeautyFragmentAdapter(getContext());
-        recyclerView.setAdapter(mCollectItemBeautyFragmentAdapter);
 
-        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
-            @Override
-            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                outRect.bottom = DensityUtil.dip2px(getContext(), 10);
-                outRect.left = DensityUtil.dip2px(getContext(), 5);
-                outRect.right = DensityUtil.dip2px(getContext(), 5);
-            }
-        });
+        recyclerView.setHasFixedSize(true);
 
-        mCollectItemBeautyFragmentAdapter.setOnAdapterListener(new CollectItemBeautyFragmentAdapter.OnAdapterListener() {
+        mAdapter = new CollectItemJokeFragmentAdapter(getContext());
+        recyclerView.setAdapter(mAdapter);
+
+        mAdapter.setOnCollectJokeTextViewHolderListener(new CollectJokeTextViewHolder.OnCollectJokeTextViewHolderListener() {
             @Override
             public void onItemClick(int position, Collect collect) {
                 checkState = getClickCheckState();
@@ -93,7 +89,7 @@ public class CollectItemBeautyFragment extends BaseEditFragment implements IColl
 
         int checkState = STATE_NO_ALL_CHECK;
 
-        List<Collect> list = mCollectItemBeautyFragmentAdapter.getData();
+        List<Collect> list = mAdapter.getData();
 
         if (list == null || list.size() < 1) {
             return checkState;
@@ -123,16 +119,16 @@ public class CollectItemBeautyFragment extends BaseEditFragment implements IColl
     @Override
     protected void onInitData(Bundle savedInstanceState) {
         super.onInitData(savedInstanceState);
-        CollectTabInfo collectTabInfo = (CollectTabInfo) getArguments().getSerializable(Tag.KEY_INFO);
-        mPresenter.loadData();
+        mCollectTabInfo = (CollectTabInfo) getArguments().getSerializable(Tag.KEY_INFO);
+        mPresenter.loadData(mCollectTabInfo);
     }
 
     @Override
     protected void openEditState() {
         super.openEditState();
-        mCollectItemBeautyFragmentAdapter.setEditState(true);
+        mAdapter.setEditState(true);
 
-        List<Collect> list = mCollectItemBeautyFragmentAdapter.getData();
+        List<Collect> list = mAdapter.getData();
 
         if (list == null || list.size() < 1) {
             return;
@@ -143,10 +139,10 @@ public class CollectItemBeautyFragment extends BaseEditFragment implements IColl
             collect.setCheck(false);
             RecyclerView.ViewHolder holder = recyclerView.findViewHolderForAdapterPosition(i);
             if (holder == null) {
-                mCollectItemBeautyFragmentAdapter.notifyItemChanged(i);
+                mAdapter.notifyItemChanged(i);
             } else {
-                CollectItemBeautyFragmentAdapter.CollectBeautyViewHolder collectBeautyViewHolder = (CollectItemBeautyFragmentAdapter.CollectBeautyViewHolder) holder;
-                collectBeautyViewHolder.setCheckViewVisible(View.VISIBLE, false);
+                CollectJokeTextViewHolder collectJokeTextViewHolder = (CollectJokeTextViewHolder) holder;
+                collectJokeTextViewHolder.setCheckViewVisible(View.VISIBLE, false, true);
             }
         }
     }
@@ -154,9 +150,9 @@ public class CollectItemBeautyFragment extends BaseEditFragment implements IColl
     @Override
     protected void closeEditState() {
         super.closeEditState();
-        mCollectItemBeautyFragmentAdapter.setEditState(false);
+        mAdapter.setEditState(false);
 
-        List<Collect> list = mCollectItemBeautyFragmentAdapter.getData();
+        List<Collect> list = mAdapter.getData();
 
         if (list == null || list.size() < 1) {
             return;
@@ -167,17 +163,17 @@ public class CollectItemBeautyFragment extends BaseEditFragment implements IColl
             collect.setCheck(false);
             RecyclerView.ViewHolder holder = recyclerView.findViewHolderForAdapterPosition(i);
             if (holder == null) {
-                mCollectItemBeautyFragmentAdapter.notifyItemChanged(i);
+                mAdapter.notifyItemChanged(i);
             } else {
-                CollectItemBeautyFragmentAdapter.CollectBeautyViewHolder collectBeautyViewHolder = (CollectItemBeautyFragmentAdapter.CollectBeautyViewHolder) holder;
-                collectBeautyViewHolder.setCheckViewVisible(View.INVISIBLE, false);
+                CollectJokeTextViewHolder collectJokeTextViewHolder = (CollectJokeTextViewHolder) holder;
+                collectJokeTextViewHolder.setCheckViewVisible(View.INVISIBLE, false, false);
             }
         }
     }
 
     @Override
     public boolean isSelectorAll() {
-        List<Collect> list = mCollectItemBeautyFragmentAdapter.getData();
+        List<Collect> list = mAdapter.getData();
 
         if (list == null || list.size() < 1) {
             return false;
@@ -190,7 +186,7 @@ public class CollectItemBeautyFragment extends BaseEditFragment implements IColl
     public void selectorAll() {
         super.selectorAll();
 
-        List<Collect> list = mCollectItemBeautyFragmentAdapter.getData();
+        List<Collect> list = mAdapter.getData();
 
         if (list == null || list.size() < 1) {
             return;
@@ -205,10 +201,10 @@ public class CollectItemBeautyFragment extends BaseEditFragment implements IColl
 
             RecyclerView.ViewHolder holder = recyclerView.findViewHolderForAdapterPosition(i);
             if (holder == null) {
-                mCollectItemBeautyFragmentAdapter.notifyItemChanged(i);
+                mAdapter.notifyItemChanged(i);
             } else {
-                CollectItemBeautyFragmentAdapter.CollectBeautyViewHolder collectBeautyViewHolder = (CollectItemBeautyFragmentAdapter.CollectBeautyViewHolder) holder;
-                collectBeautyViewHolder.setCheck(true);
+                CollectJokeTextViewHolder collectJokeTextViewHolder = (CollectJokeTextViewHolder) holder;
+                collectJokeTextViewHolder.setCheck(true);
             }
         }
     }
@@ -216,7 +212,7 @@ public class CollectItemBeautyFragment extends BaseEditFragment implements IColl
     @Override
     public void cancelAll() {
         super.cancelAll();
-        List<Collect> list = mCollectItemBeautyFragmentAdapter.getData();
+        List<Collect> list = mAdapter.getData();
 
         if (list == null || list.size() < 1) {
             return;
@@ -231,10 +227,10 @@ public class CollectItemBeautyFragment extends BaseEditFragment implements IColl
 
             RecyclerView.ViewHolder holder = recyclerView.findViewHolderForAdapterPosition(i);
             if (holder == null) {
-                mCollectItemBeautyFragmentAdapter.notifyItemChanged(i);
+                mAdapter.notifyItemChanged(i);
             } else {
-                CollectItemBeautyFragmentAdapter.CollectBeautyViewHolder collectBeautyViewHolder = (CollectItemBeautyFragmentAdapter.CollectBeautyViewHolder) holder;
-                collectBeautyViewHolder.setCheck(false);
+                CollectJokeTextViewHolder collectJokeTextViewHolder = (CollectJokeTextViewHolder) holder;
+                collectJokeTextViewHolder.setCheck(false);
             }
         }
     }
@@ -242,7 +238,7 @@ public class CollectItemBeautyFragment extends BaseEditFragment implements IColl
     @Override
     public void delete() {
         super.delete();
-        List<Collect> list = mCollectItemBeautyFragmentAdapter.getData();
+        List<Collect> list = mAdapter.getData();
 
         if (list == null || list.size() < 1) {
             return;
@@ -259,13 +255,13 @@ public class CollectItemBeautyFragment extends BaseEditFragment implements IColl
 
         if (tempList.size() == 1) {
             Collect collect = tempList.get(0);
-            mCollectItemBeautyFragmentAdapter.notifyItemRemoved(list.indexOf(collect));
-            mCollectItemBeautyFragmentAdapter.notifyItemChanged(list.indexOf(collect));
+            mAdapter.notifyItemRemoved(list.indexOf(collect));
+            mAdapter.notifyItemChanged(list.indexOf(collect));
             list.remove(collect);
             CollectModel.newInstance().deleteCollectDB(collect);
         } else if (tempList.size() > 1) {
             list.removeAll(tempList);
-            mCollectItemBeautyFragmentAdapter.notifyDataSetChanged();
+            mAdapter.notifyDataSetChanged();
             CollectModel.newInstance().deleteCollectDBList(tempList);
         }
 
@@ -281,8 +277,8 @@ public class CollectItemBeautyFragment extends BaseEditFragment implements IColl
 
     @Override
     public void onShowSuccessView(List<Collect> collects) {
-        mCollectItemBeautyFragmentAdapter.setData(collects);
-        mCollectItemBeautyFragmentAdapter.notifyDataSetChanged();
+        mAdapter.setData(collects);
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -299,7 +295,7 @@ public class CollectItemBeautyFragment extends BaseEditFragment implements IColl
             @Override
             public void onClick(View v) {
                 root.removeView(v);
-                mPresenter.loadData();
+                mPresenter.loadData(mCollectTabInfo);
             }
         });
     }

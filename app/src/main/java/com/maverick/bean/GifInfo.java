@@ -14,6 +14,8 @@ public class GifInfo implements Serializable {
     public String ct;
     public String text;
 
+    private boolean isCollect;
+
     public String getId() {
         return id;
     }
@@ -60,6 +62,14 @@ public class GifInfo implements Serializable {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public boolean isCollect() {
+        return isCollect;
+    }
+
+    public void setCollect(boolean collect) {
+        isCollect = collect;
     }
 
     @Override

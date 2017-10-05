@@ -1,5 +1,7 @@
 package com.maverick.model;
 
+import android.text.TextUtils;
+
 import com.maverick.MainApp;
 import com.maverick.imodel.ICollectModel;
 
@@ -57,11 +59,19 @@ public class CollectModel implements ICollectModel {
 
     @Override
     public boolean insertCollectDB(Collect collect) {
+        if (collect == null || TextUtils.isEmpty(collect.getCollectMajorKey())) {
+            return false;
+        }
         return mCollectDao.insertOrReplace(collect) != -1;
     }
 
     @Override
     public boolean deleteCollectDB(Collect collect) {
+
+        if (collect == null || TextUtils.isEmpty(collect.getCollectMajorKey())) {
+            return false;
+        }
+
         boolean flag = false;
         try {
             //删除一条
@@ -83,5 +93,15 @@ public class CollectModel implements ICollectModel {
             e.printStackTrace();
         }
         return flag;
+    }
+
+    @Override
+    public boolean hasCollectDB(Collect collect) {
+        if (collect == null || TextUtils.isEmpty(collect.getCollectMajorKey())) {
+            return false;
+        }
+
+        List<Collect> list = mCollectDao.queryBuilder().where(CollectDao.Properties.CollectMajorKey.eq(collect.getCollectMajorKey())).build().list();
+        return list != null && list.size() > 0;
     }
 }

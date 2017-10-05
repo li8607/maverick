@@ -10,7 +10,7 @@ public class CollectTabInfo implements Serializable {
 
     private String title;
 
-    private int type;
+    private int type;  //1.笑话，2.美女，3.文本笑话，4.图文笑话，5.动图笑话
 
     private List<CollectTabInfo> itemList;
 

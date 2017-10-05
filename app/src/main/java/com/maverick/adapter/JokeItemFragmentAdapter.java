@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.maverick.R;
 import com.maverick.adapter.holder.JokeImgViewHolder;
@@ -41,12 +40,12 @@ public class JokeItemFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
         switch (viewType) {
             case JOKE_TEXT:
                 holder = new JokeTextViewHolder(LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.fragment_text_item, parent, false));
+                        .inflate(R.layout.item_joke_text, parent, false));
                 break;
             case JOKE_IMG:
             case JOKE_GIF:
                 holder = new JokeImgViewHolder(LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.fragment_img_item, parent, false));
+                        .inflate(R.layout.item_joke_img, parent, false));
                 break;
             default:
                 holder = new RecyclerView.ViewHolder(new View(parent.getContext())) {

@@ -16,6 +16,7 @@ public class BeautyItemInfo implements Serializable {
     private String url;
     private String used;
     private String who;
+    private boolean isCheck;
 
     public String get_id() {
         return _id;
@@ -87,5 +88,13 @@ public class BeautyItemInfo implements Serializable {
 
     public void setWho(String who) {
         this.who = who;
+    }
+
+    public boolean isCheck() {
+        return isCheck;
+    }
+
+    public void setCheck(boolean check) {
+        isCheck = check;
     }
 }

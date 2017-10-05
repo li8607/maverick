@@ -14,6 +14,7 @@ import com.maverick.DetailActivity;
 import com.maverick.R;
 import com.maverick.bean.BeautyItemInfo;
 import com.maverick.bean.BigImgInfo;
+import com.maverick.model.CollectModel;
 import com.maverick.model.HistoryModel;
 import com.maverick.util.GlideUtil;
 import com.maverick.util.TimeUtils;
@@ -22,6 +23,7 @@ import com.maverick.weight.RatioImageView;
 import java.util.Date;
 import java.util.List;
 
+import cntv.greendaolibrary.dbbean.Collect;
 import cntv.greendaolibrary.dbbean.History;
 
 /**
@@ -69,19 +71,24 @@ public class BeautyFragmentAdapter extends RecyclerView.Adapter {
         private final RatioImageView image;
         private final TextView title;
         private BeautyItemInfo mBeautyItemInfo;
+        private final View collect;
 
         public BeautyHolder(View itemView) {
             super(itemView);
             image = (RatioImageView) itemView.findViewById(R.id.image);
             title = (TextView) itemView.findViewById(R.id.title);
 
+            collect = itemView.findViewById(R.id.collect);
+
             image.setOriginalSize(1, 1);
-            itemView.setOnClickListener(this);
+            image.setOnClickListener(this);
+            collect.setOnClickListener(this);
         }
 
         public void bindData(BeautyItemInfo beautyItemInfo) {
             this.mBeautyItemInfo = beautyItemInfo;
             GlideUtil.loadImage(mContext, beautyItemInfo.getUrl(), image);
+            this.collect.setSelected(beautyItemInfo.isCheck());
         }
 
         @Override
@@ -90,16 +97,29 @@ public class BeautyFragmentAdapter extends RecyclerView.Adapter {
                 return;
             }
 
-            History history = new History();
-            history.setHistoryimage(mBeautyItemInfo.getUrl());
-            history.setHistoryName(mBeautyItemInfo.getWho());
-            history.setHistoryType("2");
-            history.setHistoryTime(System.currentTimeMillis());
-            HistoryModel.newInstance().insertHistoryDB(history);
-
-            BigImgInfo bigImgInfo = new BigImgInfo();
-            bigImgInfo.setImg(mBeautyItemInfo.getUrl());
-            DetailActivity.launch((Activity) mContext, image, bigImgInfo);
+            switch (v.getId()) {
+                case R.id.collect:
+                    Collect collect = new Collect();
+                    collect.setCollectType("2");
+                    collect.setCollectImage(mBeautyItemInfo.getUrl());
+                    collect.setCollectMajorKey(mBeautyItemInfo.getUrl());
+                    collect.setCollectTime(System.currentTimeMillis());
+                    if (mBeautyItemInfo.isCheck()) {
+                        this.collect.setSelected(false);
+                        mBeautyItemInfo.setCheck(false);
+                        CollectModel.newInstance().deleteCollectDB(collect);
+                    } else {
+                        this.collect.setSelected(true);
+                        mBeautyItemInfo.setCheck(true);
+                        CollectModel.newInstance().insertCollectDB(collect);
+                    }
+                    break;
+                case R.id.image:
+                    BigImgInfo bigImgInfo = new BigImgInfo();
+                    bigImgInfo.setImg(mBeautyItemInfo.getUrl());
+                    DetailActivity.launch((Activity) mContext, image, bigImgInfo);
+                    break;
+            }
         }
     }
 }

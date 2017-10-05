@@ -27,6 +27,16 @@
             android:padding="8dp"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
+        <ImageView
+            android:layout_margin="@dimen/y7"
+            android:id="@+id/collect"
+            android:layout_width="@dimen/y12"
+            android:layout_height="@dimen/y12"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/collect_selector" />
+
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>

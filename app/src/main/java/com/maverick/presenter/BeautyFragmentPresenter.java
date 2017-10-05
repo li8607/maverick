@@ -39,6 +39,9 @@ public class BeautyFragmentPresenter extends BasePresenter {
                 if (beautyInfos != null && beautyInfos.size() >= 1) {
 
                     for (int i = 0; i < beautyInfos.size(); i++) {
+
+                        BeautyItemInfo beautyItemInfo = beautyInfos.get(i);
+
                         History history = new History();
                         history.setHistoryimage(beautyInfos.get(i).getUrl());
                         history.setHistoryName(beautyInfos.get(i).getWho());
@@ -47,12 +50,8 @@ public class BeautyFragmentPresenter extends BasePresenter {
                         HistoryModel.newInstance().insertHistoryDB(history);
 
                         Collect collect = new Collect();
-                        collect.setCollectImage(beautyInfos.get(i).getUrl());
-                        collect.setCollectName(beautyInfos.get(i).getWho());
-                        collect.setCollectType("2");
-                        collect.setCollectTime(System.currentTimeMillis());
-                        boolean result = CollectModel.newInstance().insertCollectDB(collect);
-                        Log.e(TAG, "result = " + result);
+                        collect.setCollectMajorKey(beautyItemInfo.getUrl());
+                        beautyItemInfo.setCheck(CollectModel.newInstance().hasCollectDB(collect));
                     }
 
                     mView.onShowSuccessView(beautyInfos);

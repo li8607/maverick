@@ -80,7 +80,7 @@ public class CollectItemBeautyFragmentAdapter extends RecyclerView.Adapter {
             this.collect = collect;
             GlideUtil.loadImage(mContext, collect.getCollectImage(), image);
             checkbox.setVisibility(editState ? View.VISIBLE : View.INVISIBLE);
-            checkbox.setChecked(collect.isCheck());
+            checkbox.setChecked(collect.getCheck());
         }
 
         @Override

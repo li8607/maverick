@@ -1,18 +1,28 @@
 package com.maverick.presenter;
 
 import android.content.Context;
+import android.text.TextUtils;
+import android.util.Log;
 
+import com.maverick.bean.GifInfo;
 import com.maverick.bean.GifInfoObj;
 import com.maverick.bean.JokeTabInfo;
 import com.maverick.global.Tag;
 import com.maverick.imodel.IJokeModel;
+import com.maverick.model.CollectModel;
 import com.maverick.model.JokeModel;
 import com.maverick.presenter.implView.IJokeItemFragmentView;
+
+import java.util.List;
+
+import cntv.greendaolibrary.dbbean.Collect;
 
 /**
  * Created by ll on 2017/5/22.
  */
 public class JokeItemFragmentPresenter extends BasePresenter {
+
+    private String TAG = getClass().getSimpleName();
 
     private IJokeItemFragmentView mView;
     private final IJokeModel mModel;
@@ -55,6 +65,7 @@ public class JokeItemFragmentPresenter extends BasePresenter {
             public void onSuccess(GifInfoObj infoObj) {
 
                 if (infoObj.showapi_res_body.contentlist != null && infoObj.showapi_res_body.contentlist.size() > 1) {
+                    checkCollect(infoObj.showapi_res_body.contentlist);
                     mView.onShowSuccessView(infoObj.showapi_res_body.contentlist);
                 } else {
                     mView.onShowEmptyView();
@@ -70,12 +81,40 @@ public class JokeItemFragmentPresenter extends BasePresenter {
         });
     }
 
+    private void checkCollect(List<GifInfo> list) {
+
+        if (list == null || list.size() < 1) {
+            return;
+        }
+
+        for (int i = 0; i < list.size(); i++) {
+            GifInfo gifInfo = list.get(i);
+
+            Collect collect = new Collect();
+            String type = gifInfo.getType();
+            if (TextUtils.equals(type, Tag.JOKE_TEXT)) {
+                collect.setCollectMajorKey(gifInfo.getText());
+            } else if (TextUtils.equals(type, Tag.JOKE_IMG)) {
+                collect.setCollectMajorKey(gifInfo.getImg());
+            } else if (TextUtils.equals(type, Tag.JOKE_GIF)) {
+                collect.setCollectMajorKey(gifInfo.getImg());
+            }
+
+            boolean isCollect = CollectModel.newInstance().hasCollectDB(collect);
+            Log.e(TAG, "isCollect = " + isCollect);
+
+            gifInfo.setCollect(isCollect);
+        }
+
+    }
+
     private void refreshImgData() {
         mModel.requestImgData(1, mNum, new IJokeModel.OnImgResultListener() {
             @Override
             public void onSuccess(GifInfoObj infoObj) {
 
                 if (infoObj.showapi_res_body.contentlist != null && infoObj.showapi_res_body.contentlist.size() > 1) {
+                    checkCollect(infoObj.showapi_res_body.contentlist);
                     mView.onShowSuccessView(infoObj.showapi_res_body.contentlist);
                 } else {
                     mView.onShowEmptyView();
@@ -97,6 +136,7 @@ public class JokeItemFragmentPresenter extends BasePresenter {
             public void onSuccess(GifInfoObj infoObj) {
 
                 if (infoObj.showapi_res_body.contentlist != null && infoObj.showapi_res_body.contentlist.size() > 1) {
+                    checkCollect(infoObj.showapi_res_body.contentlist);
                     mView.onShowSuccessView(infoObj.showapi_res_body.contentlist);
                 } else {
                     mView.onShowEmptyView();
@@ -146,6 +186,7 @@ public class JokeItemFragmentPresenter extends BasePresenter {
         mModel.requestGifData(mPage + 1, mNum, new IJokeModel.OnGifResultListener() {
             @Override
             public void onSuccess(GifInfoObj infoObj) {
+                checkCollect(infoObj.showapi_res_body.contentlist);
                 mView.onLoadMoreSuccess(infoObj.showapi_res_body.contentlist, true);
                 mPage++;
             }
@@ -161,6 +202,7 @@ public class JokeItemFragmentPresenter extends BasePresenter {
         mModel.requestImgData(mPage + 1, mNum, new IJokeModel.OnImgResultListener() {
             @Override
             public void onSuccess(GifInfoObj infoObj) {
+                checkCollect(infoObj.showapi_res_body.contentlist);
                 mView.onLoadMoreSuccess(infoObj.showapi_res_body.contentlist, true);
                 mPage++;
             }
@@ -176,6 +218,7 @@ public class JokeItemFragmentPresenter extends BasePresenter {
         mModel.requestTextData(mPage + 1, mNum, new IJokeModel.OnTextResultListener() {
             @Override
             public void onSuccess(GifInfoObj infoObj) {
+                checkCollect(infoObj.showapi_res_body.contentlist);
                 mView.onLoadMoreSuccess(infoObj.showapi_res_body.contentlist, true);
                 mPage++;
             }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/x8"
+    android:paddingLeft="@dimen/y5"
+    android:paddingRight="@dimen/y5">
+
+
+    <ImageView
+        android:id="@+id/collect"
+        android:layout_width="@dimen/y12"
+        android:layout_height="@dimen/y12"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/collect_selector" />
+
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:textColor="@color/joke_time_color"
+        android:textSize="@dimen/x8" />
+
+</RelativeLayout>

@@ -2,6 +2,7 @@ package com.maverick.adapter.holder;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -18,7 +19,7 @@ import cntv.greendaolibrary.dbbean.History;
 /**
  * Created by limingfei on 2017/10/4.
  */
-public class JokeImgViewHolder extends JokeTextViewHolder implements View.OnClickListener {
+public class JokeImgViewHolder extends JokeTextViewHolder {
 
     private final RatioImageView img;
     private GifInfo mGifInfo;
@@ -28,7 +29,6 @@ public class JokeImgViewHolder extends JokeTextViewHolder implements View.OnClic
         super(itemView);
         img = (RatioImageView) itemView.findViewById(R.id.img);
         img.setOnClickListener(this);
-
         img.setOriginalSize(4, 3);
     }
 
@@ -37,21 +37,36 @@ public class JokeImgViewHolder extends JokeTextViewHolder implements View.OnClic
         super.bindData(context, gifInfo);
         this.mGifInfo = gifInfo;
         this.mContext = context;
+
+        String title = gifInfo.getTitle();
+        if (!TextUtils.isEmpty(title)) {
+            mTitle.setText(title.trim());
+        }else {
+            mTitle.setText("");
+        }
+
         GlideUtil.loadImage(context, gifInfo.getImg(), img);
     }
 
     @Override
     public void onClick(View v) {
-        History history = new History();
-        history.setHistoryimage(mGifInfo.img);
-        history.setHistoryName(mGifInfo.title);
-        history.setHistoryType("1");
-        history.setHistoryItemType("2");
-        history.setHistoryTime(System.currentTimeMillis());
-        HistoryModel.newInstance().insertHistoryDB(history);
+        super.onClick(v);
 
-        BigImgInfo bigImgInfo = new BigImgInfo();
-        bigImgInfo.setImg(mGifInfo.img);
-        DetailActivity.launch((Activity) mContext, img, bigImgInfo);
+
+        switch (v.getId()) {
+            case R.id.img:
+                History history = new History();
+                history.setHistoryimage(mGifInfo.img);
+                history.setHistoryName(mGifInfo.title);
+                history.setHistoryType("1");
+                history.setHistoryItemType("2");
+                history.setHistoryTime(System.currentTimeMillis());
+                HistoryModel.newInstance().insertHistoryDB(history);
+
+                BigImgInfo bigImgInfo = new BigImgInfo();
+                bigImgInfo.setImg(mGifInfo.img);
+                DetailActivity.launch((Activity) mContext, img, bigImgInfo);
+                break;
+        }
     }
 }

@@ -22,4 +22,6 @@ public interface ICollectModel {
     boolean deleteCollectDB(Collect collect);
 
     boolean deleteCollectDBList(List<Collect> collects);
+
+    boolean hasCollectDB(Collect collect);
 }

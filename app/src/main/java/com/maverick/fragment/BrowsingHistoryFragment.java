@@ -6,7 +6,10 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.maverick.R;
 import com.maverick.adapter.BrowsingHistoryActivityAdapter;
@@ -35,6 +38,7 @@ public class BrowsingHistoryFragment extends BaseEditFragment implements IBrowsi
     private GridLayoutManager mGridLayoutManager;
     private int spanCount = 4;
     private RecyclerView recyclerView;
+    private ViewGroup root;
 
     public static BrowsingHistoryFragment newInstance() {
         BrowsingHistoryFragment fragment = new BrowsingHistoryFragment();
@@ -54,6 +58,8 @@ public class BrowsingHistoryFragment extends BaseEditFragment implements IBrowsi
 
     @Override
     protected void onInitView(View view) {
+
+        root = findView(R.id.root);
 
         recyclerView = findView(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
@@ -105,31 +111,6 @@ public class BrowsingHistoryFragment extends BaseEditFragment implements IBrowsi
                 if (mOnBaseEditFragmentListener != null) {
                     mOnBaseEditFragmentListener.onCheckState(checkState);
                 }
-
-//                if (history.isCheck()) {
-//                    if (isCheckAll()) {
-//                        check_state = CHECK_ALL_STATE;
-//                        btn_check_or_cancel.setText("取消全选");
-//                    } else {
-//                        check_state = CHECK_NO_ALL_STATE;
-//                        btn_check_or_cancel.setText("全选");
-//                    }
-//
-//                    btn_delete.setAlpha(1.0f);
-//                    btn_delete.setClickable(true);
-//                } else {
-//                    check_state = CHECK_NO_ALL_STATE;
-//                    btn_check_or_cancel.setText("全选");
-//
-//                    if (isCheck()) {
-//                        btn_delete.setAlpha(1.0f);
-//                        btn_delete.setClickable(true);
-//                    } else {
-//                        btn_delete.setAlpha(0.5f);
-//                        btn_delete.setClickable(false);
-//                    }
-
-//                }
             }
         });
     }
@@ -181,6 +162,20 @@ public class BrowsingHistoryFragment extends BaseEditFragment implements IBrowsi
     @Override
     public void onShowEmptyView() {
 
+        View view = View.inflate(root.getContext(), R.layout.view_empty, null);
+
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams.gravity = Gravity.CENTER;
+
+        root.addView(view, layoutParams);
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                root.removeView(v);
+                mPresenter.loadData();
+            }
+        });
     }
 
     @Override
