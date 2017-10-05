@@ -3,7 +3,9 @@ package cntv.greendaolibrary.dbbean;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
+import org.greenrobot.greendao.annotation.Index;
 import org.greenrobot.greendao.annotation.Property;
+import org.greenrobot.greendao.annotation.Unique;
 
 /**
  * Created by limingfei on 2017/9/27.
@@ -11,17 +13,21 @@ import org.greenrobot.greendao.annotation.Property;
 @Entity
 public class Collect {
     @Id
+    @Property(nameInDb = "COLLECTMAJORKEY")
+    private String collectMajorKey;
     @Property(nameInDb = "COLLECTIMAGE")
     private String collectImage;
     @Property(nameInDb = "COLLECTNAME")
     private String collectName;
-    @Property(nameInDb = "COLLECTTIME")
+    @Property(nameInDb = "COLLECTCT")
+    private String collectCT;
+    @Property(nameInDb = "COLLECTTIME") //收藏时间
     private long collectTime;
     @Property(nameInDb = "COLLECTITEMTYPE")
     private String collectItemType;  // 1.文本；2.图片；3.动图;
     @Property(nameInDb = "COLLECTTYPE")
     private String collectType;  // 1.笑话；2.美女
-    private boolean isCheck;
+    private boolean check;
     public String getCollectType() {
         return this.collectType;
     }
@@ -53,29 +59,37 @@ public class Collect {
         this.collectImage = collectImage;
     }
 
-    public boolean isCheck() {
-        return isCheck;
+    public String getCollectMajorKey() {
+        return this.collectMajorKey;
     }
-
+    public void setCollectMajorKey(String collectMajorKey) {
+        this.collectMajorKey = collectMajorKey;
+    }
+    public String getCollectCT() {
+        return this.collectCT;
+    }
+    public void setCollectCT(String collectCT) {
+        this.collectCT = collectCT;
+    }
+    public boolean getCheck() {
+        return this.check;
+    }
     public void setCheck(boolean check) {
-        isCheck = check;
-    }
-    public boolean getIsCheck() {
-        return this.isCheck;
-    }
-    public void setIsCheck(boolean isCheck) {
-        this.isCheck = isCheck;
+        this.check = check;
     }
 
-    @Generated(hash = 453729045)
-    public Collect(String collectImage, String collectName, long collectTime,
-            String collectItemType, String collectType, boolean isCheck) {
+    @Generated(hash = 855346186)
+    public Collect(String collectMajorKey, String collectImage, String collectName,
+            String collectCT, long collectTime, String collectItemType,
+            String collectType, boolean check) {
+        this.collectMajorKey = collectMajorKey;
         this.collectImage = collectImage;
         this.collectName = collectName;
+        this.collectCT = collectCT;
         this.collectTime = collectTime;
         this.collectItemType = collectItemType;
         this.collectType = collectType;
-        this.isCheck = isCheck;
+        this.check = check;
     }
     @Generated(hash = 1726975718)
     public Collect() {
