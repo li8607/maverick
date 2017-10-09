@@ -1,6 +1,5 @@
 package com.maverick.adapter.holder;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -9,12 +8,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.maverick.DetailActivity;
 import com.maverick.R;
-import com.maverick.bean.BigImgInfo;
 import com.maverick.bean.SisterInfo;
 import com.maverick.util.GlideUtil;
-import com.maverick.weight.RatioImageView;
 
 /**
  * Created by Administrator on 2017/9/30.
