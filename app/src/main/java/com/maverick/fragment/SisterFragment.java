@@ -347,7 +347,11 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
         super.onHiddenChanged(hidden);
         if (hidden) {
             if (listVideoUtil.getGsyVideoPlayer() != null) {
-                listVideoUtil.getGsyVideoPlayer().onVideoPause();
+                if (listVideoUtil.isSmall()) {
+                    listVideoUtil.getGsyVideoPlayer().hideSmallVideo();
+                } else {
+                    listVideoUtil.getGsyVideoPlayer().onVideoPause();
+                }
             }
         } else {
             if (listVideoUtil.getGsyVideoPlayer() != null) {
