@@ -17,6 +17,8 @@ public interface ICollectModel {
 
     List<Collect> getJokeGifData();
 
+    List<Collect> getSisterData();
+
     boolean insertCollectDB(Collect collect);
 
     boolean deleteCollectDB(Collect collect);

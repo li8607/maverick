@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.maverick.MainApp;
 import com.maverick.imodel.ICollectModel;
+import com.maverick.type.CollectType;
 
 import java.util.List;
 
@@ -54,6 +55,12 @@ public class CollectModel implements ICollectModel {
     @Override
     public List<Collect> getJokeGifData() {
         List<Collect> list = mCollectDao.queryBuilder().where(CollectDao.Properties.CollectType.eq("1"), CollectDao.Properties.CollectItemType.eq("3")).orderDesc(CollectDao.Properties.CollectTime).build().list();
+        return list;
+    }
+
+    @Override
+    public List<Collect> getSisterData() {
+        List<Collect> list = mCollectDao.queryBuilder().where(CollectDao.Properties.CollectType.eq(CollectType.SISTER)).orderDesc(CollectDao.Properties.CollectTime).build().list();
         return list;
     }
 

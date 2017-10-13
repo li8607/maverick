@@ -35,6 +35,8 @@ public class SisterInfo implements Serializable {
     private String comment;
     private String share;
 
+    private boolean collect;
+
     public String getCreate_time() {
         return create_time;
     }
@@ -225,5 +227,13 @@ public class SisterInfo implements Serializable {
 
     public void setVideo_image(Bitmap video_image) {
         this.video_image = video_image;
+    }
+
+    public boolean isCollect() {
+        return collect;
+    }
+
+    public void setCollect(boolean collect) {
+        this.collect = collect;
     }
 }

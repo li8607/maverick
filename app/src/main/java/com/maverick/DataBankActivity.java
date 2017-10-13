@@ -122,6 +122,7 @@ public class DataBankActivity extends BaseActivity implements View.OnClickListen
             List<CollectTabInfo> list = new ArrayList<>();
             list.add(getCollectTabInfo("笑话", 1));
             list.add(getCollectTabInfo("美女", 2));
+            list.add(getCollectTabInfo("百思不得姐", 6));
             CollectFragment collectFragment = CollectFragment.newInstance(list);
             collectFragment.setOnCollectFragmentListener(new CollectFragment.OnCollectFragmentListener() {
                 @Override

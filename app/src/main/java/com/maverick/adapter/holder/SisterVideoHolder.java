@@ -44,7 +44,11 @@ public class SisterVideoHolder extends SisterTextHolder {
     @Override
     public void onClick(View v) {
         super.onClick(v);
-        openVideo(v);
+        switch (v.getId()) {
+            case R.id.list_item_btn:
+                openVideo(v);
+                break;
+        }
     }
 
     private void openVideo(View v) {

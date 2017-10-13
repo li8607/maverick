@@ -9,6 +9,7 @@ import com.maverick.fragment.CollectItemBeautyFragment;
 import com.maverick.fragment.BaseEditFragment;
 import com.maverick.fragment.CollectFragment;
 import com.maverick.fragment.CollectItemJokeFragment;
+import com.maverick.fragment.CollectItemSisterFragment;
 
 import java.util.List;
 
@@ -47,6 +48,11 @@ public class CollectFragmentAdapter extends FragmentStatePagerAdapter {
                 CollectItemJokeFragment collectItemJokeFragment = CollectItemJokeFragment.newInstance(mList.get(position));
                 collectItemJokeFragment.setOnBaseEditFragmentListener(mOnBaseEditFragmentListener);
                 fragment = collectItemJokeFragment;
+                break;
+            case 6:
+                CollectItemSisterFragment collectItemSisterFragment = CollectItemSisterFragment.newInstance(mList.get(position));
+                collectItemSisterFragment.setOnBaseEditFragmentListener(mOnBaseEditFragmentListener);
+                fragment = collectItemSisterFragment;
                 break;
             default:
                 fragment = new Fragment();
