@@ -55,17 +55,13 @@ public class SisterFragmentPresenter extends BasePresenter {
             @Override
             public void onSuccess(List<SisterInfo> list) {
                 if (list != null && list.size() >= 1) {
-
-                    for (int i = 0; i < list.size(); i++) {
-                        Log.e(TAG, "" + list.get(i).getImage2());
-                        SisterInfo sisterInfo = list.get(i);
-//                        sisterInfo.setComment(getRandom(sisterInfo.getLove()) + "");
-//                        sisterInfo.setShare(getRandom(sisterInfo.getLove()) + "");
-//                        if(TextUtils.equals(sisterInfo.getType(), Tag.SISTER_VIDEO)) {
-//                            sisterInfo.setVideo_image(getNetVideoBitmap(sisterInfo.getVideo_uri()));
-//                        }
-                    }
-
+//                    for (int i = 0; i < list.size(); i++) {
+//                        Log.e(TAG, "" + list.get(i).getImage2());
+//                        SisterInfo sisterInfo = list.get(i);
+////                        if (TextUtils.equals(sisterInfo.getType(), Tag.SISTER_VIDEO)) {
+////                            sisterInfo.setVideo_image(getNetVideoBitmap(sisterInfo.getVideo_uri()));
+////                        }
+//                    }
                     mView.onShowSuccessView(list);
                 } else {
                     mView.onShowEmptyView();

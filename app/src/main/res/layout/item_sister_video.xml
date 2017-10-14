@@ -17,6 +17,12 @@
         android:layout_height="@dimen/x227"
         android:layout_marginTop="@dimen/y5">
 
+        <WebView
+            android:id="@+id/webView"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></WebView>
+
         <FrameLayout
             android:id="@+id/video_root"
             android:layout_width="match_parent"
