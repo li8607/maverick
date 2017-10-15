@@ -37,23 +37,7 @@ public class BeautyFragmentPresenter extends BasePresenter {
             @Override
             public void onSuccess(List<BeautyItemInfo> beautyInfos) {
                 if (beautyInfos != null && beautyInfos.size() >= 1) {
-
-                    for (int i = 0; i < beautyInfos.size(); i++) {
-
-                        BeautyItemInfo beautyItemInfo = beautyInfos.get(i);
-
-                        History history = new History();
-                        history.setHistoryimage(beautyInfos.get(i).getUrl());
-                        history.setHistoryName(beautyInfos.get(i).getWho());
-                        history.setHistoryType("2");
-                        history.setHistoryTime(System.currentTimeMillis());
-                        HistoryModel.newInstance().insertHistoryDB(history);
-
-                        Collect collect = new Collect();
-                        collect.setCollectMajorKey(beautyItemInfo.getUrl());
-                        beautyItemInfo.setCheck(CollectModel.newInstance().hasCollectDB(collect));
-                    }
-
+                    checkCollect(beautyInfos);
                     mView.onShowSuccessView(beautyInfos);
                 } else {
                     mView.onShowEmptyView();
@@ -66,6 +50,30 @@ public class BeautyFragmentPresenter extends BasePresenter {
                 mView.onShowErrorView();
             }
         });
+    }
+
+    public void checkCollect(List<BeautyItemInfo> beautyInfos) {
+
+
+        if (beautyInfos == null || beautyInfos.size() < 1) {
+            return;
+        }
+
+        for (int i = 0; i < beautyInfos.size(); i++) {
+
+            BeautyItemInfo beautyItemInfo = beautyInfos.get(i);
+//
+//            History history = new History();
+//            history.setHistoryimage(beautyInfos.get(i).getUrl());
+//            history.setHistoryName(beautyInfos.get(i).getWho());
+//            history.setHistoryType("2");
+//            history.setHistoryTime(System.currentTimeMillis());
+//            HistoryModel.newInstance().insertHistoryDB(history);
+
+            Collect collect = new Collect();
+            collect.setCollectMajorKey(beautyItemInfo.getUrl());
+            beautyItemInfo.setCheck(CollectModel.newInstance().hasCollectDB(collect));
+        }
     }
 
     public void loadMoreData() {

@@ -16,6 +16,7 @@ import com.maverick.base.BaseFragment2;
 import com.maverick.bean.GifInfo;
 import com.maverick.bean.JokeTabInfo;
 import com.maverick.global.Tag;
+import com.maverick.model.CollectModel;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.JokeItemFragmentPresenter;
 import com.maverick.presenter.implView.IJokeItemFragmentView;
@@ -179,4 +180,26 @@ public class JokeItemFragment extends BaseFragment2 implements IJokeItemFragment
     public void onLoadMoreFail() {
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        CollectModel.newInstance().removeOnCollectListener(mListener);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        CollectModel.newInstance().addOnCollectListener(mListener);
+    }
+
+    private CollectModel.OnCollectListener mListener = new CollectModel.OnCollectListener() {
+        @Override
+        public void onChange() {
+            if (mPresenter != null && mJokeItemFragmentAdapter != null) {
+                mPresenter.checkCollect(mJokeItemFragmentAdapter.getData());
+                mJokeItemFragmentAdapter.notifyDataSetChanged();
+            }
+        }
+    };
 }

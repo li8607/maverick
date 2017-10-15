@@ -6,6 +6,7 @@ import com.maverick.MainApp;
 import com.maverick.imodel.ICollectModel;
 import com.maverick.type.CollectType;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cntv.greendaolibrary.dbbean.Collect;
@@ -69,7 +70,11 @@ public class CollectModel implements ICollectModel {
         if (collect == null || TextUtils.isEmpty(collect.getCollectMajorKey())) {
             return false;
         }
-        return mCollectDao.insertOrReplace(collect) != -1;
+        boolean result = mCollectDao.insertOrReplace(collect) != -1;
+        if (result) {
+            onChange();
+        }
+        return result;
     }
 
     @Override
@@ -84,6 +89,9 @@ public class CollectModel implements ICollectModel {
             //删除一条
             mCollectDao.delete(collect);
             flag = true;
+            if (flag) {
+                onChange();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -96,6 +104,9 @@ public class CollectModel implements ICollectModel {
         try {
             mCollectDao.deleteInTx(collects);
             flag = true;
+            if (flag) {
+                onChange();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -110,5 +121,35 @@ public class CollectModel implements ICollectModel {
 
         List<Collect> list = mCollectDao.queryBuilder().where(CollectDao.Properties.CollectMajorKey.eq(collect.getCollectMajorKey())).build().list();
         return list != null && list.size() > 0;
+    }
+
+    public void onChange() {
+        if (mList != null && mList.size() > 0) {
+            for (int i = 0; i < mList.size(); i++) {
+                mList.get(i).onChange();
+            }
+        }
+    }
+
+    private List<OnCollectListener> mList = new ArrayList<>();
+
+    public void addOnCollectListener(OnCollectListener listener) {
+        if (listener != null) {
+            mList.add(listener);
+        }
+    }
+
+    public void removeOnCollectListener(OnCollectListener listener) {
+        if (listener != null) {
+            mList.remove(listener);
+        }
+    }
+
+    public void removeAllOnCollectListener() {
+        mList.clear();
+    }
+
+    public interface OnCollectListener {
+        void onChange();
     }
 }

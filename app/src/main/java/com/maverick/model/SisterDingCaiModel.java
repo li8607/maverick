@@ -63,5 +63,4 @@ public class SisterDingCaiModel {
         }
         return flag;
     }
-
 }

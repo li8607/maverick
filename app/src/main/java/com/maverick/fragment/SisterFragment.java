@@ -17,6 +17,7 @@ import com.maverick.base.BaseFragment2;
 import com.maverick.bean.SisterDetailInfo;
 import com.maverick.bean.SisterInfo;
 import com.maverick.global.Tag;
+import com.maverick.model.CollectModel;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.SisterFragmentPresenter;
 import com.maverick.presenter.implView.ISisterFragmentView;
@@ -28,6 +29,8 @@ import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import java.util.List;
+
+import cntv.greendaolibrary.dbbean.Collect;
 
 /**
  * Created by Administrator on 2017/9/30.
@@ -376,6 +379,7 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
         if (listVideoUtil.getGsyVideoPlayer() != null) {
             listVideoUtil.getGsyVideoPlayer().onVideoPause();
         }
+        CollectModel.newInstance().addOnCollectListener(mListener);
     }
 
     @Override
@@ -384,7 +388,25 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
         if (listVideoUtil.getGsyVideoPlayer() != null) {
             listVideoUtil.getGsyVideoPlayer().onVideoResume();
         }
+
+        CollectModel.newInstance().removeOnCollectListener(mListener);
     }
+
+    private CollectModel.OnCollectListener mListener = new CollectModel.OnCollectListener() {
+
+        @Override
+        public void onChange() {
+            if (mSisterFragmentAdapter != null && mSisterFragmentAdapter.getData() != null && mSisterFragmentAdapter.getData().size() > 0) {
+                for (int i = 0; i < mSisterFragmentAdapter.getData().size(); i++) {
+                    SisterInfo sisterInfo = mSisterFragmentAdapter.getData().get(i);
+                    Collect collect = new Collect();
+                    collect.setCollectMajorKey(sisterInfo.getId());
+                    sisterInfo.setCollect(CollectModel.newInstance().hasCollectDB(collect));
+                }
+                mSisterFragmentAdapter.notifyDataSetChanged();
+            }
+        }
+    };
 
     @Override
     public void onDestroyView() {

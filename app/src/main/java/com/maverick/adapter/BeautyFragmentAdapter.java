@@ -66,6 +66,10 @@ public class BeautyFragmentAdapter extends RecyclerView.Adapter {
         }
     }
 
+    public List<BeautyItemInfo> getData() {
+        return mList;
+    }
+
     public class BeautyHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private final RatioImageView image;

@@ -81,7 +81,7 @@ public class JokeItemFragmentPresenter extends BasePresenter {
         });
     }
 
-    private void checkCollect(List<GifInfo> list) {
+    public void checkCollect(List<GifInfo> list) {
 
         if (list == null || list.size() < 1) {
             return;

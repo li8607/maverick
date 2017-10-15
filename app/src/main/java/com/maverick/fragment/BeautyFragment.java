@@ -14,6 +14,7 @@ import com.maverick.R;
 import com.maverick.adapter.BeautyFragmentAdapter;
 import com.maverick.base.BaseFragment2;
 import com.maverick.bean.BeautyItemInfo;
+import com.maverick.model.CollectModel;
 import com.maverick.model.HistoryModel;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.BeautyFragmentPresenter;
@@ -86,9 +87,9 @@ public class BeautyFragment extends BaseFragment2 implements IBeautyFragmentView
 
                 int position = parent.getChildAdapterPosition(view);
 
-                if(position < 2) {
+                if (position < 2) {
                     outRect.top = DensityUtil.dip2px(getActivity(), 10);
-                }else {
+                } else {
                     outRect.top = DensityUtil.dip2px(getActivity(), 5);
                 }
 
@@ -175,4 +176,26 @@ public class BeautyFragment extends BaseFragment2 implements IBeautyFragmentView
     public void onLoadMoreFail() {
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        CollectModel.newInstance().addOnCollectListener(mListener);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        CollectModel.newInstance().removeOnCollectListener(mListener);
+    }
+
+    private CollectModel.OnCollectListener mListener = new CollectModel.OnCollectListener() {
+        @Override
+        public void onChange() {
+            if (mPresenter != null && mBeautyFragmentAdapter != null) {
+                mPresenter.checkCollect(mBeautyFragmentAdapter.getData());
+                mBeautyFragmentAdapter.notifyDataSetChanged();
+            }
+        }
+    };
 }

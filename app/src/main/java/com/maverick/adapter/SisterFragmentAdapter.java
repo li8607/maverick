@@ -112,6 +112,10 @@ public class SisterFragmentAdapter extends RecyclerView.Adapter {
         }
     }
 
+    public List<SisterInfo> getData() {
+        return mList;
+    }
+
     private ListVideoUtil listVideoUtil;
 
     public void setListVideoUtil(ListVideoUtil listVideoUtil) {

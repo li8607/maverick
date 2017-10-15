@@ -92,4 +92,8 @@ public class JokeItemFragmentAdapter extends RecyclerView.Adapter<RecyclerView.V
             mList.addAll(list);
         }
     }
+
+    public List<GifInfo> getData() {
+        return mList;
+    }
 }
