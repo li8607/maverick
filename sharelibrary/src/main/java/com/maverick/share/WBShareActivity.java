@@ -1,4 +1,4 @@
-package com.maverick;
+package com.maverick.share;
 
 //import com.umeng.socialize.media.WBShareCallBackActivity;
 

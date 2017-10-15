@@ -24,6 +24,7 @@ import com.maverick.model.CollectModel;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.SisterFragmentPresenter;
 import com.maverick.presenter.implView.ISisterFragmentView;
+import com.maverick.type.ShareType;
 import com.shuyu.gsyvideoplayer.listener.StandardVideoAllCallBack;
 import com.shuyu.gsyvideoplayer.utils.CommonUtil;
 import com.shuyu.gsyvideoplayer.utils.Debuger;
@@ -93,6 +94,7 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
                 ShareInfo shareInfo = new ShareInfo();
                 shareInfo.setImageurl(sisterInfo.getImage2());
                 shareInfo.setTitle(sisterInfo.getText());
+                shareInfo.setShareType(ShareType.IMAGE_URL);
 
                 ShareDialog shareDialog = ShareDialog.newInstance(shareInfo);
                 shareDialog.setOnDismissListener(new ShareDialog.OnShareDialogListener() {
