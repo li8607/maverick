@@ -6,6 +6,7 @@ import cntv.greendaolibrary.dbbean.CollectDao;
 import cntv.greendaolibrary.dbbean.DaoMaster;
 import cntv.greendaolibrary.dbbean.DaoSession;
 import cntv.greendaolibrary.dbbean.HistoryDao;
+import cntv.greendaolibrary.dbbean.SisterDingCaiDao;
 
 /**
  * Created by limingfei on 2017/9/27.
@@ -39,5 +40,10 @@ public class DBManager {
     public static CollectDao getCollectDao(Context context) {
         DaoSession daoSession = getDaoSession(context);
         return daoSession == null ? null : daoSession.getCollectDao();
+    }
+
+    public static SisterDingCaiDao getSisterDingCai(Context context) {
+        DaoSession daoSession = getDaoSession(context);
+        return daoSession == null ? null : daoSession.getSisterDingCaiDao();
     }
 }
