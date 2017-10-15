@@ -12,10 +12,13 @@ import android.widget.Toast;
 import com.maverick.R;
 import com.maverick.bean.SisterInfo;
 import com.maverick.model.CollectModel;
+import com.maverick.model.SisterDingCaiModel;
 import com.maverick.type.CollectType;
 import com.maverick.util.GlideUtil;
+import com.maverick.util.Utils;
 
 import cntv.greendaolibrary.dbbean.Collect;
+import cntv.greendaolibrary.dbbean.SisterDingCai;
 
 /**
  * Created by Administrator on 2017/9/30.
@@ -82,17 +85,8 @@ public class SisterTextHolder extends RecyclerView.ViewHolder implements View.On
             content.setText("");
         }
 
-        if (!TextUtils.isEmpty(sisterInfo.getLove())) {
-            text_ding_count.setText(sisterInfo.getLove().trim());
-        } else {
-            text_ding_count.setText("0");
-        }
+        updateDingCaiUI(mSisterInfo);
 
-        if (!TextUtils.isEmpty(sisterInfo.getHate())) {
-            text_cai_count.setText(sisterInfo.getHate().trim());
-        } else {
-            text_cai_count.setText("0");
-        }
 
         if (!TextUtils.isEmpty(sisterInfo.getShare())) {
             text_share_count.setText(sisterInfo.getShare().trim());
@@ -115,15 +109,75 @@ public class SisterTextHolder extends RecyclerView.ViewHolder implements View.On
         }
     }
 
+    public void updateDingCaiUI(SisterInfo sisterInfo) {
+
+        if (sisterInfo == null) {
+            return;
+        }
+
+        int love = Utils.getString2Int(sisterInfo.getLove().trim());
+        if (sisterInfo.isDing()) {
+            love++;
+        }
+        text_ding_count.setText(love + "");
+        root_ding.setSelected(sisterInfo.isDing());
+
+        int hate = Utils.getString2Int(sisterInfo.getHate().trim());
+        if (sisterInfo.isCai()) {
+            hate++;
+        }
+        text_cai_count.setText(hate + "");
+        root_cai.setSelected(sisterInfo.isCai());
+    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.root_ding:
-                Toast.makeText(v.getContext(), "顶", Toast.LENGTH_SHORT).show();
+                if (mSisterInfo == null) {
+                    return;
+                }
+
+                if (mSisterInfo.isDing()) {
+                    SisterDingCai sisterDingCai = new SisterDingCai();
+                    sisterDingCai.setDingCaiId(mSisterInfo.getId());
+                    SisterDingCaiModel.newInstance().deleteSisterDingCaiDB(sisterDingCai);
+                    mSisterInfo.setDing(false);
+                    mSisterInfo.setCai(false);
+                } else {
+                    SisterDingCai sisterDingCai = new SisterDingCai();
+                    sisterDingCai.setDingCaiId(mSisterInfo.getId());
+                    sisterDingCai.setDing(true);
+                    sisterDingCai.setCai(false);
+                    SisterDingCaiModel.newInstance().insertSisterDingCaiDB(sisterDingCai);
+
+                    mSisterInfo.setDing(true);
+                    mSisterInfo.setCai(false);
+                }
+
+                updateDingCaiUI(mSisterInfo);
                 break;
             case R.id.root_cai:
-                Toast.makeText(v.getContext(), "踩", Toast.LENGTH_SHORT).show();
+                if (mSisterInfo == null) {
+                    return;
+                }
+                if (mSisterInfo.isCai()) {
+                    SisterDingCai sisterDingCai = new SisterDingCai();
+                    sisterDingCai.setDingCaiId(mSisterInfo.getId());
+                    SisterDingCaiModel.newInstance().deleteSisterDingCaiDB(sisterDingCai);
+                    mSisterInfo.setDing(false);
+                    mSisterInfo.setCai(false);
+                }else {
+                    SisterDingCai sisterDingCai = new SisterDingCai();
+                    sisterDingCai.setDingCaiId(mSisterInfo.getId());
+                    sisterDingCai.setDing(false);
+                    sisterDingCai.setCai(true);
+                    SisterDingCaiModel.newInstance().insertSisterDingCaiDB(sisterDingCai);
+
+                    mSisterInfo.setDing(false);
+                    mSisterInfo.setCai(true);
+                }
+                updateDingCaiUI(mSisterInfo);
                 break;
             case R.id.root_share:
                 Toast.makeText(v.getContext(), "分享", Toast.LENGTH_SHORT).show();

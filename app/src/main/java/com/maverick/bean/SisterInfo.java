@@ -36,6 +36,8 @@ public class SisterInfo implements Serializable {
     private String share;
 
     private boolean collect;
+    private boolean ding;
+    private boolean cai;
 
     public String getCreate_time() {
         return create_time;
@@ -235,5 +237,21 @@ public class SisterInfo implements Serializable {
 
     public void setCollect(boolean collect) {
         this.collect = collect;
+    }
+
+    public boolean isDing() {
+        return ding;
+    }
+
+    public void setDing(boolean ding) {
+        this.ding = ding;
+    }
+
+    public boolean isCai() {
+        return cai;
+    }
+
+    public void setCai(boolean cai) {
+        this.cai = cai;
     }
 }

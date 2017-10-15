@@ -10,11 +10,14 @@ import com.maverick.bean.SisterDetailInfo;
 import com.maverick.bean.SisterInfo;
 import com.maverick.global.Tag;
 import com.maverick.imodel.ISisterFragmentModel;
+import com.maverick.model.SisterDingCaiModel;
 import com.maverick.model.SisterFragmentModel;
 import com.maverick.presenter.implView.ISisterFragmentView;
 
 import java.util.HashMap;
 import java.util.List;
+
+import cntv.greendaolibrary.dbbean.SisterDingCai;
 
 /**
  * Created by Administrator on 2017/9/30.
@@ -55,13 +58,26 @@ public class SisterFragmentPresenter extends BasePresenter {
             @Override
             public void onSuccess(List<SisterInfo> list) {
                 if (list != null && list.size() >= 1) {
-//                    for (int i = 0; i < list.size(); i++) {
-//                        Log.e(TAG, "" + list.get(i).getImage2());
-//                        SisterInfo sisterInfo = list.get(i);
-////                        if (TextUtils.equals(sisterInfo.getType(), Tag.SISTER_VIDEO)) {
-////                            sisterInfo.setVideo_image(getNetVideoBitmap(sisterInfo.getVideo_uri()));
-////                        }
-//                    }
+                    for (int i = 0; i < list.size(); i++) {
+                        Log.e(TAG, "" + list.get(i).getImage2());
+                        SisterInfo sisterInfo = list.get(i);
+
+                        SisterDingCai sisterDingCai = new SisterDingCai();
+                        sisterDingCai.setDingCaiId(sisterInfo.getId());
+
+                        sisterDingCai = SisterDingCaiModel.newInstance().getSisterDingCai(sisterDingCai);
+                        if (sisterDingCai == null) {
+                            continue;
+                        }
+
+                        if (sisterDingCai.getDing()) {
+                            sisterInfo.setDing(true);
+                            sisterInfo.setCai(false);
+                        } else {
+                            sisterInfo.setDing(false);
+                            sisterInfo.setCai(sisterDingCai.getCai());
+                        }
+                    }
                     mView.onShowSuccessView(list);
                 } else {
                     mView.onShowEmptyView();
