@@ -23,4 +23,9 @@
     <string name="result_empty_text">暂无数据！</string>
     <string name="result_error_text">获取数据失败，点击重新获取数据！</string>
 
+    <string name="share_wechat">微信</string>
+    <string name="share_wxcircle">微信朋友圈</string>
+    <string name="share_sina">新浪微博</string>
+    <string name="share_qzone">QQ空间</string>
+
 </resources>

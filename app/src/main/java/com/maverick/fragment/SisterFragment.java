@@ -12,10 +12,13 @@ import android.widget.FrameLayout;
 
 import com.maverick.R;
 import com.maverick.adapter.SisterFragmentAdapter;
+import com.maverick.adapter.holder.SisterTextHolder;
 import com.maverick.adapter.holder.SisterVideoHolder;
 import com.maverick.base.BaseFragment2;
+import com.maverick.bean.ShareInfo;
 import com.maverick.bean.SisterDetailInfo;
 import com.maverick.bean.SisterInfo;
+import com.maverick.dialog.ShareDialog;
 import com.maverick.global.Tag;
 import com.maverick.model.CollectModel;
 import com.maverick.presenter.BasePresenter;
@@ -82,6 +85,28 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
 
         mSisterFragmentAdapter = new SisterFragmentAdapter(getContext());
         recyclerView.setAdapter(mSisterFragmentAdapter);
+
+        mSisterFragmentAdapter.setOnSisterTextHolderListener(new SisterTextHolder.OnSisterTextHolderListener() {
+            @Override
+            public void onShareClick(final View view, SisterInfo sisterInfo) {
+
+                ShareInfo shareInfo = new ShareInfo();
+                shareInfo.setImageurl(sisterInfo.getImage2());
+                shareInfo.setTitle(sisterInfo.getText());
+
+                ShareDialog shareDialog = ShareDialog.newInstance(shareInfo);
+                shareDialog.setOnDismissListener(new ShareDialog.OnShareDialogListener() {
+
+                    @Override
+                    public void onDismiss() {
+                        view.setSelected(false);
+                    }
+                });
+
+                showDialogFragment(shareDialog);
+                view.setSelected(true);
+            }
+        });
 
         listVideoUtil = new ListVideoUtil(getContext());
         listVideoUtil.setFullViewContainer((ViewGroup) getActivity().findViewById(R.id.video_full_container));

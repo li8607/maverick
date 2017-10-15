@@ -167,7 +167,7 @@ public class SisterTextHolder extends RecyclerView.ViewHolder implements View.On
                     SisterDingCaiModel.newInstance().deleteSisterDingCaiDB(sisterDingCai);
                     mSisterInfo.setDing(false);
                     mSisterInfo.setCai(false);
-                }else {
+                } else {
                     SisterDingCai sisterDingCai = new SisterDingCai();
                     sisterDingCai.setDingCaiId(mSisterInfo.getId());
                     sisterDingCai.setDing(false);
@@ -180,7 +180,9 @@ public class SisterTextHolder extends RecyclerView.ViewHolder implements View.On
                 updateDingCaiUI(mSisterInfo);
                 break;
             case R.id.root_share:
-                Toast.makeText(v.getContext(), "分享", Toast.LENGTH_SHORT).show();
+                if (mListener != null && mSisterInfo != null) {
+                    mListener.onShareClick(root_share, mSisterInfo);
+                }
                 break;
             case R.id.root_comment:
                 if (mSisterInfo == null) {
@@ -209,5 +211,15 @@ public class SisterTextHolder extends RecyclerView.ViewHolder implements View.On
                 }
                 break;
         }
+    }
+
+    private OnSisterTextHolderListener mListener;
+
+    public void setOnSisterTextHolderListener(OnSisterTextHolderListener listener) {
+        this.mListener = listener;
+    }
+
+    public interface OnSisterTextHolderListener {
+        void onShareClick(View view, SisterInfo sisterInfo);
     }
 }

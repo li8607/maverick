@@ -39,7 +39,7 @@ public class SisterFragmentAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        RecyclerView.ViewHolder holder;
+        SisterTextHolder holder;
 
         switch (viewType) {
             case IMAGE:
@@ -55,10 +55,11 @@ public class SisterFragmentAdapter extends RecyclerView.Adapter {
                         .inflate(R.layout.item_sister_video, parent, false));
                 break;
             default:
-                holder = new RecyclerView.ViewHolder(new View(parent.getContext())) {
-                };
+                holder = new SisterTextHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_sister_text, parent, false));;
                 break;
         }
+        holder.setOnSisterTextHolderListener(mListener);
         return holder;
     }
 
@@ -120,5 +121,11 @@ public class SisterFragmentAdapter extends RecyclerView.Adapter {
 
     public void setListVideoUtil(ListVideoUtil listVideoUtil) {
         this.listVideoUtil = listVideoUtil;
+    }
+
+    private SisterTextHolder.OnSisterTextHolderListener mListener;
+
+    public void setOnSisterTextHolderListener(SisterTextHolder.OnSisterTextHolderListener listener) {
+        this.mListener = listener;
     }
 }
