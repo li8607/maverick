@@ -1,4 +1,4 @@
-package com.maverick.share.wxapi;
+package com.maverick.wxapi;
 
 
 //import com.umeng.weixin.callback.WXCallbackActivity;
@@ -6,7 +6,6 @@ package com.maverick.share.wxapi;
 import com.umeng.socialize.weixin.view.WXCallbackActivity;
 
 public class WXEntryActivity extends WXCallbackActivity {
-
 
 
 }
