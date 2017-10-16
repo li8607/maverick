@@ -60,9 +60,12 @@ public class ShareDialogPresenter extends BasePresenter implements UMShareListen
             case ShareType.IMAGE:
                 if (!TextUtils.isEmpty(shareInfo.getImageurl())) {
                     Log.e(TAG, "分享的图片地址：" + shareInfo.getImageurl());
-                    UMImage imageurl = new UMImage(mActivity, shareInfo.getImageurl());
-                    imageurl.setThumb(new UMImage(mActivity, R.drawable.thumb));
-                    shareAction.withMedia(imageurl).share();
+//                    UMImage imageurl = new UMImage(mActivity, shareInfo.getImageurl());
+//                    imageurl.setThumb(new UMImage(mActivity, R.drawable.thumb));
+
+                    UMImage imagelocal = new UMImage(mActivity,R.mipmap.ic_launcher);
+//                    imagelocal.setThumb(new UMImage(mActivity, R.drawable.thumb));
+                    shareAction.withMedia(imagelocal).share();
                 } else {
                     onError(share_media, new NullPointerException());
                 }
