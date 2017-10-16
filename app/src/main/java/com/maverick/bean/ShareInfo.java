@@ -11,6 +11,9 @@ public class ShareInfo implements Serializable {
 
     private String imageurl;
     private String title;
+    private String videourl;
+    private String weburl;
+    private String text;
 
     public String getImageurl() {
         return imageurl;
@@ -34,5 +37,29 @@ public class ShareInfo implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getVideourl() {
+        return videourl;
+    }
+
+    public void setVideourl(String videourl) {
+        this.videourl = videourl;
+    }
+
+    public String getWeburl() {
+        return weburl;
+    }
+
+    public void setWeburl(String weburl) {
+        this.weburl = weburl;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }

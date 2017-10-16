@@ -1,5 +1,6 @@
 package com.maverick;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.maverick.fragment.JokeFragment;
 import com.maverick.fragment.MyFragment;
 import com.maverick.fragment.SisterFragment;
 import com.maverick.weight.ToolbarView;
+import com.umeng.socialize.UMShareAPI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -199,5 +201,17 @@ public class MainActivity2 extends BaseActivity {
             return;
         }
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode,resultCode,data);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        UMShareAPI.get(this).release();
     }
 }

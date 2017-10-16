@@ -28,6 +28,7 @@ public class ShareDialog extends BaseDialogFragment implements DialogInterface.O
     private String TAG = getClass().getSimpleName();
     private ShareDialogPresenter mPresenter;
     private ShareInfo mShareInfo;
+    private ProgressDialog mProgressDialog;
 
     public static ShareDialog newInstance(ShareInfo shareInfo) {
         ShareDialog dialog = new ShareDialog();
@@ -80,6 +81,8 @@ public class ShareDialog extends BaseDialogFragment implements DialogInterface.O
         wxcircle.setOnClickListener(this);
         sina.setOnClickListener(this);
         qzone.setOnClickListener(this);
+
+        mProgressDialog = new ProgressDialog(getContext());
     }
 
     @Override
@@ -131,9 +134,12 @@ public class ShareDialog extends BaseDialogFragment implements DialogInterface.O
     }
 
     @Override
-    public void showProgress() {
-        ProgressDialog dialog = new ProgressDialog(getContext());
-        dialog.show();
+    public void showProgress(boolean show) {
+        if (show) {
+            mProgressDialog.show();
+        } else {
+            mProgressDialog.dismiss();
+        }
     }
 
     public interface OnShareDialogListener {

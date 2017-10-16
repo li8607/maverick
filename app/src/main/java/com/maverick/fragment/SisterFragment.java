@@ -5,6 +5,8 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,11 +92,28 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
         mSisterFragmentAdapter.setOnSisterTextHolderListener(new SisterTextHolder.OnSisterTextHolderListener() {
             @Override
             public void onShareClick(final View view, SisterInfo sisterInfo) {
-
                 ShareInfo shareInfo = new ShareInfo();
-                shareInfo.setImageurl(sisterInfo.getImage2());
-                shareInfo.setTitle(sisterInfo.getText());
-                shareInfo.setShareType(ShareType.IMAGE_URL);
+                String type = sisterInfo.getType();
+                if (TextUtils.equals(type, Tag.SISTER_IMAGE)) {
+                    //图片
+                    shareInfo.setImageurl(sisterInfo.getImage2());
+                    shareInfo.setTitle(sisterInfo.getText());
+                    shareInfo.setShareType(ShareType.IMAGE);
+                } else if (TextUtils.equals(type, Tag.SISTER_TEXT)) {
+                    //段子
+                    shareInfo.setText(sisterInfo.getText());
+                    shareInfo.setShareType(ShareType.TEXT);
+                } else if (TextUtils.equals(type, Tag.SISTER_AUDIO)) {
+                    //声音
+                    shareInfo.setWeburl(sisterInfo.getWeixin_url());
+                    shareInfo.setTitle(sisterInfo.getText());
+                    shareInfo.setShareType(ShareType.WEB);
+                } else if (TextUtils.equals(type, Tag.SISTER_VIDEO)) {
+                    //视频
+                    shareInfo.setWeburl(sisterInfo.getWeixin_url());
+                    shareInfo.setTitle(sisterInfo.getText());
+                    shareInfo.setShareType(ShareType.WEB);
+                }
 
                 ShareDialog shareDialog = ShareDialog.newInstance(shareInfo);
                 shareDialog.setOnDismissListener(new ShareDialog.OnShareDialogListener() {
