@@ -84,8 +84,9 @@ public abstract class BaseFragment2 extends Fragment {
         if (fragment != null) {
             fragmentTransaction.remove(fragment);
         }
-
-        dialogFragment.show(fragmentTransaction, tag);
+        fragmentTransaction.add(dialogFragment, tag);
+        fragmentTransaction.commitAllowingStateLoss();//注意这里使用commitAllowingStateLoss()
+        //Fragment Or DialogFragment Can not perform this action after onSaveInstanceState
     }
 
     public boolean onBackPressed() {

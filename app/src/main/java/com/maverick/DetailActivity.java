@@ -3,55 +3,78 @@ package com.maverick;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.PointF;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import com.bumptech.glide.request.RequestListener;
-import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.SizeReadyCallback;
+import com.davemorrissey.labs.subscaleview.ImageSource;
+import com.davemorrissey.labs.subscaleview.ImageViewState;
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+import com.maverick.base.BaseActivity;
 import com.maverick.bean.BigImgInfo;
-import com.maverick.bean.GifInfo;
 import com.maverick.dialog.MultifunctionalDialog;
+import com.maverick.presenter.BasePresenter;
+import com.maverick.presenter.DetailActivityPresenter;
+import com.maverick.presenter.implView.IDetailActivityView;
 import com.maverick.util.GlideUtil;
+
+import java.io.File;
 
 /**
  * Created by ll on 2017/5/25.
  */
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends BaseActivity implements IDetailActivityView, View.OnLongClickListener {
     public static final String EXTRA_IMAGE = "DetailActivity:image";
-    private String mImgUrl;
+    private DetailActivityPresenter mPresenter;
+    private ImageView image_detail;
+    private SubsamplingScaleImageView mSubsamplingScaleImageView;
+    private BigImgInfo mBigImgInfo;
+
+    public static void launch(Activity activity, View transitionView, BigImgInfo info) {
+
+        if (info == null || TextUtils.isEmpty(info.getImg())) {
+            return;
+        }
+
+        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, transitionView, EXTRA_IMAGE);
+
+        Intent intent = new Intent(activity, DetailActivity.class);
+        intent.putExtra(EXTRA_IMAGE, info);
+
+        ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
+    }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
-        final ImageView image_detail = (ImageView) findViewById(R.id.image_detail);
-        ViewCompat.setTransitionName(image_detail, EXTRA_IMAGE);
-        Intent intent = getIntent();
-        final BigImgInfo gifInfo = (BigImgInfo) intent.getSerializableExtra(EXTRA_IMAGE);
+    protected BasePresenter onCreatePresenter() {
+        mPresenter = new DetailActivityPresenter(this, this);
+        return mPresenter;
+    }
 
-        mImgUrl = gifInfo.getImg();
+    @Override
+    protected int getRootViewId() {
+        return R.layout.activity_detail;
+    }
 
-        GlideUtil.loadImage(this, mImgUrl, image_detail, new RequestListener() {
-            @Override
-            public boolean onException(Exception e, Object model, Target target, boolean isFirstResource) {
-                return false;
-            }
+    @Override
+    protected void onInitView() {
+        image_detail = (ImageView) findViewById(R.id.image_detail);
+        mSubsamplingScaleImageView = (SubsamplingScaleImageView) findViewById(R.id.imageView);
+        mSubsamplingScaleImageView.setMinimumScaleType(SubsamplingScaleImageView.SCALE_TYPE_CUSTOM);
+        mSubsamplingScaleImageView.setMinScale(1.0F);
 
-            @Override
-            public boolean onResourceReady(Object resource, Object model, Target target, boolean isFromMemoryCache, boolean isFirstResource) {
-                return false;
-            }
-        });
         Window window = getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -66,34 +89,62 @@ public class DetailActivity extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
 
-        image_detail.setOnLongClickListener(new View.OnLongClickListener() {
+        image_detail.setOnLongClickListener(this);
+        mSubsamplingScaleImageView.setOnLongClickListener(this);
+    }
+
+    private void showMultifunctionalDialog() {
+        if (mBigImgInfo != null) {
+            MultifunctionalDialog mMultifunctionalDialog = MultifunctionalDialog.newInstance(mBigImgInfo.getImg());
+            showDialogFragment(mMultifunctionalDialog);
+        }
+    }
+
+    @Override
+    protected void onInitData(Bundle savedInstanceState) {
+        Intent intent = getIntent();
+        mBigImgInfo = (BigImgInfo) intent.getSerializableExtra(EXTRA_IMAGE);
+        if (mBigImgInfo == null) {
+            return;
+        }
+        mPresenter.loadImage(mBigImgInfo.getImg());
+    }
+
+    @Override
+    public void onShowGifImageView(String imgUrl) {
+        image_detail.setVisibility(View.VISIBLE);
+        GlideUtil.loadImage(this, imgUrl, image_detail);
+    }
+
+    @Override
+    public void onShowImageView(String imgUrl) {
+        mSubsamplingScaleImageView.setVisibility(View.VISIBLE);
+        ViewCompat.setTransitionName(mSubsamplingScaleImageView, EXTRA_IMAGE);
+        //下载图片保存到本地
+        Glide.with(this)
+                .load(imgUrl).downloadOnly(new SimpleTarget<File>() {
             @Override
-            public boolean onLongClick(View v) {
-                showMultifunctionalDialog();
-                return true;
+            public void onResourceReady(File resource, GlideAnimation<? super File> glideAnimation) {
+                // 将保存的图片地址给SubsamplingScaleImageView,这里注意设置ImageViewState设置初始显示比例
+                mSubsamplingScaleImageView.setImage(ImageSource.uri(Uri.fromFile(resource)), new ImageViewState(1.0F, new PointF(0, 0), 0));
+            }
+        }).getSize(new SizeReadyCallback() {
+            @Override
+            public void onSizeReady(int width, int height) {
+
             }
         });
     }
 
-    private void showMultifunctionalDialog() {
-        MultifunctionalDialog mMultifunctionalDialog = MultifunctionalDialog.newInstance(mImgUrl);
-        mMultifunctionalDialog.show(getFragmentManager(), "MultifunctionalDialog");
+    @Override
+    protected void onDestroy() {
+        mSubsamplingScaleImageView.recycle();
+        super.onDestroy();
     }
 
-    public static void launch(Activity activity, View transitionView, BigImgInfo info) {
-
-        if (info == null || TextUtils.isEmpty(info.getImg())) {
-            return;
-        }
-
-        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, transitionView, EXTRA_IMAGE);
-
-        Intent intent = new Intent(activity, DetailActivity.class);
-        intent.putExtra(EXTRA_IMAGE, info);
-
-        ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
-
-//        activity.startActivity(intent);
+    @Override
+    public boolean onLongClick(View v) {
+        showMultifunctionalDialog();
+        return true;
     }
-
 }

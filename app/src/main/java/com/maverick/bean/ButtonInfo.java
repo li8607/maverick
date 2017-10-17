@@ -9,6 +9,7 @@ public class ButtonInfo implements Serializable {
 
     private String name;
     private int iconId;
+    private int type;
 
     public String getName() {
         return name;
@@ -24,5 +25,13 @@ public class ButtonInfo implements Serializable {
 
     public void setIconId(int iconId) {
         this.iconId = iconId;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 }

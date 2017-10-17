@@ -37,4 +37,6 @@
     <color name="share_item_title_color">#666666</color>
     <color name="share_cancel_select_color">#e6e6e6</color>
 
+    <color name="my_background">#ffffff</color>
+
 </resources>

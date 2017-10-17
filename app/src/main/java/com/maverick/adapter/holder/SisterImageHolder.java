@@ -2,12 +2,7 @@ package com.maverick.adapter.holder;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.maverick.DetailActivity;
 import com.maverick.R;
@@ -37,6 +32,13 @@ public class SisterImageHolder extends SisterTextHolder {
         super.bindData(context, sisterInfo);
         this.mSisterInfo = sisterInfo;
         GlideUtil.loadImage(context, mSisterInfo.getImage2(), image);
+//        Glide.with(context).load(mSisterInfo.getImage2()).priority(Priority.HIGH).skipMemoryCache(true).error(R.mipmap.fail).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(image).getSize(new SizeReadyCallback() {
+//            @Override
+//            public void onSizeReady(int width, int height) {
+//                Log.e(TAG, "width = " + width);
+//                Log.e(TAG, "height = " + height);
+//            }
+//        });
     }
 
 

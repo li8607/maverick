@@ -18,8 +18,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.engine.Resource;
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapResource;
-import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.maverick.R;
 
 /**
@@ -32,7 +32,15 @@ public class GlideUtil {
             return;
         }
 
-        Glide.with(context).load(url).priority(Priority.HIGH).skipMemoryCache(true).fitCenter().error(R.mipmap.fail).diskCacheStrategy(DiskCacheStrategy.SOURCE).crossFade().into(imageView);
+        Glide.with(context).load(url).priority(Priority.HIGH).skipMemoryCache(true).error(R.mipmap.fail).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
+    }
+
+    public static void loadImage(Context context, String url, ImageView imageView, SizeReadyCallback cb) {
+        if (assertNotLoad(context, imageView)) {
+            return;
+        }
+
+        Glide.with(context).load(url).priority(Priority.HIGH).skipMemoryCache(true).error(R.mipmap.fail).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView).getSize(cb);
     }
 
     public static void loadImage(Context context, String url, ImageView imageView, RequestListener requestListener) {

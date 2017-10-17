@@ -38,6 +38,7 @@ public class SisterInfo implements Serializable {
     private boolean collect;
     private boolean ding;
     private boolean cai;
+    private boolean longImage;
 
     public String getCreate_time() {
         return create_time;
@@ -253,5 +254,13 @@ public class SisterInfo implements Serializable {
 
     public void setCai(boolean cai) {
         this.cai = cai;
+    }
+
+    public boolean isLongImage() {
+        return longImage;
+    }
+
+    public void setLongImage(boolean longImage) {
+        this.longImage = longImage;
     }
 }

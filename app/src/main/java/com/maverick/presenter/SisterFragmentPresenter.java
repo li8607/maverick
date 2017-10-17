@@ -6,6 +6,7 @@ import android.media.MediaMetadataRetriever;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.bumptech.glide.Glide;
 import com.maverick.bean.SisterDetailInfo;
 import com.maverick.bean.SisterInfo;
 import com.maverick.global.Tag;

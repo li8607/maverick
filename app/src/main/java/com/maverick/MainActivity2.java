@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
 import android.view.Gravity;
 import android.view.View;
@@ -18,11 +17,8 @@ import android.widget.Toast;
 import com.maverick.base.BaseActivity;
 import com.maverick.base.BaseFragment2;
 import com.maverick.bean.ButtonInfo;
-import com.maverick.bean.SisterDetailInfo;
-import com.maverick.fragment.BeautyFragment;
-import com.maverick.fragment.JokeFragment;
-import com.maverick.fragment.MyFragment;
-import com.maverick.fragment.SisterFragment;
+import com.maverick.factory.FragmentFactory;
+import com.maverick.type.FragmentType;
 import com.umeng.socialize.UMShareAPI;
 
 import java.util.ArrayList;
@@ -34,14 +30,8 @@ import java.util.List;
 public class MainActivity2 extends BaseActivity {
 
     private RadioGroup radio_group;
-    private RadioButton radio_0;
-    private RadioButton radio_1;
-    private RadioButton radio_2;
-    private RadioButton radio_3;
-    private JokeFragment mJokeFragment;
-    private BeautyFragment mBeautyFragment;
-    private SisterFragment mSisterFragment;
-    private MyFragment mMyFragment;
+    private RadioButton radio_0, radio_1, radio_2, radio_3;
+    private BaseFragment2 fragment_0, fragment_1, fragment_2, fragment_3;
     private TextView title;
 
     @Override
@@ -71,31 +61,31 @@ public class MainActivity2 extends BaseActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.radio_0:
-                        if (mJokeFragment == null) {
-                            mJokeFragment = JokeFragment.newInstance();
+                        if (fragment_0 == null) {
+                            fragment_0 = FragmentFactory.getMainFragment((ButtonInfo) radio_0.getTag());
                         }
-                        switchFragment(mJokeFragment);
+                        switchFragment(fragment_0);
                         title.setText(radio_0.getText());
                         break;
                     case R.id.radio_1:
-                        if (mBeautyFragment == null) {
-                            mBeautyFragment = BeautyFragment.newInstance();
+                        if (fragment_1 == null) {
+                            fragment_1 = FragmentFactory.getMainFragment((ButtonInfo) radio_1.getTag());
                         }
-                        switchFragment(mBeautyFragment);
+                        switchFragment(fragment_1);
                         title.setText(radio_1.getText());
                         break;
                     case R.id.radio_2:
-                        if (mSisterFragment == null) {
-                            mSisterFragment = SisterFragment.newInstance(new SisterDetailInfo());
+                        if (fragment_2 == null) {
+                            fragment_2 = FragmentFactory.getMainFragment((ButtonInfo) radio_2.getTag());
                         }
-                        switchFragment(mSisterFragment);
+                        switchFragment(fragment_2);
                         title.setText(radio_2.getText());
                         break;
                     case R.id.radio_3:
-                        if (mMyFragment == null) {
-                            mMyFragment = MyFragment.newInstance();
+                        if (fragment_3 == null) {
+                            fragment_3 = FragmentFactory.getMainFragment((ButtonInfo) radio_3.getTag());
                         }
-                        switchFragment(mMyFragment);
+                        switchFragment(fragment_3);
                         title.setText(radio_3.getText());
                         break;
                 }
@@ -108,36 +98,16 @@ public class MainActivity2 extends BaseActivity {
                 requestPermissions(mPermissionList, 123);
             }
         }
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-//                String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
-////                                ,
-////                                Manifest.permission.ACCESS_FINE_LOCATION,
-////                                Manifest.permission.CALL_PHONE,
-////                                Manifest.permission.READ_LOGS,
-////                                Manifest.permission.READ_PHONE_STATE,
-////                                Manifest.permission.READ_EXTERNAL_STORAGE,
-////                                Manifest.permission.SET_DEBUG_APP,
-////                                Manifest.permission.SYSTEM_ALERT_WINDOW,
-////                                Manifest.permission.GET_ACCOUNTS,
-////                                Manifest.permission.WRITE_APN_SETTINGS
-//                };
-//                ActivityCompat.requestPermissions(this, mPermissionList, 123);
-//                return;
-//            }
-//        }
     }
 
     @Override
     protected void onInitData(Bundle savedInstanceState) {
 
         List<ButtonInfo> mList = new ArrayList<>();
-        mList.add(getButtonInfo("笑话", R.drawable.bottom_joke_selector));
-        mList.add(getButtonInfo("美女", R.drawable.bottom_beauty_selector));
-        mList.add(getButtonInfo("百思不得姐", R.drawable.bottom_sister_selector));
-        mList.add(getButtonInfo("我的", R.drawable.bottom_my_selector));
-
+        mList.add(getButtonInfo("百思不得姐", R.drawable.bottom_sister_selector, FragmentType.SISTER));
+        mList.add(getButtonInfo("美女", R.drawable.bottom_beauty_selector, FragmentType.BEAUTY));
+        mList.add(getButtonInfo("笑话", R.drawable.bottom_joke_selector, FragmentType.JOKE));
+        mList.add(getButtonInfo("我的", R.drawable.bottom_my_selector, FragmentType.MY));
 
         for (int i = 0; i < mList.size(); i++) {
             ButtonInfo buttonInfo = mList.get(i);
@@ -159,10 +129,10 @@ public class MainActivity2 extends BaseActivity {
         }
 
         radio_0.setChecked(true);
-        if (mJokeFragment == null) {
-            mJokeFragment = JokeFragment.newInstance();
+        if (fragment_0 == null) {
+            fragment_0 = FragmentFactory.getMainFragment((ButtonInfo) radio_0.getTag());
         }
-        switchFragment(mJokeFragment);
+        switchFragment(fragment_0);
     }
 
     private BaseFragment2 mFragment;
@@ -212,12 +182,14 @@ public class MainActivity2 extends BaseActivity {
         }
         drawable.setBounds(0, 0, getResources().getDimensionPixelSize(R.dimen.x16), getResources().getDimensionPixelSize(R.dimen.x16));
         radioButton.setCompoundDrawables(null, drawable, null, null);
+        radioButton.setTag(buttonInfo);
     }
 
-    public ButtonInfo getButtonInfo(String name, int iconId) {
+    public ButtonInfo getButtonInfo(String name, int iconId, int type) {
         ButtonInfo buttonInfo = new ButtonInfo();
         buttonInfo.setName(name);
         buttonInfo.setIconId(iconId);
+        buttonInfo.setType(type);
         return buttonInfo;
     }
 

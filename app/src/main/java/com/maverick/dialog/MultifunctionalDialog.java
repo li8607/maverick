@@ -25,6 +25,8 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.Target;
 import com.maverick.R;
+import com.maverick.base.BaseDialogFragment;
+import com.maverick.presenter.BasePresenter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -34,7 +36,7 @@ import java.io.IOException;
 /**
  * Created by limingfei on 2017/6/12.
  */
-public class MultifunctionalDialog extends DialogFragment implements View.OnClickListener {
+public class MultifunctionalDialog extends BaseDialogFragment implements View.OnClickListener {
 
     private View img_save;
     private View share;
@@ -67,6 +69,26 @@ public class MultifunctionalDialog extends DialogFragment implements View.OnClic
         share.setOnClickListener(this);
         cancel.setOnClickListener(this);
         return view;
+    }
+
+    @Override
+    protected BasePresenter onCreatePresenter() {
+        return null;
+    }
+
+    @Override
+    protected int getRootViewId() {
+        return 0;
+    }
+
+    @Override
+    protected void onInitView(View view) {
+
+    }
+
+    @Override
+    protected void onInitData(Bundle savedInstanceState) {
+
     }
 
     @Override
