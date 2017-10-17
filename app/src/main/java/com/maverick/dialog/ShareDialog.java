@@ -1,9 +1,12 @@
 package com.maverick.dialog;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,6 +39,8 @@ public class ShareDialog extends BaseDialogFragment implements DialogInterface.O
     private ShareInfo mShareInfo;
     private ProgressDialog mProgressDialog;
     private RecyclerView share_list;
+    private ShareItemInfo mShareItemInfo;
+    private static final int MY_REQUEST_CODE = 100;
 
     public static ShareDialog newInstance(ShareInfo shareInfo) {
         ShareDialog dialog = new ShareDialog();
@@ -69,6 +74,9 @@ public class ShareDialog extends BaseDialogFragment implements DialogInterface.O
         DisplayMetrics dm = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
         window.setLayout(dm.widthPixels, getDialog().getWindow().getAttributes().height);
+        if(mPresenter != null) {
+            mPresenter.loadShareData();
+        }
     }
 
     @Override
@@ -103,7 +111,6 @@ public class ShareDialog extends BaseDialogFragment implements DialogInterface.O
     @Override
     protected void onInitData(Bundle savedInstanceState) {
         mShareInfo = (ShareInfo) getArguments().getSerializable(Tag.KEY_INFO);
-        mPresenter.loadShareData();
     }
 
     private OnShareDialogListener mOnShareDialogListener;
@@ -111,7 +118,6 @@ public class ShareDialog extends BaseDialogFragment implements DialogInterface.O
     public void setOnDismissListener(OnShareDialogListener listener) {
         this.mOnShareDialogListener = listener;
     }
-
 
     @Override
     public void onDismiss(DialogInterface dialog) {
@@ -156,22 +162,49 @@ public class ShareDialog extends BaseDialogFragment implements DialogInterface.O
         mShareDialogAdapter.setOnOnListener(new ShareDialogAdapter.OnListener() {
             @Override
             public void onItemClick(ShareItemInfo shareItemInfo) {
-                switch (shareItemInfo.getShareType()) {
-                    case ShareType.WEIXIN:
-                        mPresenter.shareWechat(mShareInfo);
-                        break;
-                    case ShareType.WEIXIN_CIRCLE:
-                        mPresenter.shareWxcircle(mShareInfo);
-                        break;
-                    case ShareType.SINA:
-                        mPresenter.shareSina(mShareInfo);
-                        break;
-                    case ShareType.QZONE:
-                        mPresenter.shareQzone(mShareInfo);
-                        break;
+                mShareItemInfo = shareItemInfo;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {//被拒绝过
+//                            ExplainFragment.getInstance().show(getFragmentManager(), "");
+                        } else {//第一次请求
+                            requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_REQUEST_CODE);
+                            return;
+                        }
+                    }
                 }
+                share(shareItemInfo);
             }
         });
+    }
+
+    private void share(ShareItemInfo shareItemInfo) {
+        if (shareItemInfo == null) {
+            return;
+        }
+        switch (shareItemInfo.getShareType()) {
+            case ShareType.WEIXIN:
+                mPresenter.shareWechat(mShareInfo);
+                break;
+            case ShareType.WEIXIN_CIRCLE:
+                mPresenter.shareWxcircle(mShareInfo);
+                break;
+            case ShareType.SINA:
+                mPresenter.shareSina(mShareInfo);
+                break;
+            case ShareType.QZONE:
+                mPresenter.shareQzone(mShareInfo);
+                break;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MY_REQUEST_CODE:
+                share(mShareItemInfo);
+                break;
+        }
     }
 
     public interface OnShareDialogListener {

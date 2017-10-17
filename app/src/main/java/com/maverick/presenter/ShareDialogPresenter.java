@@ -13,6 +13,7 @@ import com.maverick.bean.ShareItemInfo;
 import com.maverick.presenter.implView.IShareDialogView;
 import com.maverick.type.ShareType;
 import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.media.UMImage;
@@ -48,33 +49,42 @@ public class ShareDialogPresenter extends BasePresenter implements UMShareListen
     }
 
     public void loadShareData() {
-        List<ShareItemInfo> shareItemInfos = new ArrayList<>();
+        List<ShareItemInfo> mList = new ArrayList<>();
+        boolean isInstallWeixin = UMShareAPI.get(mActivity).isInstall(mActivity, SHARE_MEDIA.WEIXIN);
+        boolean isInstallWeixinCircle = UMShareAPI.get(mActivity).isInstall(mActivity, SHARE_MEDIA.WEIXIN_CIRCLE);
+        Log.e(TAG, "isInstallWeixin = " + isInstallWeixin);
+        Log.e(TAG, "isInstallWeixinCircle = " + isInstallWeixinCircle);
+        if (isInstallWeixin) {
+            ShareItemInfo weixin = new ShareItemInfo();
+            weixin.setShareType(ShareType.WEIXIN);
+            weixin.setId(R.drawable.umeng_socialize_wechat);
+            weixin.setTitle(mActivity.getResources().getString(R.string.share_wechat));
+            mList.add(weixin);
 
-        ShareItemInfo weixin = new ShareItemInfo();
-        weixin.setShareType(ShareType.WEIXIN);
-        weixin.setId(R.drawable.umeng_socialize_wechat);
-        weixin.setTitle(mActivity.getResources().getString(R.string.share_wechat));
-        shareItemInfos.add(weixin);
-
-        ShareItemInfo weixin_circle = new ShareItemInfo();
-        weixin_circle.setShareType(ShareType.WEIXIN_CIRCLE);
-        weixin_circle.setId(R.drawable.umeng_socialize_wxcircle);
-        weixin_circle.setTitle(mActivity.getResources().getString(R.string.share_wxcircle));
-        shareItemInfos.add(weixin_circle);
+            ShareItemInfo weixin_circle = new ShareItemInfo();
+            weixin_circle.setShareType(ShareType.WEIXIN_CIRCLE);
+            weixin_circle.setId(R.drawable.umeng_socialize_wxcircle);
+            weixin_circle.setTitle(mActivity.getResources().getString(R.string.share_wxcircle));
+            mList.add(weixin_circle);
+        }
 
         ShareItemInfo sina = new ShareItemInfo();
         sina.setShareType(ShareType.SINA);
         sina.setId(R.drawable.umeng_socialize_sina);
         sina.setTitle(mActivity.getResources().getString(R.string.share_sina));
-        shareItemInfos.add(sina);
+        mList.add(sina);
 
-        ShareItemInfo qzone = new ShareItemInfo();
-        qzone.setShareType(ShareType.QZONE);
-        qzone.setId(R.drawable.umeng_socialize_qzone);
-        qzone.setTitle(mActivity.getResources().getString(R.string.share_qzone));
-        shareItemInfos.add(qzone);
+        boolean isInstallQQ = UMShareAPI.get(mActivity).isInstall(mActivity, SHARE_MEDIA.QQ);
+        Log.e(TAG, "isInstallQQ = " + isInstallQQ);
+        if (isInstallQQ) {
+            ShareItemInfo qzone = new ShareItemInfo();
+            qzone.setShareType(ShareType.QZONE);
+            qzone.setId(R.drawable.umeng_socialize_qzone);
+            qzone.setTitle(mActivity.getResources().getString(R.string.share_qzone));
+            mList.add(qzone);
+        }
 
-        mView.onShowShareView(shareItemInfos);
+        mView.onShowShareView(mList);
     }
 
     private void share(ShareInfo shareInfo) {

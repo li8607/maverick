@@ -2,13 +2,12 @@ package com.maverick;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.RadioButton;
@@ -24,7 +23,6 @@ import com.maverick.fragment.BeautyFragment;
 import com.maverick.fragment.JokeFragment;
 import com.maverick.fragment.MyFragment;
 import com.maverick.fragment.SisterFragment;
-import com.maverick.weight.ToolbarView;
 import com.umeng.socialize.UMShareAPI;
 
 import java.util.ArrayList;
@@ -58,13 +56,6 @@ public class MainActivity2 extends BaseActivity {
 
     @Override
     protected void onInitView() {
-
-        if(Build.VERSION.SDK_INT>=23){
-            String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.CALL_PHONE,Manifest.permission.READ_LOGS,Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.SET_DEBUG_APP,Manifest.permission.SYSTEM_ALERT_WINDOW,Manifest.permission.GET_ACCOUNTS, Manifest.permission.WRITE_APN_SETTINGS};
-            ActivityCompat.requestPermissions(this,mPermissionList,123);
-        }
-
-
         radio_group = findView(R.id.radio_group);
 
         radio_0 = findView(R.id.radio_0);
@@ -110,13 +101,32 @@ public class MainActivity2 extends BaseActivity {
                 }
             }
         });
-    }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                requestPermissions(mPermissionList, 123);
+            }
+        }
 
-
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//                String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE
+////                                ,
+////                                Manifest.permission.ACCESS_FINE_LOCATION,
+////                                Manifest.permission.CALL_PHONE,
+////                                Manifest.permission.READ_LOGS,
+////                                Manifest.permission.READ_PHONE_STATE,
+////                                Manifest.permission.READ_EXTERNAL_STORAGE,
+////                                Manifest.permission.SET_DEBUG_APP,
+////                                Manifest.permission.SYSTEM_ALERT_WINDOW,
+////                                Manifest.permission.GET_ACCOUNTS,
+////                                Manifest.permission.WRITE_APN_SETTINGS
+//                };
+//                ActivityCompat.requestPermissions(this, mPermissionList, 123);
+//                return;
+//            }
+//        }
     }
 
     @Override
@@ -222,7 +232,7 @@ public class MainActivity2 extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        UMShareAPI.get(this).onActivityResult(requestCode,resultCode,data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
