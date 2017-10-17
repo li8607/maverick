@@ -7,9 +7,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.maverick.R;
 import com.maverick.bean.ShareInfo;
+import com.maverick.bean.ShareItemInfo;
 import com.maverick.presenter.implView.IShareDialogView;
 import com.maverick.type.ShareType;
 import com.umeng.socialize.ShareAction;
@@ -24,6 +24,8 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/10/15.
@@ -43,6 +45,36 @@ public class ShareDialogPresenter extends BasePresenter implements UMShareListen
     @Override
     public void release() {
 
+    }
+
+    public void loadShareData() {
+        List<ShareItemInfo> shareItemInfos = new ArrayList<>();
+
+        ShareItemInfo weixin = new ShareItemInfo();
+        weixin.setShareType(ShareType.WEIXIN);
+        weixin.setId(R.drawable.umeng_socialize_wechat);
+        weixin.setTitle(mActivity.getResources().getString(R.string.share_wechat));
+        shareItemInfos.add(weixin);
+
+        ShareItemInfo weixin_circle = new ShareItemInfo();
+        weixin_circle.setShareType(ShareType.WEIXIN_CIRCLE);
+        weixin_circle.setId(R.drawable.umeng_socialize_wxcircle);
+        weixin_circle.setTitle(mActivity.getResources().getString(R.string.share_wxcircle));
+        shareItemInfos.add(weixin_circle);
+
+        ShareItemInfo sina = new ShareItemInfo();
+        sina.setShareType(ShareType.SINA);
+        sina.setId(R.drawable.umeng_socialize_sina);
+        sina.setTitle(mActivity.getResources().getString(R.string.share_sina));
+        shareItemInfos.add(sina);
+
+        ShareItemInfo qzone = new ShareItemInfo();
+        qzone.setShareType(ShareType.QZONE);
+        qzone.setId(R.drawable.umeng_socialize_qzone);
+        qzone.setTitle(mActivity.getResources().getString(R.string.share_qzone));
+        shareItemInfos.add(qzone);
+
+        mView.onShowShareView(shareItemInfos);
     }
 
     private void share(ShareInfo shareInfo) {

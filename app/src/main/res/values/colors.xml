@@ -33,4 +33,8 @@
 
     <color name="joke_time_color">#b6b6b6</color>
 
+    <color name="share_background_color">#f2f2f2</color>
+    <color name="share_item_title_color">#666666</color>
+    <color name="share_cancel_select_color">#e6e6e6</color>
+
 </resources>

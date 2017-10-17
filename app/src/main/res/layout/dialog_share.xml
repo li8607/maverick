@@ -1,92 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="300dp"
-    android:background="@color/colorWhite"
-    android:orientation="horizontal">
+    android:layout_height="wrap_content"
+    android:background="@color/share_background_color"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/wechat"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:orientation="vertical">
+    <TextView
+        android:layout_marginTop="@dimen/y11"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/share_title"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/y11" />
 
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/umeng_socialize_wechat" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/share_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
-        <TextView
-            android:text="@string/share_wechat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+    <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
+        android:id="@+id/send_list"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y70"></android.support.v7.widget.RecyclerView>
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/wxcircle"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/umeng_socialize_wxcircle" />
-
-        <TextView
-            android:text="@string/share_wxcircle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/sina"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/umeng_socialize_sina" />
-
-        <TextView
-            android:text="@string/share_sina"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/qzone"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
-        <ImageView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/umeng_socialize_qzone" />
-
-        <TextView
-            android:text="@string/share_qzone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/cancel"
+        android:clickable="true"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y30"
+        android:background="@drawable/share_cancel_selector"
+        android:gravity="center"
+        android:text="@string/share_cancel"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/y10" />
 
 </LinearLayout>

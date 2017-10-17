@@ -2,23 +2,29 @@ package com.maverick.dialog;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 
 import com.maverick.R;
+import com.maverick.adapter.ShareDialogAdapter;
 import com.maverick.base.BaseDialogFragment;
 import com.maverick.bean.ShareInfo;
+import com.maverick.bean.ShareItemInfo;
 import com.maverick.global.Tag;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.ShareDialogPresenter;
 import com.maverick.presenter.implView.IShareDialogView;
+import com.maverick.type.ShareType;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/10/15.
@@ -29,6 +35,7 @@ public class ShareDialog extends BaseDialogFragment implements DialogInterface.O
     private ShareDialogPresenter mPresenter;
     private ShareInfo mShareInfo;
     private ProgressDialog mProgressDialog;
+    private RecyclerView share_list;
 
     public static ShareDialog newInstance(ShareInfo shareInfo) {
         ShareDialog dialog = new ShareDialog();
@@ -72,15 +79,23 @@ public class ShareDialog extends BaseDialogFragment implements DialogInterface.O
         window.getAttributes().windowAnimations = R.style.dialogAnim;
         window.getAttributes().gravity = Gravity.BOTTOM;
 
-        View wechat = findView(R.id.wechat);
-        View wxcircle = findView(R.id.wxcircle);
-        View sina = findView(R.id.sina);
-        View qzone = findView(R.id.qzone);
+        share_list = findView(R.id.share_list);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        share_list.setLayoutManager(layoutManager);
 
-        wechat.setOnClickListener(this);
-        wxcircle.setOnClickListener(this);
-        sina.setOnClickListener(this);
-        qzone.setOnClickListener(this);
+        share_list.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                outRect.left = view.getResources().getDimensionPixelOffset(R.dimen.y6);
+                outRect.top = view.getResources().getDimensionPixelOffset(R.dimen.y10);
+                outRect.bottom = view.getResources().getDimensionPixelOffset(R.dimen.y10);
+            }
+        });
+
+
+        View cancel = findView(R.id.cancel);
+        cancel.setOnClickListener(this);
 
         mProgressDialog = new ProgressDialog(getContext());
     }
@@ -88,6 +103,7 @@ public class ShareDialog extends BaseDialogFragment implements DialogInterface.O
     @Override
     protected void onInitData(Bundle savedInstanceState) {
         mShareInfo = (ShareInfo) getArguments().getSerializable(Tag.KEY_INFO);
+        mPresenter.loadShareData();
     }
 
     private OnShareDialogListener mOnShareDialogListener;
@@ -118,17 +134,8 @@ public class ShareDialog extends BaseDialogFragment implements DialogInterface.O
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.wechat:
-                mPresenter.shareWechat(mShareInfo);
-                break;
-            case R.id.wxcircle:
-                mPresenter.shareWxcircle(mShareInfo);
-                break;
-            case R.id.sina:
-                mPresenter.shareSina(mShareInfo);
-                break;
-            case R.id.qzone:
-                mPresenter.shareQzone(mShareInfo);
+            case R.id.cancel:
+                dismiss();
                 break;
         }
     }
@@ -140,6 +147,31 @@ public class ShareDialog extends BaseDialogFragment implements DialogInterface.O
         } else {
             mProgressDialog.dismiss();
         }
+    }
+
+    @Override
+    public void onShowShareView(List<ShareItemInfo> shareItemInfos) {
+        ShareDialogAdapter mShareDialogAdapter = new ShareDialogAdapter(getContext(), shareItemInfos);
+        share_list.setAdapter(mShareDialogAdapter);
+        mShareDialogAdapter.setOnOnListener(new ShareDialogAdapter.OnListener() {
+            @Override
+            public void onItemClick(ShareItemInfo shareItemInfo) {
+                switch (shareItemInfo.getShareType()) {
+                    case ShareType.WEIXIN:
+                        mPresenter.shareWechat(mShareInfo);
+                        break;
+                    case ShareType.WEIXIN_CIRCLE:
+                        mPresenter.shareWxcircle(mShareInfo);
+                        break;
+                    case ShareType.SINA:
+                        mPresenter.shareSina(mShareInfo);
+                        break;
+                    case ShareType.QZONE:
+                        mPresenter.shareQzone(mShareInfo);
+                        break;
+                }
+            }
+        });
     }
 
     public interface OnShareDialogListener {
