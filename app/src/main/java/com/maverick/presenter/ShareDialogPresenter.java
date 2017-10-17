@@ -89,6 +89,13 @@ public class ShareDialogPresenter extends BasePresenter implements UMShareListen
         shareAction.setCallback(this);
 
         switch (shareInfo.getShareType()) {
+            case ShareType.TEXT:
+                if (!TextUtils.isEmpty(shareInfo.getText())) {
+                    shareAction.withText(shareInfo.getText()).share();
+                } else {
+                    onError(share_media, new NullPointerException());
+                }
+                break;
             case ShareType.IMAGE:
                 if (!TextUtils.isEmpty(shareInfo.getImageurl())) {
                     Log.e(TAG, "分享的图片地址：" + shareInfo.getImageurl());
@@ -102,7 +109,7 @@ public class ShareDialogPresenter extends BasePresenter implements UMShareListen
             case ShareType.VIDEO:
                 if (!TextUtils.isEmpty(shareInfo.getVideourl())) {
                     UMVideo video = new UMVideo(shareInfo.getVideourl());
-                    video.setThumb(new UMImage(mActivity, R.drawable.empty_drawable));
+                    video.setThumb(new UMImage(mActivity, R.drawable.video_play_normal));
                     video.setTitle(shareInfo.getTitle());
                     video.setDescription(shareInfo.getTitle());
                     shareAction.withMedia(video).share();
@@ -110,10 +117,42 @@ public class ShareDialogPresenter extends BasePresenter implements UMShareListen
                     onError(share_media, new NullPointerException());
                 }
                 break;
+            case ShareType.IMAGE_TEXT:
+                if (!TextUtils.isEmpty(shareInfo.getWeburl())) {
+                    UMWeb web = new UMWeb(shareInfo.getWeburl());
+                    if (!TextUtils.isEmpty(shareInfo.getImageurl())) {
+                        web.setThumb(new UMImage(mActivity, shareInfo.getImageurl()));
+                    } else {
+                        web.setThumb(new UMImage(mActivity, R.mipmap.maverick_app_image));
+                    }
+                    web.setTitle(shareInfo.getTitle());
+                    web.setDescription(shareInfo.getTitle());
+                    shareAction.withMedia(web).share();
+                } else {
+                    shareInfo.setShareType(ShareType.IMAGE_TEXT);
+                    share(shareInfo);
+                }
+                break;
+            case ShareType.VIDEO_TEXT:
+                if (!TextUtils.isEmpty(shareInfo.getWeburl())) {
+                    UMWeb web = new UMWeb(shareInfo.getWeburl());
+                    web.setThumb(new UMImage(mActivity, R.drawable.video_play_normal));
+                    web.setTitle(shareInfo.getTitle());
+                    web.setDescription(shareInfo.getTitle());
+                    shareAction.withText(shareInfo.getTitle()).withMedia(web).share();
+                } else {
+                    shareInfo.setShareType(ShareType.VIDEO);
+                    share(shareInfo);
+                }
+                break;
             case ShareType.WEB:
                 if (!TextUtils.isEmpty(shareInfo.getWeburl())) {
                     UMWeb web = new UMWeb(shareInfo.getWeburl());
-                    web.setThumb(new UMImage(mActivity, R.mipmap.maverick_app_image));
+                    if (!TextUtils.isEmpty(shareInfo.getImageurl())) {
+                        web.setThumb(new UMImage(mActivity, shareInfo.getImageurl()));
+                    } else {
+                        web.setThumb(new UMImage(mActivity, R.mipmap.maverick_app_image));
+                    }
                     web.setTitle(shareInfo.getTitle());
                     web.setDescription(shareInfo.getTitle());
                     shareAction.withMedia(web).share();
@@ -121,13 +160,7 @@ public class ShareDialogPresenter extends BasePresenter implements UMShareListen
                     onError(share_media, new NullPointerException());
                 }
                 break;
-            case ShareType.TEXT:
-                if (!TextUtils.isEmpty(shareInfo.getText())) {
-                    shareAction.withText(shareInfo.getText()).share();
-                } else {
-                    onError(share_media, new NullPointerException());
-                }
-                break;
+
         }
     }
 

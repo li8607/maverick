@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,8 +96,9 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
                 if (TextUtils.equals(type, Tag.SISTER_IMAGE)) {
                     //图片
                     shareInfo.setImageurl(sisterInfo.getImage2());
+                    shareInfo.setWeburl(sisterInfo.getWeixin_url());
                     shareInfo.setTitle(sisterInfo.getText());
-                    shareInfo.setShareType(ShareType.IMAGE);
+                    shareInfo.setShareType(ShareType.IMAGE_TEXT);
                 } else if (TextUtils.equals(type, Tag.SISTER_TEXT)) {
                     //段子
                     shareInfo.setText(sisterInfo.getText());
@@ -106,13 +106,15 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
                 } else if (TextUtils.equals(type, Tag.SISTER_AUDIO)) {
                     //声音
                     shareInfo.setWeburl(sisterInfo.getWeixin_url());
+                    shareInfo.setVideourl(sisterInfo.getVideo_uri());
                     shareInfo.setTitle(sisterInfo.getText());
-                    shareInfo.setShareType(ShareType.WEB);
+                    shareInfo.setShareType(ShareType.VIDEO_TEXT);
                 } else if (TextUtils.equals(type, Tag.SISTER_VIDEO)) {
                     //视频
                     shareInfo.setWeburl(sisterInfo.getWeixin_url());
                     shareInfo.setTitle(sisterInfo.getText());
-                    shareInfo.setShareType(ShareType.WEB);
+                    shareInfo.setVideourl(sisterInfo.getVideo_uri());
+                    shareInfo.setShareType(ShareType.VIDEO_TEXT);
                 }
 
                 ShareDialog shareDialog = ShareDialog.newInstance(shareInfo);
