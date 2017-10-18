@@ -128,11 +128,6 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
                 // 将保存的图片地址给SubsamplingScaleImageView,这里注意设置ImageViewState设置初始显示比例
                 mSubsamplingScaleImageView.setImage(ImageSource.uri(Uri.fromFile(resource)), new ImageViewState(1.0F, new PointF(0, 0), 0));
             }
-        }).getSize(new SizeReadyCallback() {
-            @Override
-            public void onSizeReady(int width, int height) {
-
-            }
         });
     }
 
