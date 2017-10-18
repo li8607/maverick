@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.bumptech.glide.Glide;
 import com.maverick.R;
 import com.maverick.adapter.SisterFragmentAdapter;
 import com.maverick.adapter.holder.SisterTextHolder;
@@ -79,8 +80,9 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
         root = findView(R.id.root);
 
         pullLoadMoreRecyclerView = findView(R.id.recyclerView);
-        RecyclerView recyclerView = pullLoadMoreRecyclerView.getRecyclerView();
+        final RecyclerView recyclerView = pullLoadMoreRecyclerView.getRecyclerView();
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setAutoMeasureEnabled(true);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
@@ -306,6 +308,20 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
             @Override
             public void onClickBlankFullscreen(String url, Object... objects) {
 
+            }
+        });
+
+        recyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(View view) {
+
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(View view) {
+                int position = recyclerView.getChildAdapterPosition(view);
+
+//                Glide.with(getActivity()).load(mSisterFragmentAdapter.getData().get(position).getImage2()).downloadOnly(null).getRequest().isComplete();
             }
         });
     }

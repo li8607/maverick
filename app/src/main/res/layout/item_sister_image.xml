@@ -12,7 +12,7 @@
     <include layout="@layout/item_sister_content" />
 
     <FrameLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <com.maverick.weight.RatioImageView
@@ -21,15 +21,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"
+            />
 
         <TextView
-            android:layout_gravity="bottom|center_horizontal"
-            android:text="查看大图"
+            android:gravity="center"
+            android:layout_gravity="bottom"
+            android:text="点击查看全图"
             android:id="@+id/image_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/sister_content_color"
+            android:layout_width="match_parent"
+            android:background="@color/colorStatusBarBackground"
+            android:layout_height="@dimen/y25"
+            android:textColor="@color/colorWhite"
             android:textSize="@dimen/y11" />
     </FrameLayout>
     <include layout="@layout/item_sister_bottom" />

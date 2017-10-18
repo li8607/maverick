@@ -2,11 +2,8 @@ package com.maverick.api;
 
 import com.maverick.bean.GifInfoObj;
 
-import io.reactivex.Observable;
-import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -40,11 +37,11 @@ public interface ConnotationApi {
 // &dpi=620
 //
 //
-    @FormUrlEncoded
-    @GET("341-2")
-    Observable<GifInfoObj> getImgList(@Query("am_loc_time") String am_loc_time,
-                                      @Query("min_time") String min_time,
-                                      @Query("page") String page,
-                                      @Query("maxResult") String maxResult);
+//    @FormUrlEncoded
+//    @GET("341-2")
+//    Observable<GifInfoObj> getImgList(@Query("am_loc_time") String am_loc_time,
+//                                      @Query("min_time") String min_time,
+//                                      @Query("page") String page,
+//                                      @Query("maxResult") String maxResult);
 
 }
