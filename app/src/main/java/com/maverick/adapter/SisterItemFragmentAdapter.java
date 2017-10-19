@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/9/30.
  */
-public class SisterFragmentAdapter extends RecyclerView.Adapter {
+public class SisterItemFragmentAdapter extends RecyclerView.Adapter {
 
     private String TAG = getClass().getSimpleName();
 
@@ -32,7 +32,7 @@ public class SisterFragmentAdapter extends RecyclerView.Adapter {
     private List<SisterInfo> mList;
     private Context mContext;
 
-    public SisterFragmentAdapter(Context context) {
+    public SisterItemFragmentAdapter(Context context) {
         this.mContext = context;
     }
 

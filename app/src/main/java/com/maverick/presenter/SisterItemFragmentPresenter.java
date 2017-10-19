@@ -7,10 +7,10 @@ import android.util.Log;
 
 import com.maverick.bean.SisterTabInfo;
 import com.maverick.bean.SisterInfo;
-import com.maverick.imodel.ISisterFragmentModel;
+import com.maverick.imodel.ISisterModel;
 import com.maverick.model.SisterDingCaiModel;
-import com.maverick.model.SisterFragmentModel;
-import com.maverick.presenter.implView.ISisterFragmentView;
+import com.maverick.model.SisterModel;
+import com.maverick.presenter.implView.ISisterItemFragmentView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,20 +20,20 @@ import cntv.greendaolibrary.dbbean.SisterDingCai;
 /**
  * Created by Administrator on 2017/9/30.
  */
-public class SisterFragmentPresenter extends BasePresenter {
+public class SisterItemFragmentPresenter extends BasePresenter {
 
     private String TAG = getClass().getSimpleName();
 
     private Context mContext;
-    private ISisterFragmentView mView;
-    private final ISisterFragmentModel mModel;
+    private ISisterItemFragmentView mView;
+    private final ISisterModel mModel;
     private int mPage = 1;
     private SisterTabInfo mSisterTabInfo;
 
-    public SisterFragmentPresenter(Context context, ISisterFragmentView view) {
+    public SisterItemFragmentPresenter(Context context, ISisterItemFragmentView view) {
         this.mContext = context;
         this.mView = view;
-        this.mModel = new SisterFragmentModel();
+        this.mModel = new SisterModel();
     }
 
     @Override
@@ -51,7 +51,7 @@ public class SisterFragmentPresenter extends BasePresenter {
             return;
         }
 
-        mModel.requestData(sisterTabInfo.getType(), sisterTabInfo.getKey(), 1, new ISisterFragmentModel.OnResultListener() {
+        mModel.requestData(sisterTabInfo.getType(), sisterTabInfo.getKey(), 1, new ISisterModel.OnResultListener() {
 
             @Override
             public void onSuccess(List<SisterInfo> list) {
@@ -122,7 +122,7 @@ public class SisterFragmentPresenter extends BasePresenter {
             return;
         }
 
-        mModel.requestData(mSisterTabInfo.getType(), mSisterTabInfo.getKey(), mPage + 1, new ISisterFragmentModel.OnResultListener() {
+        mModel.requestData(mSisterTabInfo.getType(), mSisterTabInfo.getKey(), mPage + 1, new ISisterModel.OnResultListener() {
 
             @Override
             public void onSuccess(List<SisterInfo> list) {

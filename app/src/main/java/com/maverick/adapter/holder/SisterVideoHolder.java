@@ -2,7 +2,6 @@ package com.maverick.adapter.holder;
 
 import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -10,7 +9,7 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 
 import com.maverick.R;
-import com.maverick.adapter.SisterFragmentAdapter;
+import com.maverick.adapter.SisterItemFragmentAdapter;
 import com.maverick.bean.SisterInfo;
 import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
 
@@ -83,16 +82,16 @@ public class SisterVideoHolder extends SisterTextHolder {
         listVideoUtil.setTitle(mSisterInfo.getText());
         listVideoUtil.startPlay(mSisterInfo.getVideo_uri());
 
-        sisterFragmentAdapter.notifyDataSetChanged();
+        sisterItemFragmentAdapter.notifyDataSetChanged();
     }
 
     public void setListVideoUtil(ListVideoUtil listVideoUtil) {
         this.listVideoUtil = listVideoUtil;
     }
 
-    private SisterFragmentAdapter sisterFragmentAdapter;
+    private SisterItemFragmentAdapter sisterItemFragmentAdapter;
 
-    public void setRecyclerAdapter(SisterFragmentAdapter sisterFragmentAdapter) {
-        this.sisterFragmentAdapter = sisterFragmentAdapter;
+    public void setRecyclerAdapter(SisterItemFragmentAdapter sisterItemFragmentAdapter) {
+        this.sisterItemFragmentAdapter = sisterItemFragmentAdapter;
     }
 }

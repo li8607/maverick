@@ -7,7 +7,7 @@ import com.maverick.api.SisterApiInvokeProxy;
 import com.maverick.bean.SisterInfo;
 import com.maverick.bean.SisterInfoObj;
 import com.maverick.global.UrlData;
-import com.maverick.imodel.ISisterFragmentModel;
+import com.maverick.imodel.ISisterModel;
 
 import java.util.ArrayList;
 
@@ -20,7 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by Administrator on 2017/9/30.
  */
-public class SisterFragmentModel implements ISisterFragmentModel {
+public class SisterModel implements ISisterModel {
 
     private String TAG = getClass().getSimpleName();
     private SisterApiInvokeProxy mProxy;

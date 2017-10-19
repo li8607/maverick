@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/9/30.
  */
-public interface ISisterFragmentModel {
+public interface ISisterModel {
 
     void release();
 

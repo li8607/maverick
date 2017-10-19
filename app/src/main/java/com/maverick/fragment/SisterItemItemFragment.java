@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.maverick.R;
-import com.maverick.adapter.SisterFragmentAdapter;
+import com.maverick.adapter.SisterItemFragmentAdapter;
 import com.maverick.adapter.holder.SisterTextHolder;
 import com.maverick.adapter.holder.SisterVideoHolder;
 import com.maverick.base.BaseFragment2;
@@ -24,8 +24,8 @@ import com.maverick.global.Tag;
 import com.maverick.hepler.CollectHepler;
 import com.maverick.model.CollectModel;
 import com.maverick.presenter.BasePresenter;
-import com.maverick.presenter.SisterFragmentPresenter;
-import com.maverick.presenter.implView.ISisterFragmentView;
+import com.maverick.presenter.SisterItemFragmentPresenter;
+import com.maverick.presenter.implView.ISisterItemFragmentView;
 import com.maverick.type.ShareType;
 import com.shuyu.gsyvideoplayer.listener.StandardVideoAllCallBack;
 import com.shuyu.gsyvideoplayer.utils.CommonUtil;
@@ -41,10 +41,10 @@ import cntv.greendaolibrary.dbbean.Collect;
 /**
  * Created by Administrator on 2017/9/30.
  */
-public class SisterFragment extends BaseFragment2 implements ISisterFragmentView {
+public class SisterItemItemFragment extends BaseFragment2 implements ISisterItemFragmentView {
 
-    private SisterFragmentAdapter mSisterFragmentAdapter;
-    private SisterFragmentPresenter mPresenter;
+    private SisterItemFragmentAdapter mSisterItemFragmentAdapter;
+    private SisterItemFragmentPresenter mPresenter;
     private SisterTabInfo mSisterTabInfo;
     private PullLoadMoreRecyclerView pullLoadMoreRecyclerView;
     private ListVideoUtil listVideoUtil;
@@ -53,8 +53,8 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
     int firstVisibleItem;
     private ViewGroup root;
 
-    public static SisterFragment newInstance(SisterTabInfo sisterTabInfo) {
-        SisterFragment fragment = new SisterFragment();
+    public static SisterItemItemFragment newInstance(SisterTabInfo sisterTabInfo) {
+        SisterItemItemFragment fragment = new SisterItemItemFragment();
 
         Bundle bundle = new Bundle();
         bundle.putSerializable(Tag.KEY_INFO, sisterTabInfo);
@@ -65,7 +65,7 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
 
     @Override
     protected BasePresenter onCreatePresenter() {
-        mPresenter = new SisterFragmentPresenter(getContext(), this);
+        mPresenter = new SisterItemFragmentPresenter(getContext(), this);
         return mPresenter;
     }
 
@@ -87,10 +87,10 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
-        mSisterFragmentAdapter = new SisterFragmentAdapter(getContext());
-        recyclerView.setAdapter(mSisterFragmentAdapter);
+        mSisterItemFragmentAdapter = new SisterItemFragmentAdapter(getContext());
+        recyclerView.setAdapter(mSisterItemFragmentAdapter);
 
-        mSisterFragmentAdapter.setOnSisterTextHolderListener(new SisterTextHolder.OnSisterTextHolderListener() {
+        mSisterItemFragmentAdapter.setOnSisterTextHolderListener(new SisterTextHolder.OnSisterTextHolderListener() {
             @Override
             public void onShareClick(final View view, SisterInfo sisterInfo) {
                 MenuDetailInfo menuDetailInfo = new MenuDetailInfo();
@@ -139,7 +139,7 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
         listVideoUtil = new ListVideoUtil(getContext());
         listVideoUtil.setFullViewContainer((ViewGroup) getActivity().findViewById(R.id.video_full_container));
         listVideoUtil.setHideStatusBar(true);
-        mSisterFragmentAdapter.setListVideoUtil(listVideoUtil);
+        mSisterItemFragmentAdapter.setListVideoUtil(listVideoUtil);
 
         pullLoadMoreRecyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
             @Override
@@ -267,7 +267,7 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
                     if ((position < firstVisibleItem || position > lastVisibleItem)) {
                         //释放掉视频
                         listVideoUtil.releaseVideoPlayer();
-                        mSisterFragmentAdapter.notifyDataSetChanged();
+                        mSisterItemFragmentAdapter.notifyDataSetChanged();
                     }
                 }
 
@@ -324,7 +324,7 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
             public void onChildViewDetachedFromWindow(View view) {
                 int position = recyclerView.getChildAdapterPosition(view);
 
-//                Glide.with(getActivity()).load(mSisterFragmentAdapter.getData().get(position).getImage2()).downloadOnly(null).getRequest().isComplete();
+//                Glide.with(getActivity()).load(mSisterItemFragmentAdapter.getData().get(position).getImage2()).downloadOnly(null).getRequest().isComplete();
             }
         });
     }
@@ -341,8 +341,8 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
     public void onShowSuccessView(List<SisterInfo> sisterInfos) {
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
         pullLoadMoreRecyclerView.setHasMore(true);
-        mSisterFragmentAdapter.setData(sisterInfos);
-        mSisterFragmentAdapter.notifyDataSetChanged();
+        mSisterItemFragmentAdapter.setData(sisterInfos);
+        mSisterItemFragmentAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -390,9 +390,9 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
     public void onLoadMoreSuccess(List<SisterInfo> list, boolean isHasMore) {
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
         pullLoadMoreRecyclerView.setHasMore(isHasMore);
-        int positionStart = mSisterFragmentAdapter.getItemCount();
-        mSisterFragmentAdapter.setMoreData(list);
-        mSisterFragmentAdapter.notifyItemRangeInserted(positionStart, list.size());
+        int positionStart = mSisterItemFragmentAdapter.getItemCount();
+        mSisterItemFragmentAdapter.setMoreData(list);
+        mSisterItemFragmentAdapter.notifyItemRangeInserted(positionStart, list.size());
     }
 
     @Override
@@ -462,14 +462,14 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
 
         @Override
         public void onChange() {
-            if (mSisterFragmentAdapter != null && mSisterFragmentAdapter.getData() != null && mSisterFragmentAdapter.getData().size() > 0) {
-                for (int i = 0; i < mSisterFragmentAdapter.getData().size(); i++) {
-                    SisterInfo sisterInfo = mSisterFragmentAdapter.getData().get(i);
+            if (mSisterItemFragmentAdapter != null && mSisterItemFragmentAdapter.getData() != null && mSisterItemFragmentAdapter.getData().size() > 0) {
+                for (int i = 0; i < mSisterItemFragmentAdapter.getData().size(); i++) {
+                    SisterInfo sisterInfo = mSisterItemFragmentAdapter.getData().get(i);
                     Collect collect = new Collect();
                     collect.setCollectMajorKey(sisterInfo.getId());
                     sisterInfo.setCollect(CollectModel.newInstance().hasCollectDB(collect));
                 }
-                mSisterFragmentAdapter.notifyDataSetChanged();
+                mSisterItemFragmentAdapter.notifyDataSetChanged();
             }
         }
     };
