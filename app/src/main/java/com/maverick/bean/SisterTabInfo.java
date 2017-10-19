@@ -5,10 +5,11 @@ import java.io.Serializable;
 /**
  * Created by Administrator on 2017/9/30.
  */
-public class SisterDetailInfo implements Serializable {
+public class SisterTabInfo implements Serializable {
 
     private String type = "";
     private String title = "";
+    private String key = "";
 
     public String getType() {
         return type;
@@ -24,5 +25,13 @@ public class SisterDetailInfo implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

@@ -17,7 +17,7 @@ import com.maverick.adapter.holder.SisterTextHolder;
 import com.maverick.adapter.holder.SisterVideoHolder;
 import com.maverick.base.BaseFragment2;
 import com.maverick.bean.MenuDetailInfo;
-import com.maverick.bean.SisterDetailInfo;
+import com.maverick.bean.SisterTabInfo;
 import com.maverick.bean.SisterInfo;
 import com.maverick.dialog.MenuDialog;
 import com.maverick.global.Tag;
@@ -45,7 +45,7 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
 
     private SisterFragmentAdapter mSisterFragmentAdapter;
     private SisterFragmentPresenter mPresenter;
-    private SisterDetailInfo mSisterDetailInfo;
+    private SisterTabInfo mSisterTabInfo;
     private PullLoadMoreRecyclerView pullLoadMoreRecyclerView;
     private ListVideoUtil listVideoUtil;
 
@@ -53,11 +53,11 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
     int firstVisibleItem;
     private ViewGroup root;
 
-    public static SisterFragment newInstance(SisterDetailInfo sisterDetailInfo) {
+    public static SisterFragment newInstance(SisterTabInfo sisterTabInfo) {
         SisterFragment fragment = new SisterFragment();
 
         Bundle bundle = new Bundle();
-        bundle.putSerializable(Tag.KEY_INFO, sisterDetailInfo);
+        bundle.putSerializable(Tag.KEY_INFO, sisterTabInfo);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -144,7 +144,7 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
         pullLoadMoreRecyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
             @Override
             public void onRefresh() {
-                mPresenter.refreshData(mSisterDetailInfo);
+                mPresenter.refreshData(mSisterTabInfo);
             }
 
             @Override
@@ -331,8 +331,8 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
 
     @Override
     protected void onInitData(Bundle savedInstanceState) {
-        mSisterDetailInfo = (SisterDetailInfo) getArguments().getSerializable(Tag.KEY_INFO);
-//        mPresenter.refreshData(mSisterDetailInfo);
+        mSisterTabInfo = (SisterTabInfo) getArguments().getSerializable(Tag.KEY_INFO);
+//        mPresenter.refreshData(mSisterTabInfo);
         pullLoadMoreRecyclerView.setRefreshing(true);
         pullLoadMoreRecyclerView.refresh();
     }

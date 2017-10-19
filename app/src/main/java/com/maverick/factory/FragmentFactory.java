@@ -2,11 +2,10 @@ package com.maverick.factory;
 
 import com.maverick.base.BaseFragment2;
 import com.maverick.bean.ButtonInfo;
-import com.maverick.bean.SisterDetailInfo;
 import com.maverick.fragment.BeautyFragment;
 import com.maverick.fragment.JokeFragment;
 import com.maverick.fragment.MyFragment;
-import com.maverick.fragment.SisterFragment;
+import com.maverick.fragment.SisterFragment2;
 import com.maverick.type.FragmentType;
 
 /**
@@ -15,13 +14,13 @@ import com.maverick.type.FragmentType;
 public class FragmentFactory {
 
     public static BaseFragment2 getMainFragment(ButtonInfo buttonInfo) {
-        if(buttonInfo == null) {
+        if (buttonInfo == null) {
             return BeautyFragment.newInstance();
         }
         BaseFragment2 fragment;
         switch (buttonInfo.getType()) {
             case FragmentType.SISTER:
-                fragment = SisterFragment.newInstance(new SisterDetailInfo());
+                fragment = SisterFragment2.newInstance();
                 break;
             case FragmentType.JOKE:
                 fragment = JokeFragment.newInstance();

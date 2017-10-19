@@ -19,4 +19,5 @@ public class Tag {
     public static final int JOKE_TAB_TEXT = 0;
     public static final int JOKE_TAB_IMG = 1;
     public static final int JOKE_TAB_GIF = 2;
+
 }
