@@ -3,15 +3,15 @@ package cntv.greendaolibrary.dbbean;
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
-import org.greenrobot.greendao.annotation.Index;
 import org.greenrobot.greendao.annotation.Property;
-import org.greenrobot.greendao.annotation.Unique;
+
+import java.io.Serializable;
 
 /**
  * Created by limingfei on 2017/9/27.
  */
 @Entity
-public class Collect {
+public class Collect implements Serializable{
     @Id
     @Property(nameInDb = "COLLECTMAJORKEY")
     private String collectMajorKey;
