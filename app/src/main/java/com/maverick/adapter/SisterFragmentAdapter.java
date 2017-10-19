@@ -12,11 +12,11 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/9/25.
  */
-public class SisterFragmentAdapter2 extends FragmentStatePagerAdapter {
+public class SisterFragmentAdapter extends FragmentStatePagerAdapter {
 
     private List<SisterTabInfo> mList;
 
-    public SisterFragmentAdapter2(FragmentManager fm) {
+    public SisterFragmentAdapter(FragmentManager fm) {
         super(fm);
     }
 

@@ -5,7 +5,7 @@ import com.maverick.bean.ButtonInfo;
 import com.maverick.fragment.BeautyFragment;
 import com.maverick.fragment.JokeFragment;
 import com.maverick.fragment.MyFragment;
-import com.maverick.fragment.SisterFragment2;
+import com.maverick.fragment.SisterFragment;
 import com.maverick.type.FragmentType;
 
 /**
@@ -20,7 +20,7 @@ public class FragmentFactory {
         BaseFragment2 fragment;
         switch (buttonInfo.getType()) {
             case FragmentType.SISTER:
-                fragment = SisterFragment2.newInstance();
+                fragment = SisterFragment.newInstance();
                 break;
             case FragmentType.JOKE:
                 fragment = JokeFragment.newInstance();
