@@ -2,10 +2,12 @@ package com.maverick.bean;
 
 import java.io.Serializable;
 
+import cntv.greendaolibrary.dbbean.Collect;
+
 /**
  * Created by Administrator on 2017/10/15.
  */
-public class ShareInfo implements Serializable {
+public class MenuDetailInfo implements Serializable {
 
     private int shareType;
 
@@ -14,6 +16,7 @@ public class ShareInfo implements Serializable {
     private String videourl;
     private String weburl;
     private String text;
+    private Collect collect;
 
     public String getImageurl() {
         return imageurl;
@@ -61,5 +64,13 @@ public class ShareInfo implements Serializable {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Collect getCollect() {
+        return collect;
+    }
+
+    public void setCollect(Collect collect) {
+        this.collect = collect;
     }
 }

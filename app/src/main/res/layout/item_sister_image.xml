@@ -22,9 +22,19 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
+            android:background="#EFEFEF"
             />
 
+        <ImageView
+            android:visibility="gone"
+            android:id="@+id/loading"
+            android:layout_gravity="center"
+            android:src="@mipmap/loading"
+            android:layout_width="@dimen/y25"
+            android:layout_height="@dimen/y25" />
+
         <TextView
+            android:visibility="gone"
             android:gravity="center"
             android:layout_gravity="bottom"
             android:text="点击查看全图"

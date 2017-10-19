@@ -8,6 +8,7 @@ import com.maverick.DetailActivity;
 import com.maverick.R;
 import com.maverick.bean.BigImgInfo;
 import com.maverick.bean.SisterInfo;
+import com.maverick.hepler.CollectHepler;
 import com.maverick.util.GlideUtil;
 import com.maverick.weight.RatioImageView;
 
@@ -20,6 +21,7 @@ public class SisterImageHolder extends SisterTextHolder {
     private SisterInfo mSisterInfo;
     private final RatioImageView image;
     private final View image_text;
+    private final View loading;
 
     public SisterImageHolder(View itemView) {
         super(itemView);
@@ -29,80 +31,13 @@ public class SisterImageHolder extends SisterTextHolder {
         image.setOnClickListener(this);
 
         image_text = itemView.findViewById(R.id.image_text);
+        loading = itemView.findViewById(R.id.loading);
     }
 
     public void bindData(final Context context, SisterInfo sisterInfo) {
         super.bindData(context, sisterInfo);
         this.mSisterInfo = sisterInfo;
         GlideUtil.loadImage(context, mSisterInfo.getImage2(), image);
-
-//        Glide.with(context).load(mSisterInfo.getImage2()).asBitmap().into(new SimpleTarget() {
-//            @Override
-//            public void onResourceReady(Object resource, GlideAnimation glideAnimation) {
-//                if (!(resource instanceof Bitmap)) return;
-//                Bitmap bitmap = (Bitmap) resource;
-//
-//                // Do bitmap blur here
-//                Bitmap blurBitmap = FastBlur.doBlur(bitmap, 4, true);
-//                image.setImageBitmap(blurBitmap);
-//
-//                // full image url
-//                String fullImageUrl = mSisterInfo.getImage2();
-////                Glide.with(context).load(fullImageUrl).asBitmap().into(new SimpleTarget() {
-////                    @Override
-////                    public void onResourceReady(Object resource, GlideAnimation glideAnimation) {
-////                        if (!(resource instanceof Bitmap)) return;
-////                        Bitmap fullBitmap = (Bitmap) resource;
-////
-////                        // full image task
-////                        // do the full image task
-////                        image.setImageBitmap(fullBitmap);
-////                    }
-////                });
-//            }});
-
-
-//        //下载图片保存到本地
-//        Glide.with(context)
-//                .load(mSisterInfo.getImage2()).downloadOnly(new SimpleTarget<File>() {
-//
-//            @Override
-//            public void onResourceReady(File resource, GlideAnimation<? super File> glideAnimation) {
-//
-//                int oldPosition = getOldPosition();
-//                int adapterPosition = getAdapterPosition();
-//
-//                BitmapFactory.Options options = new BitmapFactory.Options();
-//                options.inJustDecodeBounds = true;
-//                BitmapFactory.decodeFile(resource.getPath(), options);
-//
-//                int imageHeight;
-//                int imageWidth = image.getMeasuredWidth();
-//
-//                if (options.outHeight >= imageWidth * 1.5) {
-//                    image_text.setVisibility(View.VISIBLE);
-//                    imageHeight = imageWidth * 1;
-//                    image.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//                } else {
-//                    image_text.setVisibility(View.INVISIBLE);
-////                    imageHeight = ViewGroup.LayoutParams.WRAP_CONTENT;
-//                    imageHeight = 0;
-//                    image.setScaleType(ImageView.ScaleType.FIT_START);
-//                }
-//
-//                ViewGroup.LayoutParams layoutParams = image.getLayoutParams();
-//                layoutParams.height = imageHeight;
-//                image.setLayoutParams(layoutParams);
-//
-//                Glide.with(context)
-//                        .load(resource.getPath())
-//                        .dontAnimate()
-//                        .error(R.drawable.empty_drawable)
-//                        // 设置高斯模糊
-//                        .bitmapTransform(new CropTransformation(context, image.getMeasuredWidth(), imageHeight, CropTransformation.CropType.TOP))
-//                        .into(image);
-//            }
-//        });
     }
 
     @Override
@@ -110,8 +45,14 @@ public class SisterImageHolder extends SisterTextHolder {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.image:
+                if (mSisterInfo == null) {
+                    return;
+                }
                 BigImgInfo bigImgInfo = new BigImgInfo();
                 bigImgInfo.setImg(mSisterInfo.getImage2());
+                bigImgInfo.setTitle(mSisterInfo.getText());
+                bigImgInfo.setWebUrl(mSisterInfo.getWeixin_url());
+                bigImgInfo.setCollect(CollectHepler.getCollect(mSisterInfo));
                 DetailActivity.launch((Activity) v.getContext(), image, bigImgInfo);
                 break;
         }

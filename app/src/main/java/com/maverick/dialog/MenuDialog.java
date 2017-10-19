@@ -17,35 +17,36 @@ import android.view.View;
 import android.view.Window;
 
 import com.maverick.R;
-import com.maverick.adapter.ShareDialogAdapter;
+import com.maverick.adapter.MenuDialogAdapter;
 import com.maverick.base.BaseDialogFragment;
-import com.maverick.bean.ShareInfo;
-import com.maverick.bean.ShareItemInfo;
+import com.maverick.bean.MenuDetailInfo;
+import com.maverick.bean.MenuItemInfo;
 import com.maverick.global.Tag;
+import com.maverick.model.CollectModel;
 import com.maverick.presenter.BasePresenter;
-import com.maverick.presenter.ShareDialogPresenter;
-import com.maverick.presenter.implView.IShareDialogView;
-import com.maverick.type.ShareType;
+import com.maverick.presenter.MenuDialogPresenter;
+import com.maverick.presenter.implView.IMenuDialogView;
+import com.maverick.type.MenuType;
 
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/10/15.
  */
-public class ShareDialog extends BaseDialogFragment implements DialogInterface.OnKeyListener, View.OnClickListener, IShareDialogView {
+public class MenuDialog extends BaseDialogFragment implements DialogInterface.OnKeyListener, View.OnClickListener, IMenuDialogView {
 
     private String TAG = getClass().getSimpleName();
-    private ShareDialogPresenter mPresenter;
-    private ShareInfo mShareInfo;
+    private MenuDialogPresenter mPresenter;
+    private MenuDetailInfo mMenuDetailInfo;
     private ProgressDialog mProgressDialog;
-    private RecyclerView share_list;
-    private ShareItemInfo mShareItemInfo;
+    private RecyclerView share_list, send_list;
+    private MenuItemInfo mMenuItemInfo;
     private static final int MY_REQUEST_CODE = 100;
 
-    public static ShareDialog newInstance(ShareInfo shareInfo) {
-        ShareDialog dialog = new ShareDialog();
+    public static MenuDialog newInstance(MenuDetailInfo menuDetailInfo) {
+        MenuDialog dialog = new MenuDialog();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(Tag.KEY_INFO, shareInfo);
+        bundle.putSerializable(Tag.KEY_INFO, menuDetailInfo);
         dialog.setArguments(bundle);
         return dialog;
     }
@@ -57,7 +58,7 @@ public class ShareDialog extends BaseDialogFragment implements DialogInterface.O
 
     @Override
     protected BasePresenter onCreatePresenter() {
-        mPresenter = new ShareDialogPresenter(getActivity(), this);
+        mPresenter = new MenuDialogPresenter(getActivity(), this);
         return mPresenter;
     }
 
@@ -74,8 +75,8 @@ public class ShareDialog extends BaseDialogFragment implements DialogInterface.O
         DisplayMetrics dm = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
         window.setLayout(dm.widthPixels, getDialog().getWindow().getAttributes().height);
-        if(mPresenter != null) {
-            mPresenter.loadShareData();
+        if (mPresenter != null) {
+            mPresenter.loadShareData(mMenuDetailInfo);
         }
     }
 
@@ -101,6 +102,18 @@ public class ShareDialog extends BaseDialogFragment implements DialogInterface.O
             }
         });
 
+        send_list = findView(R.id.send_list);
+        LinearLayoutManager layoutManager2 = new LinearLayoutManager(getContext());
+        layoutManager2.setOrientation(LinearLayoutManager.HORIZONTAL);
+        send_list.setLayoutManager(layoutManager2);
+        send_list.addItemDecoration(new RecyclerView.ItemDecoration() {
+            @Override
+            public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+                outRect.left = view.getResources().getDimensionPixelOffset(R.dimen.y6);
+                outRect.top = view.getResources().getDimensionPixelOffset(R.dimen.y10);
+                outRect.bottom = view.getResources().getDimensionPixelOffset(R.dimen.y10);
+            }
+        });
 
         View cancel = findView(R.id.cancel);
         cancel.setOnClickListener(this);
@@ -110,7 +123,7 @@ public class ShareDialog extends BaseDialogFragment implements DialogInterface.O
 
     @Override
     protected void onInitData(Bundle savedInstanceState) {
-        mShareInfo = (ShareInfo) getArguments().getSerializable(Tag.KEY_INFO);
+        mMenuDetailInfo = (MenuDetailInfo) getArguments().getSerializable(Tag.KEY_INFO);
     }
 
     private OnShareDialogListener mOnShareDialogListener;
@@ -156,13 +169,13 @@ public class ShareDialog extends BaseDialogFragment implements DialogInterface.O
     }
 
     @Override
-    public void onShowShareView(List<ShareItemInfo> shareItemInfos) {
-        ShareDialogAdapter mShareDialogAdapter = new ShareDialogAdapter(getContext(), shareItemInfos);
-        share_list.setAdapter(mShareDialogAdapter);
-        mShareDialogAdapter.setOnOnListener(new ShareDialogAdapter.OnListener() {
+    public void onShowShareView(List<MenuItemInfo> menuItemInfos) {
+        MenuDialogAdapter mMenuDialogAdapter = new MenuDialogAdapter(getContext(), menuItemInfos);
+        share_list.setAdapter(mMenuDialogAdapter);
+        mMenuDialogAdapter.setOnOnListener(new MenuDialogAdapter.OnListener() {
             @Override
-            public void onItemClick(ShareItemInfo shareItemInfo) {
-                mShareItemInfo = shareItemInfo;
+            public void onItemClick(View view, int position, MenuItemInfo menuItemInfo) {
+                mMenuItemInfo = menuItemInfo;
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                         if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_EXTERNAL_STORAGE)) {//被拒绝过
@@ -173,27 +186,66 @@ public class ShareDialog extends BaseDialogFragment implements DialogInterface.O
                         }
                     }
                 }
-                share(shareItemInfo);
+                share(menuItemInfo);
             }
         });
     }
 
-    private void share(ShareItemInfo shareItemInfo) {
-        if (shareItemInfo == null) {
+    @Override
+    public void onShowSendView(List<MenuItemInfo> send) {
+        final MenuDialogAdapter mMenuDialogAdapter = new MenuDialogAdapter(getContext(), send);
+        send_list.setAdapter(mMenuDialogAdapter);
+        mMenuDialogAdapter.setOnOnListener(new MenuDialogAdapter.OnListener() {
+            @Override
+            public void onItemClick(View view, int position, MenuItemInfo menuItemInfo) {
+
+                if (menuItemInfo == null) {
+                    return;
+                }
+
+                switch (menuItemInfo.getMenuType()) {
+                    case MenuType.SEND_COLLENT:
+                        if (mMenuDetailInfo == null) {
+                            return;
+                        }
+
+                        menuItemInfo.setCollect(!menuItemInfo.isCollect());
+                        if (menuItemInfo.isCollect()) {
+                            CollectModel.newInstance().insertCollectDB(mMenuDetailInfo.getCollect());
+                        } else {
+                            CollectModel.newInstance().deleteCollectDB(mMenuDetailInfo.getCollect());
+                        }
+
+                        RecyclerView.ViewHolder viewHolder = send_list.findViewHolderForAdapterPosition(position);
+
+                        if (viewHolder != null && viewHolder instanceof MenuDialogAdapter.ShareViewHolder) {
+                            MenuDialogAdapter.ShareViewHolder shareViewHolder = (MenuDialogAdapter.ShareViewHolder) viewHolder;
+                            shareViewHolder.updateCollectUI(menuItemInfo);
+                        } else {
+                            mMenuDialogAdapter.notifyItemChanged(position);
+                        }
+                        break;
+                }
+            }
+        });
+    }
+
+    private void share(MenuItemInfo menuItemInfo) {
+        if (menuItemInfo == null) {
             return;
         }
-        switch (shareItemInfo.getShareType()) {
-            case ShareType.WEIXIN:
-                mPresenter.shareWechat(mShareInfo);
+        switch (menuItemInfo.getMenuType()) {
+            case MenuType.SHARE_WEIXIN:
+                mPresenter.shareWechat(mMenuDetailInfo);
                 break;
-            case ShareType.WEIXIN_CIRCLE:
-                mPresenter.shareWxcircle(mShareInfo);
+            case MenuType.SHARE_WEIXIN_CIRCLE:
+                mPresenter.shareWxcircle(mMenuDetailInfo);
                 break;
-            case ShareType.SINA:
-                mPresenter.shareSina(mShareInfo);
+            case MenuType.SHARE_SINA:
+                mPresenter.shareSina(mMenuDetailInfo);
                 break;
-            case ShareType.QZONE:
-                mPresenter.shareQzone(mShareInfo);
+            case MenuType.SHARE_QZONE:
+                mPresenter.shareQzone(mMenuDetailInfo);
                 break;
         }
     }
@@ -202,7 +254,7 @@ public class ShareDialog extends BaseDialogFragment implements DialogInterface.O
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case MY_REQUEST_CODE:
-                share(mShareItemInfo);
+                share(mMenuItemInfo);
                 break;
         }
     }

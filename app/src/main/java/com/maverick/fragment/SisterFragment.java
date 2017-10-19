@@ -11,17 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.bumptech.glide.Glide;
 import com.maverick.R;
 import com.maverick.adapter.SisterFragmentAdapter;
 import com.maverick.adapter.holder.SisterTextHolder;
 import com.maverick.adapter.holder.SisterVideoHolder;
 import com.maverick.base.BaseFragment2;
-import com.maverick.bean.ShareInfo;
+import com.maverick.bean.MenuDetailInfo;
 import com.maverick.bean.SisterDetailInfo;
 import com.maverick.bean.SisterInfo;
-import com.maverick.dialog.ShareDialog;
+import com.maverick.dialog.MenuDialog;
 import com.maverick.global.Tag;
+import com.maverick.hepler.CollectHepler;
 import com.maverick.model.CollectModel;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.SisterFragmentPresenter;
@@ -93,43 +93,46 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
         mSisterFragmentAdapter.setOnSisterTextHolderListener(new SisterTextHolder.OnSisterTextHolderListener() {
             @Override
             public void onShareClick(final View view, SisterInfo sisterInfo) {
-                ShareInfo shareInfo = new ShareInfo();
+                MenuDetailInfo menuDetailInfo = new MenuDetailInfo();
                 String type = sisterInfo.getType();
                 if (TextUtils.equals(type, Tag.SISTER_IMAGE)) {
                     //图片
-                    shareInfo.setImageurl(sisterInfo.getImage2());
-                    shareInfo.setWeburl(sisterInfo.getWeixin_url());
-                    shareInfo.setTitle(sisterInfo.getText());
-                    shareInfo.setShareType(ShareType.IMAGE_TEXT);
+                    menuDetailInfo.setImageurl(sisterInfo.getImage2());
+                    menuDetailInfo.setWeburl(sisterInfo.getWeixin_url());
+                    menuDetailInfo.setTitle(sisterInfo.getText());
+                    menuDetailInfo.setShareType(ShareType.IMAGE_TEXT);
                 } else if (TextUtils.equals(type, Tag.SISTER_TEXT)) {
                     //段子
-                    shareInfo.setText(sisterInfo.getText());
-                    shareInfo.setShareType(ShareType.TEXT);
+                    menuDetailInfo.setText(sisterInfo.getText());
+                    menuDetailInfo.setShareType(ShareType.TEXT);
                 } else if (TextUtils.equals(type, Tag.SISTER_AUDIO)) {
                     //声音
-                    shareInfo.setWeburl(sisterInfo.getWeixin_url());
-                    shareInfo.setVideourl(sisterInfo.getVideo_uri());
-                    shareInfo.setTitle(sisterInfo.getText());
-                    shareInfo.setShareType(ShareType.VIDEO_TEXT);
+                    menuDetailInfo.setWeburl(sisterInfo.getWeixin_url());
+                    menuDetailInfo.setVideourl(sisterInfo.getVideo_uri());
+                    menuDetailInfo.setTitle(sisterInfo.getText());
+                    menuDetailInfo.setShareType(ShareType.VIDEO_TEXT);
                 } else if (TextUtils.equals(type, Tag.SISTER_VIDEO)) {
                     //视频
-                    shareInfo.setWeburl(sisterInfo.getWeixin_url());
-                    shareInfo.setTitle(sisterInfo.getText());
-                    shareInfo.setVideourl(sisterInfo.getVideo_uri());
-                    shareInfo.setShareType(ShareType.VIDEO_TEXT);
+                    menuDetailInfo.setWeburl(sisterInfo.getWeixin_url());
+                    menuDetailInfo.setTitle(sisterInfo.getText());
+                    menuDetailInfo.setVideourl(sisterInfo.getVideo_uri());
+                    menuDetailInfo.setShareType(ShareType.VIDEO_TEXT);
                 }
 
-                ShareDialog shareDialog = ShareDialog.newInstance(shareInfo);
-                shareDialog.setOnDismissListener(new ShareDialog.OnShareDialogListener() {
+                menuDetailInfo.setCollect(CollectHepler.getCollect(sisterInfo));
+                MenuDialog menuDialog = MenuDialog.newInstance(menuDetailInfo);
+                menuDialog.setOnDismissListener(new MenuDialog.OnShareDialogListener() {
 
                     @Override
                     public void onDismiss() {
                         view.setSelected(false);
+                        CollectModel.newInstance().removeOnCollectListener(mListener);
                     }
                 });
 
-                showDialogFragment(shareDialog);
+                showDialogFragment(menuDialog);
                 view.setSelected(true);
+                CollectModel.newInstance().addOnCollectListener(mListener);
             }
         });
 
@@ -452,7 +455,6 @@ public class SisterFragment extends BaseFragment2 implements ISisterFragmentView
         if (listVideoUtil.getGsyVideoPlayer() != null) {
             listVideoUtil.getGsyVideoPlayer().onVideoResume();
         }
-
         CollectModel.newInstance().removeOnCollectListener(mListener);
     }
 

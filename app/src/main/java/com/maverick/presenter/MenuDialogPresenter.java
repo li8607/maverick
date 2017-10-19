@@ -8,9 +8,11 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.maverick.R;
-import com.maverick.bean.ShareInfo;
-import com.maverick.bean.ShareItemInfo;
-import com.maverick.presenter.implView.IShareDialogView;
+import com.maverick.bean.MenuDetailInfo;
+import com.maverick.bean.MenuItemInfo;
+import com.maverick.model.CollectModel;
+import com.maverick.presenter.implView.IMenuDialogView;
+import com.maverick.type.MenuType;
 import com.maverick.type.ShareType;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareAPI;
@@ -31,14 +33,14 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/10/15.
  */
-public class ShareDialogPresenter extends BasePresenter implements UMShareListener {
+public class MenuDialogPresenter extends BasePresenter implements UMShareListener {
 
     private String TAG = getClass().getSimpleName();
     private Activity mActivity;
-    private IShareDialogView mView;
+    private IMenuDialogView mView;
     private SHARE_MEDIA share_media;
 
-    public ShareDialogPresenter(Activity activity, IShareDialogView view) {
+    public MenuDialogPresenter(Activity activity, IMenuDialogView view) {
         this.mActivity = activity;
         this.mView = view;
     }
@@ -48,48 +50,49 @@ public class ShareDialogPresenter extends BasePresenter implements UMShareListen
 
     }
 
-    public void loadShareData() {
-        List<ShareItemInfo> mList = new ArrayList<>();
+    public void loadShareData(MenuDetailInfo menuDetailInfo) {
+        List<MenuItemInfo> mList = new ArrayList<>();
         boolean isInstallWeixin = UMShareAPI.get(mActivity).isInstall(mActivity, SHARE_MEDIA.WEIXIN);
         boolean isInstallWeixinCircle = UMShareAPI.get(mActivity).isInstall(mActivity, SHARE_MEDIA.WEIXIN_CIRCLE);
         Log.e(TAG, "isInstallWeixin = " + isInstallWeixin);
         Log.e(TAG, "isInstallWeixinCircle = " + isInstallWeixinCircle);
         if (isInstallWeixin) {
-            ShareItemInfo weixin = new ShareItemInfo();
-            weixin.setShareType(ShareType.WEIXIN);
-            weixin.setId(R.drawable.umeng_socialize_wechat);
-            weixin.setTitle(mActivity.getResources().getString(R.string.share_wechat));
+            MenuItemInfo weixin = new MenuItemInfo();
+            weixin.setMenuType(MenuType.SHARE_WEIXIN);
             mList.add(weixin);
 
-            ShareItemInfo weixin_circle = new ShareItemInfo();
-            weixin_circle.setShareType(ShareType.WEIXIN_CIRCLE);
-            weixin_circle.setId(R.drawable.umeng_socialize_wxcircle);
-            weixin_circle.setTitle(mActivity.getResources().getString(R.string.share_wxcircle));
+            MenuItemInfo weixin_circle = new MenuItemInfo();
+            weixin_circle.setMenuType(MenuType.SHARE_WEIXIN_CIRCLE);
             mList.add(weixin_circle);
         }
 
-        ShareItemInfo sina = new ShareItemInfo();
-        sina.setShareType(ShareType.SINA);
-        sina.setId(R.drawable.umeng_socialize_sina);
-        sina.setTitle(mActivity.getResources().getString(R.string.share_sina));
+        MenuItemInfo sina = new MenuItemInfo();
+        sina.setMenuType(MenuType.SHARE_SINA);
         mList.add(sina);
 
         boolean isInstallQQ = UMShareAPI.get(mActivity).isInstall(mActivity, SHARE_MEDIA.QQ);
         Log.e(TAG, "isInstallQQ = " + isInstallQQ);
         if (isInstallQQ) {
-            ShareItemInfo qzone = new ShareItemInfo();
-            qzone.setShareType(ShareType.QZONE);
-            qzone.setId(R.drawable.umeng_socialize_qzone);
-            qzone.setTitle(mActivity.getResources().getString(R.string.share_qzone));
+            MenuItemInfo qzone = new MenuItemInfo();
+            qzone.setMenuType(MenuType.SHARE_QZONE);
             mList.add(qzone);
         }
 
         mView.onShowShareView(mList);
+
+        List<MenuItemInfo> send = new ArrayList<>();
+        MenuItemInfo weixin = new MenuItemInfo();
+        weixin.setMenuType(MenuType.SEND_COLLENT);
+        if(menuDetailInfo != null) {
+            weixin.setCollect(CollectModel.newInstance().hasCollectDB(menuDetailInfo.getCollect()));
+        }
+        send.add(weixin);
+        mView.onShowSendView(send);
     }
 
-    private void share(ShareInfo shareInfo) {
+    private void share(MenuDetailInfo menuDetailInfo) {
 
-        if (mActivity == null || share_media == null || shareInfo == null) {
+        if (mActivity == null || share_media == null || menuDetailInfo == null) {
             onError(share_media, new NullPointerException());
             return;
         }
@@ -98,18 +101,18 @@ public class ShareDialogPresenter extends BasePresenter implements UMShareListen
         shareAction.setPlatform(share_media);
         shareAction.setCallback(this);
 
-        switch (shareInfo.getShareType()) {
+        switch (menuDetailInfo.getShareType()) {
             case ShareType.TEXT:
-                if (!TextUtils.isEmpty(shareInfo.getText())) {
-                    shareAction.withText(shareInfo.getText()).share();
+                if (!TextUtils.isEmpty(menuDetailInfo.getText())) {
+                    shareAction.withText(menuDetailInfo.getText()).share();
                 } else {
                     onError(share_media, new NullPointerException());
                 }
                 break;
             case ShareType.IMAGE:
-                if (!TextUtils.isEmpty(shareInfo.getImageurl())) {
-                    Log.e(TAG, "分享的图片地址：" + shareInfo.getImageurl());
-                    UMImage imageurl = new UMImage(mActivity, shareInfo.getImageurl());
+                if (!TextUtils.isEmpty(menuDetailInfo.getImageurl())) {
+                    Log.e(TAG, "分享的图片地址：" + menuDetailInfo.getImageurl());
+                    UMImage imageurl = new UMImage(mActivity, menuDetailInfo.getImageurl());
                     imageurl.setThumb(new UMImage(mActivity, R.drawable.thumb));
                     shareAction.withMedia(imageurl).share();
                 } else {
@@ -117,54 +120,54 @@ public class ShareDialogPresenter extends BasePresenter implements UMShareListen
                 }
                 break;
             case ShareType.VIDEO:
-                if (!TextUtils.isEmpty(shareInfo.getVideourl())) {
-                    UMVideo video = new UMVideo(shareInfo.getVideourl());
+                if (!TextUtils.isEmpty(menuDetailInfo.getVideourl())) {
+                    UMVideo video = new UMVideo(menuDetailInfo.getVideourl());
                     video.setThumb(new UMImage(mActivity, R.drawable.video_play_normal));
-                    video.setTitle(shareInfo.getTitle());
-                    video.setDescription(shareInfo.getTitle());
+                    video.setTitle(menuDetailInfo.getTitle());
+                    video.setDescription(menuDetailInfo.getTitle());
                     shareAction.withMedia(video).share();
                 } else {
                     onError(share_media, new NullPointerException());
                 }
                 break;
             case ShareType.IMAGE_TEXT:
-                if (!TextUtils.isEmpty(shareInfo.getWeburl())) {
-                    UMWeb web = new UMWeb(shareInfo.getWeburl());
-                    if (!TextUtils.isEmpty(shareInfo.getImageurl())) {
-                        web.setThumb(new UMImage(mActivity, shareInfo.getImageurl()));
+                if (!TextUtils.isEmpty(menuDetailInfo.getWeburl())) {
+                    UMWeb web = new UMWeb(menuDetailInfo.getWeburl());
+                    if (!TextUtils.isEmpty(menuDetailInfo.getImageurl())) {
+                        web.setThumb(new UMImage(mActivity, menuDetailInfo.getImageurl()));
                     } else {
                         web.setThumb(new UMImage(mActivity, R.mipmap.maverick_app_image));
                     }
-                    web.setTitle(shareInfo.getTitle());
-                    web.setDescription(shareInfo.getTitle());
+                    web.setTitle(menuDetailInfo.getTitle());
+                    web.setDescription(menuDetailInfo.getTitle());
                     shareAction.withMedia(web).share();
                 } else {
-                    shareInfo.setShareType(ShareType.IMAGE_TEXT);
-                    share(shareInfo);
+                    menuDetailInfo.setShareType(ShareType.IMAGE_TEXT);
+                    share(menuDetailInfo);
                 }
                 break;
             case ShareType.VIDEO_TEXT:
-                if (!TextUtils.isEmpty(shareInfo.getWeburl())) {
-                    UMWeb web = new UMWeb(shareInfo.getWeburl());
+                if (!TextUtils.isEmpty(menuDetailInfo.getWeburl())) {
+                    UMWeb web = new UMWeb(menuDetailInfo.getWeburl());
                     web.setThumb(new UMImage(mActivity, R.drawable.video_play_normal));
-                    web.setTitle(shareInfo.getTitle());
-                    web.setDescription(shareInfo.getTitle());
-                    shareAction.withText(shareInfo.getTitle()).withMedia(web).share();
+                    web.setTitle(menuDetailInfo.getTitle());
+                    web.setDescription(menuDetailInfo.getTitle());
+                    shareAction.withText(menuDetailInfo.getTitle()).withMedia(web).share();
                 } else {
-                    shareInfo.setShareType(ShareType.VIDEO);
-                    share(shareInfo);
+                    menuDetailInfo.setShareType(ShareType.VIDEO);
+                    share(menuDetailInfo);
                 }
                 break;
             case ShareType.WEB:
-                if (!TextUtils.isEmpty(shareInfo.getWeburl())) {
-                    UMWeb web = new UMWeb(shareInfo.getWeburl());
-                    if (!TextUtils.isEmpty(shareInfo.getImageurl())) {
-                        web.setThumb(new UMImage(mActivity, shareInfo.getImageurl()));
+                if (!TextUtils.isEmpty(menuDetailInfo.getWeburl())) {
+                    UMWeb web = new UMWeb(menuDetailInfo.getWeburl());
+                    if (!TextUtils.isEmpty(menuDetailInfo.getImageurl())) {
+                        web.setThumb(new UMImage(mActivity, menuDetailInfo.getImageurl()));
                     } else {
                         web.setThumb(new UMImage(mActivity, R.mipmap.maverick_app_image));
                     }
-                    web.setTitle(shareInfo.getTitle());
-                    web.setDescription(shareInfo.getTitle());
+                    web.setTitle(menuDetailInfo.getTitle());
+                    web.setDescription(menuDetailInfo.getTitle());
                     shareAction.withMedia(web).share();
                 } else {
                     onError(share_media, new NullPointerException());
@@ -174,24 +177,24 @@ public class ShareDialogPresenter extends BasePresenter implements UMShareListen
         }
     }
 
-    public void shareWechat(ShareInfo shareInfo) {
+    public void shareWechat(MenuDetailInfo menuDetailInfo) {
         this.share_media = SHARE_MEDIA.WEIXIN;
-        share(shareInfo);
+        share(menuDetailInfo);
     }
 
-    public void shareWxcircle(ShareInfo shareInfo) {
+    public void shareWxcircle(MenuDetailInfo menuDetailInfo) {
         this.share_media = SHARE_MEDIA.WEIXIN_CIRCLE;
-        share(shareInfo);
+        share(menuDetailInfo);
     }
 
-    public void shareSina(ShareInfo shareInfo) {
+    public void shareSina(MenuDetailInfo menuDetailInfo) {
         this.share_media = SHARE_MEDIA.SINA;
-        share(shareInfo);
+        share(menuDetailInfo);
     }
 
-    public void shareQzone(ShareInfo shareInfo) {
+    public void shareQzone(MenuDetailInfo menuDetailInfo) {
         this.share_media = SHARE_MEDIA.QZONE;
-        share(shareInfo);
+        share(menuDetailInfo);
     }
 
     @Override

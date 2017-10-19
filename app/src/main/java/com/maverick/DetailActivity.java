@@ -19,17 +19,21 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.SizeReadyCallback;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.ImageViewState;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.maverick.base.BaseActivity;
 import com.maverick.bean.BigImgInfo;
+import com.maverick.bean.MenuDetailInfo;
 import com.maverick.dialog.MultifunctionalDialog;
+import com.maverick.dialog.MenuDialog;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.DetailActivityPresenter;
 import com.maverick.presenter.implView.IDetailActivityView;
+import com.maverick.type.MenuType;
+import com.maverick.type.ShareType;
 import com.maverick.util.GlideUtil;
+import com.umeng.socialize.UMShareAPI;
 
 import java.io.File;
 
@@ -126,7 +130,7 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
             @Override
             public void onResourceReady(File resource, GlideAnimation<? super File> glideAnimation) {
                 // 将保存的图片地址给SubsamplingScaleImageView,这里注意设置ImageViewState设置初始显示比例
-                mSubsamplingScaleImageView.setImage(ImageSource.uri(Uri.fromFile(resource)), new ImageViewState(1.0F, new PointF(0, 0), 0));
+                mSubsamplingScaleImageView.setImage(ImageSource.uri(Uri.fromFile(resource)), new ImageViewState(2.0F, new PointF(0, 0), 0));
             }
         });
     }
@@ -135,11 +139,35 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
     protected void onDestroy() {
         mSubsamplingScaleImageView.recycle();
         super.onDestroy();
+        UMShareAPI.get(this).release();
     }
 
     @Override
     public boolean onLongClick(View v) {
-        showMultifunctionalDialog();
+//        showMultifunctionalDialog();
+        showShareDialog();
         return true;
+    }
+
+    private void showShareDialog() {
+
+        if (mBigImgInfo == null) {
+            return;
+        }
+
+        MenuDetailInfo menuDetailInfo = new MenuDetailInfo();
+        menuDetailInfo.setShareType(ShareType.IMAGE_TEXT);
+        menuDetailInfo.setTitle(mBigImgInfo.getTitle());
+        menuDetailInfo.setImageurl(mBigImgInfo.getImg());
+        menuDetailInfo.setWeburl(mBigImgInfo.getWebUrl());
+        menuDetailInfo.setCollect(mBigImgInfo.getCollect());
+        MenuDialog dialog = MenuDialog.newInstance(menuDetailInfo);
+        showDialogFragment(dialog);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
     }
 }

@@ -7,13 +7,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.maverick.R;
 import com.maverick.bean.SisterInfo;
+import com.maverick.hepler.CollectHepler;
 import com.maverick.model.CollectModel;
 import com.maverick.model.SisterDingCaiModel;
-import com.maverick.type.CollectType;
 import com.maverick.util.GlideUtil;
 import com.maverick.util.Utils;
 
@@ -189,15 +188,7 @@ public class SisterTextHolder extends RecyclerView.ViewHolder implements View.On
                     return;
                 }
 
-                Collect collect = new Collect();
-                collect.setCollectType(CollectType.SISTER);
-                collect.setCollectMajorKey(mSisterInfo.getId());
-                collect.setCollectTime(System.currentTimeMillis());
-                collect.setCollectCT(mSisterInfo.getCreate_time());
-                collect.setCollectName(mSisterInfo.getText());
-                collect.setCollectImage(mSisterInfo.getImage2());
-                collect.setCollectItemType(mSisterInfo.getType());
-
+                Collect collect = CollectHepler.getCollect(mSisterInfo);
                 mSisterInfo.setCollect(!mSisterInfo.isCollect());
 
                 if (mSisterInfo.isCollect()) {
@@ -209,6 +200,9 @@ public class SisterTextHolder extends RecyclerView.ViewHolder implements View.On
                     text_comment_count.setText(v.getContext().getString(R.string.collect));
                     root_comment.setSelected(false);
                 }
+                break;
+            case R.id.content:
+
                 break;
         }
     }

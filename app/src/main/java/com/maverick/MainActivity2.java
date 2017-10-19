@@ -212,4 +212,9 @@ public class MainActivity2 extends BaseActivity {
         super.onDestroy();
         UMShareAPI.get(this).release();
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
 }

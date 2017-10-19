@@ -20,7 +20,6 @@
         android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
 
     <android.support.v7.widget.RecyclerView
-        android:visibility="gone"
         android:id="@+id/send_list"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y70"></android.support.v7.widget.RecyclerView>
