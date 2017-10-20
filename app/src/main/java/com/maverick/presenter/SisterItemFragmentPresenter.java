@@ -5,9 +5,11 @@ import android.graphics.Bitmap;
 import android.media.MediaMetadataRetriever;
 import android.util.Log;
 
-import com.maverick.bean.SisterTabInfo;
 import com.maverick.bean.SisterInfo;
+import com.maverick.bean.SisterTabInfo;
+import com.maverick.hepler.BeanHelper;
 import com.maverick.imodel.ISisterModel;
+import com.maverick.model.CollectModel;
 import com.maverick.model.SisterDingCaiModel;
 import com.maverick.model.SisterModel;
 import com.maverick.presenter.implView.ISisterItemFragmentView;
@@ -59,6 +61,8 @@ public class SisterItemFragmentPresenter extends BasePresenter {
                     for (int i = 0; i < list.size(); i++) {
                         Log.e(TAG, "" + list.get(i).getImage2());
                         SisterInfo sisterInfo = list.get(i);
+
+                        sisterInfo.setCollect(CollectModel.newInstance().hasCollectDB(BeanHelper.getCollect(sisterInfo)));
 
                         SisterDingCai sisterDingCai = new SisterDingCai();
                         sisterDingCai.setDingCaiId(sisterInfo.getId());
