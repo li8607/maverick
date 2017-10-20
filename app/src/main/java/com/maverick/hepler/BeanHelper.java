@@ -26,11 +26,11 @@ public class BeanHelper {
 
         Collect collect = new Collect();
         collect.setCollectType(CollectType.SISTER);
-        collect.setCollectMajorKey(sisterInfo.getId());
         collect.setCollectTime(System.currentTimeMillis());
         collect.setCollectCT(sisterInfo.getCreate_time());
         collect.setCollectName(sisterInfo.getText());
         collect.setCollectImage(sisterInfo.getImage2());
+        collect.setCollectId(sisterInfo.getId());
         collect.setCollectUserId(Tag.USER_ID);
 
         if (TextUtils.equals(sisterInfo.getType(), Tag.SISTER_TEXT)) {
@@ -60,15 +60,12 @@ public class BeanHelper {
         if (TextUtils.equals(info.getType(), Tag.JOKE_TEXT)) {
             collect.setCollectItemType(CollectType.JOKE_TEXT);
             collect.setCollectName(info.getText());
-            collect.setCollectMajorKey(info.getText());
         } else if (TextUtils.equals(info.getType(), Tag.JOKE_IMG)) {
             collect.setCollectItemType(CollectType.JOKE_IMAGE);
-            collect.setCollectMajorKey(info.getImg());
             collect.setCollectName(info.getTitle());
         } else if (TextUtils.equals(info.getType(), Tag.JOKE_GIF)) {
             collect.setCollectItemType(CollectType.JOKE_GIF);
             collect.setCollectName(info.getTitle());
-            collect.setCollectMajorKey(info.getImg());
         }
         return collect;
     }
@@ -82,7 +79,6 @@ public class BeanHelper {
         Collect collect = new Collect();
         collect.setCollectType(CollectType.BEAUTY);
         collect.setCollectImage(info.getUrl());
-        collect.setCollectMajorKey(info.getUrl());
         collect.setCollectTime(System.currentTimeMillis());
         collect.setCollectUserId(Tag.USER_ID);
         return collect;
