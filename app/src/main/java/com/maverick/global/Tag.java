@@ -20,4 +20,17 @@ public class Tag {
     public static final int JOKE_TAB_IMG = 1;
     public static final int JOKE_TAB_GIF = 2;
 
+    public static final String CARICATURE_TERROR = "/category/weimanhua/kbmh";
+    public static final String CARICATURE_STORY = "/category/weimanhua/gushimanhua";
+    public static final String CARICATURE_JOKES = "/category/duanzishou";
+    public static final String CARICATURE_TRIVIA = "/category/lengzhishi";
+    public static final String CARICATURE_SINGULAR = "/category/qiqu";
+    public static final String CARICATURE_MOVIE = "/category/dianying";
+    public static final String CARICATURE_FUNNY = "/category/gaoxiao";
+    public static final String CARICATURE_PET = "/category/mengchong";
+    public static final String CARICATURE_NEW = "/category/xinqi";
+    public static final String CARICATURE_GLOBAL = "/category/huanqiu";
+    public static final String CARICATURE_SHOOT = "/category/sheying";
+    public static final String CARICATURE_PLAYTHING = "/category/wanyi";
+    public static final String CARICATURE_INSET = "/category/chahua";
 }

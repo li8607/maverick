@@ -54,7 +54,7 @@ public class JokeItemFragment extends BaseFragment2 implements IJokeItemFragment
 
     @Override
     protected int getRootViewId() {
-        return R.layout.fragment_text;
+        return R.layout.fragment_joke_item;
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.maverick.factory;
 import com.maverick.base.BaseFragment2;
 import com.maverick.bean.ButtonInfo;
 import com.maverick.fragment.BeautyFragment;
+import com.maverick.fragment.CaricatureFragment;
 import com.maverick.fragment.JokeFragment;
 import com.maverick.fragment.MyFragment;
 import com.maverick.fragment.SisterFragment;
@@ -30,6 +31,9 @@ public class FragmentFactory {
                 break;
             case FragmentType.MY:
                 fragment = MyFragment.newInstance();
+                break;
+            case FragmentType.CARICATURE:
+                fragment = CaricatureFragment.newInstance();
                 break;
             default:
                 fragment = BeautyFragment.newInstance();

@@ -1,15 +1,17 @@
 package com.maverick.bean;
 
 import java.io.Serializable;
+import java.util.List;
 
 import cntv.greendaolibrary.dbbean.Collect;
 
 /**
  * Created by limingfei on 2017/9/27.
  */
-public class BigImgInfo implements Serializable{
+public class BigImgInfo implements Serializable {
 
     private String img;
+    private List<String> imgs;
     private String title;
     private String webUrl;
 
@@ -45,5 +47,13 @@ public class BigImgInfo implements Serializable{
 
     public void setCollect(Collect collect) {
         this.collect = collect;
+    }
+
+    public List<String> getImgs() {
+        return imgs;
+    }
+
+    public void setImgs(List<String> imgs) {
+        this.imgs = imgs;
     }
 }

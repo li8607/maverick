@@ -8,7 +8,7 @@ import com.maverick.DetailActivity;
 import com.maverick.R;
 import com.maverick.bean.BigImgInfo;
 import com.maverick.bean.SisterInfo;
-import com.maverick.hepler.CollectHepler;
+import com.maverick.hepler.BeanHepler;
 import com.maverick.util.GlideUtil;
 import com.maverick.weight.RatioImageView;
 
@@ -52,7 +52,7 @@ public class SisterImageHolder extends SisterTextHolder {
                 bigImgInfo.setImg(mSisterInfo.getImage2());
                 bigImgInfo.setTitle(mSisterInfo.getText());
                 bigImgInfo.setWebUrl(mSisterInfo.getWeixin_url());
-                bigImgInfo.setCollect(CollectHepler.getCollect(mSisterInfo));
+                bigImgInfo.setCollect(BeanHepler.getCollect(mSisterInfo));
                 DetailActivity.launch((Activity) v.getContext(), image, bigImgInfo);
                 break;
         }

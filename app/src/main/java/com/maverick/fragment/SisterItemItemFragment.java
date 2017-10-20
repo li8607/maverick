@@ -17,11 +17,11 @@ import com.maverick.adapter.holder.SisterTextHolder;
 import com.maverick.adapter.holder.SisterVideoHolder;
 import com.maverick.base.BaseFragment2;
 import com.maverick.bean.MenuDetailInfo;
-import com.maverick.bean.SisterTabInfo;
 import com.maverick.bean.SisterInfo;
+import com.maverick.bean.SisterTabInfo;
 import com.maverick.dialog.MenuDialog;
 import com.maverick.global.Tag;
-import com.maverick.hepler.CollectHepler;
+import com.maverick.hepler.BeanHepler;
 import com.maverick.model.CollectModel;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.SisterItemFragmentPresenter;
@@ -71,7 +71,7 @@ public class SisterItemItemFragment extends BaseFragment2 implements ISisterItem
 
     @Override
     protected int getRootViewId() {
-        return R.layout.fragment_sister;
+        return R.layout.fragment_sister_item;
     }
 
     @Override
@@ -119,7 +119,7 @@ public class SisterItemItemFragment extends BaseFragment2 implements ISisterItem
                     menuDetailInfo.setShareType(ShareType.VIDEO_TEXT);
                 }
 
-                menuDetailInfo.setCollect(CollectHepler.getCollect(sisterInfo));
+                menuDetailInfo.setCollect(BeanHepler.getCollect(sisterInfo));
                 MenuDialog menuDialog = MenuDialog.newInstance(menuDetailInfo);
                 menuDialog.setOnDismissListener(new MenuDialog.OnShareDialogListener() {
 

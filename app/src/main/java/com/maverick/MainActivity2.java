@@ -105,7 +105,8 @@ public class MainActivity2 extends BaseActivity {
 
         List<ButtonInfo> mList = new ArrayList<>();
         mList.add(getButtonInfo("百思不得姐", R.drawable.bottom_sister_selector, FragmentType.SISTER));
-        mList.add(getButtonInfo("美女", R.drawable.bottom_beauty_selector, FragmentType.BEAUTY));
+//        mList.add(getButtonInfo("美女", R.drawable.bottom_beauty_selector, FragmentType.BEAUTY));
+        mList.add(getButtonInfo("漫画", R.drawable.bottom_beauty_selector, FragmentType.CARICATURE));
         mList.add(getButtonInfo("笑话", R.drawable.bottom_joke_selector, FragmentType.JOKE));
         mList.add(getButtonInfo("我的", R.drawable.bottom_my_selector, FragmentType.MY));
 

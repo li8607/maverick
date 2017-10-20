@@ -14,7 +14,7 @@ public interface IBeautyModel {
     void requestData(int page, int num, OnResultListener listener);
 
     interface OnResultListener {
-        void onSuccess(List<BeautyItemInfo> beautyInfo);
+        void onSuccess(List<BeautyItemInfo> list);
         void onFail();
     }
 }
