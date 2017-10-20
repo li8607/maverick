@@ -11,10 +11,14 @@ import android.widget.FrameLayout;
 
 import com.maverick.R;
 import com.maverick.adapter.CaricatureItemFragmentAdapter;
+import com.maverick.adapter.holder.CaricatureItemViewHolder;
 import com.maverick.base.BaseFragment2;
 import com.maverick.bean.CaricatureInfo;
 import com.maverick.bean.CaricatureTabInfo;
+import com.maverick.bean.MenuDetailInfo;
+import com.maverick.dialog.MenuDialog;
 import com.maverick.global.Tag;
+import com.maverick.hepler.BeanHelper;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.CaricatureItemFragmentPresenter;
 import com.maverick.presenter.implView.ICaricatureItemFragmentView;
@@ -86,6 +90,31 @@ public class CaricatureItemFragment extends BaseFragment2 implements ICaricature
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 outRect.bottom = getResources().getDimensionPixelSize(R.dimen.y5);
+            }
+        });
+
+        mAdapter.setOnListener(new CaricatureItemViewHolder.OnListener() {
+            @Override
+            public void onMenuClick(final View view, CaricatureInfo info) {
+                if (info == null) {
+                    return;
+                }
+
+                MenuDetailInfo menuDetailInfo = BeanHelper.getMenuDetailInfo(info);
+                menuDetailInfo.setCollect(BeanHelper.getCollect(info));
+                MenuDialog dialog = MenuDialog.newInstance(menuDetailInfo);
+                dialog.setOnDismissListener(new MenuDialog.OnShareDialogListener() {
+                    @Override
+                    public void onDismiss() {
+                        if (view != null) {
+                            view.setSelected(false);
+                        }
+                    }
+                });
+                showDialogFragment(dialog);
+                if (view != null) {
+                    view.setSelected(true);
+                }
             }
         });
     }

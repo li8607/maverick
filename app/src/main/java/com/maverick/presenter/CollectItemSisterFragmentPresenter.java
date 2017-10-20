@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.maverick.bean.CollectTabInfo;
 import com.maverick.model.CollectModel;
-import com.maverick.presenter.implView.ICollectItemJokeFragmentView;
 import com.maverick.presenter.implView.ICollectItemSisterFragmentView;
 
 import java.util.List;
@@ -53,6 +52,9 @@ public class CollectItemSisterFragmentPresenter extends BasePresenter {
                 break;
             case 6:
                 list = CollectModel.newInstance().getSisterData();
+                break;
+            case 7:
+                list = CollectModel.newInstance().getCaricatureData();
                 break;
             default:
                 list = null;

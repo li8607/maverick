@@ -11,12 +11,39 @@
 
     <include layout="@layout/item_caricature_top" />
 
-    <com.maverick.weight.RatioImageView
-        android:id="@+id/image"
+    <LinearLayout
+        android:id="@+id/image_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/y5"
-        android:adjustViewBounds="true"
-        android:background="#EFEFEF"
-        android:scaleType="centerCrop" />
+        android:orientation="horizontal">
+
+        <com.maverick.weight.RatioImageView
+            android:id="@+id/image_0"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:background="#EFEFEF"
+            android:scaleType="centerCrop" />
+
+        <com.maverick.weight.RatioImageView
+            android:id="@+id/image_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/y5"
+            android:adjustViewBounds="true"
+            android:background="#EFEFEF"
+            android:scaleType="centerCrop" />
+
+        <com.maverick.weight.RatioImageView
+            android:id="@+id/image_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/y5"
+            android:adjustViewBounds="true"
+            android:background="#EFEFEF"
+            android:scaleType="centerCrop" />
+
+    </LinearLayout>
 </LinearLayout>

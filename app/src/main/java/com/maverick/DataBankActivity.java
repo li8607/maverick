@@ -11,9 +11,9 @@ import android.widget.TextView;
 import com.maverick.base.BaseActivity;
 import com.maverick.bean.CollectTabInfo;
 import com.maverick.bean.MyInfo;
+import com.maverick.fragment.BaseEditFragment;
 import com.maverick.fragment.BrowsingHistoryFragment;
 import com.maverick.fragment.CollectFragment;
-import com.maverick.fragment.BaseEditFragment;
 import com.maverick.global.Tag;
 import com.maverick.presenter.BasePresenter;
 
@@ -114,7 +114,7 @@ public class DataBankActivity extends BaseActivity implements View.OnClickListen
         if (TextUtils.equals(myInfo.getType(), "0")) {
             //浏览记录
             baseEditFragment = BrowsingHistoryFragment.newInstance();
-            if(!TextUtils.isEmpty(myInfo.getTitle())) {
+            if (!TextUtils.isEmpty(myInfo.getTitle())) {
                 title.setText(myInfo.getTitle());
             }
         } else if (TextUtils.equals(myInfo.getType(), "1")) {
@@ -123,6 +123,7 @@ public class DataBankActivity extends BaseActivity implements View.OnClickListen
 //            list.add(getCollectTabInfo("笑话", 1));
 //            list.add(getCollectTabInfo("美女", 2));
             list.add(getCollectTabInfo("百思不得姐", 6));
+            list.add(getCollectTabInfo("漫画", 7));
             CollectFragment collectFragment = CollectFragment.newInstance(list);
             collectFragment.setOnCollectFragmentListener(new CollectFragment.OnCollectFragmentListener() {
                 @Override
@@ -132,7 +133,7 @@ public class DataBankActivity extends BaseActivity implements View.OnClickListen
             });
             baseEditFragment = collectFragment;
 
-            if(!TextUtils.isEmpty(myInfo.getTitle())) {
+            if (!TextUtils.isEmpty(myInfo.getTitle())) {
                 title.setText(myInfo.getTitle());
             }
         }

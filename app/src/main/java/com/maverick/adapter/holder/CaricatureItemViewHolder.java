@@ -24,6 +24,8 @@ public class CaricatureItemViewHolder extends RecyclerView.ViewHolder implements
         super(itemView);
         title = (TextView) itemView.findViewById(R.id.title);
         title.setOnClickListener(this);
+        View image_menu = itemView.findViewById(R.id.image_menu);
+        image_menu.setOnClickListener(this);
     }
 
     public void bindData(Context context, CaricatureInfo info) {
@@ -40,12 +42,25 @@ public class CaricatureItemViewHolder extends RecyclerView.ViewHolder implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.title:
-                if (mInfo == null) {
-                    return;
+                if (mInfo != null) {
+                    WebActivity.launch(mContext, BeanHelper.getWebDetailInfo(mInfo));
                 }
-
-                WebActivity.launch(mContext, BeanHelper.getWebDetailInfo(mInfo));
+                break;
+            case R.id.image_menu:
+                if (mOnListener != null && mInfo != null) {
+                    mOnListener.onMenuClick(v, mInfo);
+                }
                 break;
         }
+    }
+
+    private OnListener mOnListener;
+
+    public void setOnListener(OnListener listener) {
+        this.mOnListener = listener;
+    }
+
+    public interface OnListener {
+        void onMenuClick(View view, CaricatureInfo info);
     }
 }

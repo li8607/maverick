@@ -28,6 +28,7 @@ public class CaricatureItemFragmentAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         CaricatureItemViewHolder holder = new CaricatureOneImageViewHolder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_caricature_image_one, parent, false));
+        holder.setOnListener(mOnListener);
         return holder;
     }
 
@@ -50,5 +51,11 @@ public class CaricatureItemFragmentAdapter extends RecyclerView.Adapter {
 
     public void setData(List<CaricatureInfo> list) {
         this.mList = list;
+    }
+
+    private CaricatureItemViewHolder.OnListener mOnListener;
+
+    public void setOnListener(CaricatureItemViewHolder.OnListener listener) {
+        this.mOnListener = listener;
     }
 }

@@ -6,10 +6,12 @@ import com.maverick.bean.BeautyItemInfo;
 import com.maverick.bean.BigImgInfo;
 import com.maverick.bean.CaricatureInfo;
 import com.maverick.bean.GifInfo;
+import com.maverick.bean.MenuDetailInfo;
 import com.maverick.bean.SisterInfo;
 import com.maverick.bean.WebDetailInfo;
 import com.maverick.global.Tag;
 import com.maverick.type.CollectType;
+import com.maverick.type.ShareType;
 
 import cntv.greendaolibrary.dbbean.Collect;
 
@@ -85,6 +87,24 @@ public class BeanHelper {
         return collect;
     }
 
+    public static Collect getCollect(CaricatureInfo info) {
+
+        if (info == null) {
+            return null;
+        }
+
+        Collect collect = new Collect();
+        collect.setCollectType(CollectType.CARICATURE);
+        if (info.getThumbnailList() != null && info.getThumbnailList().size() > 0) {
+            collect.setCollectImage(info.getThumbnailList().get(0));
+        }
+        collect.setCollectUrl(info.getLink());
+        collect.setCollectName(info.getTitle());
+        collect.setCollectTime(System.currentTimeMillis());
+        collect.setCollectUserId(Tag.USER_ID);
+        return collect;
+    }
+
     public static BigImgInfo getBigImgInfo(CaricatureInfo info) {
 
         if (info == null) {
@@ -147,4 +167,19 @@ public class BeanHelper {
         return webDetailInfo;
     }
 
+    public static MenuDetailInfo getMenuDetailInfo(CaricatureInfo info) {
+
+        if (info == null) {
+            return null;
+        }
+
+        MenuDetailInfo menuDetailInfo = new MenuDetailInfo();
+        menuDetailInfo.setShareType(ShareType.IMAGE_TEXT);
+        menuDetailInfo.setWeburl(info.getLink());
+        menuDetailInfo.setTitle(info.getTitle());
+        if (info.getThumbnailList() != null && info.getThumbnailList().size() > 0) {
+            menuDetailInfo.setImageurl(info.getThumbnailList().get(0));
+        }
+        return menuDetailInfo;
+    }
 }

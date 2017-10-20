@@ -19,6 +19,8 @@ public interface ICollectModel {
 
     List<Collect> getSisterData();
 
+    List<Collect> getCaricatureData();
+
     boolean insertCollectDB(Collect collect);
 
     boolean deleteCollectDB(Collect collect);

@@ -3,17 +3,14 @@ package com.maverick.adapter;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.maverick.R;
-import com.maverick.adapter.holder.CollectJokeImgViewHolder;
 import com.maverick.adapter.holder.CollectJokeTextViewHolder;
 import com.maverick.adapter.holder.CollectSisterImageViewHolder;
 import com.maverick.adapter.holder.CollectSisterVideoViewHolder;
-import com.maverick.global.Tag;
 import com.maverick.type.CollectType;
 
 import java.util.List;
@@ -86,19 +83,25 @@ public class CollectItemSisterFragmentAdapter extends RecyclerView.Adapter {
 
         Collect collect = mList.get(position);
 
-        String type = collect.getCollectItemType();
-        if (TextUtils.equals(type, CollectType.SISTER_IMAGE)) {
-            //图片
+        String type = collect.getCollectType();
+        String itemType = collect.getCollectItemType();
+
+        if (TextUtils.equals(type, CollectType.CARICATURE)) {
             return TYPE_IMG;
-        } else if (TextUtils.equals(type, CollectType.SISTER_TEXT)) {
-            //段子
-            return TYPE_TEXT;
-        } else if (TextUtils.equals(type, CollectType.SISTER_AUDIO)) {
-            //声音
-            return TYPE_VIDEO;
-        } else if (TextUtils.equals(type, CollectType.SISTER_VIDEO)) {
-            //视频
-            return TYPE_VIDEO;
+        } else if (TextUtils.equals(type, CollectType.SISTER)) {
+            if (TextUtils.equals(itemType, CollectType.SISTER_IMAGE)) {
+                //图片
+                return TYPE_IMG;
+            } else if (TextUtils.equals(itemType, CollectType.SISTER_TEXT)) {
+                //段子
+                return TYPE_TEXT;
+            } else if (TextUtils.equals(itemType, CollectType.SISTER_AUDIO)) {
+                //声音
+                return TYPE_VIDEO;
+            } else if (TextUtils.equals(itemType, CollectType.SISTER_VIDEO)) {
+                //视频
+                return TYPE_VIDEO;
+            }
         }
         return TYPE_TEXT;
     }

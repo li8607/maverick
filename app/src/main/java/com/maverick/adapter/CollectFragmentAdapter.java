@@ -50,6 +50,7 @@ public class CollectFragmentAdapter extends FragmentStatePagerAdapter {
                 fragment = collectItemJokeFragment;
                 break;
             case 6:
+            case 7:
                 CollectItemSisterFragment collectItemSisterFragment = CollectItemSisterFragment.newInstance(mList.get(position));
                 collectItemSisterFragment.setOnBaseEditFragmentListener(mOnBaseEditFragmentListener);
                 fragment = collectItemSisterFragment;
