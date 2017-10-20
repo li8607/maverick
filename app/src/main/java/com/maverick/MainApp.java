@@ -13,7 +13,7 @@ import com.umeng.socialize.common.QueuedWork;
  */
 public class MainApp extends Application {
     {
-        PlatformConfig.setWeixin("wx967daebe835fbeac", "5bb696d9ccd75a38c8a0bfe0675559b3");
+        PlatformConfig.setWeixin("wx766193210f047aa3", "dacea00bc9908f50c730bb22f7528b25");
         PlatformConfig.setQQZone("1106104545", "gETKtj5JEd00Zsgn");
         PlatformConfig.setSinaWeibo("1053257822", "6a139b9cddd26bcfd78a770afd23c19f", "http://www.wandoujia.com/apps/com.maverick");
 
