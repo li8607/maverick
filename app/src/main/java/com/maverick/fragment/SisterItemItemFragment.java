@@ -21,7 +21,7 @@ import com.maverick.bean.SisterInfo;
 import com.maverick.bean.SisterTabInfo;
 import com.maverick.dialog.MenuDialog;
 import com.maverick.global.Tag;
-import com.maverick.hepler.BeanHepler;
+import com.maverick.hepler.BeanHelper;
 import com.maverick.model.CollectModel;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.SisterItemFragmentPresenter;
@@ -119,7 +119,7 @@ public class SisterItemItemFragment extends BaseFragment2 implements ISisterItem
                     menuDetailInfo.setShareType(ShareType.VIDEO_TEXT);
                 }
 
-                menuDetailInfo.setCollect(BeanHepler.getCollect(sisterInfo));
+                menuDetailInfo.setCollect(BeanHelper.getCollect(sisterInfo));
                 MenuDialog menuDialog = MenuDialog.newInstance(menuDetailInfo);
                 menuDialog.setOnDismissListener(new MenuDialog.OnShareDialogListener() {
 

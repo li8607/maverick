@@ -4,8 +4,10 @@
     android:layout_height="wrap_content"
     android:background="@color/colorWhite"
     android:orientation="vertical"
+    android:paddingBottom="@dimen/y5"
     android:paddingLeft="@dimen/y9"
-    android:paddingRight="@dimen/y9">
+    android:paddingRight="@dimen/y9"
+    android:paddingTop="@dimen/y5">
 
     <include layout="@layout/item_caricature_top" />
 

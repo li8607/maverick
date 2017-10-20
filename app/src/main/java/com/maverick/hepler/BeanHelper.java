@@ -3,6 +3,7 @@ package com.maverick.hepler;
 import com.maverick.bean.BigImgInfo;
 import com.maverick.bean.CaricatureInfo;
 import com.maverick.bean.SisterInfo;
+import com.maverick.bean.WebDetailInfo;
 import com.maverick.type.CollectType;
 
 import cntv.greendaolibrary.dbbean.Collect;
@@ -10,7 +11,7 @@ import cntv.greendaolibrary.dbbean.Collect;
 /**
  * Created by limingfei on 2017/10/19.
  */
-public class BeanHepler {
+public class BeanHelper {
 
     public static Collect getCollect(SisterInfo sisterInfo) {
 
@@ -48,6 +49,21 @@ public class BeanHepler {
 //        collect.setCollectImage(sisterInfo.getImage2());
 //        collect.setCollectItemType(sisterInfo.getType());
         return bigImgInfo;
+    }
+
+    public static WebDetailInfo getWebDetailInfo(CaricatureInfo info) {
+
+        if (info == null) {
+            return null;
+        }
+
+        WebDetailInfo webDetailInfo = new WebDetailInfo();
+        webDetailInfo.setWebUrl(info.getLink());
+        webDetailInfo.setTitle(info.getTitle());
+        if(info.getThumbnailList() != null && info.getThumbnailList().size() > 0) {
+            webDetailInfo.setImageUrl(info.getThumbnailList().get(0));
+        }
+        return webDetailInfo;
     }
 
 }

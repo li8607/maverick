@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.maverick.R;
 import com.maverick.bean.SisterInfo;
-import com.maverick.hepler.BeanHepler;
+import com.maverick.hepler.BeanHelper;
 import com.maverick.model.CollectModel;
 import com.maverick.model.SisterDingCaiModel;
 import com.maverick.util.GlideUtil;
@@ -188,7 +188,7 @@ public class SisterTextHolder extends RecyclerView.ViewHolder implements View.On
                     return;
                 }
 
-                Collect collect = BeanHepler.getCollect(mSisterInfo);
+                Collect collect = BeanHelper.getCollect(mSisterInfo);
                 mSisterInfo.setCollect(!mSisterInfo.isCollect());
 
                 if (mSisterInfo.isCollect()) {

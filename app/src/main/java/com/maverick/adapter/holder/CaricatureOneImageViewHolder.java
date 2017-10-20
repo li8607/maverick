@@ -7,7 +7,7 @@ import android.view.View;
 import com.maverick.DetailActivity;
 import com.maverick.R;
 import com.maverick.bean.CaricatureInfo;
-import com.maverick.hepler.BeanHepler;
+import com.maverick.hepler.BeanHelper;
 import com.maverick.util.GlideUtil;
 import com.maverick.weight.RatioImageView;
 
@@ -25,7 +25,7 @@ public class CaricatureOneImageViewHolder extends CaricatureItemViewHolder {
     public CaricatureOneImageViewHolder(View itemView) {
         super(itemView);
         image = (RatioImageView) itemView.findViewById(R.id.image);
-        image.setOriginalSize(4, 3);
+        image.setOriginalSize(16, 9);
 
         image.setOnClickListener(this);
     }
@@ -45,7 +45,7 @@ public class CaricatureOneImageViewHolder extends CaricatureItemViewHolder {
         switch (v.getId()) {
             case R.id.image:
                 if (mContext != null && mContext instanceof Activity) {
-                    DetailActivity.launch((Activity) mContext, v, BeanHepler.getBigImgInfo(mInfo));
+                    DetailActivity.launch((Activity) mContext, v, BeanHelper.getBigImgInfo(mInfo));
                 }
                 break;
         }
