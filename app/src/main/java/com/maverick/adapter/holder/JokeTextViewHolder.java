@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.maverick.R;
 import com.maverick.bean.GifInfo;
-import com.maverick.global.Tag;
+import com.maverick.hepler.BeanHelper;
 import com.maverick.model.CollectModel;
 
 import cntv.greendaolibrary.dbbean.Collect;
@@ -36,14 +36,14 @@ public class JokeTextViewHolder extends RecyclerView.ViewHolder implements View.
         String text = gifInfo.text;
         if (!TextUtils.isEmpty(text)) {
             mTitle.setText(text.trim());
-        }else {
+        } else {
             mTitle.setText("");
         }
 
         String time = gifInfo.ct;
         if (!TextUtils.isEmpty(time)) {
             this.time.setText(time.trim());
-        }else {
+        } else {
             mTitle.setText("");
         }
 
@@ -55,25 +55,11 @@ public class JokeTextViewHolder extends RecyclerView.ViewHolder implements View.
         switch (v.getId()) {
             case R.id.collect:
 
-                Collect collect = new Collect();
-                collect.setCollectTime(System.currentTimeMillis());
-                collect.setCollectType("1");
-                collect.setCollectImage(gifInfo.getImg());
-                collect.setCollectCT(gifInfo.getCt());
-                if (TextUtils.equals(gifInfo.getType(), Tag.JOKE_TEXT)) {
-                    collect.setCollectItemType("1");
-                    collect.setCollectName(gifInfo.getText());
-                    collect.setCollectMajorKey(gifInfo.getText());
-                } else if (TextUtils.equals(gifInfo.getType(), Tag.JOKE_IMG)) {
-                    collect.setCollectItemType("2");
-                    collect.setCollectMajorKey(gifInfo.getImg());
-                    collect.setCollectName(gifInfo.getTitle());
-                } else if (TextUtils.equals(gifInfo.getType(), Tag.JOKE_GIF)) {
-                    collect.setCollectItemType("3");
-                    collect.setCollectName(gifInfo.getTitle());
-                    collect.setCollectMajorKey(gifInfo.getImg());
+                if (gifInfo == null) {
+                    return;
                 }
 
+                Collect collect = BeanHelper.getCollect(gifInfo);
                 if (this.gifInfo.isCollect()) {
                     boolean result = CollectModel.newInstance().deleteCollectDB(collect);
                     if (result) {

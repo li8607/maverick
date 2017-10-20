@@ -465,8 +465,7 @@ public class SisterItemItemFragment extends BaseFragment2 implements ISisterItem
             if (mSisterItemFragmentAdapter != null && mSisterItemFragmentAdapter.getData() != null && mSisterItemFragmentAdapter.getData().size() > 0) {
                 for (int i = 0; i < mSisterItemFragmentAdapter.getData().size(); i++) {
                     SisterInfo sisterInfo = mSisterItemFragmentAdapter.getData().get(i);
-                    Collect collect = new Collect();
-                    collect.setCollectMajorKey(sisterInfo.getId());
+                    Collect collect = BeanHelper.getCollect(sisterInfo);
                     sisterInfo.setCollect(CollectModel.newInstance().hasCollectDB(collect));
                 }
                 mSisterItemFragmentAdapter.notifyDataSetChanged();

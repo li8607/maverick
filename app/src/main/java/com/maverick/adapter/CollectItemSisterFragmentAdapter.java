@@ -87,16 +87,16 @@ public class CollectItemSisterFragmentAdapter extends RecyclerView.Adapter {
         Collect collect = mList.get(position);
 
         String type = collect.getCollectItemType();
-        if (TextUtils.equals(type, Tag.SISTER_IMAGE)) {
+        if (TextUtils.equals(type, CollectType.SISTER_IMAGE)) {
             //图片
             return TYPE_IMG;
-        } else if (TextUtils.equals(type, Tag.SISTER_TEXT)) {
+        } else if (TextUtils.equals(type, CollectType.SISTER_TEXT)) {
             //段子
             return TYPE_TEXT;
-        } else if (TextUtils.equals(type, Tag.SISTER_AUDIO)) {
+        } else if (TextUtils.equals(type, CollectType.SISTER_AUDIO)) {
             //声音
             return TYPE_VIDEO;
-        } else if (TextUtils.equals(type, Tag.SISTER_VIDEO)) {
+        } else if (TextUtils.equals(type, CollectType.SISTER_VIDEO)) {
             //视频
             return TYPE_VIDEO;
         }

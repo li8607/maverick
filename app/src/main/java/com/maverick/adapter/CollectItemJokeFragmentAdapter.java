@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.maverick.R;
 import com.maverick.adapter.holder.CollectJokeImgViewHolder;
 import com.maverick.adapter.holder.CollectJokeTextViewHolder;
+import com.maverick.type.CollectType;
 
 import java.util.List;
 
@@ -78,13 +79,13 @@ public class CollectItemJokeFragmentAdapter extends RecyclerView.Adapter {
 
         String type = collect.getCollectItemType();
 
-        if (TextUtils.equals(type, "1")) {
+        if (TextUtils.equals(type, CollectType.JOKE_TEXT)) {
             //文本
             return TYPE_TEXT;
-        } else if (TextUtils.equals(type, "2")) {
+        } else if (TextUtils.equals(type, CollectType.JOKE_IMAGE)) {
             //图文
             return TYPE_IMG;
-        } else if (TextUtils.equals(type, "3")) {
+        } else if (TextUtils.equals(type, CollectType.JOKE_GIF)) {
             //动图
             return TYPE_GIF;
         }

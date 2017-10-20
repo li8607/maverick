@@ -1,19 +1,17 @@
 package com.maverick.presenter;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.maverick.bean.BeautyItemInfo;
+import com.maverick.hepler.BeanHelper;
 import com.maverick.imodel.IBeautyModel;
 import com.maverick.model.BeautyModel;
 import com.maverick.model.CollectModel;
-import com.maverick.model.HistoryModel;
 import com.maverick.presenter.implView.IBeautyFragmentView;
 
 import java.util.List;
 
 import cntv.greendaolibrary.dbbean.Collect;
-import cntv.greendaolibrary.dbbean.History;
 
 /**
  * Created by limingfei on 2017/9/26.
@@ -62,16 +60,13 @@ public class BeautyFragmentPresenter extends BasePresenter {
         for (int i = 0; i < beautyInfos.size(); i++) {
 
             BeautyItemInfo beautyItemInfo = beautyInfos.get(i);
-//
 //            History history = new History();
 //            history.setHistoryimage(beautyInfos.get(i).getUrl());
 //            history.setHistoryName(beautyInfos.get(i).getWho());
 //            history.setHistoryType("2");
 //            history.setHistoryTime(System.currentTimeMillis());
 //            HistoryModel.newInstance().insertHistoryDB(history);
-
-            Collect collect = new Collect();
-            collect.setCollectMajorKey(beautyItemInfo.getUrl());
+            Collect collect = BeanHelper.getCollect(beautyItemInfo);
             beautyItemInfo.setCheck(CollectModel.newInstance().hasCollectDB(collect));
         }
     }

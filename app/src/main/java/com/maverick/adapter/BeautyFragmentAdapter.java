@@ -3,28 +3,23 @@ package com.maverick.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.maverick.DetailActivity;
 import com.maverick.R;
 import com.maverick.bean.BeautyItemInfo;
 import com.maverick.bean.BigImgInfo;
+import com.maverick.hepler.BeanHelper;
 import com.maverick.model.CollectModel;
-import com.maverick.model.HistoryModel;
 import com.maverick.util.GlideUtil;
-import com.maverick.util.TimeUtils;
 import com.maverick.weight.RatioImageView;
 
-import java.util.Date;
 import java.util.List;
 
 import cntv.greendaolibrary.dbbean.Collect;
-import cntv.greendaolibrary.dbbean.History;
 
 /**
  * Created by Administrator on 2017/9/26.
@@ -103,11 +98,12 @@ public class BeautyFragmentAdapter extends RecyclerView.Adapter {
 
             switch (v.getId()) {
                 case R.id.collect:
-                    Collect collect = new Collect();
-                    collect.setCollectType("2");
-                    collect.setCollectImage(mBeautyItemInfo.getUrl());
-                    collect.setCollectMajorKey(mBeautyItemInfo.getUrl());
-                    collect.setCollectTime(System.currentTimeMillis());
+
+                    if (mBeautyItemInfo == null) {
+                        return;
+                    }
+
+                    Collect collect = BeanHelper.getCollect(mBeautyItemInfo);
                     if (mBeautyItemInfo.isCheck()) {
                         this.collect.setSelected(false);
                         mBeautyItemInfo.setCheck(false);

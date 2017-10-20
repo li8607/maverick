@@ -1,13 +1,12 @@
 package com.maverick.presenter;
 
 import android.content.Context;
-import android.text.TextUtils;
-import android.util.Log;
 
 import com.maverick.bean.GifInfo;
 import com.maverick.bean.GifInfoObj;
 import com.maverick.bean.JokeTabInfo;
 import com.maverick.global.Tag;
+import com.maverick.hepler.BeanHelper;
 import com.maverick.imodel.IJokeModel;
 import com.maverick.model.CollectModel;
 import com.maverick.model.JokeModel;
@@ -89,20 +88,8 @@ public class JokeItemFragmentPresenter extends BasePresenter {
 
         for (int i = 0; i < list.size(); i++) {
             GifInfo gifInfo = list.get(i);
-
-            Collect collect = new Collect();
-            String type = gifInfo.getType();
-            if (TextUtils.equals(type, Tag.JOKE_TEXT)) {
-                collect.setCollectMajorKey(gifInfo.getText());
-            } else if (TextUtils.equals(type, Tag.JOKE_IMG)) {
-                collect.setCollectMajorKey(gifInfo.getImg());
-            } else if (TextUtils.equals(type, Tag.JOKE_GIF)) {
-                collect.setCollectMajorKey(gifInfo.getImg());
-            }
-
+            Collect collect = BeanHelper.getCollect(gifInfo);
             boolean isCollect = CollectModel.newInstance().hasCollectDB(collect);
-            Log.e(TAG, "isCollect = " + isCollect);
-
             gifInfo.setCollect(isCollect);
         }
 

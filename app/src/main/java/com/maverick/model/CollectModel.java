@@ -37,25 +37,25 @@ public class CollectModel implements ICollectModel {
 
     @Override
     public List<Collect> getBeautyData() {
-        List<Collect> list = mCollectDao.queryBuilder().where(CollectDao.Properties.CollectType.eq("2")).orderDesc(CollectDao.Properties.CollectTime).build().list();
+        List<Collect> list = mCollectDao.queryBuilder().where(CollectDao.Properties.CollectType.eq(CollectType.BEAUTY)).orderDesc(CollectDao.Properties.CollectTime).build().list();
         return list;
     }
 
     @Override
     public List<Collect> getJokeTextData() {
-        List<Collect> list = mCollectDao.queryBuilder().where(CollectDao.Properties.CollectType.eq("1"), CollectDao.Properties.CollectItemType.eq("1")).orderDesc(CollectDao.Properties.CollectTime).build().list();
+        List<Collect> list = mCollectDao.queryBuilder().where(CollectDao.Properties.CollectType.eq(CollectType.JOKE), CollectDao.Properties.CollectItemType.eq(CollectType.JOKE_TEXT)).orderDesc(CollectDao.Properties.CollectTime).build().list();
         return list;
     }
 
     @Override
     public List<Collect> getJokeImgData() {
-        List<Collect> list = mCollectDao.queryBuilder().where(CollectDao.Properties.CollectType.eq("1"), CollectDao.Properties.CollectItemType.eq("2")).orderDesc(CollectDao.Properties.CollectTime).build().list();
+        List<Collect> list = mCollectDao.queryBuilder().where(CollectDao.Properties.CollectType.eq(CollectType.JOKE), CollectDao.Properties.CollectItemType.eq(CollectType.JOKE_IMAGE)).orderDesc(CollectDao.Properties.CollectTime).build().list();
         return list;
     }
 
     @Override
     public List<Collect> getJokeGifData() {
-        List<Collect> list = mCollectDao.queryBuilder().where(CollectDao.Properties.CollectType.eq("1"), CollectDao.Properties.CollectItemType.eq("3")).orderDesc(CollectDao.Properties.CollectTime).build().list();
+        List<Collect> list = mCollectDao.queryBuilder().where(CollectDao.Properties.CollectType.eq(CollectType.JOKE), CollectDao.Properties.CollectItemType.eq(CollectType.JOKE_GIF)).orderDesc(CollectDao.Properties.CollectTime).build().list();
         return list;
     }
 
@@ -70,6 +70,7 @@ public class CollectModel implements ICollectModel {
         if (collect == null || TextUtils.isEmpty(collect.getCollectMajorKey())) {
             return false;
         }
+
         boolean result = mCollectDao.insertOrReplace(collect) != -1;
         if (result) {
             onChange();

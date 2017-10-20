@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.maverick.R;
+import com.maverick.WebActivity;
 import com.maverick.bean.SisterInfo;
 import com.maverick.hepler.BeanHelper;
 import com.maverick.model.CollectModel;
@@ -35,6 +36,7 @@ public class SisterTextHolder extends RecyclerView.ViewHolder implements View.On
     private final View root_cai;
     private final View root_share;
     private final View root_comment;
+    private Context mContext;
 
     public SisterTextHolder(View itemView) {
         super(itemView);
@@ -57,11 +59,13 @@ public class SisterTextHolder extends RecyclerView.ViewHolder implements View.On
         root_cai.setOnClickListener(this);
         root_share.setOnClickListener(this);
         root_comment.setOnClickListener(this);
+        content.setOnClickListener(this);
 
         name = (TextView) itemView.findViewById(R.id.name);
     }
 
     public void bindData(Context context, SisterInfo sisterInfo) {
+        this.mContext = context;
         this.mSisterInfo = sisterInfo;
         GlideUtil.loadCircleImage(context, mSisterInfo.getProfile_image(), image_head);
 
@@ -202,7 +206,7 @@ public class SisterTextHolder extends RecyclerView.ViewHolder implements View.On
                 }
                 break;
             case R.id.content:
-
+                WebActivity.launch(mContext, BeanHelper.getWebDetailInfo(mSisterInfo));
                 break;
         }
     }
