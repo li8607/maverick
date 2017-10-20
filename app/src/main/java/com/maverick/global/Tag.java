@@ -34,4 +34,45 @@ public class Tag {
     public static final String CARICATURE_SHOOT = "/category/sheying";
     public static final String CARICATURE_PLAYTHING = "/category/wanyi";
     public static final String CARICATURE_INSET = "/category/chahua";
+
+    public static final String SINA_INTERNET = "1";
+    public static final String SINA_KEXUE = "2";
+    public static final String SINA_LISHI = "3";
+    public static final String SINA_JUNSHI = "4";
+    public static final String SINA_SHUMA = "6";
+    public static final String SINA_RENWEN = "7";
+    public static final String SINA_CHONGWU = "9";
+    public static final String SINA_XINGZUO = "10";
+    public static final String SINA_GAOXIAO = "11";
+    public static final String SINA_QINGGAN = "12";
+    public static final String SINA_MEITI = "13";
+    public static final String SINA_YANGSHENG = "15";
+    public static final String SINA_YINYUE = "16";
+    public static final String SINA_DIANSHIJU = "17";
+    public static final String SINA_DIANYING = "18";
+    public static final String SINA_ZONGYI = "19";
+    public static final String SINA_SHEYING = "21";
+    public static final String SINA_JIANSHEN = "22";
+    public static final String SINA_TIYU = "23";
+    public static final String SINA_MEISHI = "777";
+    public static final String SINA_LVYOU = "25";
+    public static final String SINA_CAIJING = "26";
+    public static final String SINA_YILIAO = "27";
+    public static final String SINA_DUSHU = "28";
+    public static final String SINA_FANGDICHAN = "30";
+    public static final String SINA_QICHE = "31";
+    public static final String SINA_SHISHANG = "888";
+    public static final String SINA_MEIZHUANG = "999";
+    public static final String SINA_JIAOYU = "36";
+    public static final String SINA_DONGMAN = "37";
+    public static final String SINA_YOUXI = "38";
+    public static final String SINA_FALV = "39";
+    public static final String SINA_MUYING = "40";
+    public static final String SINA_YULE = "41";
+    public static final String SINA_SHOUCANG = "42";
+    public static final String SINA_KEJIGUANCHA = "101";
+
+    public static final String SINA_DAY_SPACE = "day";
+    public static final String SINA_WEEK_SPACE = "week";
+    public static final String SINA_MONTH_SPACE = "month";
 }

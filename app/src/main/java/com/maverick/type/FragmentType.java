@@ -9,4 +9,5 @@ public class FragmentType {
     public static final int BEAUTY = 2;
     public static final int MY = 3;
     public static final int CARICATURE = 4;
+    public static final int SINA = 5;
 }

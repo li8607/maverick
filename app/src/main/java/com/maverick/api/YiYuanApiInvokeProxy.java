@@ -2,6 +2,7 @@ package com.maverick.api;
 
 import com.maverick.bean.CaricatureInfoObj;
 import com.maverick.bean.GifInfoObj;
+import com.maverick.bean.SinaInfoObj;
 import com.maverick.bean.SisterInfoObj;
 
 import java.util.ArrayList;
@@ -53,6 +54,13 @@ public class YiYuanApiInvokeProxy {
         mCallList.add(call);
         return call;
     }
+
+    public Call<SinaInfoObj> getSina(String appid, String sign, String typeId, String space, String key, String date, String page) {
+        Call<SinaInfoObj> call = mApi.getSina(appid, sign, typeId, space, key, date, page);
+        mCallList.add(call);
+        return call;
+    }
+
 
     //额外提供一个方法用于取消所有Call
     public void cancelAll(Call... excludes) {

@@ -7,6 +7,7 @@ import com.maverick.bean.BigImgInfo;
 import com.maverick.bean.CaricatureInfo;
 import com.maverick.bean.GifInfo;
 import com.maverick.bean.MenuDetailInfo;
+import com.maverick.bean.SinaInfo;
 import com.maverick.bean.SisterInfo;
 import com.maverick.bean.WebDetailInfo;
 import com.maverick.global.Tag;
@@ -138,6 +139,19 @@ public class BeanHelper {
         if (info.getThumbnailList() != null && info.getThumbnailList().size() > 0) {
             webDetailInfo.setImageUrl(info.getThumbnailList().get(0));
         }
+        return webDetailInfo;
+    }
+
+    public static WebDetailInfo getWebDetailInfo(SinaInfo info) {
+
+        if (info == null) {
+            return null;
+        }
+
+        WebDetailInfo webDetailInfo = new WebDetailInfo();
+        webDetailInfo.setWebUrl(info.getUrl());
+        webDetailInfo.setTitle(info.getNewinfo());
+        webDetailInfo.setImageUrl(info.getImg());
         return webDetailInfo;
     }
 

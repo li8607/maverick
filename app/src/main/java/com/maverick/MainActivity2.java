@@ -30,8 +30,8 @@ import java.util.List;
 public class MainActivity2 extends BaseActivity {
 
     private RadioGroup radio_group;
-    private RadioButton radio_0, radio_1, radio_2, radio_3;
-    private BaseFragment2 fragment_0, fragment_1, fragment_2, fragment_3;
+    private RadioButton radio_0, radio_1, radio_2, radio_3, radio_4;
+    private BaseFragment2 fragment_0, fragment_1, fragment_2, fragment_3, fragment_4;
     private TextView title;
 
     @Override
@@ -52,6 +52,7 @@ public class MainActivity2 extends BaseActivity {
         radio_1 = findView(R.id.radio_1);
         radio_2 = findView(R.id.radio_2);
         radio_3 = findView(R.id.radio_3);
+        radio_4 = findView(R.id.radio_4);
 
         title = (TextView) findViewById(R.id.title);
         title.setVisibility(View.VISIBLE);
@@ -88,6 +89,14 @@ public class MainActivity2 extends BaseActivity {
                         switchFragment(fragment_3);
                         title.setText(radio_3.getText());
                         break;
+                    case R.id.radio_4:
+                        if (fragment_4 == null) {
+                            fragment_4 = FragmentFactory.getMainFragment((ButtonInfo) radio_4.getTag());
+                        }
+                        switchFragment(fragment_4);
+                        title.setText(radio_4.getText());
+                        break;
+
                 }
             }
         });
@@ -106,7 +115,8 @@ public class MainActivity2 extends BaseActivity {
         List<ButtonInfo> mList = new ArrayList<>();
         mList.add(getButtonInfo("百思不得姐", R.drawable.bottom_sister_selector, FragmentType.SISTER));
 //        mList.add(getButtonInfo("美女", R.drawable.bottom_beauty_selector, FragmentType.BEAUTY));
-        mList.add(getButtonInfo("漫画", R.drawable.bottom_beauty_selector, FragmentType.CARICATURE));
+        mList.add(getButtonInfo("漫画", R.drawable.bottom_caricature_selector, FragmentType.CARICATURE));
+        mList.add(getButtonInfo("微博榜", R.drawable.bottom_sina_selector, FragmentType.SINA));
         mList.add(getButtonInfo("笑话", R.drawable.bottom_joke_selector, FragmentType.JOKE));
         mList.add(getButtonInfo("我的", R.drawable.bottom_my_selector, FragmentType.MY));
 
@@ -125,6 +135,9 @@ public class MainActivity2 extends BaseActivity {
                     break;
                 case 3:
                     setRadioButtonData(radio_3, buttonInfo);
+                    break;
+                case 4:
+                    setRadioButtonData(radio_4, buttonInfo);
                     break;
             }
         }
