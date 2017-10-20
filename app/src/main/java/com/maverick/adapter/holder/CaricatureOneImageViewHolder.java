@@ -45,6 +45,11 @@ public class CaricatureOneImageViewHolder extends CaricatureItemViewHolder {
 
         if (info.getThumbnailList() != null && info.getThumbnailList().size() > 0) {
             if (info.getThumbnailList().size() < 2) {
+
+                LinearLayout.LayoutParams image_0LP = (LinearLayout.LayoutParams) image_0.getLayoutParams();
+                image_0LP.width = LinearLayout.LayoutParams.MATCH_PARENT;
+                image_0.setLayoutParams(image_0LP);
+
                 LinearLayout.LayoutParams image_1LP = (LinearLayout.LayoutParams) image_1.getLayoutParams();
                 image_1LP.width = 0;
                 image_1.setLayoutParams(image_1LP);
@@ -55,6 +60,12 @@ public class CaricatureOneImageViewHolder extends CaricatureItemViewHolder {
 
                 GlideUtil.loadImage(context, info.getThumbnailList().get(0), image_0);
             } else if (info.getThumbnailList().size() < 3) {
+
+                LinearLayout.LayoutParams image_0LP = (LinearLayout.LayoutParams) image_0.getLayoutParams();
+                image_0LP.width = 0;
+                image_0LP.weight = 1;
+                image_0.setLayoutParams(image_0LP);
+
                 LinearLayout.LayoutParams image_1LP = (LinearLayout.LayoutParams) image_1.getLayoutParams();
                 image_1LP.width = 0;
                 image_1LP.weight = 1;
@@ -67,6 +78,11 @@ public class CaricatureOneImageViewHolder extends CaricatureItemViewHolder {
                 GlideUtil.loadImage(context, info.getThumbnailList().get(0), image_0);
                 GlideUtil.loadImage(context, info.getThumbnailList().get(1), image_1);
             } else {
+                LinearLayout.LayoutParams image_0LP = (LinearLayout.LayoutParams) image_0.getLayoutParams();
+                image_0LP.width = 0;
+                image_0LP.weight = 1;
+                image_0.setLayoutParams(image_0LP);
+
                 LinearLayout.LayoutParams image_1LP = (LinearLayout.LayoutParams) image_1.getLayoutParams();
                 image_1LP.width = 0;
                 image_1LP.weight = 1;
