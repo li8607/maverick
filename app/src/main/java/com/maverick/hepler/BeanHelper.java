@@ -31,6 +31,7 @@ public class BeanHelper {
         collect.setCollectName(sisterInfo.getText());
         collect.setCollectImage(sisterInfo.getImage2());
         collect.setCollectId(sisterInfo.getId());
+        collect.setCollectUrl(sisterInfo.getWeixin_url());
         collect.setCollectUserId(Tag.USER_ID);
 
         if (TextUtils.equals(sisterInfo.getType(), Tag.SISTER_TEXT)) {
@@ -130,6 +131,19 @@ public class BeanHelper {
         webDetailInfo.setWebUrl(info.getWeixin_url());
         webDetailInfo.setTitle(info.getText());
         webDetailInfo.setImageUrl(info.getImage2());
+        return webDetailInfo;
+    }
+
+    public static WebDetailInfo getWebDetailInfo(Collect info) {
+
+        if (info == null) {
+            return null;
+        }
+
+        WebDetailInfo webDetailInfo = new WebDetailInfo();
+        webDetailInfo.setWebUrl(info.getCollectUrl());
+        webDetailInfo.setTitle(info.getCollectName());
+        webDetailInfo.setImageUrl(info.getCollectImage());
         return webDetailInfo;
     }
 

@@ -9,6 +9,8 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.maverick.R;
+import com.maverick.WebActivity;
+import com.maverick.hepler.BeanHelper;
 
 import cntv.greendaolibrary.dbbean.Collect;
 
@@ -22,6 +24,7 @@ public class CollectJokeTextViewHolder extends RecyclerView.ViewHolder implement
     private final CheckBox checkbox;
     private Collect mCollect;
     private boolean editState;
+    private Context mContext;
 
     public CollectJokeTextViewHolder(View itemView) {
         super(itemView);
@@ -34,6 +37,7 @@ public class CollectJokeTextViewHolder extends RecyclerView.ViewHolder implement
     }
 
     public void bindData(Context context, Collect collect, boolean editState) {
+        this.mContext = context;
         this.mCollect = collect;
         this.editState = editState;
         String text = collect.getCollectName();
@@ -56,11 +60,13 @@ public class CollectJokeTextViewHolder extends RecyclerView.ViewHolder implement
 
     @Override
     public void onClick(View v) {
-        if(editState) {
+        if (editState) {
             checkbox.setChecked(!checkbox.isChecked());
             if (mOnCollectJokeTextViewHolderListener != null) {
                 mOnCollectJokeTextViewHolderListener.onItemClick(getAdapterPosition(), mCollect);
             }
+        } else {
+            WebActivity.launch(mContext, BeanHelper.getWebDetailInfo(mCollect));
         }
     }
 
@@ -70,9 +76,9 @@ public class CollectJokeTextViewHolder extends RecyclerView.ViewHolder implement
     }
 
     /**
-     * @param visible  编辑框可见参数
-     * @param check  编辑框是否选中
-     * @param editState  是否为编辑状态
+     * @param visible   编辑框可见参数
+     * @param check     编辑框是否选中
+     * @param editState 是否为编辑状态
      */
     public void setCheckViewVisible(int visible, boolean check, boolean editState) {
         this.editState = editState;
