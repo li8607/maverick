@@ -14,7 +14,7 @@
     <FrameLayout
         android:background="#000"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x227"
+        android:layout_height="@dimen/x190"
         android:layout_marginTop="@dimen/y5">
 
         <WebView
