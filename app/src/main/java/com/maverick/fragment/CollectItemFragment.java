@@ -10,14 +10,14 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.maverick.R;
-import com.maverick.adapter.CollectItemSisterFragmentAdapter;
-import com.maverick.adapter.holder.CollectJokeTextViewHolder;
+import com.maverick.adapter.CollectItemFragmentAdapter;
+import com.maverick.adapter.holder.CollectTextViewHolder;
 import com.maverick.bean.CollectTabInfo;
 import com.maverick.global.Tag;
 import com.maverick.model.CollectModel;
 import com.maverick.presenter.BasePresenter;
-import com.maverick.presenter.CollectItemSisterFragmentPresenter;
-import com.maverick.presenter.implView.ICollectItemSisterFragmentView;
+import com.maverick.presenter.CollectItemFragmentPresenter;
+import com.maverick.presenter.implView.ICollectItemFragmentView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,16 +27,16 @@ import cntv.greendaolibrary.dbbean.Collect;
 /**
  * Created by limingfei on 2017/10/4.
  */
-public class CollectItemSisterFragment extends BaseEditFragment implements ICollectItemSisterFragmentView {
+public class CollectItemFragment extends BaseEditFragment implements ICollectItemFragmentView {
 
-    private CollectItemSisterFragmentAdapter mAdapter;
-    private CollectItemSisterFragmentPresenter mPresenter;
+    private CollectItemFragmentAdapter mAdapter;
+    private CollectItemFragmentPresenter mPresenter;
     private RecyclerView recyclerView;
     private ViewGroup root;
     private CollectTabInfo mCollectTabInfo;
 
-    public static CollectItemSisterFragment newInstance(CollectTabInfo collectTabInfo) {
-        CollectItemSisterFragment fragment = new CollectItemSisterFragment();
+    public static CollectItemFragment newInstance(CollectTabInfo collectTabInfo) {
+        CollectItemFragment fragment = new CollectItemFragment();
 
         Bundle bundle = new Bundle();
         bundle.putSerializable(Tag.KEY_INFO, collectTabInfo);
@@ -47,13 +47,13 @@ public class CollectItemSisterFragment extends BaseEditFragment implements IColl
 
     @Override
     protected BasePresenter onCreatePresenter() {
-        mPresenter = new CollectItemSisterFragmentPresenter(getContext(), this);
+        mPresenter = new CollectItemFragmentPresenter(getContext(), this);
         return mPresenter;
     }
 
     @Override
     protected int getRootViewId() {
-        return R.layout.item_collect_joke;
+        return R.layout.fragment_collect_item;
     }
 
     @Override
@@ -70,10 +70,10 @@ public class CollectItemSisterFragment extends BaseEditFragment implements IColl
 
         recyclerView.setHasFixedSize(true);
 
-        mAdapter = new CollectItemSisterFragmentAdapter(getContext());
+        mAdapter = new CollectItemFragmentAdapter(getContext());
         recyclerView.setAdapter(mAdapter);
 
-        mAdapter.setOnCollectJokeTextViewHolderListener(new CollectJokeTextViewHolder.OnCollectJokeTextViewHolderListener() {
+        mAdapter.setOnCollectJokeTextViewHolderListener(new CollectTextViewHolder.OnCollectJokeTextViewHolderListener() {
             @Override
             public void onItemClick(int position, Collect collect) {
                 checkState = getClickCheckState();
@@ -154,8 +154,8 @@ public class CollectItemSisterFragment extends BaseEditFragment implements IColl
             if (holder == null) {
                 mAdapter.notifyItemChanged(i);
             } else {
-                CollectJokeTextViewHolder collectJokeTextViewHolder = (CollectJokeTextViewHolder) holder;
-                collectJokeTextViewHolder.setCheckViewVisible(View.VISIBLE, false, true);
+                CollectTextViewHolder collectTextViewHolder = (CollectTextViewHolder) holder;
+                collectTextViewHolder.setCheckViewVisible(View.VISIBLE, false, true);
             }
         }
     }
@@ -178,8 +178,8 @@ public class CollectItemSisterFragment extends BaseEditFragment implements IColl
             if (holder == null) {
                 mAdapter.notifyItemChanged(i);
             } else {
-                CollectJokeTextViewHolder collectJokeTextViewHolder = (CollectJokeTextViewHolder) holder;
-                collectJokeTextViewHolder.setCheckViewVisible(View.INVISIBLE, false, false);
+                CollectTextViewHolder collectTextViewHolder = (CollectTextViewHolder) holder;
+                collectTextViewHolder.setCheckViewVisible(View.INVISIBLE, false, false);
             }
         }
     }
@@ -216,8 +216,8 @@ public class CollectItemSisterFragment extends BaseEditFragment implements IColl
             if (holder == null) {
                 mAdapter.notifyItemChanged(i);
             } else {
-                CollectJokeTextViewHolder collectJokeTextViewHolder = (CollectJokeTextViewHolder) holder;
-                collectJokeTextViewHolder.setCheck(true);
+                CollectTextViewHolder collectTextViewHolder = (CollectTextViewHolder) holder;
+                collectTextViewHolder.setCheck(true);
             }
         }
     }
@@ -242,8 +242,8 @@ public class CollectItemSisterFragment extends BaseEditFragment implements IColl
             if (holder == null) {
                 mAdapter.notifyItemChanged(i);
             } else {
-                CollectJokeTextViewHolder collectJokeTextViewHolder = (CollectJokeTextViewHolder) holder;
-                collectJokeTextViewHolder.setCheck(false);
+                CollectTextViewHolder collectTextViewHolder = (CollectTextViewHolder) holder;
+                collectTextViewHolder.setCheck(false);
             }
         }
     }

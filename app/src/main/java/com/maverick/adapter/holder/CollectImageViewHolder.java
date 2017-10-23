@@ -15,13 +15,13 @@ import cntv.greendaolibrary.dbbean.Collect;
 /**
  * Created by limingfei on 2017/10/5.
  */
-public class CollectSisterImageViewHolder extends CollectJokeTextViewHolder {
+public class CollectImageViewHolder extends CollectTextViewHolder {
 
     private final RatioImageView img;
     private Context mContext;
     private Collect mCollect;
 
-    public CollectSisterImageViewHolder(View itemView) {
+    public CollectImageViewHolder(View itemView) {
         super(itemView);
         img = (RatioImageView) itemView.findViewById(R.id.img);
         img.setOnClickListener(this);

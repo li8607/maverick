@@ -120,8 +120,6 @@ public class DataBankActivity extends BaseActivity implements View.OnClickListen
         } else if (TextUtils.equals(myInfo.getType(), "1")) {
             //收藏
             List<CollectTabInfo> list = new ArrayList<>();
-//            list.add(getCollectTabInfo("笑话", 1));
-//            list.add(getCollectTabInfo("美女", 2));
             list.add(getCollectTabInfo("百思不得姐", 6));
             list.add(getCollectTabInfo("漫画", 7));
             CollectFragment collectFragment = CollectFragment.newInstance(list);

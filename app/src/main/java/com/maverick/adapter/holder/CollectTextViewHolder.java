@@ -19,7 +19,7 @@ import cntv.greendaolibrary.dbbean.Collect;
 /**
  * Created by limingfei on 2017/10/5.
  */
-public class CollectJokeTextViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class CollectTextViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, CompoundButton.OnCheckedChangeListener {
 
     private final TextView mTitle;
     private final TextView time;
@@ -28,7 +28,7 @@ public class CollectJokeTextViewHolder extends RecyclerView.ViewHolder implement
     private boolean editState;
     private Context mContext;
 
-    public CollectJokeTextViewHolder(View itemView) {
+    public CollectTextViewHolder(View itemView) {
         super(itemView);
         mTitle = (TextView) itemView.findViewById(R.id.title);
         time = (TextView) itemView.findViewById(R.id.time);

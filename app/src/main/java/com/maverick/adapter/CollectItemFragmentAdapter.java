@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.maverick.R;
-import com.maverick.adapter.holder.CollectJokeTextViewHolder;
-import com.maverick.adapter.holder.CollectSisterImageViewHolder;
-import com.maverick.adapter.holder.CollectSisterVideoViewHolder;
+import com.maverick.adapter.holder.CollectTextViewHolder;
+import com.maverick.adapter.holder.CollectImageViewHolder;
+import com.maverick.adapter.holder.CollectVideoViewHolder;
 import com.maverick.type.CollectType;
 
 import java.util.List;
@@ -20,7 +20,7 @@ import cntv.greendaolibrary.dbbean.Collect;
 /**
  * Created by limingfei on 2017/10/5.
  */
-public class CollectItemSisterFragmentAdapter extends RecyclerView.Adapter {
+public class CollectItemFragmentAdapter extends RecyclerView.Adapter {
 
     private static final int TYPE_TEXT = 1;
     private static final int TYPE_IMG = 2;
@@ -32,7 +32,7 @@ public class CollectItemSisterFragmentAdapter extends RecyclerView.Adapter {
 
     private boolean editState;
 
-    public CollectItemSisterFragmentAdapter(Context context) {
+    public CollectItemFragmentAdapter(Context context) {
         this.mContext = context;
     }
 
@@ -43,22 +43,22 @@ public class CollectItemSisterFragmentAdapter extends RecyclerView.Adapter {
 
         switch (viewType) {
             case TYPE_TEXT:
-                CollectJokeTextViewHolder collectJokeTextViewHolder = new CollectJokeTextViewHolder(LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_collect_sister_text, parent, false));
-                collectJokeTextViewHolder.setOnCollectJokeTextViewHolderListener(mOnCollectJokeTextViewHolderListener);
-                holder = collectJokeTextViewHolder;
+                CollectTextViewHolder collectTextViewHolder = new CollectTextViewHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_collect_text, parent, false));
+                collectTextViewHolder.setOnCollectJokeTextViewHolderListener(mOnCollectJokeTextViewHolderListener);
+                holder = collectTextViewHolder;
                 break;
             case TYPE_IMG:
-                CollectSisterImageViewHolder collectSisterImageViewHolder = new CollectSisterImageViewHolder(LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_collect_sister_image, parent, false));
-                collectSisterImageViewHolder.setOnCollectJokeTextViewHolderListener(mOnCollectJokeTextViewHolderListener);
-                holder = collectSisterImageViewHolder;
+                CollectImageViewHolder collectImageViewHolder = new CollectImageViewHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_collect_image, parent, false));
+                collectImageViewHolder.setOnCollectJokeTextViewHolderListener(mOnCollectJokeTextViewHolderListener);
+                holder = collectImageViewHolder;
                 break;
             case TYPE_VIDEO:
-                CollectSisterVideoViewHolder collectSisterVideoViewHolder = new CollectSisterVideoViewHolder(LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_collect_sister_video, parent, false));
-                collectSisterVideoViewHolder.setOnCollectJokeTextViewHolderListener(mOnCollectJokeTextViewHolderListener);
-                holder = collectSisterVideoViewHolder;
+                CollectVideoViewHolder collectVideoViewHolder = new CollectVideoViewHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_collect_video, parent, false));
+                collectVideoViewHolder.setOnCollectJokeTextViewHolderListener(mOnCollectJokeTextViewHolderListener);
+                holder = collectVideoViewHolder;
                 break;
             default:
                 holder = new RecyclerView.ViewHolder(new View(parent.getContext())) {
@@ -72,9 +72,9 @@ public class CollectItemSisterFragmentAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof CollectJokeTextViewHolder) {
-            CollectJokeTextViewHolder collectJokeTextViewHolder = (CollectJokeTextViewHolder) holder;
-            collectJokeTextViewHolder.bindData(mContext, mList.get(position), editState);
+        if (holder instanceof CollectTextViewHolder) {
+            CollectTextViewHolder collectTextViewHolder = (CollectTextViewHolder) holder;
+            collectTextViewHolder.bindData(mContext, mList.get(position), editState);
         }
     }
 
@@ -123,7 +123,7 @@ public class CollectItemSisterFragmentAdapter extends RecyclerView.Adapter {
         return mList;
     }
 
-    private CollectJokeTextViewHolder.OnCollectJokeTextViewHolderListener mOnCollectJokeTextViewHolderListener = new CollectJokeTextViewHolder.OnCollectJokeTextViewHolderListener() {
+    private CollectTextViewHolder.OnCollectJokeTextViewHolderListener mOnCollectJokeTextViewHolderListener = new CollectTextViewHolder.OnCollectJokeTextViewHolderListener() {
         @Override
         public void onItemClick(int position, Collect collect) {
             if (editState) {
@@ -132,7 +132,7 @@ public class CollectItemSisterFragmentAdapter extends RecyclerView.Adapter {
         }
     };
 
-    public void setOnCollectJokeTextViewHolderListener(CollectJokeTextViewHolder.OnCollectJokeTextViewHolderListener listener) {
+    public void setOnCollectJokeTextViewHolderListener(CollectTextViewHolder.OnCollectJokeTextViewHolderListener listener) {
         this.mOnCollectJokeTextViewHolderListener = listener;
     }
 }

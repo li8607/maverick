@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.maverick.bean.CollectTabInfo;
 import com.maverick.model.CollectModel;
-import com.maverick.presenter.implView.ICollectItemSisterFragmentView;
+import com.maverick.presenter.implView.ICollectItemFragmentView;
 
 import java.util.List;
 
@@ -14,14 +14,14 @@ import cntv.greendaolibrary.dbbean.Collect;
 /**
  * Created by limingfei on 2017/10/5.
  */
-public class CollectItemSisterFragmentPresenter extends BasePresenter {
+public class CollectItemFragmentPresenter extends BasePresenter {
 
     private String TAG = getClass().getSimpleName();
 
     private Context mContext;
-    private ICollectItemSisterFragmentView mView;
+    private ICollectItemFragmentView mView;
 
-    public CollectItemSisterFragmentPresenter(Context context, ICollectItemSisterFragmentView view) {
+    public CollectItemFragmentPresenter(Context context, ICollectItemFragmentView view) {
         this.mContext = context;
         this.mView = view;
     }

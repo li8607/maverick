@@ -5,11 +5,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.maverick.bean.CollectTabInfo;
-import com.maverick.fragment.CollectItemBeautyFragment;
 import com.maverick.fragment.BaseEditFragment;
 import com.maverick.fragment.CollectFragment;
-import com.maverick.fragment.CollectItemJokeFragment;
-import com.maverick.fragment.CollectItemSisterFragment;
+import com.maverick.fragment.CollectItemFragment;
 
 import java.util.List;
 
@@ -37,23 +35,11 @@ public class CollectFragmentAdapter extends FragmentStatePagerAdapter {
                 collectFragment.setOnBaseEditFragmentListener(mOnBaseEditFragmentListener);
                 fragment = collectFragment;
                 break;
-            case 2:
-                CollectItemBeautyFragment collectItemBeautyFragment = CollectItemBeautyFragment.newInstance(mList.get(position));
-                collectItemBeautyFragment.setOnBaseEditFragmentListener(mOnBaseEditFragmentListener);
-                fragment = collectItemBeautyFragment;
-                break;
-            case 3:
-            case 4:
-            case 5:
-                CollectItemJokeFragment collectItemJokeFragment = CollectItemJokeFragment.newInstance(mList.get(position));
-                collectItemJokeFragment.setOnBaseEditFragmentListener(mOnBaseEditFragmentListener);
-                fragment = collectItemJokeFragment;
-                break;
             case 6:
             case 7:
-                CollectItemSisterFragment collectItemSisterFragment = CollectItemSisterFragment.newInstance(mList.get(position));
-                collectItemSisterFragment.setOnBaseEditFragmentListener(mOnBaseEditFragmentListener);
-                fragment = collectItemSisterFragment;
+                CollectItemFragment collectItemFragment = CollectItemFragment.newInstance(mList.get(position));
+                collectItemFragment.setOnBaseEditFragmentListener(mOnBaseEditFragmentListener);
+                fragment = collectItemFragment;
                 break;
             default:
                 fragment = new Fragment();

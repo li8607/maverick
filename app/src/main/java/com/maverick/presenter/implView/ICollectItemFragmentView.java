@@ -7,7 +7,7 @@ import cntv.greendaolibrary.dbbean.Collect;
 /**
  * Created by limingfei on 2017/10/5.
  */
-public interface ICollectItemSisterFragmentView {
+public interface ICollectItemFragmentView {
 
     void onShowSuccessView(List<Collect> collects);
 

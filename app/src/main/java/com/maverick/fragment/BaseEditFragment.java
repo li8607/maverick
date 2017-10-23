@@ -42,7 +42,7 @@ public class BaseEditFragment extends BaseFragment2 {
 
     @Override
     protected int getRootViewId() {
-        return R.layout.item_collect_beauty;
+        return 0;
     }
 
     @Override

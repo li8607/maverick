@@ -7,12 +7,12 @@ import cntv.greendaolibrary.dbbean.Collect;
 /**
  * Created by limingfei on 2017/10/5.
  */
-public class CollectSisterVideoViewHolder extends CollectJokeTextViewHolder {
+public class CollectVideoViewHolder extends CollectTextViewHolder {
 
     private Context mContext;
     private Collect mCollect;
 
-    public CollectSisterVideoViewHolder(View itemView) {
+    public CollectVideoViewHolder(View itemView) {
         super(itemView);
     }
 
