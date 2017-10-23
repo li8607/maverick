@@ -5,7 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.maverick.adapter.CaricatureActivityAdapter;
 import com.maverick.base.BaseActivity;
@@ -15,10 +19,6 @@ import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.CaricatureActivityPresenter;
 import com.maverick.presenter.implView.ICaricatureActivityView;
 import com.maverick.transformer.DepthPageTransformer;
-import com.maverick.transformer.MyTransformation;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by limingfei on 2017/10/23.
@@ -28,7 +28,8 @@ public class CaricatureActivity extends BaseActivity implements ICaricatureActiv
     public static final String EXTRA_IMAGE = "Activity";
     private CaricatureActivityPresenter mPresenter;
     private ViewPager viewpager;
-    private List<View> mList = new ArrayList<>();
+    private ViewGroup root;
+    private CaricatureDetailInfo mInfo;
 
     public static void launch(Context context, CaricatureDetailInfo info) {
 
@@ -55,39 +56,59 @@ public class CaricatureActivity extends BaseActivity implements ICaricatureActiv
 
     @Override
     protected void onInitView() {
+
+        root = findView(R.id.root);
+
         viewpager = findView(R.id.viewpager);
-//        viewpager.setPageTransformer(true, new DepthPageTransformer());
-        viewpager.setPageTransformer(true, new MyTransformation());
+        viewpager.setPageTransformer(true, new DepthPageTransformer());
     }
 
     @Override
     protected void onInitData(Bundle savedInstanceState) {
 
         Intent intent = getIntent();
-        CaricatureDetailInfo mInfo = (CaricatureDetailInfo) intent.getSerializableExtra(EXTRA_IMAGE);
+        mInfo = (CaricatureDetailInfo) intent.getSerializableExtra(EXTRA_IMAGE);
         mPresenter.refreshData(mInfo);
     }
 
     @Override
     public void onShowSuccessView(CaricatureListInfo info) {
-//        for (String url : info.getImgList()) {
-//            ImageView imageView = new ImageView(this);
-//            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//            GlideUtil.loadImage(this, url, imageView);
-//            mList.add(imageView);
-//        }
-
         CaricatureActivityAdapter mAdapter = new CaricatureActivityAdapter(info.getImgList());
         viewpager.setAdapter(mAdapter);
     }
 
     @Override
     public void onShowEmptyView() {
+        View view = View.inflate(root.getContext(), R.layout.view_empty, null);
 
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        root.addView(view, layoutParams);
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                root.removeView(v);
+                mPresenter.refreshData(mInfo);
+            }
+        });
     }
 
     @Override
     public void onShowErrorView() {
+        View view = View.inflate(root.getContext(), R.layout.view_error, null);
 
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        layoutParams.gravity = Gravity.CENTER;
+
+        root.addView(view, layoutParams);
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                root.removeView(v);
+                mPresenter.refreshData(mInfo);
+            }
+        });
     }
 }

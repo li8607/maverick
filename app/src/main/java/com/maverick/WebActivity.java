@@ -144,6 +144,17 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+
+        if (web.canGoBack()) {
+            web.goBack();
+            return;
+        }
+
+        super.onBackPressed();
+    }
+
     private void openMenuDialog(final View v, WebDetailInfo info) {
         if (info == null) {
             return;

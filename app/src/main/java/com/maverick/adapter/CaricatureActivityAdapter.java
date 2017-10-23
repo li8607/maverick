@@ -9,6 +9,8 @@ import com.maverick.util.GlideUtil;
 
 import java.util.List;
 
+import uk.co.senab.photoview.PhotoView;
+
 /**
  * Created by limingfei on 2017/10/23.
  */
@@ -31,8 +33,8 @@ public class CaricatureActivityAdapter extends PagerAdapter {
     }
 
     public Object instantiateItem(ViewGroup container, int position) {
-        ImageView imageView = new ImageView(container.getContext());
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        PhotoView imageView = new PhotoView(container.getContext());
+        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         GlideUtil.loadImage(container.getContext(), mList.get(position), imageView);
         container.addView(imageView);
         return imageView;
