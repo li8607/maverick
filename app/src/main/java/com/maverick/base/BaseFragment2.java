@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.maverick.presenter.BasePresenter;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by Administrator on 2017/9/25.
@@ -91,5 +92,15 @@ public abstract class BaseFragment2 extends Fragment {
 
     public boolean onBackPressed() {
         return false;
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onPageStart(getClass().getSimpleName()); //统计页面，"MainScreen"为页面名称，可自定义
+    }
+
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPageEnd(getClass().getSimpleName());
     }
 }

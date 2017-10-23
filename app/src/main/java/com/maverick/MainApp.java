@@ -3,6 +3,7 @@ package com.maverick;
 import android.app.Application;
 import android.content.Context;
 
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
@@ -30,5 +31,7 @@ public class MainApp extends Application {
         Config.DEBUG = true;
         QueuedWork.isUseThreadPool = false;
         UMShareAPI.get(this);
+
+        MobclickAgent.openActivityDurationTrack(false);
     }
 }

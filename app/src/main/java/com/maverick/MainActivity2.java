@@ -207,11 +207,22 @@ public class MainActivity2 extends BaseActivity {
         return buttonInfo;
     }
 
+    private long currentTime;
+
     @Override
     public void onBackPressed() {
         if (mFragment != null && mFragment.onBackPressed()) {
             return;
         }
+
+        if ((System.currentTimeMillis() - currentTime) > 2000) {
+            currentTime = System.currentTimeMillis();
+            Toast.makeText(this, R.string.exit_app, Toast.LENGTH_SHORT).show();
+            return;
+        } else {
+            finish();
+        }
+
         super.onBackPressed();
     }
 
@@ -225,10 +236,5 @@ public class MainActivity2 extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         UMShareAPI.get(this).release();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
     }
 }

@@ -11,11 +11,15 @@ import android.widget.TextView;
 import com.maverick.R;
 import com.maverick.WebActivity;
 import com.maverick.bean.SisterInfo;
+import com.maverick.global.UMengMobclickAgent;
 import com.maverick.hepler.BeanHelper;
 import com.maverick.model.CollectModel;
 import com.maverick.model.SisterDingCaiModel;
 import com.maverick.util.GlideUtil;
 import com.maverick.util.Utils;
+import com.umeng.analytics.MobclickAgent;
+
+import java.util.HashMap;
 
 import cntv.greendaolibrary.dbbean.Collect;
 import cntv.greendaolibrary.dbbean.SisterDingCai;
@@ -194,7 +198,7 @@ public class SisterTextHolder extends RecyclerView.ViewHolder implements View.On
 
                 Collect collect = BeanHelper.getCollect(mSisterInfo);
                 mSisterInfo.setCollect(!mSisterInfo.isCollect());
-
+                MobclickAgent.onEvent(mContext, UMengMobclickAgent.Collect);
                 if (mSisterInfo.isCollect()) {
                     CollectModel.newInstance().insertCollectDB(collect);
                     text_comment_count.setText(v.getContext().getString(R.string.collect_select));

@@ -68,7 +68,7 @@ public class MyFragment extends BaseFragment2 {
         List<MyInfo> list = new ArrayList<>();
         list.add(getMyInfo("浏览记录", R.drawable.ic_menu_gallery, "0"));
         list.add(getMyInfo("收藏", R.drawable.ic_menu_camera, "1"));
-        list.add(getMyInfo("系统设置", R.drawable.ic_menu_send, "2"));
+//        list.add(getMyInfo("系统设置", R.drawable.ic_menu_send, "2"));
         MyFragmentAdapter mMyFragmentAdapter = new MyFragmentAdapter(getContext(), list);
         recyclerView.setAdapter(mMyFragmentAdapter);
 

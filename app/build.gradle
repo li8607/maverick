@@ -15,12 +15,22 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            // 混淆
+            minifyEnabled true
+            // Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
-        debug{
+        debug {
+            // 混淆
             minifyEnabled false
+            // Zipalign优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
             signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -36,17 +46,16 @@ android {
     }
 
     productFlavors {
-        xiaomi {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "xiaomi"]
-        }
-        _360 {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "_360"]
-        }
-        baidu {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "baidu"]
-        }
-        wandoujia {
-            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "wandoujia"]
+        wandoujia {}
+        baidu {}
+        c360 {}
+        uc {}
+        xiaomi {}
+        yingyongbao {}
+        huawei {}
+
+        productFlavors.all { flavor ->
+            flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
         }
     }
 }
@@ -70,4 +79,5 @@ dependencies {
     compile 'com.shuyu:GSYVideoPlayer:2.0.8'
     compile 'com.davemorrissey.labs:subsampling-scale-image-view:3.5.0'
     compile project(':sharelibrary')
+    compile 'com.umeng.analytics:analytics:latest.integration'
 }

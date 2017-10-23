@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.Window;
 
 import com.maverick.presenter.BasePresenter;
+import com.umeng.analytics.MobclickAgent;
 
 /**
  * Created by limingfei on 2017/9/25.
@@ -77,5 +78,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         fragmentTransaction.add(dialogFragment, tag);
         fragmentTransaction.commitAllowingStateLoss();//注意这里使用commitAllowingStateLoss()
         //Fragment Or DialogFragment Can not perform this action after onSaveInstanceState
+    }
+
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }
