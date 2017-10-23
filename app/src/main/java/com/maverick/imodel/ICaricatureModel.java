@@ -1,6 +1,7 @@
 package com.maverick.imodel;
 
 import com.maverick.bean.CaricatureInfo;
+import com.maverick.bean.CaricatureListInfo;
 
 import java.util.List;
 
@@ -15,6 +16,14 @@ public interface ICaricatureModel {
 
     interface OnResultListener {
         void onSuccess(List<CaricatureInfo> list, boolean isHasMore);
+
+        void onFail();
+    }
+
+    void requestDetailData(String id, OnDetailResultListener listener);
+
+    interface OnDetailResultListener {
+        void onSuccess(CaricatureListInfo info);
 
         void onFail();
     }

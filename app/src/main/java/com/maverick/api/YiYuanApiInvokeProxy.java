@@ -1,6 +1,7 @@
 package com.maverick.api;
 
 import com.maverick.bean.CaricatureInfoObj;
+import com.maverick.bean.CaricatureListInfoObj;
 import com.maverick.bean.GifInfoObj;
 import com.maverick.bean.SinaInfoObj;
 import com.maverick.bean.SisterInfoObj;
@@ -51,6 +52,12 @@ public class YiYuanApiInvokeProxy {
 
     public Call<CaricatureInfoObj> getCaricature(String appid, String sign, String type, String page) {
         Call<CaricatureInfoObj> call = mApi.getCaricature(appid, sign, type, page);
+        mCallList.add(call);
+        return call;
+    }
+
+    public Call<CaricatureListInfoObj> getCaricatureDetail(String appid, String sign, String id) {
+        Call<CaricatureListInfoObj> call = mApi.getCaricatureDetail(appid, sign, id);
         mCallList.add(call);
         return call;
     }

@@ -64,6 +64,10 @@
             android:name=".DataBankActivity"
             android:theme="@style/BaseAppTheme" />
 
+        <activity
+            android:name=".CaricatureActivity"
+            android:theme="@style/BaseAppTheme" />
+
         <!--微信-->
         <activity
             android:name=".wxapi.WXEntryActivity"

@@ -1,6 +1,7 @@
 package com.maverick.api;
 
 import com.maverick.bean.CaricatureInfoObj;
+import com.maverick.bean.CaricatureListInfoObj;
 import com.maverick.bean.GifInfoObj;
 import com.maverick.bean.SinaInfoObj;
 import com.maverick.bean.SisterInfoObj;
@@ -50,6 +51,12 @@ public interface YiYuanApi {
             , @Field("showapi_sign") String sign
             , @Field("type") String type
             , @Field("page") String page);
+
+    @FormUrlEncoded
+    @POST("958-2")
+    Call<CaricatureListInfoObj> getCaricatureDetail(@Field("showapi_appid") String appid
+            , @Field("showapi_sign") String sign
+            , @Field("id") String id);
 
     @FormUrlEncoded
     @POST("254-1")

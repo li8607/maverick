@@ -1,11 +1,10 @@
 package com.maverick.adapter.holder;
 
-import android.app.Activity;
 import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.maverick.DetailActivity;
+import com.maverick.CaricatureActivity;
 import com.maverick.R;
 import com.maverick.bean.CaricatureInfo;
 import com.maverick.hepler.BeanHelper;
@@ -107,9 +106,10 @@ public class CaricatureOneImageViewHolder extends CaricatureItemViewHolder {
             case R.id.image_0:
             case R.id.image_1:
             case R.id.image_2:
-                if (mContext != null && mContext instanceof Activity) {
-                    DetailActivity.launch((Activity) mContext, v, BeanHelper.getBigImgInfo(mInfo));
-                }
+//                if (mContext != null && mContext instanceof Activity) {
+//                    DetailActivity.launch((Activity) mContext, v, BeanHelper.getBigImgInfo(mInfo));
+//                }
+                CaricatureActivity.launch(mContext, BeanHelper.getCaricatureDetailInfo(mInfo));
                 break;
         }
     }

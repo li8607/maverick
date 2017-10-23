@@ -7,6 +7,7 @@ import com.maverick.api.YiYuanApi;
 import com.maverick.api.YiYuanApiInvokeProxy;
 import com.maverick.bean.CaricatureInfo;
 import com.maverick.bean.CaricatureInfoObj;
+import com.maverick.bean.CaricatureListInfoObj;
 import com.maverick.global.UrlData;
 import com.maverick.imodel.ICaricatureModel;
 
@@ -73,6 +74,50 @@ public class CaricatureModel implements ICaricatureModel {
 
             @Override
             public void onFailure(Call<CaricatureInfoObj> call, Throwable t) {
+                listener.onFail();
+                Log.e(TAG, "请求失败了");
+            }
+        });
+    }
+
+    @Override
+    public void requestDetailData(String id, final OnDetailResultListener listener) {
+        if (listener == null) {
+            return;
+        }
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(UrlData.BASE)
+                //增加返回值为String的支持
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        YiYuanApi api = retrofit.create(YiYuanApi.class);
+        mProxy = new YiYuanApiInvokeProxy(api);
+        Call<CaricatureListInfoObj> call = mProxy.getCaricatureDetail(UrlData.APPID_VALUE, UrlData.SIGN_VALUE, id);
+
+        call.enqueue(new Callback<CaricatureListInfoObj>() {
+            @Override
+            public void onResponse(Call<CaricatureListInfoObj> call, Response<CaricatureListInfoObj> response) {
+                CaricatureListInfoObj info = response.body();
+
+                if (info == null || !TextUtils.equals(info.getShowapi_res_code(), "0")) {
+                    Log.e(TAG, "请求失败了");
+                    listener.onFail();
+                    return;
+                }
+
+                if (info.getShowapi_res_body() != null && info.getShowapi_res_body().getItem() != null) {
+                    listener.onSuccess(info.getShowapi_res_body().getItem());
+                    Log.e(TAG, "请求成功");
+                } else {
+                    listener.onFail();
+                    Log.e(TAG, "请求失败了");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CaricatureListInfoObj> call, Throwable t) {
                 listener.onFail();
                 Log.e(TAG, "请求失败了");
             }

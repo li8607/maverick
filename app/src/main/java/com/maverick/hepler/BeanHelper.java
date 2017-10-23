@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.maverick.bean.BeautyItemInfo;
 import com.maverick.bean.BigImgInfo;
+import com.maverick.bean.CaricatureDetailInfo;
 import com.maverick.bean.CaricatureInfo;
 import com.maverick.bean.GifInfo;
 import com.maverick.bean.MenuDetailInfo;
@@ -195,5 +196,11 @@ public class BeanHelper {
             menuDetailInfo.setImageurl(info.getThumbnailList().get(0));
         }
         return menuDetailInfo;
+    }
+
+    public static CaricatureDetailInfo getCaricatureDetailInfo(CaricatureInfo info) {
+        CaricatureDetailInfo caricatureDetailInfo = new CaricatureDetailInfo();
+        caricatureDetailInfo.setId(info.getId());
+        return caricatureDetailInfo;
     }
 }
