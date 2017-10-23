@@ -6,6 +6,7 @@ import android.util.Log;
 import com.maverick.bean.CollectTabInfo;
 import com.maverick.model.CollectModel;
 import com.maverick.presenter.implView.ICollectItemFragmentView;
+import com.maverick.type.FragmentType;
 
 import java.util.List;
 
@@ -41,20 +42,14 @@ public class CollectItemFragmentPresenter extends BasePresenter {
 
         List<Collect> list;
         switch (collectTabInfo.getType()) {
-            case 3:
-                list = CollectModel.newInstance().getJokeTextData();
-                break;
-            case 4:
-                list = CollectModel.newInstance().getJokeImgData();
-                break;
-            case 5:
-                list = CollectModel.newInstance().getJokeGifData();
-                break;
-            case 6:
+            case FragmentType.COLLECT_SISTER:
                 list = CollectModel.newInstance().getSisterData();
                 break;
-            case 7:
+            case FragmentType.COLLECT_CARICATURE:
                 list = CollectModel.newInstance().getCaricatureData();
+                break;
+            case FragmentType.COLLECT_SINA:
+                list = CollectModel.newInstance().getSinaData();
                 break;
             default:
                 list = null;

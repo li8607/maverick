@@ -28,6 +28,7 @@ public class SinaItemFragmentAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         SinaHolder holder = new SinaHolder(LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_sina, parent, false));
+        holder.setOnListener(mOnListener);
         return holder;
     }
 
@@ -52,9 +53,9 @@ public class SinaItemFragmentAdapter extends RecyclerView.Adapter {
         this.mList = list;
     }
 
-    private CaricatureItemViewHolder.OnListener mOnListener;
+    private SinaHolder.OnListener mOnListener;
 
-    public void setOnListener(CaricatureItemViewHolder.OnListener listener) {
+    public void setOnListener(SinaHolder.OnListener listener) {
         this.mOnListener = listener;
     }
 }

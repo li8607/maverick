@@ -21,6 +21,8 @@ public interface ICollectModel {
 
     List<Collect> getCaricatureData();
 
+    List<Collect> getSinaData();
+
     boolean insertCollectDB(Collect collect);
 
     boolean deleteCollectDB(Collect collect);

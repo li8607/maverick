@@ -15,10 +15,14 @@ import com.maverick.fragment.BaseEditFragment;
 import com.maverick.fragment.BrowsingHistoryFragment;
 import com.maverick.fragment.CollectFragment;
 import com.maverick.global.Tag;
+import com.maverick.model.CollectModel;
 import com.maverick.presenter.BasePresenter;
+import com.maverick.type.FragmentType;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cntv.greendaolibrary.dbbean.Collect;
 
 /**
  * Created by limingfei on 2017/9/29.
@@ -118,11 +122,9 @@ public class DataBankActivity extends BaseActivity implements View.OnClickListen
                 title.setText(myInfo.getTitle());
             }
         } else if (TextUtils.equals(myInfo.getType(), "1")) {
-            //收藏
-            List<CollectTabInfo> list = new ArrayList<>();
-            list.add(getCollectTabInfo("百思不得姐", 6));
-            list.add(getCollectTabInfo("漫画", 7));
-            CollectFragment collectFragment = CollectFragment.newInstance(list);
+            CollectTabInfo collectTabInfo = new CollectTabInfo();
+            collectTabInfo.setType(FragmentType.COLLECT);
+            CollectFragment collectFragment = CollectFragment.newInstance(collectTabInfo);
             collectFragment.setOnCollectFragmentListener(new CollectFragment.OnCollectFragmentListener() {
                 @Override
                 public void onPageSelected() {
@@ -138,22 +140,6 @@ public class DataBankActivity extends BaseActivity implements View.OnClickListen
 
 
         return baseEditFragment;
-    }
-
-    private CollectTabInfo getCollectTabInfo(String title, int type) {
-        CollectTabInfo collectTabInfo = new CollectTabInfo();
-        collectTabInfo.setTitle(title);
-        collectTabInfo.setType(type);
-        switch (type) {
-            case 1:
-                List<CollectTabInfo> list = new ArrayList<>();
-                list.add(getCollectTabInfo("文本笑话", 3));
-                list.add(getCollectTabInfo("图文笑话", 4));
-                list.add(getCollectTabInfo("动图笑话", 5));
-                collectTabInfo.setItemList(list);
-                break;
-        }
-        return collectTabInfo;
     }
 
     @Override

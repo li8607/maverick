@@ -113,12 +113,12 @@ public class MainActivity2 extends BaseActivity {
     protected void onInitData(Bundle savedInstanceState) {
 
         List<ButtonInfo> mList = new ArrayList<>();
-        mList.add(getButtonInfo("百思不得姐", R.drawable.bottom_sister_selector, FragmentType.SISTER));
-//        mList.add(getButtonInfo("美女", R.drawable.bottom_beauty_selector, FragmentType.BEAUTY));
-        mList.add(getButtonInfo("漫画", R.drawable.bottom_caricature_selector, FragmentType.CARICATURE));
-        mList.add(getButtonInfo("微博榜", R.drawable.bottom_sina_selector, FragmentType.SINA));
-        mList.add(getButtonInfo("笑话", R.drawable.bottom_joke_selector, FragmentType.JOKE));
-        mList.add(getButtonInfo("我的", R.drawable.bottom_my_selector, FragmentType.MY));
+        mList.add(getButtonInfo(getString(R.string.fragment_sister), R.drawable.bottom_sister_selector, FragmentType.SISTER));
+//        mList.add(getButtonInfo(getString(R.string.fragment_beauty), R.drawable.bottom_beauty_selector, FragmentType.BEAUTY));
+        mList.add(getButtonInfo(getString(R.string.fragment_caricature), R.drawable.bottom_caricature_selector, FragmentType.CARICATURE));
+        mList.add(getButtonInfo(getString(R.string.fragment_sina), R.drawable.bottom_sina_selector, FragmentType.SINA));
+        mList.add(getButtonInfo(getString(R.string.fragment_joke), R.drawable.bottom_joke_selector, FragmentType.JOKE));
+        mList.add(getButtonInfo(getString(R.string.fragment_my), R.drawable.bottom_my_selector, FragmentType.MY));
 
         for (int i = 0; i < mList.size(); i++) {
             ButtonInfo buttonInfo = mList.get(i);

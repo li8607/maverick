@@ -2,6 +2,8 @@ package com.maverick.bean;
 
 import java.io.Serializable;
 
+import cntv.greendaolibrary.dbbean.Collect;
+
 /**
  * Created by limingfei on 2017/10/20.
  */
@@ -10,6 +12,7 @@ public class WebDetailInfo implements Serializable {
     private String webUrl;
     private String title;
     private String imageUrl;
+    private Collect collect;
 
     public String getWebUrl() {
         return webUrl;
@@ -33,5 +36,13 @@ public class WebDetailInfo implements Serializable {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+
+    public Collect getCollect() {
+        return collect;
+    }
+
+    public void setCollect(Collect collect) {
+        this.collect = collect;
     }
 }

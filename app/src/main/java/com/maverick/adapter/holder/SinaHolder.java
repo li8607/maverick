@@ -12,6 +12,7 @@ import com.maverick.R;
 import com.maverick.WebActivity;
 import com.maverick.bean.SinaInfo;
 import com.maverick.bean.SisterInfo;
+import com.maverick.bean.WebDetailInfo;
 import com.maverick.hepler.BeanHelper;
 import com.maverick.util.GlideUtil;
 
@@ -68,7 +69,9 @@ public class SinaHolder extends RecyclerView.ViewHolder implements View.OnClickL
 
     @Override
     public void onClick(View v) {
-        WebActivity.launch(mContext, BeanHelper.getWebDetailInfo(mInfo));
+        WebDetailInfo info = BeanHelper.getWebDetailInfo(mInfo);
+        info.setCollect(BeanHelper.getCollect(mInfo));
+        WebActivity.launch(mContext, info);
     }
 
     private OnListener mListener;

@@ -5,14 +5,20 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.Toast;
 
 import com.maverick.R;
 import com.maverick.adapter.CollectFragmentAdapter;
 import com.maverick.bean.CollectTabInfo;
+import com.maverick.model.CollectModel;
 import com.maverick.presenter.BasePresenter;
+import com.maverick.transformer.DepthPageTransformer;
+import com.maverick.type.FragmentType;
 
-import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+
+import cntv.greendaolibrary.dbbean.Collect;
 
 /**
  * Created by limingfei on 2017/9/29.
@@ -25,11 +31,11 @@ public class CollectFragment extends BaseEditFragment {
     private ViewPager viewpager;
     private CollectFragmentAdapter mCollectFragmentAdapter;
 
-    public static CollectFragment newInstance(List<CollectTabInfo> list) {
+    public static CollectFragment newInstance(CollectTabInfo info) {
 
         CollectFragment fragment = new CollectFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable(KEY_INFOS, (Serializable) list);
+        bundle.putSerializable(KEY_INFOS, info);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -49,6 +55,7 @@ public class CollectFragment extends BaseEditFragment {
     protected void onInitView(View view) {
         tab_layout = findView(R.id.tab_layout);
         viewpager = findView(R.id.viewpager);
+        viewpager.setPageTransformer(true, new DepthPageTransformer());
         viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -71,7 +78,37 @@ public class CollectFragment extends BaseEditFragment {
 
     @Override
     protected void onInitData(Bundle savedInstanceState) {
-        List<CollectTabInfo> list = (List<CollectTabInfo>) getArguments().getSerializable(KEY_INFOS);
+        CollectTabInfo info = (CollectTabInfo) getArguments().getSerializable(KEY_INFOS);
+
+        if (info == null) {
+            return;
+        }
+        List<CollectTabInfo> list = new ArrayList<>();
+        switch (info.getType()) {
+            case FragmentType.COLLECT:
+                List<Collect> sisterData = CollectModel.newInstance().getSisterData();
+                if (sisterData != null && sisterData.size() > 0) {
+                    list.add(getCollectTabInfo(getString(R.string.fragment_sister), FragmentType.COLLECT_SISTER));
+                }
+
+                List<Collect> caricatureData = CollectModel.newInstance().getCaricatureData();
+                if (caricatureData != null && caricatureData.size() > 0) {
+                    list.add(getCollectTabInfo(getString(R.string.fragment_caricature), FragmentType.COLLECT_CARICATURE));
+                }
+
+                List<Collect> sinaData = CollectModel.newInstance().getSinaData();
+                if (sinaData != null && sinaData.size() > 0) {
+                    list.add(getCollectTabInfo(getString(R.string.fragment_sina), FragmentType.COLLECT_SINA));
+                }
+
+                break;
+        }
+
+        if (list == null || list.size() < 1) {
+            Toast.makeText(getContext(), "暂无数据", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         mCollectFragmentAdapter = new CollectFragmentAdapter(getChildFragmentManager(), list);
         mCollectFragmentAdapter.setOnCollectFragmentListener(mOnCollectFragmentListener);
         mCollectFragmentAdapter.setOnBaseEditFragmentListener(mOnBaseEditFragmentListener);
@@ -79,10 +116,17 @@ public class CollectFragment extends BaseEditFragment {
         tab_layout.setupWithViewPager(viewpager);
     }
 
+    private CollectTabInfo getCollectTabInfo(String title, int type) {
+        CollectTabInfo collectTabInfo = new CollectTabInfo();
+        collectTabInfo.setTitle(title);
+        collectTabInfo.setType(type);
+        return collectTabInfo;
+    }
+
     public int getStateEdit() {
         Fragment fragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
         if (fragment != null) {
-             if (fragment instanceof BaseEditFragment) {
+            if (fragment instanceof BaseEditFragment) {
                 BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
                 return baseEditFragment.getStateEdit();
             }
@@ -93,7 +137,7 @@ public class CollectFragment extends BaseEditFragment {
     public void setStateEdit(int stateEdit) {
         Fragment fragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
         if (fragment != null) {
-             if (fragment instanceof BaseEditFragment) {
+            if (fragment instanceof BaseEditFragment) {
                 BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
                 baseEditFragment.setStateEdit(stateEdit);
             }
@@ -103,7 +147,7 @@ public class CollectFragment extends BaseEditFragment {
     public void delete() {
         Fragment fragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
         if (fragment != null) {
-           if (fragment instanceof BaseEditFragment) {
+            if (fragment instanceof BaseEditFragment) {
                 BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
                 baseEditFragment.delete();
             }
@@ -113,7 +157,7 @@ public class CollectFragment extends BaseEditFragment {
     public int getCheckState() {
         Fragment fragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
         if (fragment != null) {
-           if (fragment instanceof BaseEditFragment) {
+            if (fragment instanceof BaseEditFragment) {
                 BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
                 return baseEditFragment.getCheckState();
             }
@@ -126,7 +170,7 @@ public class CollectFragment extends BaseEditFragment {
         if (fragment != null) {
             if (fragment instanceof BaseEditFragment) {
                 BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
-                 baseEditFragment.setCheckState(checkState);
+                baseEditFragment.setCheckState(checkState);
             }
         }
     }

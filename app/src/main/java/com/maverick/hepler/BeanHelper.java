@@ -108,6 +108,23 @@ public class BeanHelper {
         return collect;
     }
 
+    public static Collect getCollect(SinaInfo info) {
+
+        if (info == null) {
+            return null;
+        }
+
+        Collect collect = new Collect();
+        collect.setCollectType(CollectType.SINA);
+        collect.setCollectName(info.getNewinfo());
+        collect.setCollectImage(info.getImg());
+        collect.setCollectCT(info.getDate());
+        collect.setCollectUrl(info.getUrl());
+        collect.setCollectTime(System.currentTimeMillis());
+        collect.setCollectUserId(Tag.USER_ID);
+        return collect;
+    }
+
     public static BigImgInfo getBigImgInfo(CaricatureInfo info) {
 
         if (info == null) {
@@ -211,4 +228,11 @@ public class BeanHelper {
         caricatureDetailInfo.setTitle(collect.getCollectName());
         return caricatureDetailInfo;
     }
+
+//    public static CaricatureDetailInfo getCaricatureDetailInfo(SinaInfo info) {
+//        CaricatureDetailInfo caricatureDetailInfo = new CaricatureDetailInfo();
+//        caricatureDetailInfo.setId(info.getCollectId());
+//        caricatureDetailInfo.setTitle(info.getCollectName());
+//        return caricatureDetailInfo;
+//    }
 }

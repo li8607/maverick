@@ -92,6 +92,14 @@ public class CollectModel implements ICollectModel {
     }
 
     @Override
+    public List<Collect> getSinaData() {
+        List<Collect> list = mCollectDao.queryBuilder().where(
+                CollectDao.Properties.CollectUserId.eq(Tag.USER_ID)
+                , CollectDao.Properties.CollectType.eq(CollectType.SINA)).orderDesc(CollectDao.Properties.CollectTime).build().list();
+        return list;
+    }
+
+    @Override
     public boolean insertCollectDB(Collect collect) {
 
         if (collect == null) {
@@ -186,6 +194,9 @@ public class CollectModel implements ICollectModel {
 
             whereCondition = CollectDao.Properties.CollectId.eq(collect.getCollectId());
         } else if (TextUtils.equals(type, CollectType.CARICATURE)) {
+
+            whereCondition = CollectDao.Properties.CollectUrl.eq(collect.getCollectUrl());
+        } else if (TextUtils.equals(type, CollectType.SINA)) {
 
             whereCondition = CollectDao.Properties.CollectUrl.eq(collect.getCollectUrl());
         }

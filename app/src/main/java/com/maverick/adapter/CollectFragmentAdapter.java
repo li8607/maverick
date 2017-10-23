@@ -8,6 +8,7 @@ import com.maverick.bean.CollectTabInfo;
 import com.maverick.fragment.BaseEditFragment;
 import com.maverick.fragment.CollectFragment;
 import com.maverick.fragment.CollectItemFragment;
+import com.maverick.type.FragmentType;
 
 import java.util.List;
 
@@ -29,14 +30,15 @@ public class CollectFragmentAdapter extends FragmentStatePagerAdapter {
         Fragment fragment;
         int type = mList.get(position).getType();
         switch (type) {
-            case 1:
-                CollectFragment collectFragment = CollectFragment.newInstance(mList.get(position).getItemList());
+            case FragmentType.COLLECT:
+                CollectFragment collectFragment = CollectFragment.newInstance(mList.get(position));
                 collectFragment.setOnCollectFragmentListener(mOnCollectFragmentListener);
                 collectFragment.setOnBaseEditFragmentListener(mOnBaseEditFragmentListener);
                 fragment = collectFragment;
                 break;
-            case 6:
-            case 7:
+            case FragmentType.COLLECT_CARICATURE:
+            case FragmentType.COLLECT_SISTER:
+            case FragmentType.COLLECT_SINA:
                 CollectItemFragment collectItemFragment = CollectItemFragment.newInstance(mList.get(position));
                 collectItemFragment.setOnBaseEditFragmentListener(mOnBaseEditFragmentListener);
                 fragment = collectItemFragment;

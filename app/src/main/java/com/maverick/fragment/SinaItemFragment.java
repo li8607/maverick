@@ -11,15 +11,10 @@ import android.widget.FrameLayout;
 
 import com.maverick.R;
 import com.maverick.adapter.SinaItemFragmentAdapter;
-import com.maverick.adapter.holder.CaricatureItemViewHolder;
 import com.maverick.base.BaseFragment2;
-import com.maverick.bean.CaricatureInfo;
-import com.maverick.bean.MenuDetailInfo;
 import com.maverick.bean.SinaInfo;
 import com.maverick.bean.SinaTabInfo;
-import com.maverick.dialog.MenuDialog;
 import com.maverick.global.Tag;
-import com.maverick.hepler.BeanHelper;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.SinaItemFragmentPresenter;
 import com.maverick.presenter.implView.ISinaItemFragmentView;
@@ -94,30 +89,30 @@ public class SinaItemFragment extends BaseFragment2 implements ISinaItemFragment
             }
         });
 
-        mAdapter.setOnListener(new CaricatureItemViewHolder.OnListener() {
-            @Override
-            public void onMenuClick(final View view, CaricatureInfo info) {
-                if (info == null) {
-                    return;
-                }
+//        mAdapter.setOnListener(new SinaHolder.OnListener() {
+//            @Override
+//            public void onMenuClick(final View view, SinaInfo info) {
+//                if (info == null) {
+//                    return;
+//                }
 
-                MenuDetailInfo menuDetailInfo = BeanHelper.getMenuDetailInfo(info);
-                menuDetailInfo.setCollect(BeanHelper.getCollect(info));
-                MenuDialog dialog = MenuDialog.newInstance(menuDetailInfo);
-                dialog.setOnDismissListener(new MenuDialog.OnShareDialogListener() {
-                    @Override
-                    public void onDismiss() {
-                        if (view != null) {
-                            view.setSelected(false);
-                        }
-                    }
-                });
-                showDialogFragment(dialog);
-                if (view != null) {
-                    view.setSelected(true);
-                }
-            }
-        });
+//                MenuDetailInfo menuDetailInfo = BeanHelper.getMenuDetailInfo(info);
+//                menuDetailInfo.setCollect(BeanHelper.getCollect(info));
+//                MenuDialog dialog = MenuDialog.newInstance(menuDetailInfo);
+//                dialog.setOnDismissListener(new MenuDialog.OnShareDialogListener() {
+//                    @Override
+//                    public void onDismiss() {
+//                        if (view != null) {
+//                            view.setSelected(false);
+//                        }
+//                    }
+//                });
+//                showDialogFragment(dialog);
+//                if (view != null) {
+//                    view.setSelected(true);
+//                }
+//            }
+//        });
     }
 
     @Override

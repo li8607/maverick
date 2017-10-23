@@ -32,4 +32,11 @@
 
     <string name="exit_app">再按一次返回键退出应用</string>
 
+    <string name="fragment_sister">百思不得姐</string>
+    <string name="fragment_beauty">美女</string>
+    <string name="fragment_caricature">漫画</string>
+    <string name="fragment_sina">微博榜</string>
+    <string name="fragment_joke">笑话</string>
+    <string name="fragment_my">我的</string>
+
 </resources>

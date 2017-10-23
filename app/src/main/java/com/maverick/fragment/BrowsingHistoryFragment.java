@@ -1,7 +1,5 @@
 package com.maverick.fragment;
 
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -304,7 +302,7 @@ public class BrowsingHistoryFragment extends BaseEditFragment implements IBrowsi
         List<History> tempList = new ArrayList<>();
 
         for (int i = 0; i < list.size(); i++) {
-            if(list.get(i) instanceof History) {
+            if (list.get(i) instanceof History) {
                 History history = (History) list.get(i);
                 if (history.isCheck()) {
                     tempList.add(history);

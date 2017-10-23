@@ -19,4 +19,5 @@ public class CollectType {
     public static final String BEAUTY = "3";
 
     public static final String CARICATURE = "4";
+    public static final String SINA = "5";
 }

@@ -164,6 +164,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
         menuDetailInfo.setShareType(ShareType.IMAGE_TEXT);
         menuDetailInfo.setTitle(info.getTitle());
         menuDetailInfo.setImageurl(info.getImageUrl());
+        menuDetailInfo.setCollect(info.getCollect());
         MenuDialog dialog = MenuDialog.newInstance(menuDetailInfo);
         dialog.setOnDismissListener(new MenuDialog.OnShareDialogListener() {
             @Override

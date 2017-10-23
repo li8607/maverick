@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.maverick.R;
-import com.maverick.adapter.holder.CollectTextViewHolder;
 import com.maverick.adapter.holder.CollectImageViewHolder;
+import com.maverick.adapter.holder.CollectTextViewHolder;
 import com.maverick.adapter.holder.CollectVideoViewHolder;
 import com.maverick.type.CollectType;
 
@@ -86,10 +86,10 @@ public class CollectItemFragmentAdapter extends RecyclerView.Adapter {
         String type = collect.getCollectType();
         String itemType = collect.getCollectItemType();
 
-        if (TextUtils.equals(type, CollectType.CARICATURE)) {
+        if (TextUtils.equals(type, CollectType.CARICATURE) && !TextUtils.isEmpty(collect.getCollectImage())) {
             return TYPE_IMG;
         } else if (TextUtils.equals(type, CollectType.SISTER)) {
-            if (TextUtils.equals(itemType, CollectType.SISTER_IMAGE)) {
+            if (TextUtils.equals(itemType, CollectType.SISTER_IMAGE) && !TextUtils.isEmpty(collect.getCollectImage())) {
                 //图片
                 return TYPE_IMG;
             } else if (TextUtils.equals(itemType, CollectType.SISTER_TEXT)) {
@@ -101,6 +101,11 @@ public class CollectItemFragmentAdapter extends RecyclerView.Adapter {
             } else if (TextUtils.equals(itemType, CollectType.SISTER_VIDEO)) {
                 //视频
                 return TYPE_VIDEO;
+            }
+        } else if (TextUtils.equals(type, CollectType.SINA)) {
+            if (!TextUtils.isEmpty(collect.getCollectImage())) {
+                //图片
+                return TYPE_IMG;
             }
         }
         return TYPE_TEXT;
