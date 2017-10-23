@@ -103,6 +103,7 @@ public class BeanHelper {
         collect.setCollectUrl(info.getLink());
         collect.setCollectName(info.getTitle());
         collect.setCollectTime(System.currentTimeMillis());
+        collect.setCollectId(info.getId());
         collect.setCollectUserId(Tag.USER_ID);
         return collect;
     }
@@ -201,6 +202,13 @@ public class BeanHelper {
     public static CaricatureDetailInfo getCaricatureDetailInfo(CaricatureInfo info) {
         CaricatureDetailInfo caricatureDetailInfo = new CaricatureDetailInfo();
         caricatureDetailInfo.setId(info.getId());
+        return caricatureDetailInfo;
+    }
+
+    public static CaricatureDetailInfo getCaricatureDetailInfo(Collect collect) {
+        CaricatureDetailInfo caricatureDetailInfo = new CaricatureDetailInfo();
+        caricatureDetailInfo.setId(collect.getCollectId());
+        caricatureDetailInfo.setTitle(collect.getCollectName());
         return caricatureDetailInfo;
     }
 }

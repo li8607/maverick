@@ -8,9 +8,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
+import com.maverick.CaricatureActivity;
 import com.maverick.R;
 import com.maverick.WebActivity;
 import com.maverick.hepler.BeanHelper;
+import com.maverick.type.CollectType;
 
 import cntv.greendaolibrary.dbbean.Collect;
 
@@ -66,7 +68,12 @@ public class CollectJokeTextViewHolder extends RecyclerView.ViewHolder implement
                 mOnCollectJokeTextViewHolderListener.onItemClick(getAdapterPosition(), mCollect);
             }
         } else {
-            WebActivity.launch(mContext, BeanHelper.getWebDetailInfo(mCollect));
+
+            if (TextUtils.equals(mCollect.getCollectType(), CollectType.CARICATURE)) {
+                CaricatureActivity.launch(mContext, BeanHelper.getCaricatureDetailInfo(mCollect));
+            } else {
+                WebActivity.launch(mContext, BeanHelper.getWebDetailInfo(mCollect));
+            }
         }
     }
 
