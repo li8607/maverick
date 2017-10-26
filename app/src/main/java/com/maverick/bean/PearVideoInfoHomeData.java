@@ -14,7 +14,7 @@ public class PearVideoInfoHomeData implements Serializable {
     private String nodeLogo;
     private String nodeDesc;
     private String moreId;
-    private List<PearVideoInfoHomeDataCont> contList;
+    private List<PearVideoInfo> contList;
     private List<PearVideoInfoHomeDataActivity> activityList;
 
     public String getNodeType() {
@@ -65,11 +65,11 @@ public class PearVideoInfoHomeData implements Serializable {
         this.moreId = moreId;
     }
 
-    public List<PearVideoInfoHomeDataCont> getContList() {
+    public List<PearVideoInfo> getContList() {
         return contList;
     }
 
-    public void setContList(List<PearVideoInfoHomeDataCont> contList) {
+    public void setContList(List<PearVideoInfo> contList) {
         this.contList = contList;
     }
 

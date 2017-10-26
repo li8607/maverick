@@ -1,5 +1,6 @@
 package com.maverick.imodel;
 
+import com.maverick.bean.PearVideoTabDetailInfo;
 import com.maverick.bean.PearVideoTabInfo;
 
 import java.util.List;
@@ -13,8 +14,16 @@ public interface IPearModel {
 
     void requestData(OnResultListener listener);
 
+    void requestTabItemData(int hotPageidx, String categoryId, OnTabItemResultListener listener);
+
     interface OnResultListener {
         void onSuccess(List<PearVideoTabInfo> list);
+
+        void onFail();
+    }
+
+    interface OnTabItemResultListener {
+        void onSuccess(PearVideoTabDetailInfo info);
 
         void onFail();
     }

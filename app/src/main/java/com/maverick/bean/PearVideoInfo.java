@@ -5,12 +5,12 @@ import java.io.Serializable;
 /**
  * Created by limingfei on 2017/10/26.
  */
-public class PearVideoInfoHomeDataCont implements Serializable{
+public class PearVideoInfo implements Serializable{
 
     private String contId;
     private String name;
     private String pic;
-    private PearVideoInfoHomeDataContNode nodeInfo;
+    private PearVideoInfoNode nodeInfo;
     private String link;
     private String linkType;
     private String cornerLabel;
@@ -48,11 +48,11 @@ public class PearVideoInfoHomeDataCont implements Serializable{
         this.pic = pic;
     }
 
-    public PearVideoInfoHomeDataContNode getNodeInfo() {
+    public PearVideoInfoNode getNodeInfo() {
         return nodeInfo;
     }
 
-    public void setNodeInfo(PearVideoInfoHomeDataContNode nodeInfo) {
+    public void setNodeInfo(PearVideoInfoNode nodeInfo) {
         this.nodeInfo = nodeInfo;
     }
 
@@ -154,7 +154,7 @@ public class PearVideoInfoHomeDataCont implements Serializable{
 
     @Override
     public String toString() {
-        return "PearVideoInfoHomeDataCont{" +
+        return "PearVideoInfo{" +
                 "contId='" + contId + '\'' +
                 ", name='" + name + '\'' +
                 ", pic='" + pic + '\'' +

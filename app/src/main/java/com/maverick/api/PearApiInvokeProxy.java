@@ -1,6 +1,7 @@
 package com.maverick.api;
 
 import com.maverick.bean.PearVideoInfoObj;
+import com.maverick.bean.PearVideoTabDetailInfo;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,6 +26,13 @@ public class PearApiInvokeProxy {
 
     public Call<PearVideoInfoObj> getPearTabList() {
         Call<PearVideoInfoObj> call = mApi.getPearTabList();
+        mCallList.add(call);
+        return call;
+    }
+
+    public Call<PearVideoTabDetailInfo> getPearTabDetail(String hotPageidx
+            , String categoryId) {
+        Call<PearVideoTabDetailInfo> call = mApi.getPearTabDetail(hotPageidx, categoryId);
         mCallList.add(call);
         return call;
     }

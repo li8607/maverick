@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by limingfei on 2017/10/26.
  */
-public class PearVideoInfoHomeDataContNode implements Serializable {
+public class PearVideoInfoNode implements Serializable {
 
     private String nodeId;
     private String name;
