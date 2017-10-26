@@ -3,6 +3,7 @@ package com.maverick;
 import android.app.Application;
 import android.content.Context;
 
+import com.avos.avoscloud.AVOSCloud;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
@@ -33,5 +34,8 @@ public class MainApp extends Application {
         UMShareAPI.get(this);
 
         MobclickAgent.openActivityDurationTrack(false);
+
+        AVOSCloud.initialize(this,"0C89a76qNodEmSHBpCSTGgCX-gzGzoHsz", "2Bcw0fzmDjYF6WXqEJumCKxR");
+        AVOSCloud.setDebugLogEnabled(true);
     }
 }

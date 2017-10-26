@@ -124,53 +124,63 @@ public class CollectFragment extends BaseEditFragment {
     }
 
     public int getStateEdit() {
-        Fragment fragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
-        if (fragment != null) {
-            if (fragment instanceof BaseEditFragment) {
-                BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
-                return baseEditFragment.getStateEdit();
+        if (viewpager.getAdapter() != null && viewpager.getAdapter().getCount() > viewpager.getCurrentItem()) {
+            Fragment fragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
+            if (fragment != null) {
+                if (fragment instanceof BaseEditFragment) {
+                    BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
+                    return baseEditFragment.getStateEdit();
+                }
             }
         }
         return -1;
     }
 
     public void setStateEdit(int stateEdit) {
-        Fragment fragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
-        if (fragment != null) {
-            if (fragment instanceof BaseEditFragment) {
-                BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
-                baseEditFragment.setStateEdit(stateEdit);
+        if (viewpager.getAdapter() != null && viewpager.getAdapter().getCount() > viewpager.getCurrentItem()) {
+            Fragment fragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
+            if (fragment != null) {
+                if (fragment instanceof BaseEditFragment) {
+                    BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
+                    baseEditFragment.setStateEdit(stateEdit);
+                }
             }
         }
     }
 
     public void delete() {
-        Fragment fragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
-        if (fragment != null) {
-            if (fragment instanceof BaseEditFragment) {
-                BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
-                baseEditFragment.delete();
+        if (viewpager.getAdapter() != null && viewpager.getAdapter().getCount() > viewpager.getCurrentItem()) {
+            Fragment fragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
+            if (fragment != null) {
+                if (fragment instanceof BaseEditFragment) {
+                    BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
+                    baseEditFragment.delete();
+                }
             }
         }
     }
 
     public int getCheckState() {
-        Fragment fragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
-        if (fragment != null) {
-            if (fragment instanceof BaseEditFragment) {
-                BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
-                return baseEditFragment.getCheckState();
+        if (viewpager.getAdapter() != null && viewpager.getAdapter().getCount() > viewpager.getCurrentItem()) {
+            Fragment fragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
+            if (fragment != null) {
+                if (fragment instanceof BaseEditFragment) {
+                    BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
+                    return baseEditFragment.getCheckState();
+                }
             }
         }
         return -1;
     }
 
     public void setCheckState(int checkState) {
-        Fragment fragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
-        if (fragment != null) {
-            if (fragment instanceof BaseEditFragment) {
-                BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
-                baseEditFragment.setCheckState(checkState);
+        if (viewpager.getAdapter() != null && viewpager.getAdapter().getCount() > viewpager.getCurrentItem()) {
+            Fragment fragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
+            if (fragment != null) {
+                if (fragment instanceof BaseEditFragment) {
+                    BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
+                    baseEditFragment.setCheckState(checkState);
+                }
             }
         }
     }

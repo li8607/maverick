@@ -39,4 +39,14 @@
     <string name="fragment_joke">笑话</string>
     <string name="fragment_my">我的</string>
 
+
+    <string name="prompt_password">密码</string>
+    <string name="action_sign_in">注册并登录</string>
+    <string name="username">用户名</string>
+
+
+    <string name="error_invalid_password">密码大于 4 位</string>
+
+    <string name="error_field_required">这个是必填项</string>
+
 </resources>
