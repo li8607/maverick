@@ -1,5 +1,7 @@
 package com.maverick.api;
 
+import com.maverick.bean.PearVideoInfoObj;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -10,22 +12,22 @@ import retrofit2.Call;
 /**
  * Created by limingfei on 2017/9/27.
  */
-public class LiVideoApiInvokeProxy {
+public class PearApiInvokeProxy {
 
-    private LiVideoApi mApi;
+    private PearApi mApi;
 
     private List<Call> mCallList = Collections.synchronizedList(new ArrayList<Call>());
 
-    public LiVideoApiInvokeProxy(LiVideoApi api) {
+    public PearApiInvokeProxy(PearApi api) {
         this.mApi = api;
     }
 
 
-//    public Call<String> getLiVideo() {
-//        Call<String> call = mApi.getLiVideo();
-//        mCallList.add(call);
-//        return call;
-//    }
+    public Call<PearVideoInfoObj> getPearTabList() {
+        Call<PearVideoInfoObj> call = mApi.getPearTabList();
+        mCallList.add(call);
+        return call;
+    }
 
     //额外提供一个方法用于取消所有Call
     public void cancelAll(Call... excludes) {

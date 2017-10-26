@@ -6,13 +6,13 @@ import java.util.List;
 /**
  * Created by limingfei on 2017/10/26.
  */
-public class LiVideoInfoObj implements Serializable {
+public class PearVideoInfoObj implements Serializable {
 
     private String resultCode;
     private String resultMsg;
     private String reqId;
     private String systemTime;
-    private List<LiVideoTabInfo> categoryList;
+    private List<PearVideoTabInfo> categoryList;
 
     public String getResultCode() {
         return resultCode;
@@ -46,17 +46,17 @@ public class LiVideoInfoObj implements Serializable {
         this.systemTime = systemTime;
     }
 
-    public List<LiVideoTabInfo> getCategoryList() {
+    public List<PearVideoTabInfo> getCategoryList() {
         return categoryList;
     }
 
-    public void setCategoryList(List<LiVideoTabInfo> categoryList) {
+    public void setCategoryList(List<PearVideoTabInfo> categoryList) {
         this.categoryList = categoryList;
     }
 
     @Override
     public String toString() {
-        return "LiVideoInfoObj{" +
+        return "PearVideoInfoObj{" +
                 "resultCode='" + resultCode + '\'' +
                 ", resultMsg='" + resultMsg + '\'' +
                 ", reqId='" + reqId + '\'' +

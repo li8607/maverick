@@ -6,6 +6,7 @@ import com.maverick.fragment.BeautyFragment;
 import com.maverick.fragment.CaricatureFragment;
 import com.maverick.fragment.JokeFragment;
 import com.maverick.fragment.MyFragment;
+import com.maverick.fragment.PearFragment;
 import com.maverick.fragment.SinaFragment;
 import com.maverick.fragment.SisterFragment;
 import com.maverick.type.FragmentType;
@@ -38,6 +39,9 @@ public class FragmentFactory {
                 break;
             case FragmentType.SINA:
                 fragment = SinaFragment.newInstance();
+                break;
+            case FragmentType.PEAR:
+                fragment = PearFragment.newInstance();
                 break;
             default:
                 fragment = BeautyFragment.newInstance();

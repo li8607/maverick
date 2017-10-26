@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by limingfei on 2017/10/26.
  */
-public class LiVideoTabInfo implements Serializable {
+public class PearVideoTabInfo implements Serializable {
 
     private String categoryId;
     private String name;
@@ -37,7 +37,7 @@ public class LiVideoTabInfo implements Serializable {
 
     @Override
     public String toString() {
-        return "LiVideoTabInfo{" +
+        return "PearVideoTabInfo{" +
                 "categoryId='" + categoryId + '\'' +
                 ", name='" + name + '\'' +
                 ", color='" + color + '\'' +

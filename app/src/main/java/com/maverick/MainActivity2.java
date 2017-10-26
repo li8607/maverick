@@ -116,7 +116,8 @@ public class MainActivity2 extends BaseActivity {
         mList.add(getButtonInfo(getString(R.string.fragment_sister), R.drawable.bottom_sister_selector, FragmentType.SISTER));
 //        mList.add(getButtonInfo(getString(R.string.fragment_beauty), R.drawable.bottom_beauty_selector, FragmentType.BEAUTY));
         mList.add(getButtonInfo(getString(R.string.fragment_caricature), R.drawable.bottom_caricature_selector, FragmentType.CARICATURE));
-        mList.add(getButtonInfo(getString(R.string.fragment_sina), R.drawable.bottom_sina_selector, FragmentType.SINA));
+//        mList.add(getButtonInfo(getString(R.string.fragment_sina), R.drawable.bottom_sina_selector, FragmentType.SINA));
+        mList.add(getButtonInfo(getString(R.string.fragment_pear), R.drawable.bottom_sina_selector, FragmentType.PEAR));
         mList.add(getButtonInfo(getString(R.string.fragment_joke), R.drawable.bottom_joke_selector, FragmentType.JOKE));
         mList.add(getButtonInfo(getString(R.string.fragment_my), R.drawable.bottom_my_selector, FragmentType.MY));
 

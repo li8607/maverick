@@ -5,8 +5,6 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,18 +19,16 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVFile;
-import com.avos.avoscloud.AVUser;
-import com.avos.avoscloud.SignUpCallback;
-import com.maverick.api.LiVideoApi;
+//import com.avos.avoscloud.AVException;
+//import com.avos.avoscloud.AVFile;
+//import com.avos.avoscloud.AVUser;
+//import com.avos.avoscloud.SignUpCallback;
+import com.maverick.api.PearApi;
 import com.maverick.bean.Info;
-import com.maverick.bean.LiVideoInfoObj;
+import com.maverick.bean.PearVideoInfoObj;
 import com.maverick.bean.PearVideoInfoHome;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -101,7 +97,7 @@ public class RegisterActivity extends AppCompatActivity {
                 .client(genericClient())//添加头文件
                 .build();
 
-        LiVideoApi api = retrofit.create(LiVideoApi.class);
+        PearApi api = retrofit.create(PearApi.class);
         Call<Info> call = api.login("limingfei2", "12345");
 
         call.enqueue(new Callback<Info>() {
@@ -117,28 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        Retrofit retrofit2 = new Retrofit.Builder()
-                .baseUrl("http://app.pearvideo.com/clt/jsp/v2/")
-                //增加返回值为String的支持
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(genericClient2())//添加头文件
-                .build();
 
-        LiVideoApi api2 = retrofit2.create(LiVideoApi.class);
-        Call<LiVideoInfoObj> call2 = api2.getLiVideo();
-
-        call2.enqueue(new Callback<LiVideoInfoObj>() {
-            @Override
-            public void onResponse(Call<LiVideoInfoObj> call, Response<LiVideoInfoObj> response) {
-                Log.e("lmf2", "info23333 = " + response.body());
-            }
-
-            @Override
-            public void onFailure(Call<LiVideoInfoObj> call, Throwable t) {
-                Log.e("lmf2", "t = " + t.toString());
-                Log.e("lmf2", "info = null333333info = null22222info = null22222");
-            }
-        });
 
         Retrofit retrofit3 = new Retrofit.Builder()
                 .baseUrl("http://app.pearvideo.com/clt/jsp/v2/")
@@ -147,7 +122,7 @@ public class RegisterActivity extends AppCompatActivity {
                 .client(genericClient2())//添加头文件
                 .build();
 
-        LiVideoApi api3 = retrofit3.create(LiVideoApi.class);
+        PearApi api3 = retrofit3.create(PearApi.class);
         Call<PearVideoInfoHome> call3 = api3.getPearVideoHome("1063871%2C1063985%2C1064069%2C1064123%2C1064078%2C1064186%2C1062372%2C1064164%2C1064081%2C1064176%2C1064070%2C1064019");
 
         call3.enqueue(new Callback<PearVideoInfoHome>() {
@@ -236,31 +211,31 @@ public class RegisterActivity extends AppCompatActivity {
         } else {
             showProgress(true);
 
-            AVUser user = new AVUser();// 新建 AVUser 对象实例
-            user.setUsername(username);// 设置用户名
-            user.setPassword(password);// 设置密码
-            try {
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher).compress(Bitmap.CompressFormat.PNG, 100, baos);
-                InputStream isBm = new ByteArrayInputStream(baos.toByteArray());
-                user.put("userImage", new AVFile("dadds", getBytes(isBm)));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            user.signUpInBackground(new SignUpCallback() {
-                @Override
-                public void done(AVException e) {
-                    if (e == null) {
-                        // 注册成功，把用户对象赋值给当前用户 AVUser.getCurrentUser()
-                        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-                        RegisterActivity.this.finish();
-                    } else {
-                        // 失败的原因可能有多种，常见的是用户名已经存在。
-                        showProgress(false);
-                        Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+//            AVUser user = new AVUser();// 新建 AVUser 对象实例
+//            user.setUsername(username);// 设置用户名
+//            user.setPassword(password);// 设置密码
+//            try {
+//                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//                BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher).compress(Bitmap.CompressFormat.PNG, 100, baos);
+//                InputStream isBm = new ByteArrayInputStream(baos.toByteArray());
+//                user.put("userImage", new AVFile("dadds", getBytes(isBm)));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            user.signUpInBackground(new SignUpCallback() {
+//                @Override
+//                public void done(AVException e) {
+//                    if (e == null) {
+//                        // 注册成功，把用户对象赋值给当前用户 AVUser.getCurrentUser()
+//                        startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+//                        RegisterActivity.this.finish();
+//                    } else {
+//                        // 失败的原因可能有多种，常见的是用户名已经存在。
+//                        showProgress(false);
+//                        Toast.makeText(RegisterActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            });
         }
     }
 
