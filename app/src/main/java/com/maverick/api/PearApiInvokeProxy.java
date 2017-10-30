@@ -1,5 +1,6 @@
 package com.maverick.api;
 
+import com.maverick.bean.PearVideoDetailInfoData;
 import com.maverick.bean.PearVideoInfoObj;
 import com.maverick.bean.PearVideoTabDetailInfo;
 
@@ -33,6 +34,18 @@ public class PearApiInvokeProxy {
     public Call<PearVideoTabDetailInfo> getPearTabDetail(String hotPageidx
             , String categoryId) {
         Call<PearVideoTabDetailInfo> call = mApi.getPearTabDetail(hotPageidx, categoryId);
+        mCallList.add(call);
+        return call;
+    }
+
+    public Call<PearVideoTabDetailInfo> getPearTabNextDetail(String url) {
+        Call<PearVideoTabDetailInfo> call = mApi.getPearTabNextDetail(url);
+        mCallList.add(call);
+        return call;
+    }
+
+    public Call<PearVideoDetailInfoData> getPearDetail(String contId) {
+        Call<PearVideoDetailInfoData> call = mApi.getPearDetail(contId);
         mCallList.add(call);
         return call;
     }

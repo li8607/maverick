@@ -16,6 +16,8 @@ public interface IPearModel {
 
     void requestTabItemData(int hotPageidx, String categoryId, OnTabItemResultListener listener);
 
+    void requestTabItemNextData(String url, OnTabItemResultListener listener);
+
     interface OnResultListener {
         void onSuccess(List<PearVideoTabInfo> list);
 

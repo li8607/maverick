@@ -10,6 +10,8 @@ public class PearVideoInfoNode implements Serializable {
     private String nodeId;
     private String name;
     private String logoImg;
+    private String isOrder;
+    private String desc;
 
     public String getNodeId() {
         return nodeId;
@@ -33,5 +35,21 @@ public class PearVideoInfoNode implements Serializable {
 
     public void setLogoImg(String logoImg) {
         this.logoImg = logoImg;
+    }
+
+    public String getIsOrder() {
+        return isOrder;
+    }
+
+    public void setIsOrder(String isOrder) {
+        this.isOrder = isOrder;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 }

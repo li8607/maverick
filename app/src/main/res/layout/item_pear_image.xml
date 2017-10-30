@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -9,4 +9,44 @@
         android:layout_height="wrap_content"
         android:scaleType="centerCrop" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image"
+        android:layout_marginLeft="@dimen/x7"
+        android:layout_marginRight="@dimen/x7"
+        android:layout_marginTop="@dimen/y9"
+        android:ellipsize="end"
+        android:lines="2"
+        android:textColor="@color/result_text_color"
+        android:textSize="@dimen/y10" />
+
+    <TextView
+        android:id="@+id/node"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/title"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="@dimen/y9"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/pear_node_color"
+        android:textSize="@dimen/x8" />
+
+    <TextView
+        android:id="@+id/label"
+        android:layout_width="@dimen/y18"
+        android:layout_height="@dimen/x9"
+        android:layout_alignBottom="@+id/node"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/node"
+        android:layout_marginRight="@dimen/y3"
+        android:background="@drawable/pear_video_label_shape"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:textColor="@color/pear_video_label_color"
+        android:textSize="@dimen/x7"
+        android:visibility="gone" />
+</RelativeLayout>

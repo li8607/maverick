@@ -93,4 +93,36 @@ public class PearModel implements IPearModel {
             }
         });
     }
+
+    @Override
+    public void requestTabItemNextData(String url, final OnTabItemResultListener listener) {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(UrlData.PEAR_BASE)
+                //增加返回值为String的支持
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(ClientHelper.genericClientPear())//添加头文件
+                .build();
+
+        PearApi api = retrofit.create(PearApi.class);
+        mProxy = new PearApiInvokeProxy(api);
+        Call<PearVideoTabDetailInfo> call = mProxy.getPearTabNextDetail(url);
+
+        call.enqueue(new Callback<PearVideoTabDetailInfo>() {
+            @Override
+            public void onResponse(Call<PearVideoTabDetailInfo> call, Response<PearVideoTabDetailInfo> response) {
+                if (response.body() == null) {
+                    listener.onFail();
+                    return;
+                }
+
+                listener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<PearVideoTabDetailInfo> call, Throwable t) {
+                listener.onFail();
+            }
+        });
+    }
 }

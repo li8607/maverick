@@ -60,22 +60,29 @@ public class PearItemFragmentAdapter extends RecyclerView.Adapter {
             pearGalleryViewHolder.bindData(mContext, mHotList);
         } else if (holder instanceof PearImageViewHolder) {
             PearImageViewHolder pearImageViewHolder = (PearImageViewHolder) holder;
-            pearImageViewHolder.bindData(mContext, mList.get(mHotList == null ? position : position - 1));
+            pearImageViewHolder.bindData(mContext, mList.get(isHeader() ? position - 1 : position));
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (mHotList != null && position == 0) {
+        if (isHeader() && position == 0) {
             return TYPE_GALLERY;
         } else {
             return TYPE_IMAGE;
         }
     }
 
+    public boolean isHeader() {
+        if (mHotList != null && mHotList.size() > 0) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public int getItemCount() {
-        return mList == null ? mHotList == null ? 0 : 1 : mHotList == null ? mList.size() : mList.size() + 1;
+        return mList == null ? isHeader() ? 1 : 0 : isHeader() ? mList.size() + 1 : mList.size();
     }
 
     public void setData(List<PearVideoInfo> hotList, List<PearVideoInfo> list) {

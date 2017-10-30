@@ -1,6 +1,7 @@
 package com.maverick.presenter;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.maverick.bean.PearVideoInfo;
 import com.maverick.bean.PearVideoTabDetailInfo;
@@ -23,7 +24,7 @@ public class PearItemFragmentPresenter extends BasePresenter {
     private IPearItemFragmentView mView;
     private final IPearModel mModel;
     private PearVideoTabInfo mInfo;
-    private int mPage = 1;
+    private PearVideoTabDetailInfo mTabDetailInfo;
 
     public PearItemFragmentPresenter(Context context, IPearItemFragmentView view) {
         this.mContext = context;
@@ -46,7 +47,7 @@ public class PearItemFragmentPresenter extends BasePresenter {
         mModel.requestTabItemData(1, info.getCategoryId(), new IPearModel.OnTabItemResultListener() {
             @Override
             public void onSuccess(PearVideoTabDetailInfo info) {
-                mPage = 1;
+                mTabDetailInfo = info;
                 List<PearVideoInfo> hotList = info.getHotList();
                 List<PearVideoInfo> list = info.getContList();
 
@@ -66,15 +67,15 @@ public class PearItemFragmentPresenter extends BasePresenter {
     }
 
     public void loadMoreData() {
-        if (mInfo == null) {
+        if (mTabDetailInfo == null || TextUtils.isEmpty(mTabDetailInfo.getNextUrl())) {
             mView.onLoadMoreFail();
             return;
         }
 
-        mModel.requestTabItemData(mPage + 1, mInfo.getCategoryId(), new IPearModel.OnTabItemResultListener() {
+        mModel.requestTabItemNextData(mTabDetailInfo.getNextUrl(), new IPearModel.OnTabItemResultListener() {
             @Override
             public void onSuccess(PearVideoTabDetailInfo info) {
-                mPage++;
+                mTabDetailInfo = info;
                 List<PearVideoInfo> list = info.getContList();
 
                 if (list == null || list.size() < 1) {
@@ -82,7 +83,7 @@ public class PearItemFragmentPresenter extends BasePresenter {
                     return;
                 }
 
-                mView.onLoadMoreSuccess(list, true);
+                mView.onLoadMoreSuccess(list, TextUtils.isEmpty(info.getNextUrl()));
             }
 
             @Override

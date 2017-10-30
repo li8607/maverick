@@ -11,7 +11,7 @@
     <color name="colorStatusBarBackground">#66000000</color>
 
     <color name="click_background">#aaaaaa</color>
-    
+
     <color name="sister_divider_color">#e6e6e6</color>
     <color name="caricature_divider_color">@color/sister_divider_color</color>
 
@@ -40,5 +40,9 @@
     <color name="share_cancel_select_color">#e6e6e6</color>
 
     <color name="my_background">#ffffff</color>
+
+    <color name="pear_node_color">#999999</color>
+    <color name="pear_video_label_color_5">#ffd100</color>
+    <color name="pear_video_label_color">#4990e2</color>
 
 </resources>

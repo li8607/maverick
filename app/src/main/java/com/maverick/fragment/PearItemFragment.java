@@ -17,7 +17,6 @@ import com.maverick.bean.PearVideoTabInfo;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.PearItemFragmentPresenter;
 import com.maverick.presenter.implView.IPearItemFragmentView;
-import com.maverick.util.DensityUtil;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import java.util.List;
@@ -87,16 +86,20 @@ public class PearItemFragment extends BaseFragment2 implements IPearItemFragment
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 int position = parent.getChildAdapterPosition(view);
 
-                if (position != 0) {
-                    outRect.bottom = DensityUtil.dip2px(getActivity(), 5);
-
-                    if (position % 2 == 0) {
-                        outRect.left = DensityUtil.dip2px(getActivity(), 10);
-                        outRect.right = DensityUtil.dip2px(getActivity(), 5);
+                if (mAdapter != null && mAdapter.isHeader()) {
+                    if (position > 0) {
+                        position--;
                     } else {
-                        outRect.left = DensityUtil.dip2px(getActivity(), 5);
-                        outRect.right = DensityUtil.dip2px(getActivity(), 10);
+                        return;
                     }
+                }
+
+                outRect.bottom = getResources().getDimensionPixelSize(R.dimen.x2);
+                outRect.top = getResources().getDimensionPixelSize(R.dimen.y9);
+                if (position % 2 == 0) {
+                    outRect.right = getResources().getDimensionPixelSize(R.dimen.y1);
+                } else {
+                    outRect.left = getResources().getDimensionPixelSize(R.dimen.y1);
                 }
             }
         });
@@ -125,7 +128,7 @@ public class PearItemFragment extends BaseFragment2 implements IPearItemFragment
     @Override
     public void onShowSuccessView(List<PearVideoInfo> hotList, List<PearVideoInfo> list, boolean isHasMore) {
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
-        pullLoadMoreRecyclerView.setHasMore(false);
+        pullLoadMoreRecyclerView.setHasMore(isHasMore);
         mAdapter.setData(hotList, list);
         mAdapter.notifyDataSetChanged();
     }
