@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.maverick.R;
+import com.maverick.adapter.holder.PearBannerViewHolder;
 import com.maverick.adapter.holder.PearGalleryViewHolder;
 import com.maverick.adapter.holder.PearImageViewHolder;
 import com.maverick.bean.PearVideoInfo;
@@ -21,6 +22,7 @@ public class PearItemFragmentAdapter extends RecyclerView.Adapter {
 
     public static final int TYPE_GALLERY = 1;
     public static final int TYPE_IMAGE = 2;
+    public static final int TYPE_BANNER = 3;
 
     private List<PearVideoInfo> mHotList;
     private List<PearVideoInfo> mList;
@@ -39,6 +41,10 @@ public class PearItemFragmentAdapter extends RecyclerView.Adapter {
             case TYPE_GALLERY:
                 holder = new PearGalleryViewHolder(LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_pear_gallery, parent, false));
+                break;
+            case TYPE_BANNER:
+                holder = new PearBannerViewHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_pear_banner, parent, false));
                 break;
             case TYPE_IMAGE:
                 holder = new PearImageViewHolder(LayoutInflater.from(parent.getContext())
@@ -61,13 +67,17 @@ public class PearItemFragmentAdapter extends RecyclerView.Adapter {
         } else if (holder instanceof PearImageViewHolder) {
             PearImageViewHolder pearImageViewHolder = (PearImageViewHolder) holder;
             pearImageViewHolder.bindData(mContext, mList.get(isHeader() ? position - 1 : position));
+        } else if (holder instanceof PearBannerViewHolder) {
+            PearBannerViewHolder pearBannerViewHolder = (PearBannerViewHolder) holder;
+            pearBannerViewHolder.bindData(mContext, mHotList);
         }
     }
 
     @Override
     public int getItemViewType(int position) {
         if (isHeader() && position == 0) {
-            return TYPE_GALLERY;
+//            return TYPE_GALLERY;
+            return TYPE_BANNER;
         } else {
             return TYPE_IMAGE;
         }

@@ -4,6 +4,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.FrameLayout;
 
 import com.maverick.R;
 import com.maverick.adapter.PearItemFragmentAdapter;
+import com.maverick.adapter.holder.PearBannerViewHolder;
 import com.maverick.base.BaseFragment2;
 import com.maverick.bean.PearVideoInfo;
 import com.maverick.bean.PearVideoTabInfo;
@@ -27,6 +29,8 @@ import java.util.List;
 
 public class PearItemFragment extends BaseFragment2 implements IPearItemFragmentView {
 
+    private String TAG = getClass().getSimpleName();
+
     private static final String ARGUMENT = "ARGUMENT";
 
     private static final int spanCount = 2;
@@ -37,6 +41,7 @@ public class PearItemFragment extends BaseFragment2 implements IPearItemFragment
 
     private ViewGroup root;
     private PearVideoTabInfo mInfo;
+    private RecyclerView mRecyclerView;
 
     public static PearItemFragment newInstance(PearVideoTabInfo info) {
         PearItemFragment fragment = new PearItemFragment();
@@ -63,25 +68,25 @@ public class PearItemFragment extends BaseFragment2 implements IPearItemFragment
         root = findView(R.id.root);
 
         pullLoadMoreRecyclerView = findView(R.id.recyclerView);
-        RecyclerView recyclerView = pullLoadMoreRecyclerView.getRecyclerView();
-        recyclerView.setHasFixedSize(true);
+        mRecyclerView = pullLoadMoreRecyclerView.getRecyclerView();
+        mRecyclerView.setHasFixedSize(true);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), spanCount);
-        recyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setLayoutManager(layoutManager);
         mAdapter = new PearItemFragmentAdapter(getContext());
-        recyclerView.setAdapter(mAdapter);
+        mRecyclerView.setAdapter(mAdapter);
 
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
 
             @Override
             public int getSpanSize(int position) {
-                if (PearItemFragmentAdapter.TYPE_GALLERY == mAdapter.getItemViewType(position)) {
+                if (PearItemFragmentAdapter.TYPE_GALLERY == mAdapter.getItemViewType(position) || PearItemFragmentAdapter.TYPE_BANNER == mAdapter.getItemViewType(position)) {
                     return spanCount;
                 }
                 return 1;
             }
         });
 
-        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+        mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 int position = parent.getChildAdapterPosition(view);
@@ -115,6 +120,32 @@ public class PearItemFragment extends BaseFragment2 implements IPearItemFragment
             @Override
             public void onLoadMore() {
                 mPresenter.loadMoreData();
+            }
+        });
+
+        mRecyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+            @Override
+            public void onChildViewAttachedToWindow(View view) {
+                RecyclerView.ViewHolder holder = mRecyclerView.findContainingViewHolder(view);
+                if (holder != null && holder instanceof PearBannerViewHolder) {
+                    PearBannerViewHolder pearBannerViewHolder = (PearBannerViewHolder) holder;
+                    Log.e(TAG, "pearBannerViewHolder.onStart();");
+                    if (getUserVisibleHint()) {
+                        pearBannerViewHolder.onStart();
+                    } else {
+                        pearBannerViewHolder.onStop();
+                    }
+                }
+            }
+
+            @Override
+            public void onChildViewDetachedFromWindow(View view) {
+                RecyclerView.ViewHolder holder = mRecyclerView.findContainingViewHolder(view);
+                if (holder != null && holder instanceof PearBannerViewHolder) {
+                    PearBannerViewHolder pearBannerViewHolder = (PearBannerViewHolder) holder;
+                    pearBannerViewHolder.onStop();
+                    Log.e(TAG, "pearBannerViewHolder.onStop();");
+                }
             }
         });
     }
@@ -186,5 +217,22 @@ public class PearItemFragment extends BaseFragment2 implements IPearItemFragment
     @Override
     public void onLoadMoreFail() {
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        Log.e(TAG, "isVisibleToUser = " + isVisibleToUser);
+        if (mRecyclerView != null) {
+            RecyclerView.ViewHolder holder = mRecyclerView.findViewHolderForAdapterPosition(0);
+            if (holder != null && holder instanceof PearBannerViewHolder) {
+                PearBannerViewHolder pearBannerViewHolder = (PearBannerViewHolder) holder;
+                if (isVisibleToUser) {
+                    pearBannerViewHolder.onStart();
+                } else {
+                    pearBannerViewHolder.onStop();
+                }
+            }
+        }
     }
 }

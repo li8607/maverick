@@ -306,3 +306,7 @@ public static final int *;
     public static ** valueOf(java.lang.String);
 }
 #--------------------------------友盟统计  end--------------------------------------
+# banner 的混淆代码
+-keep class com.youth.banner.** {
+    *;
+ }

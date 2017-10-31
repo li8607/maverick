@@ -83,7 +83,7 @@ public class PearItemFragmentPresenter extends BasePresenter {
                     return;
                 }
 
-                mView.onLoadMoreSuccess(list, TextUtils.isEmpty(info.getNextUrl()));
+                mView.onLoadMoreSuccess(list, !TextUtils.isEmpty(info.getNextUrl()));
             }
 
             @Override
