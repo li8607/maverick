@@ -2,7 +2,6 @@ package com.maverick.adapter.holder;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -12,6 +11,7 @@ import com.maverick.util.GlideUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
@@ -21,9 +21,11 @@ import java.util.List;
  * Created by Administrator on 2017/10/27.
  */
 
-public class PearBannerViewHolder extends RecyclerView.ViewHolder {
+public class PearBannerViewHolder extends RecyclerView.ViewHolder implements OnBannerListener {
 
     private final Banner banner;
+
+    private List<PearVideoInfo> mList;
 
     public PearBannerViewHolder(View itemView) {
         super(itemView);
@@ -38,9 +40,12 @@ public class PearBannerViewHolder extends RecyclerView.ViewHolder {
         banner.isAutoPlay(true);
 
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
+
+        banner.setOnBannerListener(this);
     }
 
     public void bindData(Context context, List<PearVideoInfo> list) {
+        this.mList = list;
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
         //设置图片集合
@@ -69,6 +74,16 @@ public class PearBannerViewHolder extends RecyclerView.ViewHolder {
         }
     }
 
+    @Override
+    public void OnBannerClick(int position) {
+        if (mList != null && position >= 0 && mList.size() > position) {
+            PearVideoInfo info = mList.get(position);
+            if (mOnListener != null) {
+                mOnListener.onItemClick(info);
+            }
+        }
+    }
+
     public class GlideImageLoader extends ImageLoader {
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
@@ -84,5 +99,15 @@ public class PearBannerViewHolder extends RecyclerView.ViewHolder {
                 GlideUtil.loadImage(context, info.getPic(), imageView);
             }
         }
+    }
+
+    private PearGalleryViewHolder.OnListener mOnListener;
+
+    public void setOnListener(PearGalleryViewHolder.OnListener listener) {
+        this.mOnListener = listener;
+    }
+
+    public interface OnListener {
+        void onItemClick(PearVideoInfo info);
     }
 }

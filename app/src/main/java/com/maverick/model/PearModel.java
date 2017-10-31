@@ -1,7 +1,11 @@
 package com.maverick.model;
 
+import android.text.TextUtils;
+import android.util.Log;
+
 import com.maverick.api.PearApi;
 import com.maverick.api.PearApiInvokeProxy;
+import com.maverick.bean.PearVideoDetailInfoData;
 import com.maverick.bean.PearVideoInfoObj;
 import com.maverick.bean.PearVideoTabDetailInfo;
 import com.maverick.global.UrlData;
@@ -32,6 +36,10 @@ public class PearModel implements IPearModel {
 
     @Override
     public void requestData(final OnResultListener listener) {
+
+        if (listener == null) {
+            return;
+        }
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(UrlData.PEAR_BASE)
@@ -65,6 +73,15 @@ public class PearModel implements IPearModel {
     @Override
     public void requestTabItemData(int hotPageidx, String categoryId, final OnTabItemResultListener listener) {
 
+        if (listener == null) {
+            return;
+        }
+
+        if (TextUtils.isEmpty(categoryId)) {
+            listener.onFail();
+            return;
+        }
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(UrlData.PEAR_BASE)
                 //增加返回值为String的支持
@@ -97,6 +114,15 @@ public class PearModel implements IPearModel {
     @Override
     public void requestTabItemNextData(String url, final OnTabItemResultListener listener) {
 
+        if (listener == null) {
+            return;
+        }
+
+        if (TextUtils.isEmpty(url)) {
+            listener.onFail();
+            return;
+        }
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(UrlData.PEAR_BASE)
                 //增加返回值为String的支持
@@ -121,6 +147,47 @@ public class PearModel implements IPearModel {
 
             @Override
             public void onFailure(Call<PearVideoTabDetailInfo> call, Throwable t) {
+                listener.onFail();
+            }
+        });
+    }
+
+    @Override
+    public void requestPearDetail(String contId, final OnPearDetailListener listener) {
+
+        if (listener == null) {
+            return;
+        }
+
+        if (TextUtils.isEmpty(contId)) {
+            listener.onFail();
+            return;
+        }
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(UrlData.PEAR_BASE)
+                //增加返回值为String的支持
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(ClientHelper.genericClientPear())//添加头文件
+                .build();
+
+        PearApi api = retrofit.create(PearApi.class);
+        mProxy = new PearApiInvokeProxy(api);
+        Call<PearVideoDetailInfoData> call = mProxy.getPearDetail(contId);
+
+        call.enqueue(new Callback<PearVideoDetailInfoData>() {
+            @Override
+            public void onResponse(Call<PearVideoDetailInfoData> call, Response<PearVideoDetailInfoData> response) {
+                if (response.body() == null) {
+                    listener.onFail();
+                    return;
+                }
+
+                listener.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<PearVideoDetailInfoData> call, Throwable t) {
                 listener.onFail();
             }
         });

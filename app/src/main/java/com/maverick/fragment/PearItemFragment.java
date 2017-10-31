@@ -10,12 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.maverick.PearActivity;
 import com.maverick.R;
 import com.maverick.adapter.PearItemFragmentAdapter;
 import com.maverick.adapter.holder.PearBannerViewHolder;
 import com.maverick.base.BaseFragment2;
 import com.maverick.bean.PearVideoInfo;
 import com.maverick.bean.PearVideoTabInfo;
+import com.maverick.hepler.BeanHelper;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.PearItemFragmentPresenter;
 import com.maverick.presenter.implView.IPearItemFragmentView;
@@ -146,6 +148,13 @@ public class PearItemFragment extends BaseFragment2 implements IPearItemFragment
                     pearBannerViewHolder.onStop();
                     Log.e(TAG, "pearBannerViewHolder.onStop();");
                 }
+            }
+        });
+
+        mAdapter.setOnListener(new PearItemFragmentAdapter.OnListener() {
+            @Override
+            public void onItemClick(PearVideoInfo info) {
+                PearActivity.launch(getActivity(), BeanHelper.getPearVideoDetailBean(info));
             }
         });
     }

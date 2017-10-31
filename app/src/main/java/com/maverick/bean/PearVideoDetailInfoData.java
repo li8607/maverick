@@ -90,4 +90,19 @@ public class PearVideoDetailInfoData implements Serializable {
     public void setRelateConts(List<PearVideoInfo> relateConts) {
         this.relateConts = relateConts;
     }
+
+    @Override
+    public String toString() {
+        return "PearVideoDetailInfoData{" +
+                "resultCode='" + resultCode + '\'' +
+                ", resultMsg='" + resultMsg + '\'' +
+                ", reqId='" + reqId + '\'' +
+                ", systemTime='" + systemTime + '\'' +
+                ", areaList=" + areaList +
+                ", content=" + content +
+                ", nextInfo=" + nextInfo +
+                ", postInfo=" + postInfo +
+                ", relateConts=" + relateConts +
+                '}';
+    }
 }

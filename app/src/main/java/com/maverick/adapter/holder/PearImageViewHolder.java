@@ -15,10 +15,11 @@ import com.maverick.weight.RatioImageView;
  * Created by Administrator on 2017/10/27.
  */
 
-public class PearImageViewHolder extends RecyclerView.ViewHolder {
+public class PearImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private final RatioImageView image;
     private final TextView title, node, label;
+    private PearVideoInfo mInfo;
 
     public PearImageViewHolder(View itemView) {
         super(itemView);
@@ -28,9 +29,12 @@ public class PearImageViewHolder extends RecyclerView.ViewHolder {
         title = (TextView) itemView.findViewById(R.id.title);
         node = (TextView) itemView.findViewById(R.id.node);
         label = (TextView) itemView.findViewById(R.id.label);
+
+        itemView.setOnClickListener(this);
     }
 
     public void bindData(Context context, PearVideoInfo info) {
+        this.mInfo = info;
         String pic = info.getPic();
         GlideUtil.loadImage(context, pic, image);
 
@@ -53,5 +57,22 @@ public class PearImageViewHolder extends RecyclerView.ViewHolder {
             label.setText("");
             label.setVisibility(View.INVISIBLE);
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (mOnListener != null) {
+            mOnListener.onItemClick(mInfo);
+        }
+    }
+
+    private OnListener mOnListener;
+
+    public void setOnListener(OnListener listener) {
+        this.mOnListener = listener;
+    }
+
+    public interface OnListener {
+        void onItemClick(PearVideoInfo info);
     }
 }

@@ -17,7 +17,7 @@ import java.util.List;
  * Created by Administrator on 2017/10/27.
  */
 
-public class PearGalleryViewHolderAdapter extends PagerAdapter {
+public class PearGalleryViewHolderAdapter extends PagerAdapter implements View.OnClickListener {
 
     private Context mContext;
     private List<PearVideoInfo> mList;
@@ -40,6 +40,8 @@ public class PearGalleryViewHolderAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         View view = LayoutInflater.from(mContext).inflate(R.layout.item_pear_gallery_item, container, false);
+        view.setTag(position);
+        view.setOnClickListener(this);
         ImageView image = (ImageView) view.findViewById(R.id.image);
         String pic = mList.get(position).getPic();
         GlideUtil.loadImage(mContext, pic, image);
@@ -52,5 +54,22 @@ public class PearGalleryViewHolderAdapter extends PagerAdapter {
         if (object != null && object instanceof View) {
             container.removeView((View) object);
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (mOnListener != null && v.getTag() != null && v.getTag() instanceof Integer) {
+            mOnListener.onItemClick((int) v.getTag());
+        }
+    }
+
+    private OnListener mOnListener;
+
+    public void setOnListener(OnListener listener) {
+        this.mOnListener = listener;
+    }
+
+    public interface OnListener {
+        void onItemClick(int position);
     }
 }

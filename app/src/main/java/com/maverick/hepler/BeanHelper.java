@@ -8,6 +8,8 @@ import com.maverick.bean.CaricatureDetailInfo;
 import com.maverick.bean.CaricatureInfo;
 import com.maverick.bean.GifInfo;
 import com.maverick.bean.MenuDetailInfo;
+import com.maverick.bean.PearVideoDetailBean;
+import com.maverick.bean.PearVideoInfo;
 import com.maverick.bean.SinaInfo;
 import com.maverick.bean.SisterInfo;
 import com.maverick.bean.WebDetailInfo;
@@ -217,22 +219,43 @@ public class BeanHelper {
     }
 
     public static CaricatureDetailInfo getCaricatureDetailInfo(CaricatureInfo info) {
+        if (info == null) {
+            return null;
+        }
+
+
         CaricatureDetailInfo caricatureDetailInfo = new CaricatureDetailInfo();
         caricatureDetailInfo.setId(info.getId());
         return caricatureDetailInfo;
     }
 
     public static CaricatureDetailInfo getCaricatureDetailInfo(Collect collect) {
+        if (collect == null) {
+            return null;
+        }
+
         CaricatureDetailInfo caricatureDetailInfo = new CaricatureDetailInfo();
         caricatureDetailInfo.setId(collect.getCollectId());
         caricatureDetailInfo.setTitle(collect.getCollectName());
         return caricatureDetailInfo;
     }
 
-//    public static CaricatureDetailInfo getCaricatureDetailInfo(SinaInfo info) {
+//        public static CaricatureDetailInfo getCaricatureDetailInfo(SinaInfo info) {
 //        CaricatureDetailInfo caricatureDetailInfo = new CaricatureDetailInfo();
 //        caricatureDetailInfo.setId(info.getCollectId());
 //        caricatureDetailInfo.setTitle(info.getCollectName());
 //        return caricatureDetailInfo;
 //    }
+    public static PearVideoDetailBean getPearVideoDetailBean(PearVideoInfo info) {
+
+        if (info == null) {
+            return null;
+        }
+
+        PearVideoDetailBean pearVideoDetailBean = new PearVideoDetailBean();
+        pearVideoDetailBean.setContId(info.getContId());
+        pearVideoDetailBean.setName(info.getName());
+        pearVideoDetailBean.setPic(info.getPic());
+        return pearVideoDetailBean;
+    }
 }

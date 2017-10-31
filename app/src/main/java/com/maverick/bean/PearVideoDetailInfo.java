@@ -33,7 +33,7 @@ public class PearVideoDetailInfo implements Serializable {
     private List<PearVideoInfoAuthor> authors;
     private List<PearVideoDetailInfoTag> tags;
     private List<PearVideoDetailInfoVideo> videos;
-    private List<PearVideoInfoNode> nodeInfo;
+    private PearVideoInfoNode nodeInfo;
     private String copyright;
     private String isDownload;
     private String duration;
@@ -231,11 +231,11 @@ public class PearVideoDetailInfo implements Serializable {
         this.videos = videos;
     }
 
-    public List<PearVideoInfoNode> getNodeInfo() {
+    public PearVideoInfoNode getNodeInfo() {
         return nodeInfo;
     }
 
-    public void setNodeInfo(List<PearVideoInfoNode> nodeInfo) {
+    public void setNodeInfo(PearVideoInfoNode nodeInfo) {
         this.nodeInfo = nodeInfo;
     }
 

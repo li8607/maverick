@@ -1,5 +1,6 @@
 package com.maverick.imodel;
 
+import com.maverick.bean.PearVideoDetailInfoData;
 import com.maverick.bean.PearVideoTabDetailInfo;
 import com.maverick.bean.PearVideoTabInfo;
 
@@ -18,6 +19,8 @@ public interface IPearModel {
 
     void requestTabItemNextData(String url, OnTabItemResultListener listener);
 
+    void requestPearDetail(String contId, OnPearDetailListener listener);
+
     interface OnResultListener {
         void onSuccess(List<PearVideoTabInfo> list);
 
@@ -26,6 +29,12 @@ public interface IPearModel {
 
     interface OnTabItemResultListener {
         void onSuccess(PearVideoTabDetailInfo info);
+
+        void onFail();
+    }
+
+    interface OnPearDetailListener {
+        void onSuccess(PearVideoDetailInfoData info);
 
         void onFail();
     }

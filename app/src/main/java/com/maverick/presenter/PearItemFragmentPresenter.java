@@ -34,7 +34,9 @@ public class PearItemFragmentPresenter extends BasePresenter {
 
     @Override
     public void release() {
-
+        if (mModel != null) {
+            mModel.release();
+        }
     }
 
     public void loadData(PearVideoTabInfo info) {

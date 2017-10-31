@@ -18,7 +18,7 @@ import java.util.List;
  * Created by Administrator on 2017/10/27.
  */
 
-public class PearItemFragmentAdapter extends RecyclerView.Adapter {
+public class PearItemFragmentAdapter extends RecyclerView.Adapter implements PearImageViewHolder.OnListener, PearGalleryViewHolder.OnListener, PearBannerViewHolder.OnListener {
 
     public static final int TYPE_GALLERY = 1;
     public static final int TYPE_IMAGE = 2;
@@ -39,16 +39,22 @@ public class PearItemFragmentAdapter extends RecyclerView.Adapter {
         RecyclerView.ViewHolder holder;
         switch (viewType) {
             case TYPE_GALLERY:
-                holder = new PearGalleryViewHolder(LayoutInflater.from(parent.getContext())
+                PearGalleryViewHolder pearGalleryViewHolder = new PearGalleryViewHolder(LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_pear_gallery, parent, false));
+                pearGalleryViewHolder.setOnListener(this);
+                holder = pearGalleryViewHolder;
                 break;
             case TYPE_BANNER:
-                holder = new PearBannerViewHolder(LayoutInflater.from(parent.getContext())
+                PearBannerViewHolder pearBannerViewHolder = new PearBannerViewHolder(LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_pear_banner, parent, false));
+                pearBannerViewHolder.setOnListener(this);
+                holder = pearBannerViewHolder;
                 break;
             case TYPE_IMAGE:
-                holder = new PearImageViewHolder(LayoutInflater.from(parent.getContext())
+                PearImageViewHolder pearImageViewHolder = new PearImageViewHolder(LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_pear_image, parent, false));
+                pearImageViewHolder.setOnListener(this);
+                holder = pearImageViewHolder;
                 break;
             default:
                 holder = new RecyclerView.ViewHolder(new View(parent.getContext())) {
@@ -104,5 +110,22 @@ public class PearItemFragmentAdapter extends RecyclerView.Adapter {
         if (mList != null && list != null) {
             mList.addAll(list);
         }
+    }
+
+    @Override
+    public void onItemClick(PearVideoInfo info) {
+        if (mOnListener != null) {
+            mOnListener.onItemClick(info);
+        }
+    }
+
+    private OnListener mOnListener;
+
+    public void setOnListener(OnListener listener) {
+        this.mOnListener = listener;
+    }
+
+    public interface OnListener {
+        void onItemClick(PearVideoInfo info);
     }
 }

@@ -67,6 +67,10 @@
             android:theme="@style/BaseAppTheme" />
 
         <activity
+            android:name=".PearActivity"
+            android:theme="@style/BaseAppTheme" />
+
+        <activity
             android:name=".RegisterActivity"
             android:theme="@style/BaseAppTheme" />
 

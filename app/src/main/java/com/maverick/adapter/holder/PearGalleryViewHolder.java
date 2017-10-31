@@ -17,9 +17,10 @@ import java.util.List;
  * Created by Administrator on 2017/10/27.
  */
 
-public class PearGalleryViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener {
+public class PearGalleryViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener, PearGalleryViewHolderAdapter.OnListener {
 
     private final ViewPager viewPager;
+    private List<PearVideoInfo> mList;
 
     public PearGalleryViewHolder(View itemView) {
         super(itemView);
@@ -34,12 +35,34 @@ public class PearGalleryViewHolder extends RecyclerView.ViewHolder implements Vi
     }
 
     public void bindData(Context context, List<PearVideoInfo> list) {
+        this.mList = list;
         PearGalleryViewHolderAdapter mAdapter = new PearGalleryViewHolderAdapter(context, list);
+        mAdapter.setOnListener(this);
         viewPager.setAdapter(mAdapter);
     }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         return viewPager.dispatchTouchEvent(event);
+    }
+
+    private PearGalleryViewHolder.OnListener mOnListener;
+
+    public void setOnListener(PearGalleryViewHolder.OnListener listener) {
+        this.mOnListener = listener;
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        if (mList != null && position >= 0 && mList.size() > position) {
+            PearVideoInfo info = mList.get(position);
+            if (mOnListener != null) {
+                mOnListener.onItemClick(info);
+            }
+        }
+    }
+
+    public interface OnListener {
+        void onItemClick(PearVideoInfo info);
     }
 }
