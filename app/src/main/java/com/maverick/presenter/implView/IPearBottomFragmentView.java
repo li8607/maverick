@@ -1,5 +1,6 @@
 package com.maverick.presenter.implView;
 
+import com.maverick.bean.PearItemInfo;
 import com.maverick.bean.PearVideoDetailInfoVideo;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public interface IPearBottomFragmentView {
 
-    void onShowSuccessView();
+    void onShowSuccessView(List<PearItemInfo> list);
 
     void onShowEmptyView();
 
