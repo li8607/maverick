@@ -6,9 +6,12 @@ import android.view.View;
 import com.maverick.R;
 import com.maverick.base.BaseFragment2;
 import com.maverick.bean.PearVideoDetailBean;
+import com.maverick.bean.PearVideoDetailInfoVideo;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.PearBottomFragmentPresenter;
 import com.maverick.presenter.implView.IPearBottomFragmentView;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/10/31.
@@ -64,5 +67,17 @@ public class PearBottomFragment extends BaseFragment2 implements IPearBottomFrag
     @Override
     public void onShowErrorView() {
 
+    }
+
+    @Override
+    public void onShowVideoView(List<PearVideoDetailInfoVideo> list) {
+        if (getActivity() != null && getActivity() instanceof OnListener) {
+            OnListener listener = (OnListener) getActivity();
+            listener.playVideo(list);
+        }
+    }
+
+    public interface OnListener {
+        void playVideo(List<PearVideoDetailInfoVideo> list);
     }
 }

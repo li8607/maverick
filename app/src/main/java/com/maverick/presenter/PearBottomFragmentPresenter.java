@@ -41,6 +41,9 @@ public class PearBottomFragmentPresenter extends BasePresenter {
             @Override
             public void onSuccess(PearVideoDetailInfoData info) {
                 Log.e("lmf", "onSuccess =" + info);
+                if(info.getContent() != null) {
+                    mView.onShowVideoView(info.getContent().getVideos());
+                }
             }
 
             @Override
