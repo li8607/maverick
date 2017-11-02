@@ -1,6 +1,7 @@
 package com.maverick.presenter;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.maverick.bean.PearItemInfo;
 import com.maverick.bean.PearVideoDetailBean;
@@ -41,6 +42,7 @@ public class PearBottomFragmentPresenter extends BasePresenter {
             mView.onShowErrorView();
             return;
         }
+        Log.e("lmf", "info.getContId() = " + info.getContId());
         mModel.requestPearDetail(info.getContId(), new IPearModel.OnPearDetailListener() {
             @Override
             public void onSuccess(PearVideoDetailInfoData info) {

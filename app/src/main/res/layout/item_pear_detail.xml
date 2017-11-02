@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:paddingTop="@dimen/y17">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:paddingLeft="@dimen/y17"
+        android:paddingRight="@dimen/y17"
+        android:textColor="@color/result_text_color"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+
+    <include
+        layout="@layout/item_pear_detail_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/title"
+        android:layout_marginLeft="@dimen/y17"
+        android:layout_marginRight="@dimen/y17"
+        android:layout_marginTop="@dimen/y9" />
+
+    <include
+        layout="@layout/item_pear_detail_love"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/title_time_root"
+        android:layout_marginLeft="@dimen/y17"
+        android:layout_marginRight="@dimen/y17"
+        android:layout_marginTop="@dimen/y16" />
+
+    <include
+        layout="@layout/item_pear_detail_dingyue"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/y39"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/title_love_root"
+        android:layout_marginTop="@dimen/y16" />
+
+</RelativeLayout>

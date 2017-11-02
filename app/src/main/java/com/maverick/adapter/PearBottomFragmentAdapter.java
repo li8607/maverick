@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.maverick.R;
+import com.maverick.adapter.holder.PearDetailViewHolder;
 import com.maverick.adapter.holder.PearImageViewHolder;
 import com.maverick.adapter.holder.PearTitleViewHolder;
 import com.maverick.bean.PearItemInfo;
@@ -45,6 +46,11 @@ public class PearBottomFragmentAdapter extends RecyclerView.Adapter implements P
                         .inflate(R.layout.item_pear_title, parent, false));
                 holder = pearTitleViewHolder;
                 break;
+            case PearItemType.DETAIL:
+                PearDetailViewHolder pearDetailViewHolder = new PearDetailViewHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_pear_detail, parent, false));
+                holder = pearDetailViewHolder;
+                break;
             default:
                 holder = new RecyclerView.ViewHolder(new View(parent.getContext())) {
                 };
@@ -62,6 +68,9 @@ public class PearBottomFragmentAdapter extends RecyclerView.Adapter implements P
         } else if (holder instanceof PearTitleViewHolder) {
             PearTitleViewHolder pearTitleViewHolder = (PearTitleViewHolder) holder;
             pearTitleViewHolder.bindData(mList.get(position).getTabTitle());
+        } else if (holder instanceof PearDetailViewHolder) {
+            PearDetailViewHolder pearDetailViewHolder = (PearDetailViewHolder) holder;
+            pearDetailViewHolder.bindData(mContext, mList.get(position).getPearVideoDetailInfo());
         }
     }
 

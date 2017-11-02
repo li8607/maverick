@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/y39">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentTop="true"
+        android:background="@color/pear_video_detail_bg_color" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="top"
+        android:background="@color/pear_video_detail_bg_color" />
+
+    <TextView
+        android:id="@+id/dingyue_btn"
+        android:layout_width="@dimen/x40"
+        android:layout_height="@dimen/x16"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/y17"
+        android:background="@drawable/pear_video_dingyue_shape"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:text="订阅"
+        android:textColor="@color/result_text_color"
+        android:textSize="@dimen/x9" />
+
+    <ImageView
+        android:id="@+id/dingyue_image"
+        android:layout_width="@dimen/y22"
+        android:layout_height="@dimen/y22"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/y17"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_header" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/y6"
+        android:layout_toLeftOf="@+id/dingyue_btn"
+        android:layout_toRightOf="@+id/dingyue_image"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/dingyue_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/result_text_color"
+            android:textSize="@dimen/y9" />
+
+        <TextView
+            android:id="@+id/dingyue_huati"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/y3"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/pear_node_color"
+            android:textSize="@dimen/y9" />
+    </LinearLayout>
+
+</RelativeLayout>
