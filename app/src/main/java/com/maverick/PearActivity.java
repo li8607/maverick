@@ -17,6 +17,7 @@ import com.maverick.bean.PearVideoDetailBean;
 import com.maverick.bean.PearVideoDetailInfoVideo;
 import com.maverick.fragment.PearBottomFragment;
 import com.maverick.presenter.BasePresenter;
+import com.maverick.video.SampleListener;
 import com.maverick.video.SampleVideo;
 import com.maverick.video.SwitchVideoModel;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
@@ -74,20 +75,6 @@ public class PearActivity extends BaseActivity implements PearBottomFragment.OnL
         mVideo.setNeedLockFull(true);
         mVideo.setSeekRatio(1);
 
-//        //借用了jjdxm_ijkplayer的URL
-//        String source1 = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f20.mp4";
-//        String name = "普通";
-//        SwitchVideoModel switchVideoModel = new SwitchVideoModel(name, source1);
-//
-//        String source2 = "http://9890.vod.myqcloud.com/9890_4e292f9a3dd011e6b4078980237cc3d3.f30.mp4";
-//        String name2 = "清晰";
-//        SwitchVideoModel switchVideoModel2 = new SwitchVideoModel(name2, source2);
-//
-//        List<SwitchVideoModel> list = new ArrayList<>();
-//        list.add(switchVideoModel);
-//        list.add(switchVideoModel2);
-
-
         //增加封面
         ImageView imageView = new ImageView(this);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
@@ -106,6 +93,13 @@ public class PearActivity extends BaseActivity implements PearBottomFragment.OnL
         //设置旋转
         orientationUtils = new OrientationUtils(this, mVideo);
 
+
+//        //关闭自动旋转
+//        mVideo.setRotateViewAuto(false);
+//        mVideo.setLockLand(false);
+//        mVideo.setShowFullAnimation(false);
+//        mVideo.setNeedLockFull(true);
+
         //设置全屏按键功能,这是使用的是选择屏幕，而不是全屏
         mVideo.getFullscreenButton().setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,8 +107,8 @@ public class PearActivity extends BaseActivity implements PearBottomFragment.OnL
                 //直接横屏
                 orientationUtils.resolveByClick();
 
-                //第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
-                mVideo.startWindowFullscreen(PearActivity.this, true, true);
+//                //第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
+//                mVideo.startWindowFullscreen(PearActivity.this, true, true);
             }
         });
 
@@ -135,6 +129,54 @@ public class PearActivity extends BaseActivity implements PearBottomFragment.OnL
                 onBackPressed();
             }
         });
+
+        mVideo.setStandardVideoAllCallBack(new SampleListener() {
+            @Override
+            public void onPrepared(String url, Object... objects) {
+                super.onPrepared(url, objects);
+                //开始播放了才能旋转和全屏
+                orientationUtils.setEnable(true);
+                isPlay = true;
+            }
+
+            @Override
+            public void onAutoComplete(String url, Object... objects) {
+                super.onAutoComplete(url, objects);
+            }
+
+            @Override
+            public void onClickStartError(String url, Object... objects) {
+                super.onClickStartError(url, objects);
+            }
+
+            @Override
+            public void onQuitFullscreen(String url, Object... objects) {
+                super.onQuitFullscreen(url, objects);
+                if (orientationUtils != null) {
+                    orientationUtils.backToProtVideo();
+                }
+            }
+
+            @Override
+            public void onEnterFullscreen(String url, Object... objects) {
+                super.onEnterFullscreen(url, objects);
+                //隐藏调全屏对象的返回按键
+//                GSYVideoPlayer gsyVideoPlayer = (GSYVideoPlayer)objects[1];
+//                gsyVideoPlayer.getBackButton().setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private boolean isPlay;
+    private boolean isPause;
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        //如果旋转了就全屏
+        if (isPlay && mVideo.getCurrentState() != SampleVideo.CURRENT_STATE_PAUSE) {
+            mVideo.onConfigurationChanged(this, newConfig, orientationUtils);
+        }
     }
 
     @Override
@@ -155,6 +197,7 @@ public class PearActivity extends BaseActivity implements PearBottomFragment.OnL
         super.onResume();
         mVideo.onVideoResume();
     }
+
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
@@ -188,16 +231,12 @@ public class PearActivity extends BaseActivity implements PearBottomFragment.OnL
 //        }
     }
 
-
-    private boolean isPlay;
-    private boolean isPause;
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        //如果旋转了就全屏
-        mVideo.onConfigurationChanged(this, newConfig, orientationUtils);
-    }
+//    @Override
+//    public void onConfigurationChanged(Configuration newConfig) {
+//        super.onConfigurationChanged(newConfig);
+//        //如果旋转了就全屏
+////        mVideo.onConfigurationChanged(this, newConfig, orientationUtils);
+//    }
 
     @Override
     public void playVideo(List<PearVideoDetailInfoVideo> list) {

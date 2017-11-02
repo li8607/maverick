@@ -68,6 +68,8 @@
 
         <activity
             android:name=".PearActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait"
             android:theme="@style/BaseAppTheme" />
 
         <activity
