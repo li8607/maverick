@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <size android:height="@dimen/y3"  android:width="@dimen/x10"/>
+
+    <solid
+        android:color="@color/divide_gray_color"/><!-- 填充的颜色 -->
+</shape>

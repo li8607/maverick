@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/y11"
+    >
 
     <com.maverick.weight.RatioImageView
         android:id="@+id/image"
@@ -48,5 +50,6 @@
         android:maxLines="1"
         android:textColor="@color/pear_video_label_color"
         android:textSize="@dimen/x7"
-        android:visibility="gone" />
+        android:visibility="gone"
+        />
 </RelativeLayout>

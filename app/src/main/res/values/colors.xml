@@ -47,4 +47,6 @@
     <color name="pear_video_detail_bg_color">#d7d7d7</color>
     <color name="pear_video_detail_bg_shape">#a6a6a6</color>
 
+    <color name="divide_gray_color">#f2f2f2</color>
+
 </resources>

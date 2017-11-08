@@ -3,7 +3,9 @@ package com.maverick.fragment;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.maverick.R;
@@ -12,6 +14,7 @@ import com.maverick.base.BaseFragment2;
 import com.maverick.bean.PearItemInfo;
 import com.maverick.bean.PearVideoDetailBean;
 import com.maverick.bean.PearVideoDetailInfoVideo;
+import com.maverick.divider.SelectDividerItemDecoration;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.PearBottomFragmentPresenter;
 import com.maverick.presenter.implView.IPearBottomFragmentView;
@@ -57,6 +60,7 @@ public class PearBottomFragment extends BaseFragment2 implements IPearBottomFrag
     protected void onInitView(View view) {
         RecyclerView mRecyclerView = findView(R.id.recyclerView);
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), spanCount);
+        layoutManager.setOrientation(GridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new PearBottomFragmentAdapter(getContext());
@@ -73,28 +77,36 @@ public class PearBottomFragment extends BaseFragment2 implements IPearBottomFrag
             }
         });
 
+        SelectDividerItemDecoration mSelectDividerItemDecoration = new SelectDividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
+        mSelectDividerItemDecoration.setDrawable(getResources().getDrawable(R.drawable.divder_item_shape));
+        mSelectDividerItemDecoration.setOnListener(new SelectDividerItemDecoration.OnListener() {
+            @Override
+            public boolean isAllow(int position) {
+                return mAdapter.getItemViewType(position) == PearItemType.DETAIL;
+            }
+        });
+        mRecyclerView.addItemDecoration(mSelectDividerItemDecoration);
+
         mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+
                 int position = parent.getChildAdapterPosition(view);
 
-//                if (mAdapter != null && mAdapter.isHeader()) {
-//                    if (position > 0) {
-//                        position--;
-//                    } else {
-//                        return;
-//                    }
-//                }
+                int type = mAdapter.getItemViewType(position);
 
-                outRect.bottom = getResources().getDimensionPixelSize(R.dimen.x2);
-                outRect.top = getResources().getDimensionPixelSize(R.dimen.y9);
-                if (position % 2 == 0) {
-                    outRect.right = getResources().getDimensionPixelSize(R.dimen.y1);
-                } else {
-                    outRect.left = getResources().getDimensionPixelSize(R.dimen.y1);
+                if (type == PearItemType.ITEM) {
+                    if (position % 2 == 0) {
+
+                        outRect.right = getResources().getDimensionPixelSize(R.dimen.y1);
+                    } else {
+
+                        outRect.left = getResources().getDimensionPixelSize(R.dimen.y1);
+                    }
                 }
             }
         });
+
     }
 
     @Override
