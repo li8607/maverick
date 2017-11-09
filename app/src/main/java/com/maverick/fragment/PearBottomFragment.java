@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 
 import com.maverick.R;
@@ -70,7 +69,9 @@ public class PearBottomFragment extends BaseFragment2 implements IPearBottomFrag
 
             @Override
             public int getSpanSize(int position) {
-                if (PearItemType.TITLE == mAdapter.getItemViewType(position) || PearItemType.DETAIL == mAdapter.getItemViewType(position)) {
+                if (PearItemType.TITLE == mAdapter.getItemViewType(position)
+                        || PearItemType.DETAIL == mAdapter.getItemViewType(position)
+                        || PearItemType.TAG == mAdapter.getItemViewType(position)) {
                     return spanCount;
                 }
                 return 1;
@@ -82,7 +83,8 @@ public class PearBottomFragment extends BaseFragment2 implements IPearBottomFrag
         mSelectDividerItemDecoration.setOnListener(new SelectDividerItemDecoration.OnListener() {
             @Override
             public boolean isAllow(int position) {
-                return mAdapter.getItemViewType(position) == PearItemType.DETAIL;
+                return mAdapter.getItemViewType(position) == PearItemType.DETAIL
+                        || mAdapter.getItemViewType(position) == PearItemType.TAG;
             }
         });
         mRecyclerView.addItemDecoration(mSelectDividerItemDecoration);
@@ -103,6 +105,9 @@ public class PearBottomFragment extends BaseFragment2 implements IPearBottomFrag
 
                         outRect.left = getResources().getDimensionPixelSize(R.dimen.y1);
                     }
+                } else if (type == PearItemType.TAG) {
+                    outRect.right = getResources().getDimensionPixelSize(R.dimen.y5);
+                    outRect.left = getResources().getDimensionPixelSize(R.dimen.y5);
                 }
             }
         });

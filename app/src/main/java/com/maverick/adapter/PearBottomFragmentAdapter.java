@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.maverick.R;
 import com.maverick.adapter.holder.PearDetailViewHolder;
 import com.maverick.adapter.holder.PearImageViewHolder;
+import com.maverick.adapter.holder.PearTagViewHolder;
 import com.maverick.adapter.holder.PearTitleViewHolder;
 import com.maverick.bean.PearItemInfo;
 import com.maverick.bean.PearVideoInfo;
@@ -51,6 +52,11 @@ public class PearBottomFragmentAdapter extends RecyclerView.Adapter implements P
                         .inflate(R.layout.item_pear_detail, parent, false));
                 holder = pearDetailViewHolder;
                 break;
+            case PearItemType.TAG:
+                PearTagViewHolder pearTagViewHolder = new PearTagViewHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_pear_tag, parent, false));
+                holder = pearTagViewHolder;
+                break;
             default:
                 holder = new RecyclerView.ViewHolder(new View(parent.getContext())) {
                 };
@@ -71,6 +77,9 @@ public class PearBottomFragmentAdapter extends RecyclerView.Adapter implements P
         } else if (holder instanceof PearDetailViewHolder) {
             PearDetailViewHolder pearDetailViewHolder = (PearDetailViewHolder) holder;
             pearDetailViewHolder.bindData(mContext, mList.get(position).getPearVideoDetailInfo());
+        }else if (holder instanceof PearTagViewHolder) {
+            PearTagViewHolder pearTagViewHolder = (PearTagViewHolder) holder;
+            pearTagViewHolder.bindData(mContext, mList.get(position).getPearTagInfo());
         }
     }
 

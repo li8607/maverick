@@ -71,6 +71,18 @@ public class PearBottomFragmentPresenter extends BasePresenter {
                     }
                 }
 
+                if (info.getContent() != null) {
+                    PearItemInfo tag = new PearItemInfo();
+                    tag.setType(PearItemType.TAG);
+                    tag.setPearTagInfo(info.getContent().getTags());
+                    list.add(tag);
+                }
+
+                PearItemInfo commentTitle = new PearItemInfo();
+                commentTitle.setType(PearItemType.TITLE);
+                commentTitle.setTabTitle("热评论");
+                list.add(commentTitle);
+
                 mView.onShowSuccessView(list);
             }
 

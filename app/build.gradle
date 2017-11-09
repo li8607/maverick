@@ -83,4 +83,5 @@ dependencies {
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'com.youth.banner:banner:1.4.10'
     compile 'com.github.aakira:expandable-layout:1.6.0@aar'
+    compile 'co.lujun:androidtagview:1.1.4'
 }

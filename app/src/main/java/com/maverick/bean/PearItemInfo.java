@@ -13,6 +13,7 @@ public class PearItemInfo implements Serializable {
     private String tabTitle;
     private PearVideoDetailInfo pearVideoDetailInfo;
     private PearVideoInfo pearVideoInfo;
+    private List<PearVideoDetailInfoTag> pearTagInfo;
 
     public int getType() {
         return type;
@@ -44,5 +45,13 @@ public class PearItemInfo implements Serializable {
 
     public void setPearVideoInfo(PearVideoInfo pearVideoInfo) {
         this.pearVideoInfo = pearVideoInfo;
+    }
+
+    public List<PearVideoDetailInfoTag> getPearTagInfo() {
+        return pearTagInfo;
+    }
+
+    public void setPearTagInfo(List<PearVideoDetailInfoTag> pearTagInfo) {
+        this.pearTagInfo = pearTagInfo;
     }
 }
