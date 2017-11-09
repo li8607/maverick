@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.maverick.R;
+import com.maverick.adapter.holder.PearCommentViewHolder;
 import com.maverick.adapter.holder.PearDetailViewHolder;
 import com.maverick.adapter.holder.PearImageViewHolder;
 import com.maverick.adapter.holder.PearTagViewHolder;
@@ -57,6 +58,11 @@ public class PearBottomFragmentAdapter extends RecyclerView.Adapter implements P
                         .inflate(R.layout.item_pear_tag, parent, false));
                 holder = pearTagViewHolder;
                 break;
+            case PearItemType.COMMENT:
+                PearCommentViewHolder pearCommentViewHolder = new PearCommentViewHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_pear_comment, parent, false));
+                holder = pearCommentViewHolder;
+                break;
             default:
                 holder = new RecyclerView.ViewHolder(new View(parent.getContext())) {
                 };
@@ -77,9 +83,12 @@ public class PearBottomFragmentAdapter extends RecyclerView.Adapter implements P
         } else if (holder instanceof PearDetailViewHolder) {
             PearDetailViewHolder pearDetailViewHolder = (PearDetailViewHolder) holder;
             pearDetailViewHolder.bindData(mContext, mList.get(position).getPearVideoDetailInfo());
-        }else if (holder instanceof PearTagViewHolder) {
+        } else if (holder instanceof PearTagViewHolder) {
             PearTagViewHolder pearTagViewHolder = (PearTagViewHolder) holder;
             pearTagViewHolder.bindData(mContext, mList.get(position).getPearTagInfo());
+        }else if (holder instanceof PearCommentViewHolder) {
+            PearCommentViewHolder pearCommentViewHolder = (PearCommentViewHolder) holder;
+            pearCommentViewHolder.bindData(mContext, mList.get(position).getCommentInfo());
         }
     }
 

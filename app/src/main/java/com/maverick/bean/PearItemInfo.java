@@ -14,6 +14,7 @@ public class PearItemInfo implements Serializable {
     private PearVideoDetailInfo pearVideoDetailInfo;
     private PearVideoInfo pearVideoInfo;
     private List<PearVideoDetailInfoTag> pearTagInfo;
+    private PearVideoDetailInfoPostChildItem commentInfo;
 
     public int getType() {
         return type;
@@ -53,5 +54,13 @@ public class PearItemInfo implements Serializable {
 
     public void setPearTagInfo(List<PearVideoDetailInfoTag> pearTagInfo) {
         this.pearTagInfo = pearTagInfo;
+    }
+
+    public PearVideoDetailInfoPostChildItem getCommentInfo() {
+        return commentInfo;
+    }
+
+    public void setCommentInfo(PearVideoDetailInfoPostChildItem commentInfo) {
+        this.commentInfo = commentInfo;
     }
 }
