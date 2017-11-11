@@ -50,4 +50,7 @@
 
     <string name="error_field_required">这个是必填项</string>
 
+    <string name="pear_comment_empty_text">沙发还空着？快来做啊！</string>
+    <string name="pear_comment_more_text">查看更多</string>
+
 </resources>

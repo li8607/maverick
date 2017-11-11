@@ -83,13 +83,21 @@ public class PearBottomFragmentPresenter extends BasePresenter {
                 commentTitle.setTabTitle("热评论");
                 list.add(commentTitle);
 
-                if (info != null && info.getPostInfo() != null && info.getPostInfo().getChildList() != null) {
+                if (info != null && info.getPostInfo() != null && info.getPostInfo().getChildList() != null && info.getPostInfo().getChildList().size() > 0) {
                     for (int i = 0; i < info.getPostInfo().getChildList().size(); i++) {
                         PearItemInfo comment = new PearItemInfo();
                         comment.setType(PearItemType.COMMENT);
                         comment.setCommentInfo(info.getPostInfo().getChildList().get(i));
                         list.add(comment);
                     }
+
+                    PearItemInfo more = new PearItemInfo();
+                    more.setType(PearItemType.COMMENT_MORE);
+                    list.add(more);
+                } else {
+                    PearItemInfo comment = new PearItemInfo();
+                    comment.setType(PearItemType.COMMENT_EMPTY);
+                    list.add(comment);
                 }
 
                 mView.onShowSuccessView(list);

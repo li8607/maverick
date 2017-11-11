@@ -11,4 +11,6 @@ public class PearItemType {
     public static final int ITEM = 3;
     public static final int TAG = 4;
     public static final int COMMENT = 5;
+    public static final int COMMENT_EMPTY = 6;
+    public static final int COMMENT_MORE = 7;
 }

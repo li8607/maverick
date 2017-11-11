@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.maverick.R;
+import com.maverick.adapter.holder.PearCommentEmptyViewHolder;
+import com.maverick.adapter.holder.PearCommentMoreViewHolder;
 import com.maverick.adapter.holder.PearCommentViewHolder;
 import com.maverick.adapter.holder.PearDetailViewHolder;
 import com.maverick.adapter.holder.PearImageViewHolder;
@@ -63,6 +65,16 @@ public class PearBottomFragmentAdapter extends RecyclerView.Adapter implements P
                         .inflate(R.layout.item_pear_comment, parent, false));
                 holder = pearCommentViewHolder;
                 break;
+            case PearItemType.COMMENT_EMPTY:
+                PearCommentEmptyViewHolder pearCommentEmptyViewHolder = new PearCommentEmptyViewHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_pear_comment_empty, parent, false));
+                holder = pearCommentEmptyViewHolder;
+                break;
+            case PearItemType.COMMENT_MORE:
+                PearCommentMoreViewHolder pearCommentMoreViewHolder = new PearCommentMoreViewHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_pear_comment_more, parent, false));
+                holder = pearCommentMoreViewHolder;
+                break;
             default:
                 holder = new RecyclerView.ViewHolder(new View(parent.getContext())) {
                 };
@@ -86,7 +98,7 @@ public class PearBottomFragmentAdapter extends RecyclerView.Adapter implements P
         } else if (holder instanceof PearTagViewHolder) {
             PearTagViewHolder pearTagViewHolder = (PearTagViewHolder) holder;
             pearTagViewHolder.bindData(mContext, mList.get(position).getPearTagInfo());
-        }else if (holder instanceof PearCommentViewHolder) {
+        } else if (holder instanceof PearCommentViewHolder) {
             PearCommentViewHolder pearCommentViewHolder = (PearCommentViewHolder) holder;
             pearCommentViewHolder.bindData(mContext, mList.get(position).getCommentInfo());
         }

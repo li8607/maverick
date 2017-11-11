@@ -46,8 +46,10 @@
     <color name="pear_video_label_color">#4990e2</color>
     <color name="pear_video_detail_bg_color">#d7d7d7</color>
     <color name="pear_video_detail_bg_shape">#a6a6a6</color>
+    <color name="pear_video_comment_gray">#bfbfbf</color>
 
     <color name="divide_gray_color">#f2f2f2</color>
+    <color name="divide_comment_color">#eeeeee</color>
 
     <color name="pear_tag_text_bg_color">#33a6a6a6</color>
 

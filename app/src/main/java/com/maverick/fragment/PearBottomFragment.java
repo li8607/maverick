@@ -71,6 +71,9 @@ public class PearBottomFragment extends BaseFragment2 implements IPearBottomFrag
             public int getSpanSize(int position) {
                 if (PearItemType.TITLE == mAdapter.getItemViewType(position)
                         || PearItemType.DETAIL == mAdapter.getItemViewType(position)
+                        || PearItemType.COMMENT == mAdapter.getItemViewType(position)
+                        || PearItemType.COMMENT_EMPTY == mAdapter.getItemViewType(position)
+                        || PearItemType.COMMENT_MORE == mAdapter.getItemViewType(position)
                         || PearItemType.TAG == mAdapter.getItemViewType(position)) {
                     return spanCount;
                 }

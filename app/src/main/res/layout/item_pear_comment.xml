@@ -1,6 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/y5"
+    android:paddingRight="@dimen/y5"
+    android:paddingTop="@dimen/y10">
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/user_image"
+        android:layout_width="@dimen/y25"
+        android:layout_height="@dimen/y25"
+        android:scaleType="fitXY" />
+
+    <TextView
+        android:id="@+id/user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/y10"
+        android:layout_marginRight="@dimen/y9"
+        android:layout_toRightOf="@+id/user_image"
+        android:maxLines="1"
+        android:textColor="@color/pear_video_label_color_5"
+        android:textSize="@dimen/y9" />
+
+    <TextView
+        android:id="@+id/user_comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/user_name"
+        android:layout_below="@+id/user_name"
+        android:layout_marginTop="@dimen/y5"
+        android:textColor="@color/result_text_color"
+        android:textSize="@dimen/y9" />
+
+
+    <LinearLayout
+        android:id="@+id/comment_bottom_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/user_name"
+        android:layout_below="@+id/user_comment"
+        android:layout_marginTop="@dimen/y8"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/comment_time"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:maxLines="1"
+            android:textColor="@color/pear_video_comment_gray"
+            android:textSize="@dimen/y6" />
+
+
+        <LinearLayout
+            android:id="@+id/pear_zan_root"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/y10"
+                android:layout_height="@dimen/y10"
+                android:background="#666" />
+
+            <TextView
+                android:id="@+id/pear_zan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="0"
+                android:textColor="@color/pear_video_comment_gray"
+                android:textSize="@dimen/y9" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pear_cai_root"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/y10"
+                android:layout_height="@dimen/y10"
+                android:background="#666" />
+
+            <TextView
+                android:id="@+id/pear_cai"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="0"
+                android:textColor="@color/pear_video_comment_gray"
+                android:textSize="@dimen/y9" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pear_send_root"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/y10"
+                android:layout_height="@dimen/y10"
+                android:background="#666" />
+
+            <TextView
+                android:id="@+id/pear_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="0"
+                android:textColor="@color/pear_video_comment_gray"
+                android:textSize="@dimen/y9" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_alignLeft="@+id/user_name"
+        android:layout_below="@+id/comment_bottom_root"
+        android:layout_marginTop="@dimen/y10"
+        android:background="@color/divide_comment_color" />
+
+</RelativeLayout>
