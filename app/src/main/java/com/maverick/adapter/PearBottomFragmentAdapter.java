@@ -119,7 +119,19 @@ public class PearBottomFragmentAdapter extends RecyclerView.Adapter implements P
     }
 
     @Override
-    public void onItemClick(PearVideoInfo info) {
+    public void onItemClick(int position, PearVideoInfo info) {
+        if (mOnItemClickListener != null) {
+            mOnItemClickListener.onItemClick(position, info);
+        }
+    }
 
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mOnItemClickListener = listener;
+    }
+
+    private OnItemClickListener mOnItemClickListener;
+
+    public interface OnItemClickListener {
+        void onItemClick(int position, PearVideoInfo info);
     }
 }

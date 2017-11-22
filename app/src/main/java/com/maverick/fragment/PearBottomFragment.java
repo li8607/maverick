@@ -7,13 +7,16 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.maverick.PearActivity;
 import com.maverick.R;
 import com.maverick.adapter.PearBottomFragmentAdapter;
 import com.maverick.base.BaseFragment2;
 import com.maverick.bean.PearItemInfo;
 import com.maverick.bean.PearVideoDetailBean;
 import com.maverick.bean.PearVideoDetailInfoVideo;
+import com.maverick.bean.PearVideoInfo;
 import com.maverick.divider.SelectDividerItemDecoration;
+import com.maverick.hepler.BeanHelper;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.PearBottomFragmentPresenter;
 import com.maverick.presenter.implView.IPearBottomFragmentView;
@@ -115,6 +118,12 @@ public class PearBottomFragment extends BaseFragment2 implements IPearBottomFrag
             }
         });
 
+        mAdapter.setOnItemClickListener(new PearBottomFragmentAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, PearVideoInfo info) {
+                PearActivity.launch(getActivity(), BeanHelper.getPearVideoDetailBean(info));
+            }
+        });
     }
 
     @Override

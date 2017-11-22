@@ -21,6 +21,7 @@ import com.maverick.video.SampleListener;
 import com.maverick.video.SampleVideo;
 import com.maverick.video.SwitchVideoModel;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
+import com.shuyu.gsyvideoplayer.video.NormalGSYVideoPlayer;
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ import java.util.List;
 public class PearActivity extends BaseActivity implements PearBottomFragment.OnListener {
 
     public static final String EXTRA_IMAGE = "EXTRA_IMAGE";
-    private SampleVideo mVideo;
+    private NormalGSYVideoPlayer mVideo;
     private OrientationUtils orientationUtils;
 
     public static void launch(Activity activity, PearVideoDetailBean info) {
@@ -78,7 +79,7 @@ public class PearActivity extends BaseActivity implements PearBottomFragment.OnL
         //增加封面
         ImageView imageView = new ImageView(this);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setImageResource(R.mipmap.ic_launcher);
+//        imageView.setImageResource(R.mipmap.ic_launcher);
         mVideo.setThumbImageView(imageView);
 
         //增加title
@@ -259,7 +260,9 @@ public class PearActivity extends BaseActivity implements PearBottomFragment.OnL
             models.add(model);
         }
 
-        mVideo.setUp(models, true, "测试视频");
-        mVideo.onVideoResume();
+        if(models != null && models.size() > 0) {
+            mVideo.setUp(models.get(0).getUrl(), true, models.get(0).getName());
+            mVideo.startPlayLogic();
+        }
     }
 }

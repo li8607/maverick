@@ -61,8 +61,8 @@ public class PearImageViewHolder extends RecyclerView.ViewHolder implements View
 
     @Override
     public void onClick(View v) {
-        if (mOnListener != null) {
-            mOnListener.onItemClick(mInfo);
+        if (mOnListener != null && getAdapterPosition() >= 0) {
+            mOnListener.onItemClick(getAdapterPosition(), mInfo);
         }
     }
 
@@ -73,6 +73,6 @@ public class PearImageViewHolder extends RecyclerView.ViewHolder implements View
     }
 
     public interface OnListener {
-        void onItemClick(PearVideoInfo info);
+        void onItemClick(int position, PearVideoInfo info);
     }
 }

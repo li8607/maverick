@@ -113,7 +113,7 @@ public class PearItemFragmentAdapter extends RecyclerView.Adapter implements Pea
     }
 
     @Override
-    public void onItemClick(PearVideoInfo info) {
+    public void onItemClick(int position, PearVideoInfo info) {
         if (mOnListener != null) {
             mOnListener.onItemClick(info);
         }
@@ -123,6 +123,13 @@ public class PearItemFragmentAdapter extends RecyclerView.Adapter implements Pea
 
     public void setOnListener(OnListener listener) {
         this.mOnListener = listener;
+    }
+
+    @Override
+    public void onItemClick(PearVideoInfo info) {
+        if (mOnListener != null) {
+            mOnListener.onItemClick(info);
+        }
     }
 
     public interface OnListener {

@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.maverick.video.SampleVideo
+    <com.shuyu.gsyvideoplayer.video.NormalGSYVideoPlayer
         android:id="@+id/video"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x180"></com.maverick.video.SampleVideo>
+        android:layout_height="@dimen/x180"></com.shuyu.gsyvideoplayer.video.NormalGSYVideoPlayer>
 
     <FrameLayout
         android:id="@+id/bottom"
