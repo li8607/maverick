@@ -9,6 +9,7 @@ import com.maverick.bean.PearVideoDetailInfoData;
 import com.maverick.imodel.IPearModel;
 import com.maverick.model.PearModel;
 import com.maverick.presenter.implView.IPearBottomFragmentView;
+import com.maverick.type.LineType;
 import com.maverick.type.PearItemType;
 
 import java.util.ArrayList;
@@ -23,6 +24,8 @@ public class PearBottomFragmentPresenter extends BasePresenter {
     private Context mContext;
     private IPearBottomFragmentView mView;
     private final IPearModel mModel;
+
+    List<PearItemInfo> mList = new ArrayList<>();
 
     public PearBottomFragmentPresenter(Context context, IPearBottomFragmentView view) {
         this.mContext = context;
@@ -50,24 +53,22 @@ public class PearBottomFragmentPresenter extends BasePresenter {
                     mView.onShowVideoView(info.getContent().getVideos());
                 }
 
-                List<PearItemInfo> list = new ArrayList<>();
-
                 PearItemInfo detail = new PearItemInfo();
                 detail.setType(PearItemType.DETAIL);
                 detail.setPearVideoDetailInfo(info.getContent());
-                list.add(detail);
+                mList.add(detail);
 
                 PearItemInfo tabTitle = new PearItemInfo();
                 tabTitle.setType(PearItemType.TITLE);
                 tabTitle.setTabTitle("相关视频");
-                list.add(tabTitle);
+                mList.add(tabTitle);
 
                 if (info.getRelateConts() != null && info.getRelateConts().size() > 0) {
                     for (int i = 0; i < info.getRelateConts().size(); i++) {
                         PearItemInfo infos = new PearItemInfo();
                         infos.setType(PearItemType.ITEM);
                         infos.setPearVideoInfo(info.getRelateConts().get(i));
-                        list.add(infos);
+                        mList.add(infos);
                     }
                 }
 
@@ -75,32 +76,33 @@ public class PearBottomFragmentPresenter extends BasePresenter {
                     PearItemInfo tag = new PearItemInfo();
                     tag.setType(PearItemType.TAG);
                     tag.setPearTagInfo(info.getContent().getTags());
-                    list.add(tag);
+                    mList.add(tag);
                 }
 
                 PearItemInfo commentTitle = new PearItemInfo();
                 commentTitle.setType(PearItemType.TITLE);
                 commentTitle.setTabTitle("热评论");
-                list.add(commentTitle);
+                commentTitle.setLineType(LineType.SMALL);
+                mList.add(commentTitle);
 
                 if (info != null && info.getPostInfo() != null && info.getPostInfo().getChildList() != null && info.getPostInfo().getChildList().size() > 0) {
                     for (int i = 0; i < info.getPostInfo().getChildList().size(); i++) {
                         PearItemInfo comment = new PearItemInfo();
                         comment.setType(PearItemType.COMMENT);
                         comment.setCommentInfo(info.getPostInfo().getChildList().get(i));
-                        list.add(comment);
+                        mList.add(comment);
                     }
 
                     PearItemInfo more = new PearItemInfo();
                     more.setType(PearItemType.COMMENT_MORE);
-                    list.add(more);
+                    mList.add(more);
                 } else {
                     PearItemInfo comment = new PearItemInfo();
                     comment.setType(PearItemType.COMMENT_EMPTY);
-                    list.add(comment);
+                    mList.add(comment);
                 }
 
-                mView.onShowSuccessView(list);
+                mView.onShowSuccessView(mList);
             }
 
             @Override
@@ -108,5 +110,9 @@ public class PearBottomFragmentPresenter extends BasePresenter {
                 mView.onShowErrorView();
             }
         });
+    }
+
+    public List<PearItemInfo> getList() {
+        return mList;
     }
 }

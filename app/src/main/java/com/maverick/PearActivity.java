@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -36,6 +37,7 @@ public class PearActivity extends BaseActivity implements PearBottomFragment.OnL
     public static final String EXTRA_IMAGE = "EXTRA_IMAGE";
     private NormalGSYVideoPlayer mVideo;
     private OrientationUtils orientationUtils;
+    private PearVideoDetailBean mInfo;
 
     public static void launch(Activity activity, PearVideoDetailBean info) {
 
@@ -53,7 +55,17 @@ public class PearActivity extends BaseActivity implements PearBottomFragment.OnL
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
-            //TODO 隐藏状态栏
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                View decorView = getWindow().getDecorView();
+                int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN;
+                decorView.setSystemUiVisibility(uiOptions);
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setStatusBarColor(Color.TRANSPARENT);
+            }
         }
     }
 
@@ -182,7 +194,7 @@ public class PearActivity extends BaseActivity implements PearBottomFragment.OnL
 
     @Override
     protected void onInitData(Bundle savedInstanceState) {
-        PearVideoDetailBean mInfo = (PearVideoDetailBean) getIntent().getSerializableExtra(EXTRA_IMAGE);
+        mInfo = (PearVideoDetailBean) getIntent().getSerializableExtra(EXTRA_IMAGE);
         Toast.makeText(this, mInfo.getName(), Toast.LENGTH_SHORT).show();
         replaceFragment(R.id.bottom, PearBottomFragment.newInstance(mInfo));
     }
@@ -255,12 +267,12 @@ public class PearActivity extends BaseActivity implements PearBottomFragment.OnL
             }
 
             String source1 = info.getUrl();
-            String name = info.getTag();
+            String name = mInfo == null ? "" : mInfo.getName();
             SwitchVideoModel model = new SwitchVideoModel(name, source1);
             models.add(model);
         }
 
-        if(models != null && models.size() > 0) {
+        if (models != null && models.size() > 0) {
             mVideo.setUp(models.get(0).getUrl(), true, models.get(0).getName());
             mVideo.startPlayLogic();
         }

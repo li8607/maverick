@@ -20,6 +20,7 @@ import com.maverick.hepler.BeanHelper;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.PearBottomFragmentPresenter;
 import com.maverick.presenter.implView.IPearBottomFragmentView;
+import com.maverick.type.LineType;
 import com.maverick.type.PearItemType;
 
 import java.util.List;
@@ -94,6 +95,16 @@ public class PearBottomFragment extends BaseFragment2 implements IPearBottomFrag
             }
         });
         mRecyclerView.addItemDecoration(mSelectDividerItemDecoration);
+
+        SelectDividerItemDecoration itemDecoration = new SelectDividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
+        itemDecoration.setDrawable(getResources().getDrawable(R.drawable.divder_small_item_shape));
+        itemDecoration.setOnListener(new SelectDividerItemDecoration.OnListener() {
+            @Override
+            public boolean isAllow(int position) {
+                return mPresenter.getList().get(position).getLineType() == LineType.SMALL;
+            }
+        });
+        mRecyclerView.addItemDecoration(itemDecoration);
 
         mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
