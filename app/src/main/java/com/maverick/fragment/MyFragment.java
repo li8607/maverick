@@ -9,8 +9,9 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.maverick.DataBankActivity;
+import com.maverick.LoginActivity;
 import com.maverick.R;
-import com.maverick.RegisterActivity;
+import com.maverick.RegisterActivity2;
 import com.maverick.adapter.MyFragmentAdapter;
 import com.maverick.base.BaseFragment2;
 import com.maverick.bean.MyInfo;
@@ -69,7 +70,7 @@ public class MyFragment extends BaseFragment2 {
         List<MyInfo> list = new ArrayList<>();
         list.add(getMyInfo("浏览记录", R.drawable.ic_menu_gallery, "0"));
         list.add(getMyInfo("收藏", R.drawable.ic_menu_camera, "1"));
-        list.add(getMyInfo("注册", R.drawable.ic_menu_send, "2"));
+        list.add(getMyInfo("登录/注册", R.drawable.ic_menu_send, "2"));
         MyFragmentAdapter mMyFragmentAdapter = new MyFragmentAdapter(getContext(), list);
         recyclerView.setAdapter(mMyFragmentAdapter);
 
@@ -82,7 +83,7 @@ public class MyFragment extends BaseFragment2 {
                 } else if (TextUtils.equals(myInfo.getType(), "1")) {
                     DataBankActivity.launch(getContext(), myInfo);
                 } else if (TextUtils.equals(myInfo.getType(), "2")) {
-                    RegisterActivity.launch(getContext());
+                    LoginActivity.launch(getContext());
                 }
             }
         });

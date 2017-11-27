@@ -205,6 +205,7 @@ public class MainActivity2 extends BaseActivity {
         buttonInfo.setName(name);
         buttonInfo.setIconId(iconId);
         buttonInfo.setType(type);
+
         return buttonInfo;
     }
 

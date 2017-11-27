@@ -40,17 +40,29 @@
     <string name="fragment_joke">笑话</string>
     <string name="fragment_my">我的</string>
 
-
-    <string name="prompt_password">密码</string>
-    <string name="action_sign_in">注册并登录</string>
-    <string name="username">用户名</string>
-
-
-    <string name="error_invalid_password">密码大于 4 位</string>
-
-    <string name="error_field_required">这个是必填项</string>
-
     <string name="pear_comment_empty_text">沙发还空着？快来做啊！</string>
     <string name="pear_comment_more_text">查看更多</string>
+
+
+    <string name="action_logout">注销</string>
+    <string name="title_activity_login">登录</string>
+    <string name="publish">发布</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="username">用户名</string>
+    <string name="goods_discription">商品描述</string>
+    <string name="seletct_a_pic">从相册选择一张照片</string>
+    <string name="submit">提交</string>
+    <string name="detail">详情</string>
+    <string name="prompt_password">密码</string>
+    <string name="action_sign_in">注册并登录</string>
+    <string name="action_sign_in_short">登录</string>
+    <string name="error_invalid_email">邮件格式错误</string>
+    <string name="error_invalid_password">密码大于 4 位</string>
+    <string name="error_incorrect_password">密码错误</string>
+    <string name="error_field_required">这个是必填项</string>
+    <string name="title_activity_register">注册</string>
+    <string name="forget_password">忘记密码？</string>
+    <string name="agree_text">登陆或注册即同意笑一笑[用户协议]</string>
 
 </resources>

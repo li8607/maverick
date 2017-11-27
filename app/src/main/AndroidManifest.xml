@@ -73,7 +73,18 @@
             android:theme="@style/BaseAppTheme" />
 
         <activity
+            android:launchMode="singleTop"
             android:name=".RegisterActivity"
+            android:theme="@style/BaseAppTheme" />
+
+        <activity
+            android:launchMode="singleTop"
+            android:name=".RegisterActivity2"
+            android:theme="@style/BaseAppTheme" />
+
+        <activity
+            android:launchMode="singleTop"
+            android:name=".LoginActivity"
             android:theme="@style/BaseAppTheme" />
 
         <!--微信-->

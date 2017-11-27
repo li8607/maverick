@@ -20,7 +20,7 @@ android {
             // Zipalign优化
             zipAlignEnabled true
             // 移除无用的resource文件
-            shrinkResources true
+//            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
 
@@ -30,7 +30,7 @@ android {
             // Zipalign优化
             zipAlignEnabled true
             // 移除无用的resource文件
-            shrinkResources true
+//            shrinkResources true
             signingConfig signingConfigs.debug
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -84,4 +84,9 @@ dependencies {
     compile 'com.youth.banner:banner:1.4.10'
     compile 'com.github.aakira:expandable-layout:1.6.0@aar'
     compile 'co.lujun:androidtagview:1.1.4'
+    compile project(':navigationtabbar')
+
+    // LeanCloud 基础包
+    compile ('cn.leancloud.android:avoscloud-sdk:v3.+')
+    compile ('cn.leancloud.android:avoscloud-statistics:v3.+')
 }
