@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,6 +63,7 @@ public class RegisterActivity2 extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 LoginActivity.launch(RegisterActivity2.this);
+                RegisterActivity2.this.finish();
             }
         });
 
@@ -129,7 +129,7 @@ public class RegisterActivity2 extends AppCompatActivity {
                 public void done(AVException e) {
                     if (e == null) {
                         // 注册成功，把用户对象赋值给当前用户 AVUser.getCurrentUser()
-                        startActivity(new Intent(RegisterActivity2.this, MainActivity.class));
+                        startActivity(new Intent(RegisterActivity2.this, MainActivity2.class));
                         RegisterActivity2.this.finish();
                     } else {
                         // 失败的原因可能有多种，常见的是用户名已经存在。
