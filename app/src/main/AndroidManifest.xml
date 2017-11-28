@@ -73,17 +73,17 @@
             android:theme="@style/BaseAppTheme" />
 
         <activity
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:name=".RegisterActivity"
             android:theme="@style/BaseAppTheme" />
 
         <activity
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:name=".RegisterActivity2"
             android:theme="@style/BaseAppTheme" />
 
         <activity
-            android:launchMode="singleTop"
+            android:launchMode="singleTask"
             android:name=".LoginActivity"
             android:theme="@style/BaseAppTheme" />
 

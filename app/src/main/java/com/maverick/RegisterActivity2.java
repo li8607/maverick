@@ -23,6 +23,7 @@ import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SignUpCallback;
+import com.maverick.leancloud.User;
 
 public class RegisterActivity2 extends AppCompatActivity {
     private AutoCompleteTextView mUsernameView;
@@ -124,12 +125,14 @@ public class RegisterActivity2 extends AppCompatActivity {
             AVUser user = new AVUser();// 新建 AVUser 对象实例
             user.setUsername(username);// 设置用户名
             user.setPassword(password);// 设置密码
+//            user.add(User.nickname, user.hashCode() + "");
+            user.put(User.nickname, user.hashCode() + "");
             user.signUpInBackground(new SignUpCallback() {
                 @Override
                 public void done(AVException e) {
                     if (e == null) {
                         // 注册成功，把用户对象赋值给当前用户 AVUser.getCurrentUser()
-                        startActivity(new Intent(RegisterActivity2.this, MainActivity2.class));
+                        setResult(1);
                         RegisterActivity2.this.finish();
                     } else {
                         // 失败的原因可能有多种，常见的是用户名已经存在。

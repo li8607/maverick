@@ -15,14 +15,9 @@ import com.maverick.fragment.BaseEditFragment;
 import com.maverick.fragment.BrowsingHistoryFragment;
 import com.maverick.fragment.CollectFragment;
 import com.maverick.global.Tag;
-import com.maverick.model.CollectModel;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.type.FragmentType;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import cntv.greendaolibrary.dbbean.Collect;
+import com.maverick.type.MyType;
 
 /**
  * Created by limingfei on 2017/9/29.
@@ -115,13 +110,13 @@ public class DataBankActivity extends BaseActivity implements View.OnClickListen
 
         BaseEditFragment baseEditFragment = null;
 
-        if (TextUtils.equals(myInfo.getType(), "0")) {
+        if (myInfo.getType() == MyType.HISTORY) {
             //浏览记录
             baseEditFragment = BrowsingHistoryFragment.newInstance();
             if (!TextUtils.isEmpty(myInfo.getTitle())) {
                 title.setText(myInfo.getTitle());
             }
-        } else if (TextUtils.equals(myInfo.getType(), "1")) {
+        } else if (myInfo.getType() == MyType.COLLECT) {
             CollectTabInfo collectTabInfo = new CollectTabInfo();
             collectTabInfo.setType(FragmentType.COLLECT);
             CollectFragment collectFragment = CollectFragment.newInstance(collectTabInfo);

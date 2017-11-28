@@ -67,7 +67,8 @@ public class LoginActivity extends AppCompatActivity {
         user_btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                RegisterActivity2.launch(LoginActivity.this);
+                Intent intent = new Intent(LoginActivity.this, RegisterActivity2.class);
+                startActivityForResult(intent, 0);
             }
         });
 
@@ -128,14 +129,23 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void done(AVUser avUser, AVException e) {
                     if (e == null) {
+                        setResult(1);
                         LoginActivity.this.finish();
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     } else {
                         showProgress(false);
                         Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == 1) {
+            setResult(resultCode);
+            finish();
         }
     }
 

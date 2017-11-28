@@ -9,7 +9,7 @@ public class MyInfo implements Serializable{
 
     private String title;
     private int icon;
-    private String type;  //0 浏览记录，1 收藏， 2 设置
+    private int type;  //0 浏览记录，1 收藏， 2 设置
 
     public String getTitle() {
         return title;
@@ -27,11 +27,11 @@ public class MyInfo implements Serializable{
         this.icon = icon;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(int type) {
         this.type = type;
     }
 }

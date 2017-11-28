@@ -1,21 +1,23 @@
 package com.maverick.fragment;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVUser;
 import com.maverick.DataBankActivity;
 import com.maverick.LoginActivity;
 import com.maverick.R;
-import com.maverick.RegisterActivity2;
 import com.maverick.adapter.MyFragmentAdapter;
 import com.maverick.base.BaseFragment2;
 import com.maverick.bean.MyInfo;
+import com.maverick.leancloud.User;
 import com.maverick.presenter.BasePresenter;
+import com.maverick.type.MyType;
 import com.maverick.util.DensityUtil;
 
 import java.util.ArrayList;
@@ -27,6 +29,8 @@ import java.util.List;
 public class MyFragment extends BaseFragment2 {
 
     private RecyclerView recyclerView;
+    private List<MyInfo> mList;
+    private MyFragmentAdapter mMyFragmentAdapter;
 
     public static MyFragment newInstance() {
         MyFragment fragment = new MyFragment();
@@ -67,29 +71,66 @@ public class MyFragment extends BaseFragment2 {
 
     @Override
     protected void onInitData(Bundle savedInstanceState) {
-        List<MyInfo> list = new ArrayList<>();
-        list.add(getMyInfo("浏览记录", R.drawable.ic_menu_gallery, "0"));
-        list.add(getMyInfo("收藏", R.drawable.ic_menu_camera, "1"));
-        list.add(getMyInfo("登录/注册", R.drawable.ic_menu_send, "2"));
-        MyFragmentAdapter mMyFragmentAdapter = new MyFragmentAdapter(getContext(), list);
+        mList = new ArrayList<>();
+
+        if (AVUser.getCurrentUser() != null) {
+            mList.add(getMyInfo(AVUser.getCurrentUser().getUsername(), R.drawable.ic_menu_send, MyType.USER));
+        } else {
+            mList.add(getMyInfo("登录/注册", R.drawable.ic_menu_send, MyType.LOGIN_REGISTER));
+        }
+        mList.add(getMyInfo("浏览记录", R.drawable.ic_menu_gallery, MyType.HISTORY));
+        mList.add(getMyInfo("收藏", R.drawable.ic_menu_camera, MyType.COLLECT));
+        mMyFragmentAdapter = new MyFragmentAdapter(getContext(), mList);
         recyclerView.setAdapter(mMyFragmentAdapter);
 
         mMyFragmentAdapter.setOnItemClickListener(new MyFragmentAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, MyInfo myInfo) {
                 Toast.makeText(getContext(), myInfo.getTitle(), Toast.LENGTH_SHORT).show();
-                if (TextUtils.equals(myInfo.getType(), "0")) {
+                if (myInfo.getType() == MyType.HISTORY || myInfo.getType() == MyType.COLLECT) {
+
+                    if (AVUser.getCurrentUser() == null) {
+                        if (getContext() == null) {
+                            return;
+                        }
+                        Intent intent = new Intent(getContext(), LoginActivity.class);
+                        startActivityForResult(intent, 0);
+                        return;
+                    }
+
                     DataBankActivity.launch(getContext(), myInfo);
-                } else if (TextUtils.equals(myInfo.getType(), "1")) {
-                    DataBankActivity.launch(getContext(), myInfo);
-                } else if (TextUtils.equals(myInfo.getType(), "2")) {
-                    LoginActivity.launch(getContext());
+                } else if (myInfo.getType() == MyType.LOGIN_REGISTER) {
+                    if (getContext() == null) {
+                        return;
+                    }
+                    Intent intent = new Intent(getContext(), LoginActivity.class);
+                    startActivityForResult(intent, 0);
                 }
             }
         });
     }
 
-    private MyInfo getMyInfo(String title, int icon, String type) {
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 0 && resultCode == 1) {
+            //登录成功
+            if (mList != null && mList.size() > 0) {
+                for (int i = 0; i < mList.size(); i++) {
+                    if (mList.get(i).getType() == MyType.LOGIN_REGISTER) {
+                        mList.get(i).setType(MyType.USER);
+                        if (AVUser.getCurrentUser() != null) {
+                            mList.get(i).setTitle(AVUser.getCurrentUser().getString(User.nickname));
+                            mMyFragmentAdapter.notifyItemChanged(i);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    private MyInfo getMyInfo(String title, int icon, int type) {
         MyInfo myInfo = new MyInfo();
         myInfo.setTitle(title);
         myInfo.setIcon(icon);
