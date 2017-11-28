@@ -6,5 +6,6 @@ package com.maverick.leancloud;
 public class User {
 
     public static final String nickname = "nickname";
+    public static final String headUrl = "headUrl";
 
 }

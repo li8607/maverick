@@ -73,18 +73,22 @@
             android:theme="@style/BaseAppTheme" />
 
         <activity
-            android:launchMode="singleTask"
             android:name=".RegisterActivity"
+            android:launchMode="singleTask"
             android:theme="@style/BaseAppTheme" />
 
         <activity
-            android:launchMode="singleTask"
             android:name=".RegisterActivity2"
+            android:launchMode="singleTask"
             android:theme="@style/BaseAppTheme" />
 
         <activity
-            android:launchMode="singleTask"
             android:name=".LoginActivity"
+            android:launchMode="singleTask"
+            android:theme="@style/BaseAppTheme" />
+
+        <activity
+            android:name=".UserDetailActivity"
             android:theme="@style/BaseAppTheme" />
 
         <!--微信-->

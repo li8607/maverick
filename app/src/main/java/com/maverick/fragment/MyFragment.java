@@ -12,6 +12,7 @@ import com.avos.avoscloud.AVUser;
 import com.maverick.DataBankActivity;
 import com.maverick.LoginActivity;
 import com.maverick.R;
+import com.maverick.UserDetailActivity;
 import com.maverick.adapter.MyFragmentAdapter;
 import com.maverick.base.BaseFragment2;
 import com.maverick.bean.MyInfo;
@@ -74,7 +75,7 @@ public class MyFragment extends BaseFragment2 {
         mList = new ArrayList<>();
 
         if (AVUser.getCurrentUser() != null) {
-            mList.add(getMyInfo(AVUser.getCurrentUser().getUsername(), R.drawable.ic_menu_send, MyType.USER));
+            mList.add(getMyInfo(AVUser.getCurrentUser().getString(User.nickname), R.drawable.ic_menu_send, MyType.USER));
         } else {
             mList.add(getMyInfo("登录/注册", R.drawable.ic_menu_send, MyType.LOGIN_REGISTER));
         }
@@ -105,6 +106,12 @@ public class MyFragment extends BaseFragment2 {
                     }
                     Intent intent = new Intent(getContext(), LoginActivity.class);
                     startActivityForResult(intent, 0);
+                } else if (myInfo.getType() == MyType.USER) {
+                    if (getContext() == null) {
+                        return;
+                    }
+                    Intent intent = new Intent(getContext(), UserDetailActivity.class);
+                    startActivityForResult(intent, 1);
                 }
             }
         });
@@ -123,6 +130,18 @@ public class MyFragment extends BaseFragment2 {
                             mList.get(i).setTitle(AVUser.getCurrentUser().getString(User.nickname));
                             mMyFragmentAdapter.notifyItemChanged(i);
                         }
+                        break;
+                    }
+                }
+            }
+        } else if (requestCode == 1 && requestCode == 1) {
+            //退出登录
+            if (mList != null && mList.size() > 0) {
+                for (int i = 0; i < mList.size(); i++) {
+                    if (mList.get(i).getType() == MyType.USER) {
+                        mList.get(i).setType(MyType.LOGIN_REGISTER);
+                        mList.get(i).setTitle("登录/注册");
+                        mMyFragmentAdapter.notifyItemChanged(i);
                         break;
                     }
                 }
