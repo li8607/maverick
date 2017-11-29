@@ -146,4 +146,27 @@ public class UserDetailActivity extends BaseActivity {
             }
         });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 0 && resultCode == UserType.NICKNAME) {
+            setResult(UserType.NICKNAME);
+        }
+
+        if (requestCode == 0 && mList != null && AVUser.getCurrentUser() != null && mAdapter != null) {
+            for (int i = 0; i < mList.size(); i++) {
+                UserItemInfo userItemInfo = mList.get(i);
+                if (userItemInfo.getType() == resultCode) {
+                    userItemInfo.setEmail(AVUser.getCurrentUser().getEmail());
+                    userItemInfo.setMobilePhoneNumber(AVUser.getCurrentUser().getMobilePhoneNumber());
+                    userItemInfo.setUsername(AVUser.getCurrentUser().getUsername());
+                    userItemInfo.setHeadUrl((String) AVUser.getCurrentUser().get(User.headUrl));
+                    userItemInfo.setNickname((String) AVUser.getCurrentUser().get(User.nickname));
+                    mAdapter.notifyItemChanged(i);
+                }
+            }
+        }
+    }
 }

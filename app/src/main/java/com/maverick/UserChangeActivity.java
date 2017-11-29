@@ -1,18 +1,21 @@
 package com.maverick;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.RequestEmailVerifyCallback;
+import com.avos.avoscloud.RequestMobileCodeCallback;
 import com.avos.avoscloud.SignUpCallback;
 import com.maverick.base.BaseActivity;
 import com.maverick.bean.UserItemInfo;
@@ -34,6 +37,7 @@ public class UserChangeActivity extends BaseActivity {
     private View edit_root;
     private View save_btn;
     private UserItemInfo mInfo;
+    private Button send_btn;
 
     @Override
     protected BasePresenter onCreatePresenter() {
@@ -61,10 +65,9 @@ public class UserChangeActivity extends BaseActivity {
         edit_root = findView(R.id.edit_root);
         editText = findView(R.id.editText);
         text = findView(R.id.text);
+        send_btn = findView(R.id.send_btn);
 
         save_btn = findView(R.id.save_btn);
-//        save_btn.setAlpha(0.5f);
-//        save_btn.setClickable(false);
 
         save_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,32 +77,134 @@ public class UserChangeActivity extends BaseActivity {
                     return;
                 }
 
-                String text = editText.getText().toString().trim();
+                final ProgressDialog mProgressDialog = new ProgressDialog(UserChangeActivity.this);
+                mProgressDialog.show();
+
+                final String text = editText.getText().toString().trim();
 
                 switch (mInfo.getType()) {
                     case UserType.NICKNAME:
+                        AVUser.getCurrentUser().put(User.nickname, text);
+                        AVUser.getCurrentUser().signUpInBackground(new SignUpCallback() {
+                            @Override
+                            public void done(AVException e) {
+                                mProgressDialog.dismiss();
+                                if (e == null) {
+                                    setResult(mInfo.getType());
+                                    finish();
+                                } else {
+                                    if (!TextUtils.isEmpty(e.getMessage())) {
+                                        Toast.makeText(UserChangeActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(UserChangeActivity.this, "更改昵称失败！", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+                        });
+
                         break;
                     case UserType.USERNAME:
+                        AVUser.getCurrentUser().setUsername(text);
+                        AVUser.getCurrentUser().signUpInBackground(new SignUpCallback() {
+                            @Override
+                            public void done(AVException e) {
+                                mProgressDialog.dismiss();
+                                if (e == null) {
+                                    setResult(mInfo.getType());
+                                    finish();
+                                } else {
+                                    if (!TextUtils.isEmpty(e.getMessage())) {
+                                        Toast.makeText(UserChangeActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(UserChangeActivity.this, "更改用户名失败！", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+                        });
                         break;
                     case UserType.EMAIL:
                         AVUser.getCurrentUser().setEmail(text);
                         AVUser.getCurrentUser().signUpInBackground(new SignUpCallback() {
                             @Override
                             public void done(AVException e) {
+                                mProgressDialog.dismiss();
+                                if (e == null) {
+                                    AVUser.getCurrentUser().requestEmailVerify(text); //认证
+                                    AVUser.getCurrentUser().put(User.emailVerified, false);
 
-                                if (e != null) {
-                                    Log.e("lmf", "e = " + e.toString());
+                                    setResult(mInfo.getType());
+                                    finish();
                                 } else {
+                                    if (!TextUtils.isEmpty(e.getMessage())) {
+                                        Toast.makeText(UserChangeActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(UserChangeActivity.this, "更改邮箱失败！", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+                        });
 
+                        break;
+                    case UserType.MOBILEPHONENUMBER:
+                        AVUser.getCurrentUser().setMobilePhoneNumber(text);
+                        AVUser.getCurrentUser().signUpInBackground(new SignUpCallback() {
+                            @Override
+                            public void done(AVException e) {
+                                mProgressDialog.dismiss();
+                                if (e == null) {
+                                    setResult(mInfo.getType());
+                                    AVUser.getCurrentUser().requestMobilePhoneVerifyInBackground(text, new RequestMobileCodeCallback() {
+                                        @Override
+                                        public void done(AVException e) {
+                                            if (e != null) {
+                                                Toast.makeText(UserChangeActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                            } else {
+                                                Toast.makeText(UserChangeActivity.this, "验证手机号成功！", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                                } else {
+                                    if (!TextUtils.isEmpty(e.getMessage())) {
+                                        Toast.makeText(UserChangeActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(UserChangeActivity.this, "更改手机号失败！", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             }
                         });
                         break;
-                    case UserType.MOBILEPHONENUMBER:
-                        break;
                     case UserType.HEAD:
                         break;
                 }
+            }
+        });
+
+        send_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (AVUser.getCurrentUser() == null || TextUtils.isEmpty(editText.getText())) {
+                    return;
+                }
+
+                AVUser.getCurrentUser().requestEmailVerifyInBackground(editText.getText().toString().trim(), new RequestEmailVerifyCallback() {
+                    @Override
+                    public void done(AVException e) {
+                        if (e == null) {
+                            Toast.makeText(UserChangeActivity.this, "发送成功", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(UserChangeActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+
+        save_btn.post(new Runnable() {
+            @Override
+            public void run() {
+                save_btn.setAlpha(0.5f);
+                save_btn.setEnabled(false);
             }
         });
 
@@ -116,10 +221,8 @@ public class UserChangeActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (!save_btn.isClickable()) {
-                    save_btn.setAlpha(1.0f);
-                    save_btn.setClickable(true);
-                }
+                save_btn.setAlpha(1.0f);
+                save_btn.setEnabled(true);
             }
         });
     }
@@ -157,12 +260,20 @@ public class UserChangeActivity extends BaseActivity {
                 setSupportActionBarTitle((TextUtils.isEmpty(mInfo.getEmail()) ? "设置" : "更改") + mInfo.getTitle());
                 setEditText(mInfo.getEmail());
                 setText("邮箱是账号的辅助凭证。");
+                if (AVUser.getCurrentUser() != null && !TextUtils.isEmpty(mInfo.getEmail())) {
+                    send_btn.setVisibility(AVUser.getCurrentUser().getBoolean(User.emailVerified) ? View.GONE : View.VISIBLE);
+                    send_btn.setText("认证邮箱");
+                }
                 break;
             case UserType.MOBILEPHONENUMBER:
                 edit_root.setVisibility(View.VISIBLE);
                 setSupportActionBarTitle((TextUtils.isEmpty(mInfo.getMobilePhoneNumber()) ? "设置" : "更改") + mInfo.getTitle());
-                setEditText(mInfo.getEmail());
+                setEditText(mInfo.getMobilePhoneNumber());
                 setText("手机号是账号的辅助凭证。");
+                if (AVUser.getCurrentUser() != null && !TextUtils.isEmpty(mInfo.getMobilePhoneNumber())) {
+                    send_btn.setVisibility(AVUser.getCurrentUser().isMobilePhoneVerified() ? View.GONE : View.VISIBLE);
+                    send_btn.setText("认证手机号");
+                }
                 break;
             case UserType.HEAD:
                 edit_root.setVisibility(View.GONE);

@@ -19,6 +19,7 @@ import com.maverick.bean.MyInfo;
 import com.maverick.leancloud.User;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.type.MyType;
+import com.maverick.type.UserType;
 import com.maverick.util.DensityUtil;
 
 import java.util.ArrayList;
@@ -142,6 +143,20 @@ public class MyFragment extends BaseFragment2 {
                         mList.get(i).setType(MyType.LOGIN_REGISTER);
                         mList.get(i).setTitle("登录/注册");
                         mMyFragmentAdapter.notifyItemChanged(i);
+                        break;
+                    }
+                }
+            }
+        } else if (requestCode == 1 && resultCode == UserType.NICKNAME) {
+            //昵称改变
+            if (mList != null && mList.size() > 0) {
+                for (int i = 0; i < mList.size(); i++) {
+                    if (mList.get(i).getType() == MyType.LOGIN_REGISTER || mList.get(i).getType() == MyType.USER) {
+                        mList.get(i).setType(MyType.USER);
+                        if (AVUser.getCurrentUser() != null) {
+                            mList.get(i).setTitle(AVUser.getCurrentUser().getString(User.nickname));
+                            mMyFragmentAdapter.notifyItemChanged(i);
+                        }
                         break;
                     }
                 }
