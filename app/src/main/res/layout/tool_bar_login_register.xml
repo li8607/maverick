@@ -4,15 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="horizontal">
 
-    <TextView
+    <ImageView
         android:id="@+id/user_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/y22"
+        android:layout_height="@dimen/y22"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:text="返回"
-        android:textColor="@color/user_color"
-        android:textSize="@dimen/y13"></TextView>
+        android:paddingTop="@dimen/y5"
+        android:paddingBottom="@dimen/y5"
+        android:scaleType="fitStart"
+        android:src="@mipmap/toolbar_left_arrow_gray"></ImageView>
 
     <TextView
         android:id="@+id/user_btn"

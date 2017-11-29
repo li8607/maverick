@@ -1,9 +1,11 @@
 package com.maverick;
 
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.avos.avoscloud.AVUser;
@@ -39,6 +41,19 @@ public class UserDetailActivity extends BaseActivity {
 
     @Override
     protected void onInitView() {
+
+        Toolbar toolbar = findView(R.id.toolbar_actionbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle("个人信息");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
         mRecyclerView = findView(R.id.recyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(linearLayoutManager);
@@ -117,6 +132,16 @@ public class UserDetailActivity extends BaseActivity {
                     AVUser.logOut();
                     setResult(1);
                     finish();
+                } else if (mList.get(position).getType() == UserType.HEAD) {
+
+                } else if (mList.get(position).getType() == UserType.NICKNAME
+                        || mList.get(position).getType() == UserType.USERNAME
+                        || mList.get(position).getType() == UserType.EMAIL
+                        || mList.get(position).getType() == UserType.MOBILEPHONENUMBER) {
+
+                    Intent intent = new Intent(UserDetailActivity.this, UserChangeActivity.class);
+                    intent.putExtra(UserChangeActivity.USERITEMINFO, mList.get(position));
+                    startActivityForResult(intent, 0);
                 }
             }
         });

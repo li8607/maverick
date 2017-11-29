@@ -125,6 +125,7 @@ public class RegisterActivity2 extends AppCompatActivity {
             AVUser user = new AVUser();// 新建 AVUser 对象实例
             user.setUsername(username);// 设置用户名
             user.setPassword(password);// 设置密码
+//            user.setEmail("maverick_8090@163.com");// 设置密码
 //            user.add(User.nickname, user.hashCode() + "");
             user.put(User.nickname, user.hashCode() + "");
             user.signUpInBackground(new SignUpCallback() {

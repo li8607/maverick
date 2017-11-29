@@ -134,7 +134,7 @@ public class MyFragment extends BaseFragment2 {
                     }
                 }
             }
-        } else if (requestCode == 1 && requestCode == 1) {
+        } else if (requestCode == 1 && resultCode == 1) {
             //退出登录
             if (mList != null && mList.size() > 0) {
                 for (int i = 0; i < mList.size(); i++) {
