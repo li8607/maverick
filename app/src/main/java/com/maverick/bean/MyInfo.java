@@ -8,6 +8,9 @@ import java.io.Serializable;
 public class MyInfo implements Serializable{
 
     private String title;
+    private String nickname;
+    private String headUrl;
+    private String username;
     private int icon;
     private int type;  //0 浏览记录，1 收藏， 2 设置
 
@@ -33,5 +36,29 @@ public class MyInfo implements Serializable{
 
     public void setType(int type) {
         this.type = type;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    public String getHeadUrl() {
+        return headUrl;
+    }
+
+    public void setHeadUrl(String headUrl) {
+        this.headUrl = headUrl;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

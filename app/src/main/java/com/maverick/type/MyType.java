@@ -8,4 +8,5 @@ public class MyType {
     public static final int COLLECT = 2;
     public static final int HISTORY = 3;
     public static final int USER = 4;
+    public static final int SETTING = 5;
 }

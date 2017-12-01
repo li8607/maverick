@@ -1,7 +1,6 @@
 package com.maverick;
 
 import android.app.ProgressDialog;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -181,6 +180,9 @@ public class UserChangeActivity extends BaseActivity {
 
     public void setEditText(String text) {
         editText.setText(TextUtils.isEmpty(text) ? "" : text);
+        if (!TextUtils.isEmpty(text)) {
+            editText.setSelection(text.length());
+        }
     }
 
     public void setText(String text) {
@@ -204,7 +206,7 @@ public class UserChangeActivity extends BaseActivity {
         return true;
     }
 
-    public IconicsDrawable getToolbarIcon(IIcon icon){
+    public IconicsDrawable getToolbarIcon(IIcon icon) {
         return new ThemeHelper(getApplicationContext()).getToolbarIcon(icon);
     }
 

@@ -5,11 +5,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.avos.avoscloud.AVUser;
 import com.maverick.R;
+import com.maverick.adapter.holder.MyItemViewHolder;
+import com.maverick.adapter.holder.MyUserViewHolder;
 import com.maverick.bean.MyInfo;
+import com.maverick.leancloud.User;
+import com.maverick.type.MyType;
+import com.maverick.util.GlideUtil;
 
 import java.util.List;
 
@@ -20,23 +24,59 @@ public class MyFragmentAdapter extends RecyclerView.Adapter {
 
     private Context mContext;
     private List<MyInfo> mList;
+    private final LayoutInflater mLayoutInflater;
 
     public MyFragmentAdapter(Context context, List<MyInfo> list) {
         this.mContext = context;
         this.mList = list;
+        mLayoutInflater = LayoutInflater.from(context);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_my, parent, false);
-        return new MyViewHolder(view);
+        RecyclerView.ViewHolder holder;
+        switch (viewType) {
+            case MyType.USER:
+                holder = new MyUserViewHolder(mLayoutInflater.inflate(R.layout.item_my_user, parent, false));
+                break;
+            default:
+                holder = new MyItemViewHolder(mLayoutInflater.inflate(R.layout.item_my, parent, false));
+                break;
+        }
+
+        return holder;
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        MyViewHolder myViewHolder = (MyViewHolder) holder;
-        myViewHolder.bindData(mList.get(position));
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+
+        if (holder instanceof MyItemViewHolder) {
+            MyItemViewHolder myItemViewHolder = (MyItemViewHolder) holder;
+            myItemViewHolder.imageView.setImageResource(mList.get(position).getIcon());
+            myItemViewHolder.title.setText(mList.get(position).getTitle());
+            myItemViewHolder.line.setVisibility(getItemViewType(position) == MyType.HISTORY ? View.VISIBLE : View.INVISIBLE);
+        } else if (holder instanceof MyUserViewHolder) {
+            MyUserViewHolder myUserViewHolder = (MyUserViewHolder) holder;
+            if (AVUser.getCurrentUser() != null) {
+                GlideUtil.loadImage(mContext, (String) AVUser.getCurrentUser().get(User.headUrl), myUserViewHolder.imageView);
+                myUserViewHolder.nickname.setText((String) AVUser.getCurrentUser().get(User.nickname));
+                myUserViewHolder.username.setText("账号：" + AVUser.getCurrentUser().getUsername());
+            }
+        }
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnItemClickListener != null) {
+                    mOnItemClickListener.onItemClick(position, mList.get(position));
+                }
+            }
+        });
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return mList.get(position).getType();
     }
 
     @Override
@@ -48,35 +88,6 @@ public class MyFragmentAdapter extends RecyclerView.Adapter {
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.mOnItemClickListener = listener;
-    }
-
-    public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-        private final ImageView imageView;
-        private final TextView title;
-        private MyInfo mMyInfo;
-
-        public MyViewHolder(View itemView) {
-            super(itemView);
-            imageView = (ImageView) itemView.findViewById(R.id.image);
-            title = (TextView) itemView.findViewById(R.id.title);
-            itemView.setOnClickListener(this);
-        }
-
-        public void bindData(MyInfo myInfo) {
-            this.mMyInfo = myInfo;
-            imageView.setImageResource(myInfo.getIcon());
-            title.setText(myInfo.getTitle());
-        }
-
-        @Override
-        public void onClick(View v) {
-            if (mMyInfo == null || mOnItemClickListener == null) {
-                return;
-            }
-
-            mOnItemClickListener.onItemClick(getAdapterPosition(), mMyInfo);
-        }
     }
 
     public interface OnItemClickListener {

@@ -75,16 +75,19 @@
 
         <activity
             android:name=".RegisterActivity"
+            android:windowSoftInputMode="stateHidden"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.WindowTranslucentStatus" />
 
         <activity
             android:name=".RegisterActivity2"
+            android:windowSoftInputMode="stateHidden"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.WindowTranslucentStatus" />
 
         <activity
             android:name=".LoginActivity"
+            android:windowSoftInputMode="stateHidden"
             android:launchMode="singleTask"
             android:theme="@style/AppTheme.WindowTranslucentStatus" />
 
@@ -94,6 +97,7 @@
 
         <activity
             android:name=".UserChangeActivity"
+            android:windowSoftInputMode="stateHidden"
             android:theme="@style/BaseAppTheme" />
 
         <!--微信-->

@@ -20,7 +20,6 @@ import com.maverick.leancloud.User;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.type.MyType;
 import com.maverick.type.UserType;
-import com.maverick.util.DensityUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,15 +57,17 @@ public class MyFragment extends BaseFragment2 {
         recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-
                 int position = parent.getChildAdapterPosition(view);
 
                 if (position == 0) {
-                    outRect.top = DensityUtil.dip2px(getContext(), 100);
-                } else {
-                    outRect.top = DensityUtil.dip2px(getContext(), 10);
+                    outRect.top = getResources().getDimensionPixelOffset(R.dimen.y12);
                 }
-                outRect.bottom = DensityUtil.dip2px(getContext(), 10);
+
+                if (mList.get(position).getType() == MyType.LOGIN_REGISTER
+                        || mList.get(position).getType() == MyType.USER
+                        || mList.get(position).getType() == MyType.COLLECT) {
+                    outRect.bottom = getResources().getDimensionPixelOffset(R.dimen.y12);
+                }
             }
         });
     }
@@ -82,6 +83,7 @@ public class MyFragment extends BaseFragment2 {
         }
         mList.add(getMyInfo("浏览记录", R.drawable.ic_menu_gallery, MyType.HISTORY));
         mList.add(getMyInfo("收藏", R.drawable.ic_menu_camera, MyType.COLLECT));
+        mList.add(getMyInfo("设置", R.drawable.ic_menu_camera, MyType.SETTING));
         mMyFragmentAdapter = new MyFragmentAdapter(getContext(), mList);
         recyclerView.setAdapter(mMyFragmentAdapter);
 
@@ -127,10 +129,7 @@ public class MyFragment extends BaseFragment2 {
                 for (int i = 0; i < mList.size(); i++) {
                     if (mList.get(i).getType() == MyType.LOGIN_REGISTER) {
                         mList.get(i).setType(MyType.USER);
-                        if (AVUser.getCurrentUser() != null) {
-                            mList.get(i).setTitle(AVUser.getCurrentUser().getString(User.nickname));
-                            mMyFragmentAdapter.notifyItemChanged(i);
-                        }
+                        mMyFragmentAdapter.notifyItemChanged(i);
                         break;
                     }
                 }
@@ -153,10 +152,7 @@ public class MyFragment extends BaseFragment2 {
                 for (int i = 0; i < mList.size(); i++) {
                     if (mList.get(i).getType() == MyType.LOGIN_REGISTER || mList.get(i).getType() == MyType.USER) {
                         mList.get(i).setType(MyType.USER);
-                        if (AVUser.getCurrentUser() != null) {
-                            mList.get(i).setTitle(AVUser.getCurrentUser().getString(User.nickname));
-                            mMyFragmentAdapter.notifyItemChanged(i);
-                        }
+                        mMyFragmentAdapter.notifyItemChanged(i);
                         break;
                     }
                 }
