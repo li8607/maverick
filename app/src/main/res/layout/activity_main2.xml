@@ -6,8 +6,8 @@
     android:clipToPadding="true">
 
     <include
-        android:id="@+id/toolbar_root"
-        layout="@layout/tool_bar_layout" />
+        android:id="@+id/toolbar_actionbar"
+        layout="@layout/toolbar_default" />
 
     <include layout="@layout/content_main2" />
 

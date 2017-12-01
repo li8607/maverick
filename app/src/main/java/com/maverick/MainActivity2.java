@@ -7,8 +7,11 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -32,7 +35,7 @@ public class MainActivity2 extends BaseActivity {
     private RadioGroup radio_group;
     private RadioButton radio_0, radio_1, radio_2, radio_3, radio_4;
     private BaseFragment2 fragment_0, fragment_1, fragment_2, fragment_3, fragment_4;
-    private TextView title;
+    private TextView mTitle;
 
     @Override
     protected com.maverick.presenter.BasePresenter onCreatePresenter() {
@@ -46,6 +49,15 @@ public class MainActivity2 extends BaseActivity {
 
     @Override
     protected void onInitView() {
+
+        Toolbar toolbar = findView(R.id.toolbar_actionbar);
+        mTitle = new TextView(this);
+        Toolbar.LayoutParams mTitleLP = new Toolbar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mTitleLP.gravity = Gravity.CENTER;
+        mTitle.setVisibility(View.GONE);
+        toolbar.addView(mTitle, mTitleLP);
+        setSupportActionBar(toolbar);
+
         radio_group = findView(R.id.radio_group);
 
         radio_0 = findView(R.id.radio_0);
@@ -53,9 +65,6 @@ public class MainActivity2 extends BaseActivity {
         radio_2 = findView(R.id.radio_2);
         radio_3 = findView(R.id.radio_3);
         radio_4 = findView(R.id.radio_4);
-
-        title = (TextView) findViewById(R.id.title);
-        title.setVisibility(View.VISIBLE);
 
         radio_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -66,35 +75,35 @@ public class MainActivity2 extends BaseActivity {
                             fragment_0 = FragmentFactory.getMainFragment((ButtonInfo) radio_0.getTag());
                         }
                         switchFragment(fragment_0);
-                        title.setText(radio_0.getText());
+                        setSupportActionBarTitle(radio_0.getText());
                         break;
                     case R.id.radio_1:
                         if (fragment_1 == null) {
                             fragment_1 = FragmentFactory.getMainFragment((ButtonInfo) radio_1.getTag());
                         }
                         switchFragment(fragment_1);
-                        title.setText(radio_1.getText());
+                        setSupportActionBarTitle(radio_1.getText());
                         break;
                     case R.id.radio_2:
                         if (fragment_2 == null) {
                             fragment_2 = FragmentFactory.getMainFragment((ButtonInfo) radio_2.getTag());
                         }
                         switchFragment(fragment_2);
-                        title.setText(radio_2.getText());
+                        setSupportActionBarTitle(radio_2.getText());
                         break;
                     case R.id.radio_3:
                         if (fragment_3 == null) {
                             fragment_3 = FragmentFactory.getMainFragment((ButtonInfo) radio_3.getTag());
                         }
                         switchFragment(fragment_3);
-                        title.setText(radio_3.getText());
+                        setSupportActionBarTitle(radio_3.getText());
                         break;
                     case R.id.radio_4:
                         if (fragment_4 == null) {
                             fragment_4 = FragmentFactory.getMainFragment((ButtonInfo) radio_4.getTag());
                         }
                         switchFragment(fragment_4);
-                        title.setText(radio_4.getText());
+                        setSupportActionBarTitle(radio_4.getText());
                         break;
 
                 }
@@ -107,6 +116,16 @@ public class MainActivity2 extends BaseActivity {
                 requestPermissions(mPermissionList, 123);
             }
         }
+    }
+
+    public void setSupportActionBarTitle(CharSequence title) {
+        if (getSupportActionBar() == null || TextUtils.isEmpty(title)) {
+            return;
+        }
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle("");
+        mTitle.setText(title);
+        mTitle.setVisibility(View.VISIBLE);
     }
 
     @Override

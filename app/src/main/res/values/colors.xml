@@ -9,6 +9,7 @@
     <color name="textColorPrimary">#FFFFFF</color>
     <color name="windowBackground">#FFFFFF</color>
     <color name="colorControlNormal">#FFFFFF</color>
+    <color name="colorButtonNormal">#FFFFFF</color>
 
 
     <color name="colorBackground">#333333</color>

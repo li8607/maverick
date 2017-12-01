@@ -5,27 +5,17 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar xmlns:toolbar="http://schemas.android.com/apk/res-auto"
+    <!--<android.support.v7.widget.Toolbar-->
+    <!--android:id="@+id/toolbar_actionbar"-->
+    <!--style="@style/MyToolbar"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="?attr/actionBarSize"-->
+    <!--android:background="?attr/colorPrimary">-->
+    <!--</android.support.v7.widget.Toolbar>-->
+
+    <include
         android:id="@+id/toolbar_actionbar"
-        style="@style/BaseToolBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
-        toolbar:titleTextColor="@color/colorWhite">
-
-        <Button
-            android:id="@+id/save_btn"
-            android:layout_width="@dimen/x40"
-            android:layout_height="@dimen/y18"
-            android:layout_gravity="right"
-            android:layout_marginRight="@dimen/y5"
-            android:background="@drawable/user_save_btn_shape"
-            android:text="保存"
-            android:textColor="@color/user_text_color"
-            android:textSize="@dimen/y9" />
-
-
-    </android.support.v7.widget.Toolbar>
+        layout="@layout/toolbar_default" />
 
     <LinearLayout
         android:id="@+id/edit_root"
@@ -39,15 +29,14 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y25">
+            android:layout_height="wrap_content">
 
             <EditText
                 android:id="@+id/editText"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="bottom"
-                android:textColor="@color/user_text_color"
-                android:textSize="@dimen/x10" />
+                android:maxLines="1" />
 
             <Button
                 android:id="@+id/send_btn"
