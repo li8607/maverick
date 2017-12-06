@@ -22,6 +22,8 @@ public class History {
     private String historyItemType;  // 1.文本；2.图片；3.动图;
     @Property(nameInDb = "HISTORYTYPE")
     private String historyType;  // 1.笑话；2.美女
+    @Property(nameInDb = "USERID")
+    private String userId;  // 1.用户Id
     @Transient
     private boolean isCheck;  // 1.笑话；2.美女
     public String getHistoryType() {
@@ -62,15 +64,22 @@ public class History {
     public void setCheck(boolean check) {
         isCheck = check;
     }
+    public String getUserId() {
+        return this.userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
-    @Generated(hash = 410950379)
+    @Generated(hash = 1989617007)
     public History(String historyimage, String historyName, long historyTime,
-            String historyItemType, String historyType) {
+            String historyItemType, String historyType, String userId) {
         this.historyimage = historyimage;
         this.historyName = historyName;
         this.historyTime = historyTime;
         this.historyItemType = historyItemType;
         this.historyType = historyType;
+        this.userId = userId;
     }
     @Generated(hash = 869423138)
     public History() {

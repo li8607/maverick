@@ -17,6 +17,8 @@ public class SisterDingCai {
     private boolean ding;
     @Property(nameInDb = "CAI")
     private boolean cai;
+    @Property(nameInDb = "USERID")
+    private String userId;  // 1.用户Id
     public boolean getCai() {
         return this.cai;
     }
@@ -35,11 +37,18 @@ public class SisterDingCai {
     public void setDingCaiId(String dingCaiId) {
         this.dingCaiId = dingCaiId;
     }
-    @Generated(hash = 1854312202)
-    public SisterDingCai(String dingCaiId, boolean ding, boolean cai) {
+    public String getUserId() {
+        return this.userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+    @Generated(hash = 311804968)
+    public SisterDingCai(String dingCaiId, boolean ding, boolean cai, String userId) {
         this.dingCaiId = dingCaiId;
         this.ding = ding;
         this.cai = cai;
+        this.userId = userId;
     }
     @Generated(hash = 2097034887)
     public SisterDingCai() {
