@@ -21,6 +21,11 @@
         <!--<item name="colorControlNormal">@color/colorControlNormal</item>-->
     </style>
 
+    <style name="VideoDetailTheme" parent="BaseAppTheme">
+        <!--<item name="android:windowTranslucentStatus">true</item>-->
+        <!--<item name="android:windowTranslucentNavigation">false</item>-->
+    </style>
+
     <style name="BaseToolBar" parent="Widget.AppCompat.Toolbar">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

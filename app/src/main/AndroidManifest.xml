@@ -71,25 +71,25 @@
             android:name=".PearActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseAppTheme" />
+            android:theme="@style/VideoDetailTheme" />
 
         <activity
             android:name=".RegisterActivity"
-            android:windowSoftInputMode="stateHidden"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.WindowTranslucentStatus" />
+            android:theme="@style/AppTheme.WindowTranslucentStatus"
+            android:windowSoftInputMode="stateHidden" />
 
         <activity
             android:name=".RegisterActivity2"
-            android:windowSoftInputMode="stateHidden"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.WindowTranslucentStatus" />
+            android:theme="@style/AppTheme.WindowTranslucentStatus"
+            android:windowSoftInputMode="stateHidden" />
 
         <activity
             android:name=".LoginActivity"
-            android:windowSoftInputMode="stateHidden"
             android:launchMode="singleTask"
-            android:theme="@style/AppTheme.WindowTranslucentStatus" />
+            android:theme="@style/AppTheme.WindowTranslucentStatus"
+            android:windowSoftInputMode="stateHidden" />
 
         <activity
             android:name=".UserDetailActivity"
@@ -97,8 +97,8 @@
 
         <activity
             android:name=".UserChangeActivity"
-            android:windowSoftInputMode="stateHidden"
-            android:theme="@style/BaseAppTheme" />
+            android:theme="@style/BaseAppTheme"
+            android:windowSoftInputMode="stateHidden" />
 
         <!--微信-->
         <activity

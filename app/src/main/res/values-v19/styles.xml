@@ -32,4 +32,9 @@
         <item name="colorControlHighlight">#FFF</item>
     </style>
 
+    <style name="VideoDetailTheme" parent="BaseAppTheme">
+        <item name="android:windowTranslucentStatus">true</item>
+        <!--<item name="android:windowTranslucentNavigation">false</item>-->
+    </style>
+
 </resources>
