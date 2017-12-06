@@ -42,9 +42,6 @@ public class Collect implements Serializable {
     @Property(nameInDb = "COLLECTTYPE")
     private String collectType;  // 1.笑话；2.美女
 
-    @Property(nameInDb = "USERID")
-    private String userId;  // 1.用户Id
-
     private boolean check;
 
     public String getCollectType() {
@@ -135,19 +132,11 @@ public class Collect implements Serializable {
         this.collectId = collectId;
     }
 
-    public String getUserId() {
-        return this.userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    @Generated(hash = 1840685684)
+    @Generated(hash = 1460380355)
     public Collect(Long id, String collectImage, String collectName,
             String collectCT, String collectUrl, String collectUserId,
             long collectTime, String collectId, String collectItemType,
-            String collectType, String userId, boolean check) {
+            String collectType, boolean check) {
         this.id = id;
         this.collectImage = collectImage;
         this.collectName = collectName;
@@ -158,7 +147,6 @@ public class Collect implements Serializable {
         this.collectId = collectId;
         this.collectItemType = collectItemType;
         this.collectType = collectType;
-        this.userId = userId;
         this.check = check;
     }
 
