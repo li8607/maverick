@@ -18,6 +18,7 @@ import com.maverick.type.CollectType;
 import com.maverick.type.ShareType;
 
 import cntv.greendaolibrary.dbbean.Collect;
+import cntv.greendaolibrary.dbbean.History;
 
 /**
  * Created by limingfei on 2017/10/19.
@@ -125,6 +126,21 @@ public class BeanHelper {
         collect.setCollectTime(System.currentTimeMillis());
         collect.setCollectUserId(Tag.USER_ID);
         return collect;
+    }
+
+    public static History getHistory(PearVideoDetailBean info) {
+
+        if (info == null) {
+            return null;
+        }
+
+        History history = new History();
+        history.setHistoryimage(info.getPic());
+        history.setHistoryName(info.getName());
+        history.setHistoryTime(System.currentTimeMillis());
+        history.setHistoryContId(info.getContId());
+        history.setHistoryUserId(Tag.USER_ID);
+        return history;
     }
 
     public static BigImgInfo getBigImgInfo(CaricatureInfo info) {
@@ -240,7 +256,7 @@ public class BeanHelper {
         return caricatureDetailInfo;
     }
 
-//        public static CaricatureDetailInfo getCaricatureDetailInfo(SinaInfo info) {
+    //        public static CaricatureDetailInfo getCaricatureDetailInfo(SinaInfo info) {
 //        CaricatureDetailInfo caricatureDetailInfo = new CaricatureDetailInfo();
 //        caricatureDetailInfo.setId(info.getCollectId());
 //        caricatureDetailInfo.setTitle(info.getCollectName());
@@ -256,6 +272,19 @@ public class BeanHelper {
         pearVideoDetailBean.setContId(info.getContId());
         pearVideoDetailBean.setName(info.getName());
         pearVideoDetailBean.setPic(info.getPic());
+        return pearVideoDetailBean;
+    }
+
+    public static PearVideoDetailBean getPearVideoDetailBean(History info) {
+
+        if (info == null) {
+            return null;
+        }
+
+        PearVideoDetailBean pearVideoDetailBean = new PearVideoDetailBean();
+        pearVideoDetailBean.setContId(info.getHistoryContId());
+        pearVideoDetailBean.setName(info.getHistoryName());
+        pearVideoDetailBean.setPic(info.getHistoryimage());
         return pearVideoDetailBean;
     }
 }

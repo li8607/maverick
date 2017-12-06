@@ -8,7 +8,6 @@ import com.maverick.util.TimeUtils;
 
 import java.util.Date;
 import java.util.List;
-import java.util.TimeZone;
 
 import cntv.greendaolibrary.dbbean.History;
 import cntv.greendaolibrary.dbbean.HistoryDao;
@@ -143,5 +142,18 @@ public class HistoryModel implements IHistoryModel {
     @Override
     public boolean containsHistoryDB(History history) {
         return mDao.hasKey(history);
+    }
+
+    @Override
+    public History getHistoryDB(History history) {
+        if (history == null) {
+            return history;
+        }
+        List<History> records = mDao.queryBuilder().where(HistoryDao.Properties.HistoryContId.eq(history.getHistoryContId())).build().list();
+        if (records != null && records.size() > 0) {
+            return records.get(0);
+        } else {
+            return history;
+        }
     }
 }

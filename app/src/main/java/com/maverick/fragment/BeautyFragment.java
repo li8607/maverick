@@ -24,8 +24,6 @@ import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import java.util.List;
 
-import cntv.greendaolibrary.dbbean.History;
-
 /**
  * Created by limingfei on 2017/9/26.
  */

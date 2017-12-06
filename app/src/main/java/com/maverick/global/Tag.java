@@ -4,7 +4,7 @@ package com.maverick.global;
  * Created by limingfei on 2017/9/29.
  */
 public class Tag {
-    public static final String USER_ID = "1";
+    public static String USER_ID = "1";
 
     public static final String KEY_INFO = "key_info";
 

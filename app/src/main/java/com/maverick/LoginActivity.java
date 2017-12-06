@@ -23,6 +23,7 @@ import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.LogInCallback;
+import com.maverick.global.Tag;
 
 public class LoginActivity extends AppCompatActivity {
     private AutoCompleteTextView mUsernameView;
@@ -129,6 +130,7 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void done(AVUser avUser, AVException e) {
                     if (e == null) {
+                        Tag.USER_ID = avUser.getObjectId();
                         setResult(1);
                         LoginActivity.this.finish();
                     } else {

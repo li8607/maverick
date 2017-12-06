@@ -36,4 +36,6 @@ public interface IHistoryModel {
     boolean deleteHistoryDBAll();
 
     boolean containsHistoryDB(History history);
+
+    History getHistoryDB(History history);
 }

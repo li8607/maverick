@@ -17,16 +17,21 @@ import com.maverick.base.BaseActivity;
 import com.maverick.bean.PearVideoDetailBean;
 import com.maverick.bean.PearVideoDetailInfoVideo;
 import com.maverick.fragment.PearBottomFragment;
+import com.maverick.hepler.BeanHelper;
+import com.maverick.model.HistoryModel;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.video.SampleListener;
 import com.maverick.video.SampleVideo;
 import com.maverick.video.SwitchVideoModel;
+import com.shuyu.gsyvideoplayer.GSYVideoManager;
 import com.shuyu.gsyvideoplayer.utils.OrientationUtils;
 import com.shuyu.gsyvideoplayer.video.NormalGSYVideoPlayer;
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cntv.greendaolibrary.dbbean.History;
 
 /**
  * Created by Administrator on 2017/10/31.
@@ -165,9 +170,9 @@ public class PearActivity extends BaseActivity implements PearBottomFragment.OnL
             @Override
             public void onQuitFullscreen(String url, Object... objects) {
                 super.onQuitFullscreen(url, objects);
-                if (orientationUtils != null) {
-                    orientationUtils.backToProtVideo();
-                }
+//                if (orientationUtils != null) {
+//                    orientationUtils.backToProtVideo();
+//                }
             }
 
             @Override
@@ -197,6 +202,11 @@ public class PearActivity extends BaseActivity implements PearBottomFragment.OnL
         mInfo = (PearVideoDetailBean) getIntent().getSerializableExtra(EXTRA_IMAGE);
         Toast.makeText(this, mInfo.getName(), Toast.LENGTH_SHORT).show();
         replaceFragment(R.id.bottom, PearBottomFragment.newInstance(mInfo));
+
+
+        History history = BeanHelper.getHistory(mInfo);
+        history = HistoryModel.newInstance().getHistoryDB(history);
+        mVideo.setSeekOnStart(history != null ? (int) history.getHistoryVideoPosition() : 0);
     }
 
     @Override
@@ -227,6 +237,11 @@ public class PearActivity extends BaseActivity implements PearBottomFragment.OnL
             mVideo.getFullscreenButton().performClick();
             return;
         }
+
+        History history = BeanHelper.getHistory(mInfo);
+        history.setHistoryVideoPosition(GSYVideoManager.instance().getMediaPlayer().getCurrentPosition());
+        HistoryModel.newInstance().insertHistoryDB(history);
+
         //释放所有
         mVideo.setStandardVideoAllCallBack(null);
         GSYVideoPlayer.releaseAllVideos();

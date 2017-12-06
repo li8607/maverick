@@ -23,6 +23,7 @@ import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVUser;
 import com.avos.avoscloud.SignUpCallback;
+import com.maverick.global.Tag;
 import com.maverick.leancloud.User;
 
 public class RegisterActivity2 extends AppCompatActivity {
@@ -133,6 +134,7 @@ public class RegisterActivity2 extends AppCompatActivity {
                 public void done(AVException e) {
                     if (e == null) {
                         // 注册成功，把用户对象赋值给当前用户 AVUser.getCurrentUser()
+                        Tag.USER_ID = AVUser.getCurrentUser().getObjectId();
                         setResult(1);
                         RegisterActivity2.this.finish();
                     } else {

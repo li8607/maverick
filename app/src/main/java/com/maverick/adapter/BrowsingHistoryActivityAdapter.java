@@ -12,10 +12,9 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.maverick.DetailActivity;
+import com.maverick.PearActivity;
 import com.maverick.R;
-import com.maverick.bean.BigImgInfo;
-import com.maverick.model.HistoryModel;
+import com.maverick.hepler.BeanHelper;
 import com.maverick.util.GlideUtil;
 import com.maverick.weight.RatioImageView;
 
@@ -149,12 +148,7 @@ public class BrowsingHistoryActivityAdapter extends RecyclerView.Adapter {
                 return;
             }
 
-            mHistory.setHistoryTime(System.currentTimeMillis());
-            HistoryModel.newInstance().insertHistoryDB(mHistory);
-
-            BigImgInfo bigImgInfo = new BigImgInfo();
-            bigImgInfo.setImg(mHistory.getHistoryimage());
-            DetailActivity.launch((Activity) mContext, image, bigImgInfo);
+            PearActivity.launch((Activity) mContext, BeanHelper.getPearVideoDetailBean(mHistory));
         }
 
         @Override

@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.maverick.PearActivity;
 import com.maverick.R;
@@ -155,7 +156,7 @@ public class PearBottomFragment extends BaseFragment2 implements IPearBottomFrag
 
     @Override
     public void onShowErrorView() {
-
+        Toast.makeText(getContext(), "onShowErrorView", Toast.LENGTH_SHORT).show();
     }
 
     @Override
