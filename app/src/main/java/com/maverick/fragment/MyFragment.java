@@ -6,12 +6,12 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Toast;
 
 import com.avos.avoscloud.AVUser;
 import com.maverick.DataBankActivity;
 import com.maverick.LoginActivity;
 import com.maverick.R;
+import com.maverick.SettingActivity;
 import com.maverick.UserDetailActivity;
 import com.maverick.adapter.MyFragmentAdapter;
 import com.maverick.base.BaseFragment2;
@@ -91,7 +91,6 @@ public class MyFragment extends BaseFragment2 {
         mMyFragmentAdapter.setOnItemClickListener(new MyFragmentAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, MyInfo myInfo) {
-                Toast.makeText(getContext(), myInfo.getTitle(), Toast.LENGTH_SHORT).show();
                 if (myInfo.getType() == MyType.HISTORY || myInfo.getType() == MyType.COLLECT) {
 
                     if (AVUser.getCurrentUser() == null) {
@@ -116,6 +115,12 @@ public class MyFragment extends BaseFragment2 {
                     }
                     Intent intent = new Intent(getContext(), UserDetailActivity.class);
                     startActivityForResult(intent, 1);
+                } else if (myInfo.getType() == MyType.SETTING) {
+                    if (getContext() == null) {
+                        return;
+                    }
+                    Intent intent = new Intent(getContext(), SettingActivity.class);
+                    startActivity(intent);
                 }
             }
         });
