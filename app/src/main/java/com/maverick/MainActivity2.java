@@ -6,6 +6,8 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -37,6 +39,8 @@ public class MainActivity2 extends BaseActivity {
     private RadioButton radio_0, radio_1, radio_2, radio_3, radio_4;
     private BaseFragment2 fragment_0, fragment_1, fragment_2, fragment_3, fragment_4;
     private TextView mTitle;
+    private CoordinatorLayout mCoordinatorLayout;
+    private AppBarLayout mAppBarLayout;
 
     @Override
     protected com.maverick.presenter.BasePresenter onCreatePresenter() {
@@ -50,6 +54,9 @@ public class MainActivity2 extends BaseActivity {
 
     @Override
     protected void onInitView() {
+
+        mCoordinatorLayout = findView(R.id.coordinatorLayout);
+        mAppBarLayout = findView(R.id.appbar);
 
         Toolbar toolbar = findView(R.id.toolbar_actionbar);
         mTitle = new TextView(this);
@@ -108,6 +115,13 @@ public class MainActivity2 extends BaseActivity {
                         }
                         switchFragment(fragment_4);
                         setSupportActionBarTitle(radio_4.getText());
+
+                        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBarLayout.getLayoutParams();
+                        if (layoutParams != null) {
+                            AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) layoutParams.getBehavior();
+                            behavior.onNestedFling(mCoordinatorLayout, mAppBarLayout, null, 0, -1000, true);
+                        }
+
                         break;
 
                 }

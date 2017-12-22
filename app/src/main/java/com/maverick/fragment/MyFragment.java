@@ -51,6 +51,7 @@ public class MyFragment extends BaseFragment2 {
     @Override
     protected void onInitView(View view) {
         recyclerView = findView(view, R.id.recyclerView);
+        recyclerView.setNestedScrollingEnabled(false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
 
