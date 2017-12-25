@@ -1,11 +1,14 @@
 package com.maverick.base;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.maverick.R;
+import com.maverick.theme.ColorPalette;
 
 import cntv.themelibrary.PreferenceUtil;
 import cntv.themelibrary.Theme;
@@ -59,7 +62,7 @@ public class ThemeActivity extends AppCompatActivity {
         return themeHelper.getPrimaryColor();
     }
 
-    public int getCardBackgroundColor(){
+    public int getCardBackgroundColor() {
         return themeHelper.getCardBackgroundColor();
     }
 
@@ -67,7 +70,7 @@ public class ThemeActivity extends AppCompatActivity {
         themeHelper.setBaseTheme(baseTheme);
     }
 
-    public int getBackgroundColor(){
+    public int getBackgroundColor() {
         return themeHelper.getBackgroundColor();
     }
 
@@ -75,5 +78,19 @@ public class ThemeActivity extends AppCompatActivity {
         for (View view : ViewUtil.getAllChildren(findViewById(android.R.id.content))) {
             if (view instanceof Themeable) ((Themeable) view).refreshTheme(getThemeHelper());
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    protected void setStatusBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (isTranslucentStatusBar())
+                getWindow().setStatusBarColor(ColorPalette.getObscuredColor(getPrimaryColor()));
+            else
+                getWindow().setStatusBarColor(getPrimaryColor());
+        }
+    }
+
+    public boolean isTranslucentStatusBar() {
+        return obscuredStatusBar;
     }
 }

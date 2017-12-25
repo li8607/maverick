@@ -37,6 +37,7 @@ import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 import java.util.List;
 
 import cntv.greendaolibrary.dbbean.Collect;
+import cntv.themelibrary.ThemeHelper;
 
 /**
  * Created by Administrator on 2017/9/30.
@@ -456,6 +457,12 @@ public class SisterItemItemFragment extends BaseFragment2 implements ISisterItem
             listVideoUtil.getGsyVideoPlayer().onVideoResume();
         }
         CollectModel.newInstance().removeOnCollectListener(mListener);
+    }
+
+    @Override
+    public void refreshTheme(ThemeHelper themeHelper) {
+        super.refreshTheme(themeHelper);
+        mSisterItemFragmentAdapter.refreshTheme(themeHelper);
     }
 
     private CollectModel.OnCollectListener mListener = new CollectModel.OnCollectListener() {

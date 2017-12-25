@@ -10,6 +10,8 @@ import com.avos.avoscloud.AVUser;
 import com.maverick.R;
 import com.maverick.adapter.holder.MyItemViewHolder;
 import com.maverick.adapter.holder.MyUserViewHolder;
+import com.maverick.base.ThemeAdapter;
+import com.maverick.base.ThemedViewHolder;
 import com.maverick.bean.MyInfo;
 import com.maverick.leancloud.User;
 import com.maverick.type.MyType;
@@ -22,13 +24,14 @@ import cntv.themelibrary.ThemeHelper;
 /**
  * Created by limingfei on 2017/9/27.
  */
-public class MyFragmentAdapter extends RecyclerView.Adapter {
+public class MyFragmentAdapter extends ThemeAdapter {
 
     private Context mContext;
     private List<MyInfo> mList;
     private final LayoutInflater mLayoutInflater;
 
     public MyFragmentAdapter(Context context, List<MyInfo> list) {
+        super(context);
         this.mContext = context;
         this.mList = list;
         mLayoutInflater = LayoutInflater.from(context);
@@ -51,7 +54,9 @@ public class MyFragmentAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-
+        if (holder instanceof ThemedViewHolder) {
+            super.onBindViewHolder((ThemedViewHolder) holder, position);
+        }
         if (holder instanceof MyItemViewHolder) {
             MyItemViewHolder myItemViewHolder = (MyItemViewHolder) holder;
             myItemViewHolder.imageView.setImageResource(mList.get(position).getIcon());

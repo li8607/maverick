@@ -33,7 +33,7 @@
     <color name="bottom_bar_line_background_color">#ececec</color>
 
     <color name="tab_layout_text_select_color">#ffffff</color>
-    <color name="tab_layout_text_color">#ffabc7</color>
+    <color name="tab_layout_text_color">#aa999999</color>
     <color name="tab_layout_indicator_color">#ffffff</color>
 
     <color name="result_text_color">#333333</color>

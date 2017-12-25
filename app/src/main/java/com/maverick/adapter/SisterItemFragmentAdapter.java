@@ -5,13 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.maverick.R;
 import com.maverick.adapter.holder.SisterImageHolder;
 import com.maverick.adapter.holder.SisterTextHolder;
 import com.maverick.adapter.holder.SisterVideoHolder;
+import com.maverick.base.ThemeAdapter;
+import com.maverick.base.ThemedViewHolder;
 import com.maverick.bean.SisterInfo;
 import com.maverick.global.Tag;
 import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
@@ -21,7 +22,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/9/30.
  */
-public class SisterItemFragmentAdapter extends RecyclerView.Adapter {
+public class SisterItemFragmentAdapter extends ThemeAdapter {
 
     private String TAG = getClass().getSimpleName();
 
@@ -33,6 +34,7 @@ public class SisterItemFragmentAdapter extends RecyclerView.Adapter {
     private Context mContext;
 
     public SisterItemFragmentAdapter(Context context) {
+        super(context);
         this.mContext = context;
     }
 
@@ -56,7 +58,8 @@ public class SisterItemFragmentAdapter extends RecyclerView.Adapter {
                 break;
             default:
                 holder = new SisterTextHolder(LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.item_sister_text, parent, false));;
+                        .inflate(R.layout.item_sister_text, parent, false));
+                ;
                 break;
         }
         holder.setOnSisterTextHolderListener(mListener);
@@ -65,13 +68,15 @@ public class SisterItemFragmentAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
-        if(holder instanceof SisterVideoHolder) {
+        if (holder instanceof ThemedViewHolder) {
+            super.onBindViewHolder((ThemedViewHolder) holder, position);
+        }
+        if (holder instanceof SisterVideoHolder) {
             SisterVideoHolder sisterVideoHolder = (SisterVideoHolder) holder;
             sisterVideoHolder.setListVideoUtil(listVideoUtil);
             sisterVideoHolder.setRecyclerAdapter(this);
             sisterVideoHolder.bindData(mContext, mList.get(position));
-        }else if (holder instanceof SisterTextHolder) {
+        } else if (holder instanceof SisterTextHolder) {
             SisterTextHolder sisterTextHolder = (SisterTextHolder) holder;
             sisterTextHolder.bindData(mContext, mList.get(position));
         }

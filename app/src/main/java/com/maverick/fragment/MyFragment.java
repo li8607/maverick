@@ -24,6 +24,8 @@ import com.maverick.type.UserType;
 import java.util.ArrayList;
 import java.util.List;
 
+import cntv.themelibrary.ThemeHelper;
+
 /**
  * Created by Administrator on 2017/9/25.
  */
@@ -124,6 +126,12 @@ public class MyFragment extends BaseFragment2 {
                 }
             }
         });
+    }
+
+    @Override
+    public void refreshTheme(ThemeHelper themeHelper) {
+        super.refreshTheme(themeHelper);
+        mMyFragmentAdapter.refreshTheme(themeHelper);
     }
 
     @Override

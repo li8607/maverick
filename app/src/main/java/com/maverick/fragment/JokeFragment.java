@@ -2,20 +2,20 @@ package com.maverick.fragment;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.maverick.R;
 import com.maverick.adapter.JokeFragmentAdapter;
 import com.maverick.base.BaseFragment2;
-import com.maverick.bean.ButtonInfo;
 import com.maverick.bean.JokeTabInfo;
 import com.maverick.global.Tag;
 import com.maverick.presenter.BasePresenter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cntv.themelibrary.ThemeHelper;
 
 /**
  * Created by Administrator on 2017/9/25.
@@ -68,5 +68,11 @@ public class JokeFragment extends BaseFragment2 {
         jokeTabInfo.setTitle(title);
         jokeTabInfo.setType(type);
         return jokeTabInfo;
+    }
+
+    @Override
+    public void refreshTheme(ThemeHelper themeHelper) {
+        super.refreshTheme(themeHelper);
+        tab_layout.setBackgroundColor(themeHelper.getPrimaryColor());
     }
 }

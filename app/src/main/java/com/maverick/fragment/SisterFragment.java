@@ -15,6 +15,8 @@ import com.maverick.presenter.BasePresenter;
 import java.util.ArrayList;
 import java.util.List;
 
+import cntv.themelibrary.ThemeHelper;
+
 /**
  * Created by Administrator on 2017/9/25.
  */
@@ -67,5 +69,11 @@ public class SisterFragment extends BaseFragment2 {
         info.setTitle(title);
         info.setType(type);
         return info;
+    }
+
+    @Override
+    public void refreshTheme(ThemeHelper themeHelper) {
+        super.refreshTheme(themeHelper);
+        tab_layout.setBackgroundColor(themeHelper.getPrimaryColor());
     }
 }

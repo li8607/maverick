@@ -1,40 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/y9"
-    android:paddingRight="@dimen/y9">
+    app:cardElevation="@dimen/card_elevation">
 
-    <include layout="@layout/item_sister_top" />
-
-    <include layout="@layout/item_sister_content" />
-
-    <FrameLayout
-        android:background="#000"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x190"
-        android:layout_marginTop="@dimen/y5">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/y9"
+        android:paddingRight="@dimen/y9">
 
-        <WebView
-            android:id="@+id/webView"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></WebView>
+        <include layout="@layout/item_sister_top" />
+
+        <include layout="@layout/item_sister_content" />
 
         <FrameLayout
-            android:id="@+id/video_root"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="@dimen/x190"
+            android:layout_marginTop="@dimen/y5"
+            android:background="#000">
 
-        <ImageView
-            android:id="@+id/list_item_btn"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_gravity="center"
-            android:src="@drawable/video_click_play_selector" />
+            <WebView
+                android:id="@+id/webView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"></WebView>
 
-    </FrameLayout>
+            <FrameLayout
+                android:id="@+id/video_root"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
-    <include layout="@layout/item_sister_bottom" />
-</LinearLayout>
+            <ImageView
+                android:id="@+id/list_item_btn"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:src="@drawable/video_click_play_selector" />
+
+        </FrameLayout>
+
+        <include layout="@layout/item_sister_bottom" />
+    </LinearLayout>
+</android.support.v7.widget.CardView>

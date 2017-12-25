@@ -1,20 +1,23 @@
 package com.maverick.adapter.holder;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
 import com.maverick.R;
 import com.maverick.WebActivity;
+import com.maverick.base.ThemedViewHolder;
 import com.maverick.bean.CaricatureInfo;
 import com.maverick.hepler.BeanHelper;
+
+import cntv.themelibrary.ThemeHelper;
 
 /**
  * Created by limingfei on 2017/10/20.
  */
-public class CaricatureItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class CaricatureItemViewHolder extends ThemedViewHolder implements View.OnClickListener {
 
     private final TextView title;
     private CaricatureInfo mInfo;
@@ -58,6 +61,12 @@ public class CaricatureItemViewHolder extends RecyclerView.ViewHolder implements
 
     public void setOnListener(OnListener listener) {
         this.mOnListener = listener;
+    }
+
+    @Override
+    public void refreshTheme(ThemeHelper themeHelper) {
+        title.setTextColor(themeHelper.getTextColor());
+        ((CardView) itemView).setCardBackgroundColor(themeHelper.getCardBackgroundColor());
     }
 
     public interface OnListener {

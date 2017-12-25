@@ -61,7 +61,6 @@ public abstract class BaseActivity extends ThemeActivity {
         FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(containerViewId, fragment);
         fragmentTransaction.commitAllowingStateLoss();
-//        updateUiElements();
     }
 
     public void showDialogFragment(@Nullable DialogFragment dialogFragment) {

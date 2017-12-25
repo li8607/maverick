@@ -1,39 +1,70 @@
 package com.maverick.base;
 
+import android.content.Context;
 import android.support.v4.app.Fragment;
-import android.view.View;
 
+import cntv.themelibrary.Theme;
+import cntv.themelibrary.ThemeHelper;
 import cntv.themelibrary.Themeable;
-import cntv.themelibrary.ViewUtil;
 
 /**
  * Created by limingfei on 2017/12/25.
  */
 
-public class ThemeFragment extends Fragment {
+public class ThemeFragment extends Fragment implements Themeable{
 
-    public ThemeActivity getThemeActivity() {
-        if (getActivity() != null && getActivity() instanceof ThemeActivity) {
-            return (ThemeActivity) getActivity();
-        }
-        return null;
-    }
+    private ThemeHelper themeHelper;
 
-    public void updateUiElements() {
-
-        if (getThemeActivity() == null) {
-            return;
-        }
-
-        for (View view : ViewUtil.getAllChildren(getView())) {
-            if (view instanceof Themeable)
-                ((Themeable) view).refreshTheme(getThemeActivity().getThemeHelper());
-        }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        themeHelper = ThemeHelper.getThemeHelper(getContext());
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        updateUiElements();
+        themeHelper.updateTheme();
+        refreshTheme(themeHelper);
+    }
+
+
+    @Override
+    public void refreshTheme(ThemeHelper themeHelper) {
+
+    }
+
+    public ThemeHelper getThemeHelper() {
+        return themeHelper;
+    }
+
+    public int getPrimaryColor() {
+        return themeHelper.getPrimaryColor();
+    }
+
+    public int getDialogStyle() {
+        return themeHelper.getDialogStyle();
+    }
+
+    public int getAccentColor() {
+        return themeHelper.getAccentColor();
+    }
+
+    public Theme getBaseTheme(){ return  themeHelper.getBaseTheme(); }
+
+    public int getBackgroundColor(){
+        return themeHelper.getBackgroundColor();
+    }
+
+    public int getCardBackgroundColor(){
+        return themeHelper.getCardBackgroundColor();
+    }
+
+    public int getIconColor(){
+        return themeHelper.getIconColor();
+    }
+
+    public int getTextColor(){
+        return themeHelper.getTextColor();
     }
 }

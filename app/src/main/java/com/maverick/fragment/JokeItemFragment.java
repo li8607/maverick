@@ -24,6 +24,8 @@ import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import java.util.List;
 
+import cntv.themelibrary.ThemeHelper;
+
 /**
  * Created by ll on 2017/5/22.
  */
@@ -191,6 +193,12 @@ public class JokeItemFragment extends BaseFragment2 implements IJokeItemFragment
     public void onPause() {
         super.onPause();
         CollectModel.newInstance().addOnCollectListener(mListener);
+    }
+
+    @Override
+    public void refreshTheme(ThemeHelper themeHelper) {
+        super.refreshTheme(themeHelper);
+        mJokeItemFragmentAdapter.refreshTheme(themeHelper);
     }
 
     private CollectModel.OnCollectListener mListener = new CollectModel.OnCollectListener() {

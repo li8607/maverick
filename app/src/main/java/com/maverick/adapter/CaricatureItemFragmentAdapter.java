@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import com.maverick.R;
 import com.maverick.adapter.holder.CaricatureItemViewHolder;
 import com.maverick.adapter.holder.CaricatureOneImageViewHolder;
+import com.maverick.base.ThemeAdapter;
+import com.maverick.base.ThemedViewHolder;
 import com.maverick.bean.CaricatureInfo;
 
 import java.util.List;
@@ -15,12 +17,13 @@ import java.util.List;
 /**
  * Created by limingfei on 2017/10/20.
  */
-public class CaricatureItemFragmentAdapter extends RecyclerView.Adapter {
+public class CaricatureItemFragmentAdapter extends ThemeAdapter {
 
     private Context mContext;
     private List<CaricatureInfo> mList;
 
     public CaricatureItemFragmentAdapter(Context context) {
+        super(context);
         this.mContext = context;
     }
 
@@ -34,6 +37,9 @@ public class CaricatureItemFragmentAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof ThemedViewHolder) {
+            super.onBindViewHolder((ThemedViewHolder) holder, position);
+        }
         CaricatureItemViewHolder caricatureViewHolder = (CaricatureItemViewHolder) holder;
         caricatureViewHolder.bindData(mContext, mList.get(position));
     }

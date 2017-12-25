@@ -26,6 +26,8 @@ import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import java.util.List;
 
+import cntv.themelibrary.ThemeHelper;
+
 /**
  * Created by Administrator on 2017/9/30.
  */
@@ -187,5 +189,11 @@ public class CaricatureItemFragment extends BaseFragment2 implements ICaricature
     @Override
     public void onLoadMoreFail() {
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+    }
+
+    @Override
+    public void refreshTheme(ThemeHelper themeHelper) {
+        super.refreshTheme(themeHelper);
+        mAdapter.refreshTheme(themeHelper);
     }
 }

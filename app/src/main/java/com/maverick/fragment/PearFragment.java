@@ -18,6 +18,8 @@ import com.maverick.presenter.implView.IPearFragmentView;
 
 import java.util.List;
 
+import cntv.themelibrary.ThemeHelper;
+
 /**
  * Created by Administrator on 2017/10/26.
  */
@@ -103,5 +105,11 @@ public class PearFragment extends BaseFragment2 implements IPearFragmentView {
                 root.removeView(v);
             }
         });
+    }
+
+    @Override
+    public void refreshTheme(ThemeHelper themeHelper) {
+        super.refreshTheme(themeHelper);
+        tab_layout.setBackgroundColor(themeHelper.getPrimaryColor());
     }
 }
