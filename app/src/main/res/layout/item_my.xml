@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.maverick.theme.ThemeableCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/selector_btn_bg"
-    android:paddingLeft="@dimen/y13"
-    android:paddingRight="@dimen/y13">
+    app:cardCornerRadius="@dimen/card_corner_radius">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/x32"
+        android:background="@drawable/ripple"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/y13"
+        android:paddingRight="@dimen/y13">
 
         <ImageView
             android:id="@+id/image"
@@ -34,7 +36,9 @@
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_gravity="bottom"
+        android:layout_marginLeft="@dimen/y13"
+        android:layout_marginRight="@dimen/y13"
         android:background="@color/click_background"
         android:visibility="gone" />
 
-</FrameLayout>
+</com.maverick.theme.ThemeableCardView>

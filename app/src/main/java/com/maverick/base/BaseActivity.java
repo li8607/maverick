@@ -7,7 +7,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
 
@@ -17,7 +16,7 @@ import com.umeng.analytics.MobclickAgent;
 /**
  * Created by limingfei on 2017/9/25.
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends ThemeActivity {
 
     private BasePresenter mBasePresenter;
 
@@ -62,6 +61,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(containerViewId, fragment);
         fragmentTransaction.commitAllowingStateLoss();
+//        updateUiElements();
     }
 
     public void showDialogFragment(@Nullable DialogFragment dialogFragment) {

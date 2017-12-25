@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/setting_background"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -18,108 +19,79 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <!--&lt;!&ndash;THEME&ndash;&gt;-->
-            <!--<cntv.themelibrary.view.ThemeableSettingsCategory-->
-                <!--android:id="@+id/theme_setting_card"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_marginBottom="@dimen/card_spacing"-->
-                <!--android:clickable="true"-->
-                <!--android:foreground="@drawable/ripple"-->
-                <!--app:cardCornerRadius="@dimen/card_corner_radius"-->
-                <!--app:cardElevation="@dimen/card_elevation">-->
+            <com.maverick.theme.ThemeableCardView
+                android:id="@+id/theme_setting_card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/card_spacing"
+                android:clickable="true"
+                android:foreground="@drawable/ripple"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="@dimen/card_elevation">
 
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:orientation="vertical"-->
-                    <!--android:paddingBottom="@dimen/small_spacing">-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-                    <!--&lt;!&ndash;<cntv.themelibrary.view.ThemeableSettingsCategory&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:id="@+id/theme_setting_title"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:paddingLeft="@dimen/medium_spacing"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:paddingTop="@dimen/medium_spacing"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:text="@string/theme"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:textColor="@color/md_dark_background"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:textSize="@dimen/medium_text"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:textStyle="bold" />&ndash;&gt;-->
+                    <com.maverick.theme.ThemeableSettingsCategory
+                        android:id="@+id/theme_setting_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/medium_spacing"
+                        android:paddingTop="@dimen/medium_spacing"
+                        android:text="@string/theme"
+                        android:textColor="@color/md_dark_background"
+                        android:textSize="@dimen/medium_text"
+                        android:textStyle="bold" />
 
-                    <!--&lt;!&ndash;BASIC THEME&ndash;&gt;-->
-                    <!--&lt;!&ndash;<org.horaapps.leafpic.views.SettingBasic&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:id="@+id/ll_basic_theme"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingCaption="@string/base_theme_sub"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingIcon="gmd-invert-colors"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingTitle="@string/base_theme" />&ndash;&gt;-->
+                    <com.maverick.theme.SettingBasic
+                        android:id="@+id/ll_basic_theme"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:settingCaption="@string/base_theme_sub"
+                        app:settingIcon="gmd-invert-colors"
+                        app:settingTitle="@string/base_theme"></com.maverick.theme.SettingBasic>
 
-                    <!--&lt;!&ndash;PRIMARY COLOR&ndash;&gt;-->
-                    <!--&lt;!&ndash;<org.horaapps.leafpic.views.SettingBasic&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:id="@+id/ll_primaryColor"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingCaption="@string/primary_color_sub"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingIcon="gmd-color-lens"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingTitle="@string/primary_color" />&ndash;&gt;-->
+                </LinearLayout>
+            </com.maverick.theme.ThemeableCardView>
 
-                    <!--&lt;!&ndash;ACCENT COLOR&ndash;&gt;-->
-                    <!--&lt;!&ndash;<org.horaapps.leafpic.views.SettingBasic&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:id="@+id/ll_accentColor"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingCaption="@string/accent_color_sub"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingIcon="gmd-format-color-fill"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingTitle="@string/accent_color" />&ndash;&gt;-->
+            <com.maverick.theme.ThemeableCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/card_spacing"
+                android:clickable="true"
+                android:foreground="@drawable/ripple"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="@dimen/card_elevation">
 
-                    <!--&lt;!&ndash; APPLY THEME ON 3TH ACT &ndash;&gt;-->
-                    <!--&lt;!&ndash;<org.horaapps.leafpic.views.SettingBasic&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:id="@+id/ll_custom_thirdAct"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingCaption="@string/custom_3thAct_sub"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingIcon="gmd-colorize"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingTitle="@string/media_viewer" />&ndash;&gt;-->
+                <com.maverick.theme.SettingBasic
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:settingCaption="@string/base_theme_sub"
+                    app:settingIcon="gmd-invert-colors"
+                    app:settingTitle="@string/base_theme"></com.maverick.theme.SettingBasic>
+            </com.maverick.theme.ThemeableCardView>
 
-                    <!--&lt;!&ndash; CARD VIEW STYLE &ndash;&gt;-->
-                    <!--&lt;!&ndash;<org.horaapps.leafpic.views.SettingBasic&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:id="@+id/ll_card_view_style"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingCaption="@string/album_card_view_sub"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingIcon="gmd-dashboard"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingTitle="@string/album_card_view" />&ndash;&gt;-->
+            <com.maverick.theme.ThemeableCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/card_spacing"
+                android:clickable="true"
+                android:foreground="@drawable/ripple"
+                app:cardCornerRadius="@dimen/card_corner_radius"
+                app:cardElevation="@dimen/card_elevation">
 
-                    <!--&lt;!&ndash; TRANSLUCENT STATUS BAR&ndash;&gt;-->
-                    <!--&lt;!&ndash;<org.horaapps.leafpic.views.SettingWithSwitchView&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:id="@+id/option_statusbar"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingCaption="@string/traslucent_statusbar_sub"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingDefaultValue="true"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingIcon="gmd-web-asset"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingMinApi="21"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingPreferenceKey="@string/preference_translucent_status_bar"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingTitle="@string/traslucent_statusbar" />&ndash;&gt;-->
+                <com.maverick.theme.SettingBasic
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:settingCaption="@string/base_theme_sub"
+                    app:settingIcon="gmd-invert-colors"
+                    app:settingTitle="@string/base_theme"></com.maverick.theme.SettingBasic>
+            </com.maverick.theme.ThemeableCardView>
 
-                    <!--&lt;!&ndash;COLORED NAV BAR&ndash;&gt;-->
-                    <!--&lt;!&ndash;<org.horaapps.leafpic.views.SettingWithSwitchView&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:id="@+id/option_colored_navbar"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
-                        <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingCaption="@string/colored_navbar_sub"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingDefaultValue="false"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingIcon="gmd-video-label"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingMinApi="21"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingPreferenceKey="@string/preference_colored_nav_bar"&ndash;&gt;-->
-                        <!--&lt;!&ndash;app:settingTitle="@string/colored_navbar" />&ndash;&gt;-->
-                <!--</LinearLayout>-->
-            <!--</cntv.themelibrary.view.ThemeableSettingsCategory>-->
 
         </LinearLayout>
-
-
     </ScrollView>
 
 </LinearLayout>

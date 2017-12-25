@@ -17,6 +17,8 @@ import com.maverick.util.GlideUtil;
 
 import java.util.List;
 
+import cntv.themelibrary.ThemeHelper;
+
 /**
  * Created by limingfei on 2017/9/27.
  */
@@ -63,6 +65,8 @@ public class MyFragmentAdapter extends RecyclerView.Adapter {
                 myUserViewHolder.username.setText("账号：" + AVUser.getCurrentUser().getUsername());
             }
         }
+
+        holder.itemView.setBackgroundColor(ThemeHelper.getThemeHelper(mContext).getCardBackgroundColor());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
