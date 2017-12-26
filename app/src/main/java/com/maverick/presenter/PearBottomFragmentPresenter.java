@@ -79,6 +79,11 @@ public class PearBottomFragmentPresenter extends BasePresenter {
                         infos.setPearVideoInfo(info.getRelateConts().get(i));
                         infos.setRelateContPosition(i);
                         infos.setRelateContCount(info.getRelateConts().size());
+
+                        if (i == info.getRelateConts().size() - 1 || i == info.getRelateConts().size() - 2) {
+                            infos.setLineType(LineType.SMALL);
+                        }
+
                         mList.add(infos);
                     }
                 }
@@ -87,6 +92,7 @@ public class PearBottomFragmentPresenter extends BasePresenter {
                     PearItemInfo tag = new PearItemInfo();
                     tag.setType(PearItemType.TAG);
                     tag.setPearTagInfo(info.getContent().getTags());
+                    tag.setLineType(LineType.SMALL_AND_MAX);
                     mList.add(tag);
                 }
 
