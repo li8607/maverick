@@ -69,7 +69,7 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
-    <style name="dialog_style" parent="@android:style/Theme.Dialog">
+    <style name="dialog_style" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
     </style>

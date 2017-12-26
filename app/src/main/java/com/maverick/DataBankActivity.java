@@ -2,9 +2,15 @@ package com.maverick;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -24,12 +30,15 @@ import com.maverick.type.MyType;
  */
 public class DataBankActivity extends BaseActivity implements View.OnClickListener {
 
-    private TextView edit;
     private BaseEditFragment mBaseEditFragment;
     private View btn_root;
     private Button btn_delete;
     private Button btn_check_or_cancel;
-    private TextView title;
+
+    private Toolbar mToolbar;
+    private AppBarLayout mAppBarLayout;
+    private TextView mEdit;
+    private View collect_content;
 
     public static void launch(Context context, MyInfo myInfo) {
         Intent intent = new Intent(context, DataBankActivity.class);
@@ -49,23 +58,46 @@ public class DataBankActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     protected void onInitView() {
-        View back = findView(R.id.back);
-        back.setVisibility(View.VISIBLE);
-        back.setOnClickListener(this);
 
-        title = findView(R.id.title);
-        title.setVisibility(View.VISIBLE);
+        mAppBarLayout = findView(R.id.appbar);
 
-        edit = findView(R.id.edit);
-        edit.setOnClickListener(this);
-        //TODO 等数据成功之后再显示
-        edit.setVisibility(View.VISIBLE);
+        mToolbar = findView(R.id.toolbar);
+
+        mEdit = new TextView(this);
+
+        mEdit.setId(R.id.edit);
+        mEdit.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.y10));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mEdit.setTextAppearance(android.R.style.TextAppearance);
+        } else {
+            mEdit.setTextAppearance(this, android.R.style.TextAppearance);
+        }
+        mEdit.setText("编辑");
+        Toolbar.LayoutParams mTitleLP = new Toolbar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mTitleLP.gravity = Gravity.RIGHT;
+        mTitleLP.rightMargin = getResources().getDimensionPixelOffset(R.dimen.y10);
+        mToolbar.addView(mEdit, mTitleLP);
+
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+        mEdit.setOnClickListener(this);
 
         btn_root = findView(R.id.btn_root);
         btn_delete = findView(R.id.btn_delete);
         btn_delete.setOnClickListener(this);
         btn_check_or_cancel = findView(R.id.btn_check_or_cancel);
         btn_check_or_cancel.setOnClickListener(this);
+
+        collect_content = findView(R.id.collect_content);
     }
 
     @Override
@@ -114,7 +146,7 @@ public class DataBankActivity extends BaseActivity implements View.OnClickListen
             //浏览记录
             baseEditFragment = BrowsingHistoryFragment.newInstance();
             if (!TextUtils.isEmpty(myInfo.getTitle())) {
-                title.setText(myInfo.getTitle());
+                getSupportActionBar().setTitle(myInfo.getTitle());
             }
         } else if (myInfo.getType() == MyType.COLLECT) {
             CollectTabInfo collectTabInfo = new CollectTabInfo();
@@ -129,7 +161,7 @@ public class DataBankActivity extends BaseActivity implements View.OnClickListen
             baseEditFragment = collectFragment;
 
             if (!TextUtils.isEmpty(myInfo.getTitle())) {
-                title.setText(myInfo.getTitle());
+                getSupportActionBar().setTitle(myInfo.getTitle());
             }
         }
 
@@ -174,7 +206,7 @@ public class DataBankActivity extends BaseActivity implements View.OnClickListen
 
     private void openEdit() {
         mBaseEditFragment.setStateEdit(BaseEditFragment.STATE_EDIT);
-        edit.setText("取消编辑");
+        mEdit.setText("取消编辑");
         btn_root.setVisibility(View.VISIBLE);
         btn_check_or_cancel.setText("全选");
 
@@ -184,11 +216,39 @@ public class DataBankActivity extends BaseActivity implements View.OnClickListen
 
     private void closeEdit() {
         mBaseEditFragment.setStateEdit(BaseEditFragment.STATE_NO_EDIT);
-        edit.setText("编辑");
+        mEdit.setText("编辑");
         btn_root.setVisibility(View.GONE);
         btn_check_or_cancel.setText("全选");
 
         btn_delete.setAlpha(0.5f);
         btn_delete.setClickable(false);
+    }
+
+    @Override
+    public void updateUiElements() {
+        super.updateUiElements();
+
+        setStatusBarColor();
+        mToolbar.setBackgroundColor(getPrimaryColor());
+        collect_content.setBackgroundColor(getBackgroundColor());
+        btn_check_or_cancel.setTextColor(getTextColor());
+        btn_delete.setTextColor(getTextColor());
+        btn_root.setBackgroundColor(getCardBackgroundColor());
+        mEdit.setTextColor(getTextColor());
+
+        switch (getBaseTheme()) {
+            case DARK:
+            case AMOLED:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    mAppBarLayout.setElevation(getResources().getDimension(R.dimen.card_elevation));
+                }
+                break;
+            case LIGHT:
+            default:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    mAppBarLayout.setElevation(0);
+                }
+                break;
+        }
     }
 }

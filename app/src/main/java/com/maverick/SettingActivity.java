@@ -1,8 +1,9 @@
 package com.maverick;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
 import com.maverick.base.BaseActivity;
@@ -16,6 +17,9 @@ import com.maverick.theme.SettingBasic;
 
 public class SettingActivity extends BaseActivity implements View.OnClickListener {
 
+    private Toolbar mToolbar;
+    private AppBarLayout mAppBarLayout;
+
     @Override
     protected BasePresenter onCreatePresenter() {
         return null;
@@ -28,12 +32,15 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
 
     @Override
     protected void onInitView() {
-        Toolbar toolbar = findView(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+        mAppBarLayout = findView(R.id.appbar);
+
+        mToolbar = findView(R.id.toolbar);
+        setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setTitle("设置");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -62,5 +69,21 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
     public void updateUiElements() {
         super.updateUiElements();
         findView(R.id.setting_background).setBackgroundColor(getBackgroundColor());
+        mToolbar.setBackgroundColor(getPrimaryColor());
+        setStatusBarColor();
+        switch (getBaseTheme()) {
+            case DARK:
+            case AMOLED:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    mAppBarLayout.setElevation(getResources().getDimension(R.dimen.card_elevation));
+                }
+                break;
+            case LIGHT:
+            default:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    mAppBarLayout.setElevation(0);
+                }
+                break;
+        }
     }
 }
