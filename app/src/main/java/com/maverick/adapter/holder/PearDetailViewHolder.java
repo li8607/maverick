@@ -1,14 +1,13 @@
 package com.maverick.adapter.holder;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 import com.maverick.R;
+import com.maverick.base.ThemedViewHolder;
 import com.maverick.bean.PearVideoDetailInfo;
 import com.maverick.bean.PearVideoInfoAuthor;
 import com.maverick.bean.PearVideoInfoNode;
@@ -16,15 +15,16 @@ import com.maverick.util.GlideUtil;
 
 import java.util.List;
 
+import cntv.themelibrary.ThemeHelper;
+
 /**
  * Created by Administrator on 2017/11/2.
  */
 
-public class PearDetailViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class PearDetailViewHolder extends ThemedViewHolder implements View.OnClickListener {
 
-    private final TextView title, time, name, type, detail_title, down_title, collect_title, love_title, dingyue_btn, dingyue_title, dingyue_huati, detail_content, detail_source;
+    private final TextView title, time, name, type, detail_title, down_title, collect_title, love_title, detail_content, detail_source;
     private final View love_root, collect_root, down_root, detail_root;
-    private final ImageView dingyue_image;
     private final ExpandableRelativeLayout expandableLayout;
 
     public PearDetailViewHolder(View itemView) {
@@ -44,10 +44,6 @@ public class PearDetailViewHolder extends RecyclerView.ViewHolder implements Vie
         collect_title = (TextView) itemView.findViewById(R.id.collect_title);
         love_title = (TextView) itemView.findViewById(R.id.love_title);
 
-        dingyue_btn = (TextView) itemView.findViewById(R.id.dingyue_btn);
-        dingyue_title = (TextView) itemView.findViewById(R.id.dingyue_title);
-        dingyue_huati = (TextView) itemView.findViewById(R.id.dingyue_huati);
-        dingyue_image = (ImageView) itemView.findViewById(R.id.dingyue_image);
 
         expandableLayout = (ExpandableRelativeLayout) itemView.findViewById(R.id.expandableLayout);
         expandableLayout.expand();
@@ -92,17 +88,6 @@ public class PearDetailViewHolder extends RecyclerView.ViewHolder implements Vie
             type.setVisibility(View.INVISIBLE);
         }
 
-
-        PearVideoInfoNode nodeInfo = info.getNodeInfo();
-        if (nodeInfo != null) {
-            GlideUtil.loadCircleImage(context, nodeInfo.getLogoImg(), dingyue_image);
-            dingyue_title.setText(TextUtils.isEmpty(nodeInfo.getName()) ? "" : nodeInfo.getName());
-            dingyue_huati.setText(TextUtils.isEmpty(nodeInfo.getDesc()) ? "" : nodeInfo.getDesc());
-        } else {
-            dingyue_title.setText("");
-            dingyue_huati.setText("");
-        }
-
         detail_content.setText(TextUtils.isEmpty(info.getSummary()) ? "" : info.getSummary());
         detail_source.setText(TextUtils.isEmpty(info.getSource()) ? "" : info.getSource());
     }
@@ -110,5 +95,18 @@ public class PearDetailViewHolder extends RecyclerView.ViewHolder implements Vie
     @Override
     public void onClick(View v) {
         expandableLayout.toggle();
+    }
+
+    @Override
+    public void refreshTheme(ThemeHelper themeHelper) {
+        title.setTextColor(themeHelper.getTextColor());
+        time.setTextColor(themeHelper.getSubTextColor());
+
+        detail_title.setTextColor(themeHelper.getSubTextColor());
+        down_title.setTextColor(themeHelper.getSubTextColor());
+        collect_title.setTextColor(themeHelper.getSubTextColor());
+        love_title.setTextColor(themeHelper.getSubTextColor());
+
+        detail_content.setTextColor(themeHelper.getTextColor());
     }
 }

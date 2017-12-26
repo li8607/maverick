@@ -1,17 +1,19 @@
 package com.maverick.adapter.holder;
 
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
 import com.maverick.R;
+import com.maverick.base.ThemedViewHolder;
+
+import cntv.themelibrary.ThemeHelper;
 
 /**
  * Created by Administrator on 2017/11/1.
  */
 
-public class PearTitleViewHolder extends RecyclerView.ViewHolder {
+public class PearTitleViewHolder extends ThemedViewHolder {
 
     private final TextView title;
 
@@ -22,5 +24,10 @@ public class PearTitleViewHolder extends RecyclerView.ViewHolder {
 
     public void bindData(String info) {
         title.setText(TextUtils.isEmpty(info) ? "" : info);
+    }
+
+    @Override
+    public void refreshTheme(ThemeHelper themeHelper) {
+        title.setTextColor(themeHelper.getTextColor());
     }
 }

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorWhite"
+    android:paddingBottom="@dimen/y15"
     android:paddingTop="@dimen/y17">
 
     <TextView
@@ -57,20 +57,20 @@
             android:id="@+id/detail_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y15"
             android:layout_marginBottom="@dimen/y8"
+            android:layout_marginTop="@dimen/y15"
             android:textColor="@color/result_text_color"
             android:textSize="@dimen/y10" />
 
         <TextView
-            android:visibility="gone"
             android:id="@+id/detail_source"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/detail_content"
             android:layout_marginBottom="@dimen/y9"
             android:textColor="@color/pear_node_color"
-            android:textSize="@dimen/y10" />
+            android:textSize="@dimen/y10"
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="match_parent"
@@ -81,13 +81,4 @@
             android:textColor="@color/pear_video_label_color_5"
             android:textSize="@dimen/y10" />
     </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
-
-    <include
-        layout="@layout/item_pear_detail_dingyue"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/y39"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/expandableLayout"
-        android:layout_marginTop="@dimen/y16" />
-
 </RelativeLayout>

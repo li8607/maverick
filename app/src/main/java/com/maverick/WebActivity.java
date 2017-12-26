@@ -4,9 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -29,8 +33,9 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
 
     public static final String INFO = "WebActivity";
     private WebView web;
-    private TextView title;
     private WebDetailInfo mInfo;
+    private Toolbar mToolbar;
+    private TextView mTitle;
 
     public static void launch(Context context, WebDetailInfo info) {
 
@@ -58,16 +63,31 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
         web = findView(R.id.web);
         setCommonWebView(web);
 
-        title = findView(R.id.title);
-        title.setVisibility(View.GONE);
+//        View image_share = findViewById(R.id.image_share);
+//        image_share.setOnClickListener(this);
 
-        View back = findView(R.id.back);
-        back.setVisibility(View.VISIBLE);
-        back.setOnClickListener(this);
+        mToolbar = findView(R.id.toolbar_actionbar);
+        mTitle = new TextView(this);
+        mTitle.setLines(1);
+        mTitle.setEllipsize(TextUtils.TruncateAt.END);
+        mTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.y10));
 
-        View image_share = findViewById(R.id.image_share);
-        image_share.setVisibility(View.VISIBLE);
-        image_share.setOnClickListener(this);
+        mTitle.setTextColor(getResources().getColor(R.color.colorWhite));
+        Toolbar.LayoutParams mTitleLP = new Toolbar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        mTitleLP.gravity = Gravity.CENTER;
+        mTitleLP.rightMargin = getResources().getDimensionPixelSize(R.dimen.y10);
+        mTitle.setVisibility(View.GONE);
+        mToolbar.addView(mTitle, mTitleLP);
+
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override
@@ -91,8 +111,8 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
         public void onReceivedTitle(WebView view, String title) {
             super.onReceivedTitle(view, title);
             if (!TextUtils.isEmpty(title)) {
-                WebActivity.this.title.setText(title);
-                WebActivity.this.title.setVisibility(View.VISIBLE);
+                mTitle.setText(title);
+                mTitle.setVisibility(View.VISIBLE);
             }
         }
     };
@@ -178,5 +198,13 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
         if (v != null) {
             v.setSelected(true);
         }
+    }
+
+    @Override
+    public void updateUiElements() {
+        super.updateUiElements();
+        mTitle.setTextColor(getTextColor());
+        mToolbar.setBackgroundColor(getPrimaryColor());
+        setStatusBarColor();
     }
 }

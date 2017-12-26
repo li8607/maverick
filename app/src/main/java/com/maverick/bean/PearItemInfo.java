@@ -15,7 +15,10 @@ public class PearItemInfo implements Serializable {
     private PearVideoInfo pearVideoInfo;
     private List<PearVideoDetailInfoTag> pearTagInfo;
     private PearVideoDetailInfoPostChildItem commentInfo;
+    private PearVideoInfoNode pearVideoInfoNode;
     private int lineType;
+    private int relateContPosition;
+    private int relateContCount;
 
     public int getType() {
         return type;
@@ -71,5 +74,29 @@ public class PearItemInfo implements Serializable {
 
     public void setLineType(int lineType) {
         this.lineType = lineType;
+    }
+
+    public PearVideoInfoNode getPearVideoInfoNode() {
+        return pearVideoInfoNode;
+    }
+
+    public void setPearVideoInfoNode(PearVideoInfoNode pearVideoInfoNode) {
+        this.pearVideoInfoNode = pearVideoInfoNode;
+    }
+
+    public void setRelateContPosition(int position) {
+        this.relateContPosition = position;
+    }
+
+    public int getRelateContPosition() {
+        return relateContPosition;
+    }
+
+    public int getRelateContCount() {
+        return relateContCount;
+    }
+
+    public void setRelateContCount(int relateContCount) {
+        this.relateContCount = relateContCount;
     }
 }

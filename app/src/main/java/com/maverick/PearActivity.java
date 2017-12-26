@@ -200,7 +200,6 @@ public class PearActivity extends BaseActivity implements PearBottomFragment.OnL
     @Override
     protected void onInitData(Bundle savedInstanceState) {
         mInfo = (PearVideoDetailBean) getIntent().getSerializableExtra(EXTRA_IMAGE);
-        Toast.makeText(this, mInfo.getName(), Toast.LENGTH_SHORT).show();
         replaceFragment(R.id.bottom, PearBottomFragment.newInstance(mInfo));
 
 

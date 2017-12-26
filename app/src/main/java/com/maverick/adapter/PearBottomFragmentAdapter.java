@@ -11,9 +11,12 @@ import com.maverick.adapter.holder.PearCommentEmptyViewHolder;
 import com.maverick.adapter.holder.PearCommentMoreViewHolder;
 import com.maverick.adapter.holder.PearCommentViewHolder;
 import com.maverick.adapter.holder.PearDetailViewHolder;
+import com.maverick.adapter.holder.PearDingYueViewHolder;
 import com.maverick.adapter.holder.PearImageViewHolder;
 import com.maverick.adapter.holder.PearTagViewHolder;
 import com.maverick.adapter.holder.PearTitleViewHolder;
+import com.maverick.base.ThemeAdapter;
+import com.maverick.base.ThemedViewHolder;
 import com.maverick.bean.PearItemInfo;
 import com.maverick.bean.PearVideoInfo;
 import com.maverick.type.PearItemType;
@@ -24,12 +27,13 @@ import java.util.List;
  * Created by Administrator on 2017/11/1.
  */
 
-public class PearBottomFragmentAdapter extends RecyclerView.Adapter implements PearImageViewHolder.OnListener {
+public class PearBottomFragmentAdapter extends ThemeAdapter implements PearImageViewHolder.OnListener {
 
     private List<PearItemInfo> mList;
     private Context mContext;
 
     public PearBottomFragmentAdapter(Context context) {
+        super(context);
         this.mContext = context;
     }
 
@@ -75,6 +79,11 @@ public class PearBottomFragmentAdapter extends RecyclerView.Adapter implements P
                         .inflate(R.layout.item_pear_comment_more, parent, false));
                 holder = pearCommentMoreViewHolder;
                 break;
+            case PearItemType.DINGYUE:
+                PearDingYueViewHolder pearDingYueViewHolder = new PearDingYueViewHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_pear_detail_dingyue, parent, false));
+                holder = pearDingYueViewHolder;
+                break;
             default:
                 holder = new RecyclerView.ViewHolder(new View(parent.getContext())) {
                 };
@@ -86,6 +95,11 @@ public class PearBottomFragmentAdapter extends RecyclerView.Adapter implements P
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+        if (holder instanceof ThemedViewHolder) {
+            super.onBindViewHolder((ThemedViewHolder) holder, position);
+        }
+
         if (holder instanceof PearImageViewHolder) {
             PearImageViewHolder pearImageViewHolder = (PearImageViewHolder) holder;
             pearImageViewHolder.bindData(mContext, mList.get(position).getPearVideoInfo());
@@ -101,6 +115,9 @@ public class PearBottomFragmentAdapter extends RecyclerView.Adapter implements P
         } else if (holder instanceof PearCommentViewHolder) {
             PearCommentViewHolder pearCommentViewHolder = (PearCommentViewHolder) holder;
             pearCommentViewHolder.bindData(mContext, mList.get(position).getCommentInfo());
+        }else if (holder instanceof PearDingYueViewHolder) {
+            PearDingYueViewHolder pearDingYueViewHolder = (PearDingYueViewHolder) holder;
+            pearDingYueViewHolder.bindData(mContext, mList.get(position).getPearVideoInfoNode());
         }
     }
 

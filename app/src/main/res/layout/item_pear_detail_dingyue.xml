@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/y39">
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_alignParentTop="true"
-        android:background="@color/pear_video_detail_bg_color" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="top"
-        android:background="@color/pear_video_detail_bg_color" />
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/y8"
+    android:paddingLeft="@dimen/y17"
+    android:paddingRight="@dimen/y17"
+    android:paddingTop="@dimen/y8">
 
     <TextView
         android:id="@+id/dingyue_btn"
@@ -22,7 +13,6 @@
         android:layout_height="@dimen/x16"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="@dimen/y17"
         android:background="@drawable/pear_video_dingyue_shape"
         android:ellipsize="end"
         android:gravity="center"
@@ -36,7 +26,6 @@
         android:layout_width="@dimen/y22"
         android:layout_height="@dimen/y22"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/y17"
         android:scaleType="fitXY"
         android:src="@mipmap/ic_header" />
 

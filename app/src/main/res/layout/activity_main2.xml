@@ -30,18 +30,11 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior" />
     </android.support.design.widget.CoordinatorLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/x1"
-        android:layout_alignTop="@+id/radio_group"
-        android:background="@color/bottom_bar_line_background_color" />
-
     <RadioGroup
         android:id="@+id/radio_group"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y30"
         android:layout_alignParentBottom="true"
-        android:background="#0000"
         android:orientation="horizontal"
         android:paddingBottom="4dp"
         android:paddingTop="4dp">
@@ -86,6 +79,13 @@
             android:button="@null"
             android:textSize="@dimen/x8" />
     </RadioGroup>
+
+    <View
+        android:id="@+id/bottom_bar_line"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/x1"
+        android:layout_alignTop="@+id/radio_group"
+        android:background="@color/bottom_bar_line_background_color" />
 
     <FrameLayout
         android:id="@+id/video_full_container"

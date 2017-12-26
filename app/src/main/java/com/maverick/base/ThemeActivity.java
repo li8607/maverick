@@ -62,6 +62,14 @@ public class ThemeActivity extends AppCompatActivity {
         return themeHelper.getPrimaryColor();
     }
 
+    public int getTextColor() {
+        return themeHelper.getTextColor();
+    }
+
+    public Theme getBaseTheme() {
+        return themeHelper.getBaseTheme();
+    }
+
     public int getCardBackgroundColor() {
         return themeHelper.getCardBackgroundColor();
     }

@@ -5,19 +5,14 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/pear_video_detail_bg_color" />
-
     <co.lujun.androidtagview.TagContainerLayout
         android:id="@+id/tagContainerLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="@dimen/y10"
         android:paddingTop="@dimen/y10"
-        app:container_background_color="@color/colorWhite"
-        app:container_border_color="@color/colorWhite"
+        app:container_background_color="#0000"
+        app:container_border_color="#0000"
         app:container_enable_drag="false"
         app:horizontal_interval="@dimen/y5"
         app:tag_background_color="@color/pear_tag_text_bg_color"
@@ -30,8 +25,4 @@
         app:tag_vertical_padding="@dimen/y5"
         app:vertical_interval="@dimen/y5" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/pear_video_detail_bg_color" />
 </LinearLayout>

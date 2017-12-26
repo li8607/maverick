@@ -26,6 +26,8 @@ import com.maverick.type.PearItemType;
 
 import java.util.List;
 
+import cntv.themelibrary.ThemeHelper;
+
 /**
  * Created by Administrator on 2017/10/31.
  */
@@ -79,6 +81,7 @@ public class PearBottomFragment extends BaseFragment2 implements IPearBottomFrag
                         || PearItemType.COMMENT == mAdapter.getItemViewType(position)
                         || PearItemType.COMMENT_EMPTY == mAdapter.getItemViewType(position)
                         || PearItemType.COMMENT_MORE == mAdapter.getItemViewType(position)
+                        || PearItemType.DINGYUE == mAdapter.getItemViewType(position)
                         || PearItemType.TAG == mAdapter.getItemViewType(position)) {
                     return spanCount;
                 }
@@ -91,21 +94,21 @@ public class PearBottomFragment extends BaseFragment2 implements IPearBottomFrag
         mSelectDividerItemDecoration.setOnListener(new SelectDividerItemDecoration.OnListener() {
             @Override
             public boolean isAllow(int position) {
-                return mAdapter.getItemViewType(position) == PearItemType.DETAIL
-                        || mAdapter.getItemViewType(position) == PearItemType.TAG;
+                return mAdapter.getItemViewType(position) == PearItemType.TAG || mPresenter.getList().get(position).getLineType() == LineType.MAX || mPresenter.getList().get(position).getLineType() == LineType.SMALL_AND_MAX;
             }
         });
-        mRecyclerView.addItemDecoration(mSelectDividerItemDecoration);
 
         SelectDividerItemDecoration itemDecoration = new SelectDividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL);
         itemDecoration.setDrawable(getResources().getDrawable(R.drawable.divder_small_item_shape));
         itemDecoration.setOnListener(new SelectDividerItemDecoration.OnListener() {
             @Override
             public boolean isAllow(int position) {
-                return mPresenter.getList().get(position).getLineType() == LineType.SMALL;
+                return mPresenter.getList().get(position).getLineType() == LineType.SMALL
+                        || mPresenter.getList().get(position).getLineType() == LineType.SMALL_AND_MAX;
             }
         });
         mRecyclerView.addItemDecoration(itemDecoration);
+        mRecyclerView.addItemDecoration(mSelectDividerItemDecoration);
 
         mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
@@ -114,18 +117,12 @@ public class PearBottomFragment extends BaseFragment2 implements IPearBottomFrag
                 int position = parent.getChildAdapterPosition(view);
 
                 int type = mAdapter.getItemViewType(position);
-
                 if (type == PearItemType.ITEM) {
-                    if (position % 2 == 0) {
-
+                    if (mPresenter.getList().get(position).getRelateContPosition() % 2 == 0) {
                         outRect.right = getResources().getDimensionPixelSize(R.dimen.y1);
                     } else {
-
                         outRect.left = getResources().getDimensionPixelSize(R.dimen.y1);
                     }
-                } else if (type == PearItemType.TAG) {
-                    outRect.right = getResources().getDimensionPixelSize(R.dimen.y5);
-                    outRect.left = getResources().getDimensionPixelSize(R.dimen.y5);
                 }
             }
         });
@@ -165,6 +162,13 @@ public class PearBottomFragment extends BaseFragment2 implements IPearBottomFrag
             OnListener listener = (OnListener) getActivity();
             listener.playVideo(list);
         }
+    }
+
+    @Override
+    public void refreshTheme(ThemeHelper themeHelper) {
+        super.refreshTheme(themeHelper);
+        mAdapter.refreshTheme(themeHelper);
+        getView().setBackgroundColor(themeHelper.getBackgroundColor());
     }
 
     public interface OnListener {

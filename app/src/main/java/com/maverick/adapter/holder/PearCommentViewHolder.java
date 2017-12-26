@@ -1,21 +1,23 @@
 package com.maverick.adapter.holder;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.maverick.R;
+import com.maverick.base.ThemedViewHolder;
 import com.maverick.bean.PearVideoDetailInfoPostChildItem;
 import com.maverick.util.GlideUtil;
+
+import cntv.themelibrary.ThemeHelper;
 
 /**
  * Created by Administrator on 2017/11/9.
  */
 
-public class PearCommentViewHolder extends RecyclerView.ViewHolder {
+public class PearCommentViewHolder extends ThemedViewHolder {
 
     private final ImageView user_image;
     private final TextView user_name;
@@ -43,5 +45,11 @@ public class PearCommentViewHolder extends RecyclerView.ViewHolder {
         user_comment.setText(TextUtils.isEmpty(info.getContent()) ? "" : info.getContent());
 
         comment_time.setText(TextUtils.isEmpty(info.getPubTime()) ? "" : info.getPubTime());
+    }
+
+    @Override
+    public void refreshTheme(ThemeHelper themeHelper) {
+        user_comment.setTextColor(themeHelper.getTextColor());
+        comment_time.setTextColor(themeHelper.getSubTextColor());
     }
 }

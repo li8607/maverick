@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -42,6 +43,7 @@ public class MainActivity2 extends BaseActivity {
     private CoordinatorLayout mCoordinatorLayout;
     private AppBarLayout mAppBarLayout;
     private Toolbar mToolbar;
+    private View bottom_bar_line;
 
     @Override
     protected com.maverick.presenter.BasePresenter onCreatePresenter() {
@@ -72,6 +74,8 @@ public class MainActivity2 extends BaseActivity {
 
         radio_group = findView(R.id.radio_group);
 
+        bottom_bar_line = findView(R.id.bottom_bar_line);
+
         radio_0 = findView(R.id.radio_0);
         radio_1 = findView(R.id.radio_1);
         radio_2 = findView(R.id.radio_2);
@@ -88,6 +92,11 @@ public class MainActivity2 extends BaseActivity {
                         }
                         switchFragment(fragment_0);
                         setSupportActionBarTitle(radio_0.getText());
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            mAppBarLayout.setElevation(0);
+                        }
+
                         break;
                     case R.id.radio_1:
                         if (fragment_1 == null) {
@@ -95,6 +104,11 @@ public class MainActivity2 extends BaseActivity {
                         }
                         switchFragment(fragment_1);
                         setSupportActionBarTitle(radio_1.getText());
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            mAppBarLayout.setElevation(0);
+                        }
+
                         break;
                     case R.id.radio_2:
                         if (fragment_2 == null) {
@@ -102,6 +116,11 @@ public class MainActivity2 extends BaseActivity {
                         }
                         switchFragment(fragment_2);
                         setSupportActionBarTitle(radio_2.getText());
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            mAppBarLayout.setElevation(0);
+                        }
+
                         break;
                     case R.id.radio_3:
                         if (fragment_3 == null) {
@@ -109,6 +128,11 @@ public class MainActivity2 extends BaseActivity {
                         }
                         switchFragment(fragment_3);
                         setSupportActionBarTitle(radio_3.getText());
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            mAppBarLayout.setElevation(0);
+                        }
+
                         break;
                     case R.id.radio_4:
                         if (fragment_4 == null) {
@@ -122,6 +146,12 @@ public class MainActivity2 extends BaseActivity {
                             AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) layoutParams.getBehavior();
                             behavior.onNestedFling(mCoordinatorLayout, mAppBarLayout, null, 0, -1000, true);
                         }
+
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            mAppBarLayout.setElevation(getResources().getDimension(R.dimen.card_elevation));
+                        }
+
                         break;
 
                 }
@@ -268,9 +298,31 @@ public class MainActivity2 extends BaseActivity {
     @Override
     public void updateUiElements() {
         super.updateUiElements();
-        mTitle.setTextColor(getThemeHelper().getTextColor());
         mToolbar.setBackgroundColor(getPrimaryColor());
         setStatusBarColor();
+
+        radio_group.setBackgroundColor(getCardBackgroundColor());
+
+        switch (getBaseTheme()) {
+            case DARK:
+            case AMOLED:
+                bottom_bar_line.setBackgroundColor(ContextCompat.getColor(MainActivity2.this, R.color.md_black_1000));
+                radio_0.setTextColor(ContextCompat.getColorStateList(MainActivity2.this, R.color.selector_radiobutton_text_color_main_2));
+                radio_1.setTextColor(ContextCompat.getColorStateList(MainActivity2.this, R.color.selector_radiobutton_text_color_main_2));
+                radio_2.setTextColor(ContextCompat.getColorStateList(MainActivity2.this, R.color.selector_radiobutton_text_color_main_2));
+                radio_3.setTextColor(ContextCompat.getColorStateList(MainActivity2.this, R.color.selector_radiobutton_text_color_main_2));
+                radio_4.setTextColor(ContextCompat.getColorStateList(MainActivity2.this, R.color.selector_radiobutton_text_color_main_2));
+                break;
+            case LIGHT:
+            default:
+                bottom_bar_line.setBackgroundColor(ContextCompat.getColor(MainActivity2.this, R.color.bottom_bar_line_background_color));
+                radio_0.setTextColor(ContextCompat.getColorStateList(MainActivity2.this, R.color.selector_radiobutton_text_color_main));
+                radio_1.setTextColor(ContextCompat.getColorStateList(MainActivity2.this, R.color.selector_radiobutton_text_color_main));
+                radio_2.setTextColor(ContextCompat.getColorStateList(MainActivity2.this, R.color.selector_radiobutton_text_color_main));
+                radio_3.setTextColor(ContextCompat.getColorStateList(MainActivity2.this, R.color.selector_radiobutton_text_color_main));
+                radio_4.setTextColor(ContextCompat.getColorStateList(MainActivity2.this, R.color.selector_radiobutton_text_color_main));
+                break;
+        }
     }
 
     @Override
