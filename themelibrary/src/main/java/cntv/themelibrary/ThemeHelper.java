@@ -129,7 +129,7 @@ public class ThemeHelper {
                 return getColor(cntv.themelibrary.R.color.md_black_1000);
             case LIGHT:
             default:
-                return getColor(cntv.themelibrary.R.color.md_light_background);
+                return getColor(cntv.themelibrary.R.color.md_grey_100);
         }
     }
 
