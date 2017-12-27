@@ -60,7 +60,8 @@
                 android:imeActionLabel="@string/action_sign_in_short"
                 android:imeOptions="actionUnspecified"
                 android:inputType="textPassword"
-                android:maxLines="1" />
+                android:maxLines="1"
+                tools:ignore="InvalidImeActionId" />
 
         </android.support.design.widget.TextInputLayout>
 
