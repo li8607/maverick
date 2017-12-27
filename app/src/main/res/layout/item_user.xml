@@ -20,15 +20,15 @@
             android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="@color/user_text_color"
+            android:textColor="@color/colorTitleColor"
             android:textSize="@dimen/y11" />
     </LinearLayout>
 
     <View
         android:id="@+id/line"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="1px"
         android:layout_gravity="bottom"
-        android:background="@color/click_background" />
+        android:background="@color/colorDivider"
+        android:visibility="gone" />
 </FrameLayout>

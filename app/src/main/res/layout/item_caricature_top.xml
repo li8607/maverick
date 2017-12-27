@@ -10,9 +10,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/image_menu"
-        android:ellipsize="end"
-        android:lines="1"
-        android:textColor="@color/sister_content_color"
+        android:textColor="@color/colorTitleColor"
         android:textSize="@dimen/y11" />
 
 

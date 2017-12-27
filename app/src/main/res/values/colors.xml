@@ -11,6 +11,11 @@
     <color name="colorControlNormal">#FFFFFF</color>
     <color name="colorButtonNormal">#FFFFFF</color>
 
+    <color name="colorDivider">#30000000</color>
+
+    <color name="colorTitleColor">#000</color>
+    <color name="colorSubTitleColor">#666</color>
+
 
     <color name="colorBackground">#333333</color>
     <color name="colorStatusBarBackground">#66000000</color>

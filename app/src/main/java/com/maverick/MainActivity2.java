@@ -252,11 +252,8 @@ public class MainActivity2 extends BaseActivity {
         radioButton.setButtonDrawable(null);
         radioButton.setText(buttonInfo.getName());
         radioButton.setGravity(Gravity.CENTER);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            radioButton.setTextColor(getColorStateList(R.color.selector_radiobutton_text_color_main));
-        } else {
-            radioButton.setTextColor(getResources().getColorStateList(R.color.selector_radiobutton_text_color_main));
-        }
+
+        radioButton.setTextColor(ContextCompat.getColorStateList(MainActivity2.this, R.color.selector_radiobutton_text_color_main));
 
         Drawable drawable;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {

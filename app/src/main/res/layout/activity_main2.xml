@@ -15,8 +15,7 @@
             android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:elevation="0dp"
-            >
+            app:elevation="0dp">
 
             <include
                 android:id="@+id/toolbar_actionbar"
@@ -85,7 +84,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/x1"
         android:layout_alignTop="@+id/radio_group"
-        android:background="@color/bottom_bar_line_background_color" />
+        android:background="@color/colorDivider" />
 
     <FrameLayout
         android:id="@+id/video_full_container"

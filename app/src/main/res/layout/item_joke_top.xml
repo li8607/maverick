@@ -10,7 +10,7 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/result_text_color"
+        android:textColor="@color/colorTitleColor"
         android:textSize="@dimen/x11" />
 
 </FrameLayout>

@@ -6,10 +6,11 @@
     android:orientation="horizontal">
 
     <TextView
-        android:layout_marginLeft="10dp"
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_marginLeft="10dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/colorTitleColor" />
 
 </LinearLayout>

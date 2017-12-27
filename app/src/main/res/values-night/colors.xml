@@ -6,5 +6,9 @@
     <color name="colorControlNormal">#ffffff</color>
     <color name="textColorPrimary">#ffffff</color>
 
-    <color name="colorDivider">#60ffffff</color>
+    <color name="colorDivider">#11ffffff</color>
+
+    <color name="colorTitleColor">#fff</color>
+    <color name="colorSubTitleColor">#666</color>
+    <color name="colorSubTitleColor_Selector">#666</color>
 </resources>

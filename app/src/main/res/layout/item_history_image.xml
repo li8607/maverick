@@ -26,6 +26,7 @@
             android:maxLines="1"
             android:padding="4dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/colorTitleColor"
             android:textSize="10sp" />
 
         <CheckBox

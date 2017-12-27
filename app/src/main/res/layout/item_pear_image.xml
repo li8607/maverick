@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/y11"
-    >
+    android:paddingBottom="@dimen/y11">
 
     <com.maverick.weight.RatioImageView
         android:id="@+id/image"
@@ -21,7 +20,7 @@
         android:layout_marginTop="@dimen/y9"
         android:ellipsize="end"
         android:lines="2"
-        android:textColor="@color/result_text_color"
+        android:textColor="@color/colorTitleColor"
         android:textSize="@dimen/y10" />
 
     <TextView
@@ -33,7 +32,7 @@
         android:layout_marginTop="@dimen/y9"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="@color/pear_node_color"
+        android:textColor="@color/colorSubTitleColor"
         android:textSize="@dimen/x8" />
 
     <TextView
@@ -50,6 +49,5 @@
         android:maxLines="1"
         android:textColor="@color/pear_video_label_color"
         android:textSize="@dimen/x7"
-        android:visibility="gone"
-        />
+        android:visibility="gone" />
 </RelativeLayout>

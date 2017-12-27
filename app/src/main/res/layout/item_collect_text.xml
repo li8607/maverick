@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="2"
-            android:textColor="@color/result_text_color"
+            android:textColor="@color/colorTitleColor"
             android:textSize="@dimen/x11" />
 
         <TextView
@@ -27,7 +27,7 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/title"
             android:layout_marginTop="@dimen/y5"
-            android:textColor="@color/joke_time_color"
+            android:textColor="@color/colorSubTitleColor"
             android:textSize="@dimen/x8" />
 
         <CheckBox
