@@ -15,8 +15,6 @@ import com.maverick.presenter.BasePresenter;
 import java.util.ArrayList;
 import java.util.List;
 
-import cntv.themelibrary.ThemeHelper;
-
 /**
  * Created by Administrator on 2017/9/25.
  */
@@ -49,12 +47,6 @@ public class CaricatureFragment extends BaseFragment2 {
         mAdapter = new CaricatureFragmentAdapter(getChildFragmentManager());
         viewpager.setAdapter(mAdapter);
         tab_layout.setupWithViewPager(viewpager);
-    }
-
-    @Override
-    public void refreshTheme(ThemeHelper themeHelper) {
-        super.refreshTheme(themeHelper);
-        tab_layout.setBackgroundColor(themeHelper.getPrimaryColor());
     }
 
     @Override

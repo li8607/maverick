@@ -1,24 +1,22 @@
 package com.maverick.adapter.holder;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
 import com.maverick.R;
-import com.maverick.base.ThemedViewHolder;
 import com.maverick.bean.PearVideoDetailInfoTag;
 
 import java.util.List;
 
-import cntv.themelibrary.ThemeHelper;
 import co.lujun.androidtagview.TagContainerLayout;
 import co.lujun.androidtagview.TagView;
 
 /**
  * Created by limingfei on 2017/11/9.
  */
-public class PearTagViewHolder extends ThemedViewHolder implements TagView.OnTagClickListener {
+public class PearTagViewHolder extends RecyclerView.ViewHolder implements TagView.OnTagClickListener {
 
     private final TagContainerLayout tagContainerLayout;
     private Context mContext;
@@ -54,21 +52,5 @@ public class PearTagViewHolder extends ThemedViewHolder implements TagView.OnTag
     @Override
     public void onTagCrossClick(int position) {
 
-    }
-
-    @Override
-    public void refreshTheme(ThemeHelper themeHelper) {
-        tagContainerLayout.setTagTextColor(themeHelper.getTextColor());
-
-        switch (themeHelper.getBaseTheme()) {
-            case DARK:
-            case AMOLED:
-                tagContainerLayout.setTagBackgroundColor(themeHelper.getCardBackgroundColor());
-                break;
-            case LIGHT:
-            default:
-                tagContainerLayout.setTagBackgroundColor(ContextCompat.getColor(tagContainerLayout.getContext(), R.color.pear_tag_text_bg_color));
-                break;
-        }
     }
 }

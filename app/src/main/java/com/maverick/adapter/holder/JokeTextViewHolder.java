@@ -1,24 +1,22 @@
 package com.maverick.adapter.holder;
 
 import android.content.Context;
-import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
 import com.maverick.R;
-import com.maverick.base.ThemedViewHolder;
 import com.maverick.bean.GifInfo;
 import com.maverick.hepler.BeanHelper;
 import com.maverick.model.CollectModel;
 
 import cntv.greendaolibrary.dbbean.Collect;
-import cntv.themelibrary.ThemeHelper;
 
 /**
  * Created by limingfei on 2017/10/4.
  */
-public class JokeTextViewHolder extends ThemedViewHolder implements View.OnClickListener {
+public class JokeTextViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     protected final TextView mTitle;
     private GifInfo gifInfo;
@@ -77,12 +75,5 @@ public class JokeTextViewHolder extends ThemedViewHolder implements View.OnClick
                 }
                 break;
         }
-    }
-
-    @Override
-    public void refreshTheme(ThemeHelper themeHelper) {
-        ((CardView) itemView).setCardBackgroundColor(themeHelper.getCardBackgroundColor());
-        mTitle.setTextColor(themeHelper.getTextColor());
-        time.setTextColor(themeHelper.getSubTextColor());
     }
 }

@@ -31,14 +31,13 @@
         android:icon="@mipmap/maverick_app_image"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/BaseAppTheme"
+        android:theme="@style/AppTheme.DayNight"
         tools:replace="android:icon, android:theme">
         <activity
             android:name=".MainActivity2"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/BaseAppTheme">
+            android:theme="@style/AppTheme.DayNight">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -48,24 +47,19 @@
 
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/BaseAppTheme"></activity>
+            android:theme="@style/AppTheme.DayNight"></activity>
 
         <activity
-            android:name=".DetailActivity"
-            android:theme="@style/BaseAppTheme" />
+            android:name=".DetailActivity" />
 
         <activity
-            android:name=".WebActivity"
-            android:theme="@style/BaseAppTheme" />
+            android:name=".WebActivity" />
 
         <activity
-            android:name=".DataBankActivity"
-            android:theme="@style/BaseAppTheme" />
+            android:name=".DataBankActivity" />
 
         <activity
-            android:name=".CaricatureActivity"
-            android:theme="@style/BaseAppTheme" />
+            android:name=".CaricatureActivity" />
 
         <activity
             android:name=".PearActivity"
@@ -92,17 +86,15 @@
             android:windowSoftInputMode="stateHidden" />
 
         <activity
-            android:name=".UserDetailActivity"
-            android:theme="@style/BaseAppTheme" />
+            android:name=".UserDetailActivity" />
 
         <activity
             android:name=".UserChangeActivity"
-            android:theme="@style/BaseAppTheme"
             android:windowSoftInputMode="stateHidden" />
 
         <activity
             android:name=".SettingActivity"
-            android:theme="@style/BaseAppTheme" />
+            android:theme="@style/AppTheme.DayNight" />
 
         <!--微信-->
         <activity

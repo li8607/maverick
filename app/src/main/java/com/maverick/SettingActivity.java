@@ -1,21 +1,20 @@
 package com.maverick;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.CompoundButton;
 
 import com.maverick.base.BaseActivity;
 import com.maverick.presenter.BasePresenter;
-import com.maverick.theme.ColorsSetting;
-import com.maverick.theme.SettingBasic;
 
 /**
  * Created by limingfei on 2017/12/22.
  */
 
-public class SettingActivity extends BaseActivity implements View.OnClickListener {
+public class SettingActivity extends BaseActivity {
 
     private Toolbar mToolbar;
     private AppBarLayout mAppBarLayout;
@@ -47,43 +46,22 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
             }
         });
 
-        SettingBasic ll_basic_theme = findView(R.id.ll_basic_theme);
-        ll_basic_theme.setOnClickListener(this);
+        SwitchCompat switchCompat = findView(R.id.switchCompat);
+        switchCompat.setChecked(MainApp.getInstance().getModeTheme() == 1);
+        switchCompat.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    MainApp.getInstance().setModeTheme(SettingActivity.this, 1);
+                } else {
+                    MainApp.getInstance().setModeTheme(SettingActivity.this, 0);
+                }
+            }
+        });
     }
 
     @Override
     protected void onInitData(Bundle savedInstanceState) {
 
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.ll_basic_theme:
-                new ColorsSetting(SettingActivity.this).chooseBaseTheme();
-                break;
-        }
-    }
-
-    @Override
-    public void updateUiElements() {
-        super.updateUiElements();
-        findView(R.id.setting_background).setBackgroundColor(getBackgroundColor());
-        mToolbar.setBackgroundColor(getPrimaryColor());
-        setStatusBarColor();
-        switch (getBaseTheme()) {
-            case DARK:
-            case AMOLED:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    mAppBarLayout.setElevation(getResources().getDimension(R.dimen.card_elevation));
-                }
-                break;
-            case LIGHT:
-            default:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    mAppBarLayout.setElevation(0);
-                }
-                break;
-        }
     }
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -68,10 +69,11 @@ public class DataBankActivity extends BaseActivity implements View.OnClickListen
         mEdit.setId(R.id.edit);
         mEdit.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.y10));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            mEdit.setTextAppearance(android.R.style.TextAppearance);
+            mEdit.setTextAppearance(android.R.style.TextAppearance_Material_Widget_ActionBar_Title);
         } else {
-            mEdit.setTextAppearance(this, android.R.style.TextAppearance);
+            mEdit.setTextAppearance(this, android.R.style.TextAppearance_Material_Widget_ActionBar_Title);
         }
+        mEdit.setTextColor(ContextCompat.getColor(DataBankActivity.this, R.color.textColorPrimary));
         mEdit.setText("编辑");
         Toolbar.LayoutParams mTitleLP = new Toolbar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mTitleLP.gravity = Gravity.RIGHT;
@@ -222,33 +224,5 @@ public class DataBankActivity extends BaseActivity implements View.OnClickListen
 
         btn_delete.setAlpha(0.5f);
         btn_delete.setClickable(false);
-    }
-
-    @Override
-    public void updateUiElements() {
-        super.updateUiElements();
-
-        setStatusBarColor();
-        mToolbar.setBackgroundColor(getPrimaryColor());
-        collect_content.setBackgroundColor(getBackgroundColor());
-        btn_check_or_cancel.setTextColor(getTextColor());
-        btn_delete.setTextColor(getTextColor());
-        btn_root.setBackgroundColor(getCardBackgroundColor());
-        mEdit.setTextColor(getTextColor());
-
-        switch (getBaseTheme()) {
-            case DARK:
-            case AMOLED:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    mAppBarLayout.setElevation(getResources().getDimension(R.dimen.card_elevation));
-                }
-                break;
-            case LIGHT:
-            default:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    mAppBarLayout.setElevation(0);
-                }
-                break;
-        }
     }
 }

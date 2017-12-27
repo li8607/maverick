@@ -106,10 +106,4 @@ public class PearFragment extends BaseFragment2 implements IPearFragmentView {
             }
         });
     }
-
-    @Override
-    public void refreshTheme(ThemeHelper themeHelper) {
-        super.refreshTheme(themeHelper);
-        tab_layout.setBackgroundColor(themeHelper.getPrimaryColor());
-    }
 }

@@ -164,13 +164,6 @@ public class PearBottomFragment extends BaseFragment2 implements IPearBottomFrag
         }
     }
 
-    @Override
-    public void refreshTheme(ThemeHelper themeHelper) {
-        super.refreshTheme(themeHelper);
-        mAdapter.refreshTheme(themeHelper);
-        getView().setBackgroundColor(themeHelper.getBackgroundColor());
-    }
-
     public interface OnListener {
         void playVideo(List<PearVideoDetailInfoVideo> list);
     }

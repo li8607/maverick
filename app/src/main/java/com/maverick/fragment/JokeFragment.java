@@ -15,8 +15,6 @@ import com.maverick.presenter.BasePresenter;
 import java.util.ArrayList;
 import java.util.List;
 
-import cntv.themelibrary.ThemeHelper;
-
 /**
  * Created by Administrator on 2017/9/25.
  */
@@ -68,11 +66,5 @@ public class JokeFragment extends BaseFragment2 {
         jokeTabInfo.setTitle(title);
         jokeTabInfo.setType(type);
         return jokeTabInfo;
-    }
-
-    @Override
-    public void refreshTheme(ThemeHelper themeHelper) {
-        super.refreshTheme(themeHelper);
-        tab_layout.setBackgroundColor(themeHelper.getPrimaryColor());
     }
 }

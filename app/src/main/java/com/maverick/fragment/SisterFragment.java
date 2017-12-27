@@ -70,10 +70,4 @@ public class SisterFragment extends BaseFragment2 {
         info.setType(type);
         return info;
     }
-
-    @Override
-    public void refreshTheme(ThemeHelper themeHelper) {
-        super.refreshTheme(themeHelper);
-        tab_layout.setBackgroundColor(themeHelper.getPrimaryColor());
-    }
 }

@@ -11,8 +11,6 @@ import com.maverick.R;
 import com.maverick.adapter.holder.SisterImageHolder;
 import com.maverick.adapter.holder.SisterTextHolder;
 import com.maverick.adapter.holder.SisterVideoHolder;
-import com.maverick.base.ThemeAdapter;
-import com.maverick.base.ThemedViewHolder;
 import com.maverick.bean.SisterInfo;
 import com.maverick.global.Tag;
 import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
@@ -22,7 +20,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/9/30.
  */
-public class SisterItemFragmentAdapter extends ThemeAdapter {
+public class SisterItemFragmentAdapter extends RecyclerView.Adapter {
 
     private String TAG = getClass().getSimpleName();
 
@@ -34,7 +32,6 @@ public class SisterItemFragmentAdapter extends ThemeAdapter {
     private Context mContext;
 
     public SisterItemFragmentAdapter(Context context) {
-        super(context);
         this.mContext = context;
     }
 
@@ -68,9 +65,6 @@ public class SisterItemFragmentAdapter extends ThemeAdapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof ThemedViewHolder) {
-            super.onBindViewHolder((ThemedViewHolder) holder, position);
-        }
         if (holder instanceof SisterVideoHolder) {
             SisterVideoHolder sisterVideoHolder = (SisterVideoHolder) holder;
             sisterVideoHolder.setListVideoUtil(listVideoUtil);

@@ -10,8 +10,6 @@ import com.maverick.R;
 import com.maverick.adapter.holder.PearBannerViewHolder;
 import com.maverick.adapter.holder.PearGalleryViewHolder;
 import com.maverick.adapter.holder.PearImageViewHolder;
-import com.maverick.base.ThemeAdapter;
-import com.maverick.base.ThemedViewHolder;
 import com.maverick.bean.PearVideoInfo;
 
 import java.util.List;
@@ -20,7 +18,7 @@ import java.util.List;
  * Created by Administrator on 2017/10/27.
  */
 
-public class PearItemFragmentAdapter extends ThemeAdapter implements PearImageViewHolder.OnListener, PearGalleryViewHolder.OnListener, PearBannerViewHolder.OnListener {
+public class PearItemFragmentAdapter extends RecyclerView.Adapter implements PearImageViewHolder.OnListener, PearGalleryViewHolder.OnListener, PearBannerViewHolder.OnListener {
 
     public static final int TYPE_GALLERY = 1;
     public static final int TYPE_IMAGE = 2;
@@ -32,7 +30,6 @@ public class PearItemFragmentAdapter extends ThemeAdapter implements PearImageVi
     private Context mContext;
 
     public PearItemFragmentAdapter(Context context) {
-        super(context);
         this.mContext = context;
     }
 
@@ -70,9 +67,6 @@ public class PearItemFragmentAdapter extends ThemeAdapter implements PearImageVi
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof ThemedViewHolder) {
-            super.onBindViewHolder((ThemedViewHolder) holder, position);
-        }
         if (holder instanceof PearGalleryViewHolder) {
             PearGalleryViewHolder pearGalleryViewHolder = (PearGalleryViewHolder) holder;
             pearGalleryViewHolder.bindData(mContext, mHotList);

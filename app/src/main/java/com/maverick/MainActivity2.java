@@ -12,7 +12,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,9 +62,12 @@ public class MainActivity2 extends BaseActivity {
 
         mToolbar = findView(R.id.toolbar_actionbar);
         mTitle = new TextView(this);
-        mTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.y10));
-
-        mTitle.setTextColor(getResources().getColor(R.color.colorWhite));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mTitle.setTextAppearance(android.R.style.TextAppearance_Material_Widget_ActionBar_Title);
+        } else {
+            mTitle.setTextAppearance(MainActivity2.this, android.R.style.TextAppearance_Material_Widget_ActionBar_Title);
+        }
+        mTitle.setTextColor(ContextCompat.getColor(MainActivity2.this, R.color.textColorPrimary));
         Toolbar.LayoutParams mTitleLP = new Toolbar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mTitleLP.gravity = Gravity.CENTER;
         mTitle.setVisibility(View.GONE);
@@ -293,36 +295,6 @@ public class MainActivity2 extends BaseActivity {
         }
 
         super.onBackPressed();
-    }
-
-    @Override
-    public void updateUiElements() {
-        super.updateUiElements();
-        mToolbar.setBackgroundColor(getPrimaryColor());
-        setStatusBarColor();
-
-        radio_group.setBackgroundColor(getCardBackgroundColor());
-
-        switch (getBaseTheme()) {
-            case DARK:
-            case AMOLED:
-                bottom_bar_line.setBackgroundColor(ContextCompat.getColor(MainActivity2.this, R.color.md_black_1000));
-                radio_0.setTextColor(ContextCompat.getColorStateList(MainActivity2.this, R.color.selector_radiobutton_text_color_main_2));
-                radio_1.setTextColor(ContextCompat.getColorStateList(MainActivity2.this, R.color.selector_radiobutton_text_color_main_2));
-                radio_2.setTextColor(ContextCompat.getColorStateList(MainActivity2.this, R.color.selector_radiobutton_text_color_main_2));
-                radio_3.setTextColor(ContextCompat.getColorStateList(MainActivity2.this, R.color.selector_radiobutton_text_color_main_2));
-                radio_4.setTextColor(ContextCompat.getColorStateList(MainActivity2.this, R.color.selector_radiobutton_text_color_main_2));
-                break;
-            case LIGHT:
-            default:
-                bottom_bar_line.setBackgroundColor(ContextCompat.getColor(MainActivity2.this, R.color.bottom_bar_line_background_color));
-                radio_0.setTextColor(ContextCompat.getColorStateList(MainActivity2.this, R.color.selector_radiobutton_text_color_main));
-                radio_1.setTextColor(ContextCompat.getColorStateList(MainActivity2.this, R.color.selector_radiobutton_text_color_main));
-                radio_2.setTextColor(ContextCompat.getColorStateList(MainActivity2.this, R.color.selector_radiobutton_text_color_main));
-                radio_3.setTextColor(ContextCompat.getColorStateList(MainActivity2.this, R.color.selector_radiobutton_text_color_main));
-                radio_4.setTextColor(ContextCompat.getColorStateList(MainActivity2.this, R.color.selector_radiobutton_text_color_main));
-                break;
-        }
     }
 
     @Override

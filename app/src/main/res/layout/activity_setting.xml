@@ -27,7 +27,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.maverick.theme.ThemeableCardView
+            <android.support.v7.widget.CardView
                 android:id="@+id/theme_setting_card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -38,67 +38,24 @@
                 app:cardElevation="@dimen/card_elevation">
 
                 <LinearLayout
+                    android:padding="24dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <com.maverick.theme.ThemeableSettingsCategory
-                        android:id="@+id/theme_setting_title"
-                        android:layout_width="match_parent"
+                    <android.support.v7.widget.SwitchCompat
+                        android:id="@+id/switchCompat"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="@dimen/medium_spacing"
-                        android:paddingTop="@dimen/medium_spacing"
-                        android:text="@string/theme"
-                        android:textColor="@color/md_dark_background"
-                        android:textSize="@dimen/medium_text"
-                        android:textStyle="bold" />
-
-                    <com.maverick.theme.SettingBasic
-                        android:id="@+id/ll_basic_theme"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:settingCaption="@string/base_theme_sub"
-                        app:settingIcon="gmd-invert-colors"
-                        app:settingTitle="@string/base_theme"></com.maverick.theme.SettingBasic>
+                        android:layout_gravity="right|center_vertical"
+                        android:longClickable="false"
+                        android:textOff="关"
+                        android:textOn="开"
+                        app:showText="true"
+                        app:switchPadding="5dp" />
 
                 </LinearLayout>
-            </com.maverick.theme.ThemeableCardView>
-
-            <com.maverick.theme.ThemeableCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/card_spacing"
-                android:clickable="true"
-                android:foreground="@drawable/ripple"
-                app:cardCornerRadius="@dimen/card_corner_radius"
-                app:cardElevation="@dimen/card_elevation">
-
-                <com.maverick.theme.SettingBasic
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:settingCaption="@string/base_theme_sub"
-                    app:settingIcon="gmd-invert-colors"
-                    app:settingTitle="@string/base_theme"></com.maverick.theme.SettingBasic>
-            </com.maverick.theme.ThemeableCardView>
-
-            <com.maverick.theme.ThemeableCardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/card_spacing"
-                android:clickable="true"
-                android:foreground="@drawable/ripple"
-                app:cardCornerRadius="@dimen/card_corner_radius"
-                app:cardElevation="@dimen/card_elevation">
-
-                <com.maverick.theme.SettingBasic
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:settingCaption="@string/base_theme_sub"
-                    app:settingIcon="gmd-invert-colors"
-                    app:settingTitle="@string/base_theme"></com.maverick.theme.SettingBasic>
-            </com.maverick.theme.ThemeableCardView>
-
-
+            </android.support.v7.widget.CardView>
         </LinearLayout>
     </ScrollView>
 

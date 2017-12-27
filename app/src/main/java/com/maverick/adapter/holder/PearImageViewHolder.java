@@ -1,23 +1,21 @@
 package com.maverick.adapter.holder;
 
 import android.content.Context;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
 import com.maverick.R;
-import com.maverick.base.ThemedViewHolder;
 import com.maverick.bean.PearVideoInfo;
 import com.maverick.util.GlideUtil;
 import com.maverick.weight.RatioImageView;
-
-import cntv.themelibrary.ThemeHelper;
 
 /**
  * Created by Administrator on 2017/10/27.
  */
 
-public class PearImageViewHolder extends ThemedViewHolder implements View.OnClickListener {
+public class PearImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private final RatioImageView image;
     private final TextView title, node, label;
@@ -72,12 +70,6 @@ public class PearImageViewHolder extends ThemedViewHolder implements View.OnClic
 
     public void setOnListener(OnListener listener) {
         this.mOnListener = listener;
-    }
-
-    @Override
-    public void refreshTheme(ThemeHelper themeHelper) {
-        title.setTextColor(themeHelper.getTextColor());
-        node.setTextColor(themeHelper.getSubTextColor());
     }
 
     public interface OnListener {

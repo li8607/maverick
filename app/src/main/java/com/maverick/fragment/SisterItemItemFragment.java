@@ -459,12 +459,6 @@ public class SisterItemItemFragment extends BaseFragment2 implements ISisterItem
         CollectModel.newInstance().removeOnCollectListener(mListener);
     }
 
-    @Override
-    public void refreshTheme(ThemeHelper themeHelper) {
-        super.refreshTheme(themeHelper);
-        mSisterItemFragmentAdapter.refreshTheme(themeHelper);
-    }
-
     private CollectModel.OnCollectListener mListener = new CollectModel.OnCollectListener() {
 
         @Override

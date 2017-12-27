@@ -6,7 +6,7 @@
     <color name="colorPrimary">#ff2d55</color>
     <color name="colorPrimaryDark">#ff2d55</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="textColorPrimary">#ffffff</color>
     <color name="windowBackground">#FFFFFF</color>
     <color name="colorControlNormal">#FFFFFF</color>
     <color name="colorButtonNormal">#FFFFFF</color>

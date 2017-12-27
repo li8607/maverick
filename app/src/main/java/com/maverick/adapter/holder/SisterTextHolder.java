@@ -1,8 +1,7 @@
 package com.maverick.adapter.holder;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.TextView;
 
 import com.maverick.R;
 import com.maverick.WebActivity;
-import com.maverick.base.ThemedViewHolder;
 import com.maverick.bean.SisterInfo;
 import com.maverick.global.UMengMobclickAgent;
 import com.maverick.hepler.BeanHelper;
@@ -23,12 +21,11 @@ import com.umeng.analytics.MobclickAgent;
 
 import cntv.greendaolibrary.dbbean.Collect;
 import cntv.greendaolibrary.dbbean.SisterDingCai;
-import cntv.themelibrary.ThemeHelper;
 
 /**
  * Created by Administrator on 2017/9/30.
  */
-public class SisterTextHolder extends ThemedViewHolder implements View.OnClickListener {
+public class SisterTextHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     protected String TAG = getClass().getSimpleName();
 
@@ -220,31 +217,6 @@ public class SisterTextHolder extends ThemedViewHolder implements View.OnClickLi
 
     public void setOnSisterTextHolderListener(OnSisterTextHolderListener listener) {
         this.mListener = listener;
-    }
-
-    @Override
-    public void refreshTheme(ThemeHelper themeHelper) {
-        ((CardView) itemView).setCardBackgroundColor(themeHelper.getCardBackgroundColor());
-        content.setTextColor(themeHelper.getTextColor());
-        time.setTextColor(themeHelper.getSubTextColor());
-        switch (themeHelper.getBaseTheme()) {
-            case DARK:
-            case AMOLED:
-                name.setTextColor(ContextCompat.getColor(name.getContext(), cntv.themelibrary.R.color.md_grey_200));
-//                text_ding_count.setTextColor(ContextCompat.getColor(name.getContext(), cntv.themelibrary.R.color.md_grey_400));
-//                text_cai_count.setTextColor(ContextCompat.getColor(name.getContext(), cntv.themelibrary.R.color.md_grey_400));
-//                text_share_count.setTextColor(ContextCompat.getColor(name.getContext(), cntv.themelibrary.R.color.md_grey_400));
-//                text_comment_count.setTextColor(ContextCompat.getColor(name.getContext(), cntv.themelibrary.R.color.md_grey_400));
-                break;
-            case LIGHT:
-            default:
-                name.setTextColor(ContextCompat.getColor(name.getContext(), R.color.sister_name_color));
-//                text_ding_count.setTextColor(ContextCompat.getColor(name.getContext(), R.color.sister_count_select_color));
-//                text_cai_count.setTextColor(ContextCompat.getColor(name.getContext(), R.color.sister_count_select_color));
-//                text_share_count.setTextColor(ContextCompat.getColor(name.getContext(), R.color.sister_count_select_color));
-//                text_comment_count.setTextColor(ContextCompat.getColor(name.getContext(), R.color.sister_count_select_color));
-                break;
-        }
     }
 
     public interface OnSisterTextHolderListener {

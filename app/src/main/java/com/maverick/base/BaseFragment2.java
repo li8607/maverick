@@ -20,7 +20,7 @@ import cntv.themelibrary.ViewUtil;
 /**
  * Created by Administrator on 2017/9/25.
  */
-public abstract class BaseFragment2 extends ThemeFragment {
+public abstract class BaseFragment2 extends Fragment {
 
     private BasePresenter mBasePresenter;
     private View mView;

@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.view.Window;
 
@@ -16,15 +18,17 @@ import com.umeng.analytics.MobclickAgent;
 /**
  * Created by limingfei on 2017/9/25.
  */
-public abstract class BaseActivity extends ThemeActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     private BasePresenter mBasePresenter;
+    private int mDefaultNightMode;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);//去掉标题栏 第一种方法
         super.onCreate(savedInstanceState);
         onActivityCreated(savedInstanceState);
+        mDefaultNightMode = AppCompatDelegate.getDefaultNightMode();
     }
 
     private void onActivityCreated(Bundle savedInstanceState) {
@@ -82,6 +86,10 @@ public abstract class BaseActivity extends ThemeActivity {
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
+        if (mDefaultNightMode != AppCompatDelegate.getDefaultNightMode()) {
+            getDelegate().setLocalNightMode(AppCompatDelegate.getDefaultNightMode());
+            recreate();
+        }
     }
 
     protected void onPause() {

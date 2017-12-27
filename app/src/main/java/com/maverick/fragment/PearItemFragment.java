@@ -246,10 +246,4 @@ public class PearItemFragment extends BaseFragment2 implements IPearItemFragment
             }
         }
     }
-
-    @Override
-    public void refreshTheme(ThemeHelper themeHelper) {
-        super.refreshTheme(themeHelper);
-        mAdapter.refreshTheme(themeHelper);
-    }
 }

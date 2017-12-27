@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -71,8 +72,12 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
         mTitle.setLines(1);
         mTitle.setEllipsize(TextUtils.TruncateAt.END);
         mTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.y10));
-
-        mTitle.setTextColor(getResources().getColor(R.color.colorWhite));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mTitle.setTextAppearance(android.R.style.TextAppearance_Material_Widget_ActionBar_Title);
+        } else {
+            mTitle.setTextAppearance(WebActivity.this, android.R.style.TextAppearance_Material_Widget_ActionBar_Title);
+        }
+        mTitle.setTextColor(ContextCompat.getColor(WebActivity.this, R.color.textColorPrimary));
         Toolbar.LayoutParams mTitleLP = new Toolbar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mTitleLP.gravity = Gravity.CENTER;
         mTitleLP.rightMargin = getResources().getDimensionPixelSize(R.dimen.y10);
@@ -198,13 +203,5 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
         if (v != null) {
             v.setSelected(true);
         }
-    }
-
-    @Override
-    public void updateUiElements() {
-        super.updateUiElements();
-        mTitle.setTextColor(getTextColor());
-        mToolbar.setBackgroundColor(getPrimaryColor());
-        setStatusBarColor();
     }
 }

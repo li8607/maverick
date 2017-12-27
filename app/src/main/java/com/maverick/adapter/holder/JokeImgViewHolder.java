@@ -12,8 +12,6 @@ import com.maverick.bean.GifInfo;
 import com.maverick.util.GlideUtil;
 import com.maverick.weight.RatioImageView;
 
-import cntv.themelibrary.ThemeHelper;
-
 /**
  * Created by limingfei on 2017/10/4.
  */
@@ -58,10 +56,5 @@ public class JokeImgViewHolder extends JokeTextViewHolder {
                 DetailActivity.launch((Activity) mContext, img, bigImgInfo);
                 break;
         }
-    }
-
-    @Override
-    public void refreshTheme(ThemeHelper themeHelper) {
-        super.refreshTheme(themeHelper);
     }
 }
