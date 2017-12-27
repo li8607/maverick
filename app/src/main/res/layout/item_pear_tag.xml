@@ -19,6 +19,7 @@
         app:tag_clickable="true"
         app:tag_corner_radius="@dimen/y2"
         app:tag_horizontal_padding="@dimen/x8"
+        app:tag_text_color="@color/colorTitleColor"
         app:tag_text_size="@dimen/y10"
         app:tag_theme="none"
         app:tag_vertical_padding="@dimen/y5"

@@ -18,7 +18,7 @@
         android:gravity="center"
         android:maxLines="1"
         android:text="订阅"
-        android:textColor="@color/result_text_color"
+        android:textColor="@color/colorTitleColor"
         android:textSize="@dimen/x9" />
 
     <ImageView
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="@color/result_text_color"
+            android:textColor="@color/colorTitleColor"
             android:textSize="@dimen/y9" />
 
         <TextView
@@ -54,7 +54,7 @@
             android:layout_marginTop="@dimen/y3"
             android:ellipsize="end"
             android:maxLines="1"
-            android:textColor="@color/pear_node_color"
+            android:textColor="@color/colorSubTitleColor"
             android:textSize="@dimen/y9" />
     </LinearLayout>
 

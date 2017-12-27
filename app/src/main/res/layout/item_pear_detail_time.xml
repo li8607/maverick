@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="@color/pear_node_color"
+        android:textColor="@color/colorSubTitleColor"
         android:textSize="14sp" />
 
     <TextView

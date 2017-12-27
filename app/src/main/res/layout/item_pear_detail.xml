@@ -16,7 +16,7 @@
         android:maxLines="2"
         android:paddingLeft="@dimen/y17"
         android:paddingRight="@dimen/y17"
-        android:textColor="@color/result_text_color"
+        android:textColor="@color/colorTitleColor"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/y8"
             android:layout_marginTop="@dimen/y15"
-            android:textColor="@color/result_text_color"
+            android:textColor="@color/colorTitleColor"
             android:textSize="@dimen/y10" />
 
         <TextView
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/detail_content"
             android:layout_marginBottom="@dimen/y9"
-            android:textColor="@color/pear_node_color"
+            android:textColor="@color/colorSubTitleColor"
             android:textSize="@dimen/y10"
             android:visibility="gone" />
 

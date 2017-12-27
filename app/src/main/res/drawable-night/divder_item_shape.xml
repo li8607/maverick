@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
     <size
         android:width="@dimen/x10"
-        android:height="1px" />
+        android:height="@dimen/y3" />
 
     <solid android:color="@color/colorDivider" /><!-- 填充的颜色 -->
 </shape>

@@ -28,7 +28,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="@dimen/y3"
             android:text="2535"
-            android:textColor="@color/share_item_title_color"
+            android:textColor="@color/colorSubTitleColor"
             android:textSize="@dimen/x8" />
 
     </LinearLayout>
@@ -55,7 +55,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="@dimen/y3"
             android:text="收藏"
-            android:textColor="@color/share_item_title_color"
+            android:textColor="@color/colorSubTitleColor"
             android:textSize="@dimen/x8" />
 
     </LinearLayout>
@@ -82,7 +82,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="@dimen/y3"
             android:text="缓存"
-            android:textColor="@color/share_item_title_color"
+            android:textColor="@color/colorSubTitleColor"
             android:textSize="@dimen/x8" />
 
     </LinearLayout>
@@ -101,7 +101,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="详情"
-            android:textColor="@color/share_item_title_color"
+            android:textColor="@color/colorSubTitleColor"
             android:textSize="@dimen/x8" />
 
         <ImageView

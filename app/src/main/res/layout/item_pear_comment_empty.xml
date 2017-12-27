@@ -10,7 +10,7 @@
         android:layout_marginBottom="@dimen/y32"
         android:layout_marginTop="@dimen/y32"
         android:text="@string/pear_comment_empty_text"
-        android:textColor="@color/pear_video_comment_gray"
+        android:textColor="@color/colorTitleColor"
         android:textSize="@dimen/y9" />
 
 </FrameLayout>
