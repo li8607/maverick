@@ -1,1 +1,1 @@
-include ':app', ':greendaolibrary', ':sharelibrary', ':themelibrary'
+include ':app', ':greendaolibrary', ':sharelibrary'
