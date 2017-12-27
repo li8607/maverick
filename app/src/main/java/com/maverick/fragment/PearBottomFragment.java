@@ -26,8 +26,6 @@ import com.maverick.type.PearItemType;
 
 import java.util.List;
 
-import cntv.themelibrary.ThemeHelper;
-
 /**
  * Created by Administrator on 2017/10/31.
  */

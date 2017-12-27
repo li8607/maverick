@@ -11,4 +11,9 @@
     <!-- padding & margin-->
     <dimen name="sub_medium_spacing">10dp</dimen>
 
+
+    <dimen name="card_corner_radius">1dp</dimen>
+    <dimen name="card_elevation">5dp</dimen>
+    <dimen name="card_spacing">10dp</dimen>
+
 </resources>

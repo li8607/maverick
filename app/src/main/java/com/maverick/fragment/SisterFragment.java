@@ -15,8 +15,6 @@ import com.maverick.presenter.BasePresenter;
 import java.util.ArrayList;
 import java.util.List;
 
-import cntv.themelibrary.ThemeHelper;
-
 /**
  * Created by Administrator on 2017/9/25.
  */

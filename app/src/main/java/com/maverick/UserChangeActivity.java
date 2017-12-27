@@ -24,13 +24,9 @@ import com.maverick.bean.UserItemInfo;
 import com.maverick.leancloud.User;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.type.UserType;
-import com.mikepenz.google_material_typeface_library.GoogleMaterial;
-import com.mikepenz.iconics.IconicsDrawable;
-import com.mikepenz.iconics.typeface.IIcon;
 
 import java.io.Serializable;
 
-import cntv.themelibrary.ThemeHelper;
 
 /**
  * Created by Administrator on 2017/11/28.
@@ -201,14 +197,14 @@ public class UserChangeActivity extends BaseActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_albums, menu);
         mMenuItem = menu.findItem(R.id.save_action);
-        mMenuItem.setIcon(getToolbarIcon(GoogleMaterial.Icon.gmd_done));
+//        mMenuItem.setIcon(getToolbarIcon(GoogleMaterial.Icon.gmd_done));
         mMenuItem.setVisible(true);
         return true;
     }
 
-    public IconicsDrawable getToolbarIcon(IIcon icon) {
-        return new ThemeHelper(getApplicationContext()).getToolbarIcon(icon);
-    }
+//    public IconicsDrawable getToolbarIcon(IIcon icon) {
+//        return new ThemeHelper(getApplicationContext()).getToolbarIcon(icon);
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

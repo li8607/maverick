@@ -17,8 +17,6 @@ import com.maverick.util.GlideUtil;
 
 import java.util.List;
 
-import cntv.themelibrary.ThemeHelper;
-
 /**
  * Created by limingfei on 2017/9/27.
  */

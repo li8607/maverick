@@ -18,8 +18,6 @@ import com.maverick.presenter.implView.IPearFragmentView;
 
 import java.util.List;
 
-import cntv.themelibrary.ThemeHelper;
-
 /**
  * Created by Administrator on 2017/10/26.
  */

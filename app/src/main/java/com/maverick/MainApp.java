@@ -8,13 +8,13 @@ import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVOSCloud;
 import com.maverick.base.BaseActivity;
 import com.maverick.global.SPKey;
+import com.maverick.util.PreferenceUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
 import com.umeng.socialize.common.QueuedWork;
 
-import cntv.themelibrary.PreferenceUtil;
 
 /**
  * Created by ll on 2017/5/22.

@@ -14,9 +14,6 @@ import android.view.ViewGroup;
 import com.maverick.presenter.BasePresenter;
 import com.umeng.analytics.MobclickAgent;
 
-import cntv.themelibrary.Themeable;
-import cntv.themelibrary.ViewUtil;
-
 /**
  * Created by Administrator on 2017/9/25.
  */

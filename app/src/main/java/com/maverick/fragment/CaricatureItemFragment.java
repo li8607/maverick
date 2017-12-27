@@ -26,8 +26,6 @@ import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import java.util.List;
 
-import cntv.themelibrary.ThemeHelper;
-
 /**
  * Created by Administrator on 2017/9/30.
  */
