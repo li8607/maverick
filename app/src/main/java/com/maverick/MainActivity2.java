@@ -56,7 +56,6 @@ public class MainActivity2 extends BaseActivity {
 
     @Override
     protected void onInitView() {
-
         mCoordinatorLayout = findView(R.id.coordinatorLayout);
         mAppBarLayout = findView(R.id.appbar);
 
@@ -176,6 +175,14 @@ public class MainActivity2 extends BaseActivity {
         getSupportActionBar().setTitle("");
         mTitle.setText(title);
         mTitle.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void recreate() {
+        if (mFragment != null) {
+            getSupportFragmentManager().beginTransaction().remove(mFragment).commitAllowingStateLoss();
+        }
+        super.recreate();
     }
 
     @Override
