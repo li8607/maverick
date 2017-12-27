@@ -49,23 +49,19 @@
             android:name=".MainActivity"
             android:theme="@style/AppTheme.DayNight"></activity>
 
-        <activity
-            android:name=".DetailActivity" />
+        <activity android:name=".DetailActivity" />
 
-        <activity
-            android:name=".WebActivity" />
+        <activity android:name=".WebActivity" />
 
-        <activity
-            android:name=".DataBankActivity" />
+        <activity android:name=".DataBankActivity" />
 
-        <activity
-            android:name=".CaricatureActivity" />
+        <activity android:name=".CaricatureActivity" />
 
         <activity
             android:name=".PearActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
-            android:theme="@style/VideoDetailTheme" />
+            android:theme="@style/AppTheme.DayNight" />
 
         <activity
             android:name=".RegisterActivity"
@@ -85,8 +81,7 @@
             android:theme="@style/AppTheme.WindowTranslucentStatus"
             android:windowSoftInputMode="stateHidden" />
 
-        <activity
-            android:name=".UserDetailActivity" />
+        <activity android:name=".UserDetailActivity" />
 
         <activity
             android:name=".UserChangeActivity"

@@ -65,8 +65,6 @@ public class MyFragmentAdapter extends RecyclerView.Adapter {
             }
         }
 
-        holder.itemView.setBackgroundColor(ThemeHelper.getThemeHelper(mContext).getCardBackgroundColor());
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
