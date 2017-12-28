@@ -5,6 +5,7 @@
     <color name="colorAccent">#60999999</color>
     <color name="colorControlNormal">#ffffff</color>
     <color name="textColorPrimary">#ffffff</color>
+    <color name="colorBackground">#303030</color>
 
     <color name="colorDivider">#11ffffff</color>
     <color name="colorForeground">#00000000</color>

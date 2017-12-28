@@ -1,5 +1,6 @@
 package com.maverick;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.SwitchCompat;
@@ -9,6 +10,8 @@ import android.widget.CompoundButton;
 
 import com.maverick.base.BaseActivity;
 import com.maverick.presenter.BasePresenter;
+
+import cn.bingoogolapple.swipebacklayout.BGASwipeBackManager;
 
 /**
  * Created by limingfei on 2017/12/22.
@@ -55,6 +58,14 @@ public class SettingActivity extends BaseActivity {
                     MainApp.getInstance().setModeTheme(SettingActivity.this, 1);
                 } else {
                     MainApp.getInstance().setModeTheme(SettingActivity.this, 0);
+                }
+
+                try {
+                    Activity preActivity = BGASwipeBackManager.getInstance().getPenultimateActivity(SettingActivity.this);
+                    if (preActivity != null) {
+                        preActivity.recreate();
+                    }
+                } catch (Exception e) {
                 }
             }
         });
