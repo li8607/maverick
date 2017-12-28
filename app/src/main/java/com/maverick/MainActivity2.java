@@ -241,7 +241,7 @@ public class MainActivity2 extends BaseActivity {
         }
 
         if (!fragment.isAdded()) {
-            transaction.add(R.id.content, fragment, "");
+            transaction.add(R.id.content, fragment, BaseFragment2.class.getSimpleName());
         } else {
             transaction.show(fragment);
         }

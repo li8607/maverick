@@ -2,14 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
     android:gravity="center"
     android:orientation="vertical">
 
     <ImageView
-        android:layout_marginBottom="@dimen/x8"
         android:layout_width="@dimen/y48"
         android:layout_height="@dimen/y48"
+        android:layout_marginBottom="@dimen/x8"
         android:scaleType="fitXY"
         android:src="@mipmap/result_empty_image" />
 
@@ -17,6 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/result_empty_text"
-        android:textColor="@color/result_text_color" />
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+        android:textColor="@color/colorTitleColor" />
 
 </LinearLayout>

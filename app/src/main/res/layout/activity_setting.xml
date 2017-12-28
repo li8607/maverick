@@ -37,10 +37,10 @@
                 app:cardElevation="@dimen/card_elevation">
 
                 <LinearLayout
-                    android:padding="24dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:padding="24dp">
 
                     <android.support.v7.widget.SwitchCompat
                         android:id="@+id/switchCompat"

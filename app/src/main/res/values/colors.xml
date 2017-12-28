@@ -12,6 +12,7 @@
     <color name="colorButtonNormal">#FFFFFF</color>
 
     <color name="colorDivider">#30000000</color>
+    <color name="colorForeground">#00000000</color>
 
     <color name="colorTitleColor">#000</color>
     <color name="colorSubTitleColor">#666</color>

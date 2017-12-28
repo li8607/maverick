@@ -87,7 +87,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onResume();
         MobclickAgent.onResume(this);
         if (mDefaultNightMode != AppCompatDelegate.getDefaultNightMode()) {
-            getDelegate().setLocalNightMode(AppCompatDelegate.getDefaultNightMode());
             recreate();
         }
     }

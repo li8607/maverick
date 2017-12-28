@@ -7,6 +7,7 @@
     <color name="textColorPrimary">#ffffff</color>
 
     <color name="colorDivider">#11ffffff</color>
+    <color name="colorForeground">#00000000</color>
 
     <color name="colorTitleColor">#fff</color>
     <color name="colorSubTitleColor">#666</color>
