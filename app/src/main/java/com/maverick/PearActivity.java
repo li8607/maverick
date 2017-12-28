@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.maverick.base.BaseActivity;
 import com.maverick.bean.PearVideoDetailBean;
@@ -55,6 +54,34 @@ public class PearActivity extends BaseActivity implements PearBottomFragment.OnL
         activity.startActivity(intent);
     }
 
+    @Override
+    public void onSwipeBackLayoutSlide(float slideOffset) {
+        super.onSwipeBackLayoutSlide(slideOffset);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            View decorView = getWindow().getDecorView();
+            int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+//                  | SYSTEM_UI_FLAG_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_IMMERSIVE;
+            decorView.setSystemUiVisibility(uiOptions);
+        }
+    }
+
+    @Override
+    public void onSwipeBackLayoutCancel() {
+        super.onSwipeBackLayoutCancel();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            View decorView = getWindow().getDecorView();
+            int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                    | View.SYSTEM_UI_FLAG_FULLSCREEN;
+            decorView.setSystemUiVisibility(uiOptions);
+        }
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            getWindow().setStatusBarColor(Color.TRANSPARENT);
+//        }
+    }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
@@ -68,9 +95,9 @@ public class PearActivity extends BaseActivity implements PearBottomFragment.OnL
                 decorView.setSystemUiVisibility(uiOptions);
             }
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getWindow().setStatusBarColor(Color.TRANSPARENT);
-            }
+//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//                getWindow().setStatusBarColor(Color.TRANSPARENT);
+//            }
         }
     }
 
