@@ -89,10 +89,6 @@ public class PearActivity extends BaseActivity implements PearBottomFragment.OnL
                         | View.SYSTEM_UI_FLAG_FULLSCREEN;
                 decorView.setSystemUiVisibility(uiOptions);
             }
-
-//            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//                getWindow().setStatusBarColor(Color.TRANSPARENT);
-//            }
         }
     }
 
