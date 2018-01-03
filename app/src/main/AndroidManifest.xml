@@ -36,7 +36,6 @@
         <activity
             android:name=".MainActivity2"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.DayNight">
             <intent-filter>
