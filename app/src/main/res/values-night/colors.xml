@@ -17,4 +17,7 @@
     <color name="tabSelectedTextColor">#fff</color>
     <color name="tabTextColor">#ff2d55</color>
     <color name="tabIndicatorColor">#ff2d55</color>
+
+    <color name="radioButtonSelectedTextColor">#ff2d55</color>
+    <color name="radioButtonTextColor">#ffffff</color>
 </resources>

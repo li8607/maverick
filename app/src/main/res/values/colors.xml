@@ -21,6 +21,9 @@
     <color name="tabTextColor">#999999</color>
     <color name="tabIndicatorColor">#ffffff</color>
 
+    <color name="radioButtonSelectedTextColor">#ff2d55</color>
+    <color name="radioButtonTextColor">#000000</color>
+
     <color name="colorStatusBarBackground">#66000000</color>
 
     <color name="click_background">#aaaaaa</color>
