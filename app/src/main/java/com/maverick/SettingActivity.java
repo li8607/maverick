@@ -59,14 +59,6 @@ public class SettingActivity extends BaseActivity {
                 } else {
                     MainApp.getInstance().setModeTheme(SettingActivity.this, 0);
                 }
-
-                try {
-                    Activity preActivity = BGASwipeBackManager.getInstance().getPenultimateActivity(SettingActivity.this);
-                    if (preActivity != null) {
-                        preActivity.recreate();
-                    }
-                } catch (Exception e) {
-                }
             }
         });
     }
