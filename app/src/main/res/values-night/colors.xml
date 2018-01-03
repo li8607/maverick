@@ -13,4 +13,8 @@
     <color name="colorTitleColor">#fff</color>
     <color name="colorSubTitleColor">#666</color>
     <color name="colorSubTitleColor_Selector">#666</color>
+
+    <color name="tabSelectedTextColor">#fff</color>
+    <color name="tabTextColor">#ff2d55</color>
+    <color name="tabIndicatorColor">#ff2d55</color>
 </resources>

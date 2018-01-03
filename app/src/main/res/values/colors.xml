@@ -17,6 +17,9 @@
     <color name="colorTitleColor">#000</color>
     <color name="colorSubTitleColor">#666</color>
 
+    <color name="tabSelectedTextColor">#ffffff</color>
+    <color name="tabTextColor">#999999</color>
+    <color name="tabIndicatorColor">#ffffff</color>
 
     <color name="colorStatusBarBackground">#66000000</color>
 
@@ -36,10 +39,6 @@
 
     <color name="bottom_bar_background_color">#f6f6f6</color>
     <color name="bottom_bar_line_background_color">#ececec</color>
-
-    <color name="tab_layout_text_select_color">#ffffff</color>
-    <color name="tab_layout_text_color">#aa999999</color>
-    <color name="tab_layout_indicator_color">#ffffff</color>
 
     <color name="result_text_color">#333333</color>
 
