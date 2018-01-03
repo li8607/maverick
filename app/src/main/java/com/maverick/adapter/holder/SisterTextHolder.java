@@ -14,13 +14,13 @@ import com.maverick.bean.SisterInfo;
 import com.maverick.global.UMengMobclickAgent;
 import com.maverick.hepler.BeanHelper;
 import com.maverick.model.CollectModel;
-import com.maverick.model.SisterDingCaiModel;
+import com.maverick.model.DingCaiModel;
 import com.maverick.util.GlideUtil;
 import com.maverick.util.Utils;
 import com.umeng.analytics.MobclickAgent;
 
 import cntv.greendaolibrary.dbbean.Collect;
-import cntv.greendaolibrary.dbbean.SisterDingCai;
+import cntv.greendaolibrary.dbbean.DingCai;
 
 /**
  * Created by Administrator on 2017/9/30.
@@ -144,17 +144,17 @@ public class SisterTextHolder extends RecyclerView.ViewHolder implements View.On
                 }
 
                 if (mSisterInfo.isDing()) {
-                    SisterDingCai sisterDingCai = new SisterDingCai();
-                    sisterDingCai.setDingCaiId(mSisterInfo.getId());
-                    SisterDingCaiModel.newInstance().deleteSisterDingCaiDB(sisterDingCai);
+                    DingCai dingCai = new DingCai();
+                    dingCai.setDingCaiId(mSisterInfo.getId());
+                    DingCaiModel.newInstance().deleteSisterDingCaiDB(dingCai);
                     mSisterInfo.setDing(false);
                     mSisterInfo.setCai(false);
                 } else {
-                    SisterDingCai sisterDingCai = new SisterDingCai();
-                    sisterDingCai.setDingCaiId(mSisterInfo.getId());
-                    sisterDingCai.setDing(true);
-                    sisterDingCai.setCai(false);
-                    SisterDingCaiModel.newInstance().insertSisterDingCaiDB(sisterDingCai);
+                    DingCai dingCai = new DingCai();
+                    dingCai.setDingCaiId(mSisterInfo.getId());
+                    dingCai.setDing(true);
+                    dingCai.setCai(false);
+                    DingCaiModel.newInstance().insertSisterDingCaiDB(dingCai);
 
                     mSisterInfo.setDing(true);
                     mSisterInfo.setCai(false);
@@ -167,17 +167,17 @@ public class SisterTextHolder extends RecyclerView.ViewHolder implements View.On
                     return;
                 }
                 if (mSisterInfo.isCai()) {
-                    SisterDingCai sisterDingCai = new SisterDingCai();
-                    sisterDingCai.setDingCaiId(mSisterInfo.getId());
-                    SisterDingCaiModel.newInstance().deleteSisterDingCaiDB(sisterDingCai);
+                    DingCai dingCai = new DingCai();
+                    dingCai.setDingCaiId(mSisterInfo.getId());
+                    DingCaiModel.newInstance().deleteSisterDingCaiDB(dingCai);
                     mSisterInfo.setDing(false);
                     mSisterInfo.setCai(false);
                 } else {
-                    SisterDingCai sisterDingCai = new SisterDingCai();
-                    sisterDingCai.setDingCaiId(mSisterInfo.getId());
-                    sisterDingCai.setDing(false);
-                    sisterDingCai.setCai(true);
-                    SisterDingCaiModel.newInstance().insertSisterDingCaiDB(sisterDingCai);
+                    DingCai dingCai = new DingCai();
+                    dingCai.setDingCaiId(mSisterInfo.getId());
+                    dingCai.setDing(false);
+                    dingCai.setCai(true);
+                    DingCaiModel.newInstance().insertSisterDingCaiDB(dingCai);
 
                     mSisterInfo.setDing(false);
                     mSisterInfo.setCai(true);

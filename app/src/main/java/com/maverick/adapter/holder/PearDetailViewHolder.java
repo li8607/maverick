@@ -10,8 +10,11 @@ import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 import com.maverick.R;
 import com.maverick.bean.PearVideoDetailInfo;
 import com.maverick.bean.PearVideoInfoAuthor;
+import com.maverick.model.DingCaiModel;
 
 import java.util.List;
+
+import cntv.greendaolibrary.dbbean.DingCai;
 
 /**
  * Created by Administrator on 2017/11/2.
@@ -102,6 +105,11 @@ public class PearDetailViewHolder extends RecyclerView.ViewHolder implements Vie
                 }
 
                 if(mInfo.isDing()) {
+
+                    DingCai dingCai = new DingCai();
+                    dingCai.setDingCaiId(mInfo.getContId());
+                    DingCaiModel.newInstance().deleteSisterDingCaiDB(dingCai);
+
 
                 }else {
 

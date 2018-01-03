@@ -10,14 +10,14 @@ import com.maverick.bean.SisterTabInfo;
 import com.maverick.hepler.BeanHelper;
 import com.maverick.imodel.ISisterModel;
 import com.maverick.model.CollectModel;
-import com.maverick.model.SisterDingCaiModel;
+import com.maverick.model.DingCaiModel;
 import com.maverick.model.SisterModel;
 import com.maverick.presenter.implView.ISisterItemFragmentView;
 
 import java.util.HashMap;
 import java.util.List;
 
-import cntv.greendaolibrary.dbbean.SisterDingCai;
+import cntv.greendaolibrary.dbbean.DingCai;
 
 /**
  * Created by Administrator on 2017/9/30.
@@ -64,20 +64,20 @@ public class SisterItemFragmentPresenter extends BasePresenter {
 
                         sisterInfo.setCollect(CollectModel.newInstance().hasCollectDB(BeanHelper.getCollect(sisterInfo)));
 
-                        SisterDingCai sisterDingCai = new SisterDingCai();
-                        sisterDingCai.setDingCaiId(sisterInfo.getId());
+                        DingCai dingCai = new DingCai();
+                        dingCai.setDingCaiId(sisterInfo.getId());
 
-                        sisterDingCai = SisterDingCaiModel.newInstance().getSisterDingCai(sisterDingCai);
-                        if (sisterDingCai == null) {
+                        dingCai = DingCaiModel.newInstance().getSisterDingCai(dingCai);
+                        if (dingCai == null) {
                             continue;
                         }
 
-                        if (sisterDingCai.getDing()) {
+                        if (dingCai.getDing()) {
                             sisterInfo.setDing(true);
                             sisterInfo.setCai(false);
                         } else {
                             sisterInfo.setDing(false);
-                            sisterInfo.setCai(sisterDingCai.getCai());
+                            sisterInfo.setCai(dingCai.getCai());
                         }
                     }
                     mView.onShowSuccessView(list);
