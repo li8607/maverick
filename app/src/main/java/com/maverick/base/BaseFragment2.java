@@ -66,7 +66,7 @@ public abstract class BaseFragment2 extends Fragment {
     }
 
     public void replaceFragment(@IdRes int containerViewId, @Nullable Fragment fragment) {
-        if (containerViewId == 0 || fragment == null || getChildFragmentManager() == null)
+        if (containerViewId == 0 || fragment == null || getChildFragmentManager() == null || getChildFragmentManager().isDestroyed())
             return;
 
         FragmentTransaction fragmentTransaction = this.getChildFragmentManager().beginTransaction();
@@ -75,7 +75,7 @@ public abstract class BaseFragment2 extends Fragment {
     }
 
     public void showDialogFragment(@Nullable DialogFragment dialogFragment) {
-        if (dialogFragment == null || getChildFragmentManager() == null)
+        if (dialogFragment == null || getChildFragmentManager() == null || getChildFragmentManager().isDestroyed())
             return;
 
         FragmentTransaction fragmentTransaction = this.getChildFragmentManager().beginTransaction();

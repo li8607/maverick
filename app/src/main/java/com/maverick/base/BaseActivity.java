@@ -133,7 +133,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BGASwipe
     }
 
     public void replaceFragment(@IdRes int containerViewId, @Nullable Fragment fragment) {
-        if (containerViewId == 0 || fragment == null || getSupportFragmentManager() == null)
+        if (containerViewId == 0 || fragment == null || getSupportFragmentManager() == null || getSupportFragmentManager().isDestroyed())
             return;
 
         FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
@@ -142,7 +142,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BGASwipe
     }
 
     public void showDialogFragment(@Nullable DialogFragment dialogFragment) {
-        if (dialogFragment == null || getSupportFragmentManager() == null)
+        if (dialogFragment == null || getSupportFragmentManager() == null || getSupportFragmentManager().isDestroyed())
             return;
 
         FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
