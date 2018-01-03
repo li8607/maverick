@@ -19,7 +19,7 @@
             android:layout_width="@dimen/y11"
             android:layout_height="@dimen/y11"
             android:scaleType="fitXY"
-            android:src="@drawable/collect_selector" />
+            android:src="@drawable/operation_ding_day_selector" />
 
         <TextView
             android:id="@+id/love_title"
@@ -73,7 +73,7 @@
             android:layout_width="@dimen/y11"
             android:layout_height="@dimen/y11"
             android:scaleType="fitXY"
-            android:src="@drawable/collect_selector" />
+            android:src="@drawable/btn_download_selector" />
 
         <TextView
             android:id="@+id/down_title"
@@ -109,7 +109,7 @@
             android:layout_width="@dimen/y11"
             android:layout_height="@dimen/y11"
             android:layout_marginLeft="@dimen/y3"
-            android:scaleType="fitXY"
-            android:src="@drawable/collect_selector" />
+            android:scaleType="fitCenter"
+            android:src="@mipmap/btn_detail_arrow_down" />
     </LinearLayout>
 </LinearLayout>

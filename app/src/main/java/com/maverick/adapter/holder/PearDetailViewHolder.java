@@ -22,6 +22,7 @@ public class PearDetailViewHolder extends RecyclerView.ViewHolder implements Vie
     private final TextView title, time, name, type, detail_title, down_title, collect_title, love_title, detail_content, detail_source;
     private final View love_root, collect_root, down_root, detail_root;
     private final ExpandableRelativeLayout expandableLayout;
+    private PearVideoDetailInfo mInfo;
 
     public PearDetailViewHolder(View itemView) {
         super(itemView);
@@ -47,6 +48,9 @@ public class PearDetailViewHolder extends RecyclerView.ViewHolder implements Vie
         detail_source = (TextView) itemView.findViewById(R.id.detail_source);
 
         detail_root.setOnClickListener(this);
+        love_root.setOnClickListener(this);
+        collect_root.setOnClickListener(this);
+        down_root.setOnClickListener(this);
 
 // toggle expand, collapse
 
@@ -65,6 +69,7 @@ public class PearDetailViewHolder extends RecyclerView.ViewHolder implements Vie
     }
 
     public void bindData(Context context, PearVideoDetailInfo info) {
+        this.mInfo = info;
 
         title.setText(TextUtils.isEmpty(info.getName()) ? "" : info.getName());
 
@@ -90,6 +95,26 @@ public class PearDetailViewHolder extends RecyclerView.ViewHolder implements Vie
 
     @Override
     public void onClick(View v) {
-        expandableLayout.toggle();
+        switch (v.getId()) {
+            case R.id.love_root:
+                if (mInfo == null) {
+                    return;
+                }
+
+                if(mInfo.isDing()) {
+
+                }else {
+
+                }
+
+                break;
+            case R.id.collect_root:
+                break;
+            case R.id.down_root:
+                break;
+            case R.id.detail_root:
+                expandableLayout.toggle();
+                break;
+        }
     }
 }
