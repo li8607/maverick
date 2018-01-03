@@ -5,8 +5,8 @@ import android.content.Context;
 import cntv.greendaolibrary.dbbean.CollectDao;
 import cntv.greendaolibrary.dbbean.DaoMaster;
 import cntv.greendaolibrary.dbbean.DaoSession;
+import cntv.greendaolibrary.dbbean.DingCaiDao;
 import cntv.greendaolibrary.dbbean.HistoryDao;
-import cntv.greendaolibrary.dbbean.SisterDingCaiDao;
 
 /**
  * Created by limingfei on 2017/9/27.
@@ -16,7 +16,7 @@ public class DBManager {
     private static DaoSession mDaoSession;
 
     public static void initGreenDao(Context context) {
-        if(context == null) {
+        if (context == null) {
             return;
         }
 
@@ -42,8 +42,8 @@ public class DBManager {
         return daoSession == null ? null : daoSession.getCollectDao();
     }
 
-    public static SisterDingCaiDao getSisterDingCai(Context context) {
+    public static DingCaiDao getDingCaiDao(Context context) {
         DaoSession daoSession = getDaoSession(context);
-        return daoSession == null ? null : daoSession.getSisterDingCaiDao();
+        return daoSession == null ? null : daoSession.getDingCaiDao();
     }
 }
