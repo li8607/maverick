@@ -27,8 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="@dimen/y3"
-            android:text="2535"
-            android:textColor="@color/colorSubTitleColor"
+            android:textColor="@color/operation_count_day_selector"
             android:textSize="@dimen/x8" />
 
     </LinearLayout>
@@ -55,7 +54,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="@dimen/y3"
             android:text="收藏"
-            android:textColor="@color/colorSubTitleColor"
+            android:textColor="@color/operation_count_day_selector"
             android:textSize="@dimen/x8" />
 
     </LinearLayout>
@@ -82,7 +81,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginLeft="@dimen/y3"
             android:text="缓存"
-            android:textColor="@color/colorSubTitleColor"
+            android:textColor="@color/operation_count_day_selector"
             android:textSize="@dimen/x8" />
 
     </LinearLayout>
@@ -91,7 +90,7 @@
         android:id="@+id/detail_root"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="4"
+        android:layout_weight="3"
         android:gravity="right"
         android:orientation="horizontal">
 

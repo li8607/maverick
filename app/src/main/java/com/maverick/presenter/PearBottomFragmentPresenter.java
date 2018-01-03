@@ -6,7 +6,10 @@ import android.util.Log;
 import com.maverick.bean.PearItemInfo;
 import com.maverick.bean.PearVideoDetailBean;
 import com.maverick.bean.PearVideoDetailInfoData;
+import com.maverick.hepler.BeanHelper;
 import com.maverick.imodel.IPearModel;
+import com.maverick.model.CollectModel;
+import com.maverick.model.DingCaiModel;
 import com.maverick.model.PearModel;
 import com.maverick.presenter.implView.IPearBottomFragmentView;
 import com.maverick.type.LineType;
@@ -14,6 +17,9 @@ import com.maverick.type.PearItemType;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import cntv.greendaolibrary.dbbean.Collect;
+import cntv.greendaolibrary.dbbean.DingCai;
 
 /**
  * Created by Administrator on 2017/10/31.
@@ -26,11 +32,15 @@ public class PearBottomFragmentPresenter extends BasePresenter {
     private final IPearModel mModel;
 
     List<PearItemInfo> mList = new ArrayList<>();
+    private final DingCaiModel mDingCaiModel;
+    private final CollectModel mCollectModel;
 
     public PearBottomFragmentPresenter(Context context, IPearBottomFragmentView view) {
         this.mContext = context;
         this.mView = view;
         this.mModel = new PearModel();
+        this.mDingCaiModel = DingCaiModel.newInstance();
+        this.mCollectModel = CollectModel.newInstance();
     }
 
     @Override
@@ -56,6 +66,15 @@ public class PearBottomFragmentPresenter extends BasePresenter {
                 PearItemInfo detail = new PearItemInfo();
                 detail.setType(PearItemType.DETAIL);
                 detail.setLineType(LineType.SMALL);
+
+                //检查点赞状态
+                DingCai dingCai = new DingCai();
+                dingCai.setDingCaiId(info.getContent().getContId());
+                info.getContent().setDing(mDingCaiModel.getSisterDingCai(dingCai) != null);
+                //检查收藏状态
+                Collect collect = BeanHelper.getCollect(info.getContent());
+                info.getContent().setCollect(mCollectModel.hasCollectDB(collect));
+
                 detail.setPearVideoDetailInfo(info.getContent());
                 mList.add(detail);
 

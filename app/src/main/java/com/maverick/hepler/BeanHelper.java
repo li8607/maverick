@@ -9,6 +9,7 @@ import com.maverick.bean.CaricatureInfo;
 import com.maverick.bean.GifInfo;
 import com.maverick.bean.MenuDetailInfo;
 import com.maverick.bean.PearVideoDetailBean;
+import com.maverick.bean.PearVideoDetailInfo;
 import com.maverick.bean.PearVideoInfo;
 import com.maverick.bean.SinaInfo;
 import com.maverick.bean.SisterInfo;
@@ -123,6 +124,23 @@ public class BeanHelper {
         collect.setCollectImage(info.getImg());
         collect.setCollectCT(info.getDate());
         collect.setCollectUrl(info.getUrl());
+        collect.setCollectTime(System.currentTimeMillis());
+        collect.setCollectUserId(Tag.USER_ID);
+        return collect;
+    }
+
+    public static Collect getCollect(PearVideoDetailInfo info) {
+
+        if (info == null) {
+            return null;
+        }
+
+        Collect collect = new Collect();
+        collect.setCollectType(CollectType.PEAR);
+        collect.setCollectName(info.getName());
+        collect.setCollectImage(info.getPic());
+        collect.setCollectCT(info.getPubTime());
+        collect.setCollectId(info.getContId());
         collect.setCollectTime(System.currentTimeMillis());
         collect.setCollectUserId(Tag.USER_ID);
         return collect;

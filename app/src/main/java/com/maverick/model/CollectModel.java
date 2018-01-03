@@ -199,6 +199,9 @@ public class CollectModel implements ICollectModel {
         } else if (TextUtils.equals(type, CollectType.SINA)) {
 
             whereCondition = CollectDao.Properties.CollectUrl.eq(collect.getCollectUrl());
+        } else if (TextUtils.equals(type, CollectType.PEAR)) {
+
+            whereCondition = CollectDao.Properties.CollectId.eq(collect.getCollectId());
         }
         return whereCondition;
     }

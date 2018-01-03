@@ -10,10 +10,16 @@ import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 import com.maverick.R;
 import com.maverick.bean.PearVideoDetailInfo;
 import com.maverick.bean.PearVideoInfoAuthor;
+import com.maverick.global.UMengMobclickAgent;
+import com.maverick.hepler.BeanHelper;
+import com.maverick.model.CollectModel;
 import com.maverick.model.DingCaiModel;
+import com.maverick.util.Utils;
+import com.umeng.analytics.MobclickAgent;
 
 import java.util.List;
 
+import cntv.greendaolibrary.dbbean.Collect;
 import cntv.greendaolibrary.dbbean.DingCai;
 
 /**
@@ -26,6 +32,7 @@ public class PearDetailViewHolder extends RecyclerView.ViewHolder implements Vie
     private final View love_root, collect_root, down_root, detail_root;
     private final ExpandableRelativeLayout expandableLayout;
     private PearVideoDetailInfo mInfo;
+    private Context mContext;
 
     public PearDetailViewHolder(View itemView) {
         super(itemView);
@@ -73,9 +80,9 @@ public class PearDetailViewHolder extends RecyclerView.ViewHolder implements Vie
 
     public void bindData(Context context, PearVideoDetailInfo info) {
         this.mInfo = info;
+        this.mContext = context;
 
         title.setText(TextUtils.isEmpty(info.getName()) ? "" : info.getName());
-
 
         List<PearVideoInfoAuthor> list = info.getAuthors();
 
@@ -94,6 +101,7 @@ public class PearDetailViewHolder extends RecyclerView.ViewHolder implements Vie
 
         detail_content.setText(TextUtils.isEmpty(info.getSummary()) ? "" : info.getSummary());
         detail_source.setText(TextUtils.isEmpty(info.getSource()) ? "" : info.getSource());
+        updateUI(info);
     }
 
     @Override
@@ -104,19 +112,36 @@ public class PearDetailViewHolder extends RecyclerView.ViewHolder implements Vie
                     return;
                 }
 
-                if(mInfo.isDing()) {
-
+                if (mInfo.isDing()) {
                     DingCai dingCai = new DingCai();
                     dingCai.setDingCaiId(mInfo.getContId());
                     DingCaiModel.newInstance().deleteSisterDingCaiDB(dingCai);
-
-
-                }else {
-
+                } else {
+                    DingCai dingCai = new DingCai();
+                    dingCai.setDingCaiId(mInfo.getContId());
+                    dingCai.setDing(true);
+                    DingCaiModel.newInstance().insertSisterDingCaiDB(dingCai);
                 }
 
+                mInfo.setDing(!mInfo.isDing());
+                updateUI(mInfo);
                 break;
             case R.id.collect_root:
+
+                if (mInfo == null) {
+                    return;
+                }
+
+                Collect collect = BeanHelper.getCollect(mInfo);
+                mInfo.setCollect(!mInfo.isCollect());
+                MobclickAgent.onEvent(mContext, UMengMobclickAgent.Collect);
+                if (mInfo.isCollect()) {
+                    CollectModel.newInstance().insertCollectDB(collect);
+                } else {
+                    CollectModel.newInstance().deleteCollectDB(collect);
+                }
+
+                updateUI(mInfo);
                 break;
             case R.id.down_root:
                 break;
@@ -124,5 +149,17 @@ public class PearDetailViewHolder extends RecyclerView.ViewHolder implements Vie
                 expandableLayout.toggle();
                 break;
         }
+    }
+
+    private void updateUI(PearVideoDetailInfo info) {
+        if (info == null) {
+            return;
+        }
+
+        love_root.setSelected(info.isDing());
+        collect_root.setSelected(info.isCollect());
+        down_root.setSelected(info.isDownload());
+        collect_title.setText(info.isCollect() ? mContext.getString(R.string.collect_select) : mContext.getString(R.string.collect));
+        love_title.setText(info.isDing() ? (Utils.getString2Int(info.getPraiseTimes()) + 1 + "") : info.getPraiseTimes());
     }
 }

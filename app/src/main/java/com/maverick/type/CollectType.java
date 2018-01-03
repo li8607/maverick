@@ -20,4 +20,6 @@ public class CollectType {
 
     public static final String CARICATURE = "4";
     public static final String SINA = "5";
+
+    public static final String PEAR = "6";
 }

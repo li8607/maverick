@@ -40,6 +40,8 @@ public class PearVideoDetailInfo implements Serializable {
     private String adMonitorUrl;
 
     private boolean ding;
+    private boolean collect;
+    private boolean download;
 
     public String getContId() {
         return contId;
@@ -279,5 +281,21 @@ public class PearVideoDetailInfo implements Serializable {
 
     public void setDing(boolean ding) {
         this.ding = ding;
+    }
+
+    public boolean isCollect() {
+        return collect;
+    }
+
+    public void setCollect(boolean collect) {
+        this.collect = collect;
+    }
+
+    public boolean isDownload() {
+        return download;
+    }
+
+    public void setDownload(boolean download) {
+        this.download = download;
     }
 }
