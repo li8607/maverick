@@ -96,6 +96,7 @@ public class MainApp extends Application {
             return;
         }
         this.modeTheme = modeTheme;
+
         if (modeTheme == 1) {
             //夜
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);

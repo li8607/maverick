@@ -39,6 +39,8 @@ public class PearVideoDetailInfo implements Serializable {
     private String duration;
     private String adMonitorUrl;
 
+    private boolean ding;
+
     public String getContId() {
         return contId;
     }
@@ -269,5 +271,13 @@ public class PearVideoDetailInfo implements Serializable {
 
     public void setAdMonitorUrl(String adMonitorUrl) {
         this.adMonitorUrl = adMonitorUrl;
+    }
+
+    public boolean isDing() {
+        return ding;
+    }
+
+    public void setDing(boolean ding) {
+        this.ding = ding;
     }
 }

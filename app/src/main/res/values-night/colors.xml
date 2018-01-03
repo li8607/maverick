@@ -13,4 +13,11 @@
     <color name="colorTitleColor">#fff</color>
     <color name="colorSubTitleColor">#666</color>
     <color name="colorSubTitleColor_Selector">#666</color>
+
+    <color name="tabSelectedTextColor">#ff2d55</color>
+    <color name="tabTextColor">#fff</color>
+    <color name="tabIndicatorColor">#ff2d55</color>
+
+    <color name="radioButtonSelectedTextColor">#ff2d55</color>
+    <color name="radioButtonTextColor">#ffffff</color>
 </resources>
