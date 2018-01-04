@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.github.aakira.expandablelayout.ExpandableLayoutListener;
 import com.github.aakira.expandablelayout.ExpandableRelativeLayout;
 import com.maverick.R;
 import com.maverick.bean.PearVideoDetailInfo;
@@ -33,6 +34,7 @@ public class PearDetailViewHolder extends RecyclerView.ViewHolder implements Vie
     private final ExpandableRelativeLayout expandableLayout;
     private PearVideoDetailInfo mInfo;
     private Context mContext;
+    private final View detail;
 
     public PearDetailViewHolder(View itemView) {
         super(itemView);
@@ -51,6 +53,7 @@ public class PearDetailViewHolder extends RecyclerView.ViewHolder implements Vie
         collect_title = (TextView) itemView.findViewById(R.id.collect_title);
         love_title = (TextView) itemView.findViewById(R.id.love_title);
 
+        detail = itemView.findViewById(R.id.detail);
 
         expandableLayout = (ExpandableRelativeLayout) itemView.findViewById(R.id.expandableLayout);
         expandableLayout.expand();
@@ -61,6 +64,38 @@ public class PearDetailViewHolder extends RecyclerView.ViewHolder implements Vie
         love_root.setOnClickListener(this);
         collect_root.setOnClickListener(this);
         down_root.setOnClickListener(this);
+
+        expandableLayout.setListener(new ExpandableLayoutListener() {
+            @Override
+            public void onAnimationStart() {
+
+            }
+
+            @Override
+            public void onAnimationEnd() {
+
+            }
+
+            @Override
+            public void onPreOpen() {
+                detail.animate().rotation(-180).setDuration(500).start();
+            }
+
+            @Override
+            public void onPreClose() {
+                detail.animate().rotation(0).setDuration(500).start();
+            }
+
+            @Override
+            public void onOpened() {
+
+            }
+
+            @Override
+            public void onClosed() {
+
+            }
+        });
 
 // toggle expand, collapse
 
