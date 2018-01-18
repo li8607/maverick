@@ -7,5 +7,6 @@ package com.maverick.global;
 public class SPKey {
 
     public static final String NIGHT = "NIGHT";
+    public static final String THEME = "THEME";
 
 }

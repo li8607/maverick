@@ -3,6 +3,7 @@ package com.maverick.presenter;
 import android.content.Context;
 import android.util.Log;
 
+import com.maverick.bean.MultipleItem;
 import com.maverick.bean.PearItemInfo;
 import com.maverick.bean.PearVideoDetailBean;
 import com.maverick.bean.PearVideoDetailInfoData;

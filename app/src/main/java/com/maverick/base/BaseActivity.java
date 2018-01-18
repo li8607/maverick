@@ -12,7 +12,9 @@ import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 
 import com.maverick.R;
+import com.maverick.global.SPKey;
 import com.maverick.presenter.BasePresenter;
+import com.maverick.util.PreferenceUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
@@ -30,10 +32,40 @@ public abstract class BaseActivity extends AppCompatActivity implements BGASwipe
     public void onCreate(Bundle savedInstanceState) {
         // 「必须在 Application 的 onCreate 方法中执行 BGASwipeBackHelper.init 来初始化滑动返回」
         // 在 super.onCreate(savedInstanceState) 之前调用该方法
+        initTheme();
         super.onCreate(savedInstanceState);
-        initSwipeBackFinish();
+//        initSwipeBackFinish();
         onActivityCreated(savedInstanceState);
-        mDefaultNightMode = AppCompatDelegate.getDefaultNightMode();
+//        mDefaultNightMode = AppCompatDelegate.getDefaultNightMode();
+    }
+
+    private void initTheme() {
+        int modeTheme = PreferenceUtil.getInstance(getApplicationContext()).getInt(SPKey.NIGHT, 0);
+        if (modeTheme == 1) {
+            //夜
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else if (modeTheme == 2) {
+            //自动
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+        } else {
+            //日
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
+
+        setTheme(getCustomTheme());
+    }
+
+    public int getCustomTheme() {
+        int theme = PreferenceUtil.getInstance(getApplicationContext()).getInt(SPKey.THEME, 0);
+        theme = 1;
+        switch (theme) {
+            case 1:
+                return R.style.AppTheme_Pink;
+            case 2:
+                return R.style.AppTheme_Yellow;
+            default:
+                return R.style.AppTheme;
+        }
     }
 
     /**
@@ -161,7 +193,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BGASwipe
         super.onResume();
         MobclickAgent.onResume(this);
         if (mDefaultNightMode != AppCompatDelegate.getDefaultNightMode()) {
-            recreate();
+//            recreate();
         }
     }
 

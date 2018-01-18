@@ -1,13 +1,5 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-    </style>
-
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
@@ -33,6 +25,45 @@
     <style name="dialog_style" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorControlNormal</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="textColorHighlight">@color/textColorHighlight</item>
+        <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelected</item>
+        <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicator</item>
+    </style>
+
+    <style name="AppTheme.FullScreen">
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme.Pink">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryPink</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkPink</item>
+        <item name="colorAccent">@color/colorAccentPink</item>
+        <item name="textColorHighlight">@color/textColorHighlightPink</item>
+        <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelectedPink</item>
+        <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorPink</item>
+    </style>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme.Yellow">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryYellow</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkYellow</item>
+        <item name="colorAccent">@color/colorAccentYellow</item>
+        <item name="textColorHighlight">@color/textColorHighlightYellow</item>
+        <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelectedYellow</item>
+        <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorYellow</item>
     </style>
 
 </resources>

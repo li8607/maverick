@@ -1,23 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimaryDark">#333</color>
-    <color name="colorPrimary">#333</color>
-    <color name="colorAccent">#60999999</color>
-    <color name="colorControlNormal">#ffffff</color>
-    <color name="textColorPrimary">#ffffff</color>
+
+
     <color name="colorBackground">#303030</color>
 
     <color name="colorDivider">#11ffffff</color>
     <color name="colorForeground">#00000000</color>
 
-    <color name="colorTitleColor">#fff</color>
-    <color name="colorSubTitleColor">#666</color>
+
     <color name="colorSubTitleColor_Selector">#666</color>
 
-    <color name="tabSelectedTextColor">#ff2d55</color>
-    <color name="tabTextColor">#fff</color>
-    <color name="tabIndicatorColor">#ff2d55</color>
 
     <color name="radioButtonSelectedTextColor">#ff2d55</color>
     <color name="radioButtonTextColor">#ffffff</color>
+
+    <color name="tabSelectedTextColor">@color/colorPrimary</color>
+    <color name="tabTextColor">#99999999</color>
+    <color name="tabIndicatorColor">@color/colorPrimary</color>
+    <!--共同-->
+    <color name="colorControlNormal">#ffffff</color>
+    <color name="textColorPrimary">#ffffff</color>
+    <color name="textColorTabLayout">#99999999</color>
+    <color name="colorTitleColor">#fff</color>
+    <color name="colorSubTitleColor">#666</color>
+    <!--默认-->
+    <color name="colorPrimaryDark">#333</color>
+    <color name="colorPrimary">#333</color>
+    <color name="colorAccent">#60999999</color>
+    <color name="textColorHighlight">#fff</color>
+    <color name="textColorTabLayoutSelected">#ffffff</color>
+    <color name="colorTabLayoutIndicator">#ffffff</color>
+    <!--粉色-->
+    <color name="colorPrimaryDarkPink">@color/colorPrimaryDark</color>
+    <color name="colorPrimaryPink">@color/colorPrimary</color>
+    <color name="colorAccentPink">@color/colorAccent</color>
+    <color name="textColorHighlightPink">#ee7799</color>
+    <color name="textColorTabLayoutSelectedPink">#ee7799</color>
+    <color name="colorTabLayoutIndicatorPink">#ee7799</color>
+    <!--粉色-->
+    <color name="colorPrimaryDarkYellow">@color/colorPrimaryDark</color>
+    <color name="colorPrimaryYellow">@color/colorPrimary</color>
+    <color name="colorAccentYellow">@color/colorAccent</color>
+    <color name="textColorHighlightYellow">#f1bc1a</color>
+    <color name="textColorTabLayoutSelectedYellow">#f1bc1a</color>
+    <color name="colorTabLayoutIndicatorYellow">#f1bc1a</color>
 </resources>
