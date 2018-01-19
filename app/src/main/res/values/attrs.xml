@@ -11,4 +11,5 @@
     <attr name="textColorTabLayoutSelected" format="color" />
     <attr name="textColorTabLayout" format="color" />
     <attr name="colorTabLayoutIndicator" format="color" />
+    <attr name="colorLineHighlight" format="color" />
 </resources>

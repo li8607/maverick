@@ -38,6 +38,7 @@
         <item name="textColorHighlight">@color/textColorHighlight</item>
         <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelected</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicator</item>
+        <item name="colorLineHighlight">@color/colorLineHighlight</item>
     </style>
 
     <style name="AppTheme.FullScreen">
@@ -53,6 +54,7 @@
         <item name="textColorHighlight">@color/textColorHighlightPink</item>
         <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelectedPink</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorPink</item>
+        <item name="colorLineHighlight">@color/colorLineHighlightPink</item>
     </style>
 
     <!-- Base application theme. -->
@@ -64,6 +66,7 @@
         <item name="textColorHighlight">@color/textColorHighlightYellow</item>
         <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelectedYellow</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorYellow</item>
+        <item name="colorLineHighlight">@color/colorLineHighlightYellow</item>
     </style>
 
 </resources>

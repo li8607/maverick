@@ -13,7 +13,6 @@
 
 
     <color name="radioButtonSelectedTextColor">#ff2d55</color>
-    <color name="radioButtonTextColor">#000000</color>
 
     <color name="colorStatusBarBackground">#66000000</color>
 
@@ -66,6 +65,7 @@
     <color name="colorSubTitleColor">#666</color>
     <color name="textColorPrimary">#ffffff</color>
     <color name="textColorTabLayout">#ff999999</color>
+    <color name="radioButtonTextColor">#000000</color>
     <!--默认-->
     <color name="colorPrimaryDark">#ff2d55</color>
     <color name="colorPrimary">#ff2d55</color>
@@ -73,6 +73,7 @@
     <color name="textColorHighlight">#ff2d55</color>
     <color name="textColorTabLayoutSelected">#ffffff</color>
     <color name="colorTabLayoutIndicator">#ffffff</color>
+    <color name="colorLineHighlight">#ff2d55</color>
     <!--粉色-->
     <color name="colorPrimaryDarkPink">#ee7799</color>
     <color name="colorPrimaryPink">#ee7799</color>
@@ -80,6 +81,7 @@
     <color name="textColorHighlightPink">#ee7799</color>
     <color name="textColorTabLayoutSelectedPink">@color/textColorTabLayoutSelected</color>
     <color name="colorTabLayoutIndicatorPink">@color/colorTabLayoutIndicator</color>
+    <color name="colorLineHighlightPink">#ff2d55</color>
     <!--黄色-->
     <color name="colorPrimaryDarkYellow">#f1bc1a</color>
     <color name="colorPrimaryYellow">#f1bc1a</color>
@@ -87,5 +89,6 @@
     <color name="textColorHighlightYellow">#f1bc1a</color>
     <color name="textColorTabLayoutSelectedYellow">@color/textColorTabLayoutSelected</color>
     <color name="colorTabLayoutIndicatorYellow">@color/colorTabLayoutIndicator</color>
+    <color name="colorLineHighlightYellow">#f1bc1a</color>
 
 </resources>
