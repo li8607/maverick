@@ -65,4 +65,11 @@
     <string name="forget_password">忘记密码？</string>
     <string name="agree_text">登陆或注册即同意笑一笑[用户协议]</string>
 
+    <string name="theme_pink_title">少女粉</string>
+    <string name="theme_red_title">姨妈红</string>
+    <string name="theme_yellow_title">咸蛋黄</string>
+    <string name="theme_green_title">早苗绿</string>
+    <string name="theme_blue_title">胖次蓝</string>
+    <string name="theme_purple_title">基佬紫</string>
+
 </resources>

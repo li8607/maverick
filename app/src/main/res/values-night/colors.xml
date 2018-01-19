@@ -32,19 +32,51 @@
     <color name="colorTabLayoutIndicator">#ffffff</color>
     <color name="colorLineHighlight">#fff</color>
     <!--粉色-->
-    <color name="colorPrimaryDarkPink">@color/colorPrimaryDark</color>
     <color name="colorPrimaryPink">@color/colorPrimary</color>
+    <color name="colorPrimaryDarkPink">@color/colorPrimaryDark</color>
     <color name="colorAccentPink">@color/colorAccent</color>
     <color name="textColorHighlightPink">#ee7799</color>
     <color name="textColorTabLayoutSelectedPink">#ee7799</color>
     <color name="colorTabLayoutIndicatorPink">#ee7799</color>
     <color name="colorLineHighlightPink">#ee7799</color>
     <!--粉色-->
-    <color name="colorPrimaryDarkYellow">@color/colorPrimaryDark</color>
     <color name="colorPrimaryYellow">@color/colorPrimary</color>
+    <color name="colorPrimaryDarkYellow">@color/colorPrimaryDark</color>
     <color name="colorAccentYellow">@color/colorAccent</color>
     <color name="textColorHighlightYellow">#f1bc1a</color>
     <color name="textColorTabLayoutSelectedYellow">#f1bc1a</color>
     <color name="colorTabLayoutIndicatorYellow">#f1bc1a</color>
     <color name="colorLineHighlightYellow">#f1bc1a</color>
+    <!--红色-->
+    <color name="colorPrimaryRed">@color/colorPrimary</color>
+    <color name="colorPrimaryDarkRed">@color/colorPrimaryDark</color>
+    <color name="colorAccentRed">@color/colorAccent</color>
+    <color name="textColorHighlightRed">@color/colorRed</color>
+    <color name="textColorTabLayoutSelectedRed">@color/colorRed</color>
+    <color name="colorTabLayoutIndicatorRed">@color/colorRed</color>
+    <color name="colorLineHighlightRed">@color/colorRed</color>
+    <!--绿色-->
+    <color name="colorPrimaryGreen">@color/colorPrimary</color>
+    <color name="colorPrimaryDarkGreen">@color/colorPrimaryDark</color>
+    <color name="colorAccentGreen">@color/colorAccent</color>
+    <color name="textColorHighlightGreen">@color/colorGreen</color>
+    <color name="textColorTabLayoutSelectedGreen">@color/colorGreen</color>
+    <color name="colorTabLayoutIndicatorGreen">@color/colorGreen</color>
+    <color name="colorLineHighlightGreen">@color/colorGreen</color>
+    <!--蓝色-->
+    <color name="colorPrimaryBlue">@color/colorPrimary</color>
+    <color name="colorPrimaryDarkBlue">@color/colorPrimaryDark</color>
+    <color name="colorAccentBlue">@color/colorAccent</color>
+    <color name="textColorHighlightBlue">@color/colorBlue</color>
+    <color name="textColorTabLayoutSelectedBlue">@color/colorBlue</color>
+    <color name="colorTabLayoutIndicatorBlue">@color/colorBlue</color>
+    <color name="colorLineHighlightBlue">@color/colorBlue</color>
+    <!--紫色-->
+    <color name="colorPrimaryPurple">@color/colorPrimary</color>
+    <color name="colorPrimaryDarkPurple">@color/colorPrimaryDark</color>
+    <color name="colorAccentPurple">@color/colorAccent</color>
+    <color name="textColorHighlightPurple">@color/colorPurple</color>
+    <color name="textColorTabLayoutSelectedPurple">@color/colorPurple</color>
+    <color name="colorTabLayoutIndicatorPurple">@color/colorPurple</color>
+    <color name="colorLineHighlightPurple">@color/colorPurple</color>
 </resources>

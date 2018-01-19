@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.maverick.R;
 import com.maverick.presenter.BasePresenter;
 
 /**
@@ -24,6 +25,7 @@ public abstract class BaseDialogFragment extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //1 通过样式定义
         this.mBasePresenter = this.onCreatePresenter();
     }
 

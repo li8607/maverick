@@ -1,6 +1,5 @@
 package com.maverick;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.SwitchCompat;
@@ -9,9 +8,8 @@ import android.view.View;
 import android.widget.CompoundButton;
 
 import com.maverick.base.BaseActivity;
+import com.maverick.dialog.ThemeDialog;
 import com.maverick.presenter.BasePresenter;
-
-import cn.bingoogolapple.swipebacklayout.BGASwipeBackManager;
 
 /**
  * Created by limingfei on 2017/12/22.
@@ -59,6 +57,14 @@ public class SettingActivity extends BaseActivity {
                 } else {
                     MainApp.getInstance().setModeTheme(SettingActivity.this, 0);
                 }
+            }
+        });
+
+        View cv_more_theme = findView(R.id.cv_more_theme);
+        cv_more_theme.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialogFragment(ThemeDialog.newInstance());
             }
         });
     }

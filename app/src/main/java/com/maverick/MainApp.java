@@ -38,6 +38,7 @@ public class MainApp extends Application {
 
     @Override
     public void onCreate() {
+        initTheme();
         super.onCreate();
         mMainApp = this;
         mContext = getApplicationContext();
@@ -56,7 +57,6 @@ public class MainApp extends Application {
 //        AVOSCloud.initialize(this,"0C89a76qNodEmSHBpCSTGgCX-gzGzoHsz", "2Bcw0fzmDjYF6WXqEJumCKxR");
 //        AVOSCloud.setDebugLogEnabled(true);
 
-        initTheme();
 
         /**
          * 必须在 Application 的 onCreate 方法中执行 BGASwipeBackHelper.init 来初始化滑动返回

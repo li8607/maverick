@@ -32,7 +32,7 @@
                 android:orientation="vertical">
 
                 <android.support.v7.widget.CardView
-                    android:id="@+id/theme_setting_card"
+                    android:id="@+id/cv_day_night"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/card_spacing"
@@ -50,8 +50,7 @@
                             style="@style/TextAppearance.AppCompat.Small"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="夜"
-                            />
+                            android:text="夜" />
 
                         <android.support.v7.widget.SwitchCompat
                             android:id="@+id/switchCompat"
@@ -63,6 +62,31 @@
                             android:textOn="关"
                             app:showText="true"
                             app:switchPadding="5dp" />
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cv_more_theme"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/card_spacing"
+                    android:clickable="true"
+                    app:cardCornerRadius="@dimen/card_corner_radius"
+                    app:cardElevation="@dimen/card_elevation">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="24dp">
+
+                        <TextView
+                            style="@style/TextAppearance.AppCompat.Small"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="主题" />
+
 
                     </LinearLayout>
                 </android.support.v7.widget.CardView>

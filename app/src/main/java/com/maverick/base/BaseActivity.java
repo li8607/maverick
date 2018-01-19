@@ -8,11 +8,11 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 
 import com.maverick.R;
 import com.maverick.global.SPKey;
+import com.maverick.global.ThemeType;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.util.PreferenceUtil;
 import com.umeng.analytics.MobclickAgent;
@@ -26,45 +26,34 @@ public abstract class BaseActivity extends AppCompatActivity implements BGASwipe
 
     protected BGASwipeBackHelper mSwipeBackHelper;
     private BasePresenter mBasePresenter;
-    private int mDefaultNightMode;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         // 「必须在 Application 的 onCreate 方法中执行 BGASwipeBackHelper.init 来初始化滑动返回」
         // 在 super.onCreate(savedInstanceState) 之前调用该方法
-        initTheme();
-        super.onCreate(savedInstanceState);
-//        initSwipeBackFinish();
-        onActivityCreated(savedInstanceState);
-//        mDefaultNightMode = AppCompatDelegate.getDefaultNightMode();
-    }
-
-    private void initTheme() {
-        int modeTheme = PreferenceUtil.getInstance(getApplicationContext()).getInt(SPKey.NIGHT, 0);
-        if (modeTheme == 1) {
-            //夜
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else if (modeTheme == 2) {
-            //自动
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
-        } else {
-            //日
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-
         setTheme(getCustomTheme());
+        super.onCreate(savedInstanceState);
+        initSwipeBackFinish();
+        onActivityCreated(savedInstanceState);
     }
 
     public int getCustomTheme() {
         int theme = PreferenceUtil.getInstance(getApplicationContext()).getInt(SPKey.THEME, 0);
-        theme = 1;
         switch (theme) {
-            case 1:
+            case ThemeType.PINK:
                 return R.style.AppTheme_Pink;
-            case 2:
+            case ThemeType.RED:
+                return R.style.AppTheme_Red;
+            case ThemeType.YELLOW:
                 return R.style.AppTheme_Yellow;
+            case ThemeType.GREEN:
+                return R.style.AppTheme_Green;
+            case ThemeType.BLUE:
+                return R.style.AppTheme_Blue;
+            case ThemeType.PURPLE:
+                return R.style.AppTheme_Purple;
             default:
-                return R.style.AppTheme;
+                return R.style.AppTheme_Pink;
         }
     }
 
@@ -192,13 +181,18 @@ public abstract class BaseActivity extends AppCompatActivity implements BGASwipe
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
-        if (mDefaultNightMode != AppCompatDelegate.getDefaultNightMode()) {
-//            recreate();
-        }
     }
 
     protected void onPause() {
         super.onPause();
         MobclickAgent.onPause(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mBasePresenter != null) {
+            mBasePresenter.release();
+        }
+        super.onDestroy();
     }
 }

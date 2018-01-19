@@ -68,5 +68,50 @@
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorYellow</item>
         <item name="colorLineHighlight">@color/colorLineHighlightYellow</item>
     </style>
+    <!-- Base application theme. -->
+    <style name="AppTheme.Red">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryRed</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkRed</item>
+        <item name="colorAccent">@color/colorAccentRed</item>
+        <item name="textColorHighlight">@color/textColorHighlightRed</item>
+        <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelectedRed</item>
+        <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorRed</item>
+        <item name="colorLineHighlight">@color/colorLineHighlightRed</item>
+    </style>
+    <!-- Base application theme. -->
+    <style name="AppTheme.Green">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryGreen</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkGreen</item>
+        <item name="colorAccent">@color/colorAccentGreen</item>
+        <item name="textColorHighlight">@color/textColorHighlightGreen</item>
+        <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelectedGreen</item>
+        <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorGreen</item>
+        <item name="colorLineHighlight">@color/colorLineHighlightGreen</item>
+    </style>
+    <!-- Base application theme. -->
+    <style name="AppTheme.Blue">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryBlue</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkBlue</item>
+        <item name="colorAccent">@color/colorAccentBlue</item>
+        <item name="textColorHighlight">@color/textColorHighlightBlue</item>
+        <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelectedBlue</item>
+        <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorBlue</item>
+        <item name="colorLineHighlight">@color/colorLineHighlightBlue</item>
+    </style>
+    <!-- Base application theme. -->
+    <style name="AppTheme.Purple">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryPurple</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkPurple</item>
+        <item name="colorAccent">@color/colorAccentPurple</item>
+        <item name="textColorHighlight">@color/textColorHighlightPurple</item>
+        <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelectedPurple</item>
+        <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorPurple</item>
+        <item name="colorLineHighlight">@color/colorLineHighlightPurple</item>
+    </style>
+
 
 </resources>
