@@ -5,12 +5,10 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -53,6 +51,7 @@ public class MenuDialog extends BaseDialogFragment implements DialogInterface.On
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        setStyle(STYLE_NO_TITLE, R.style.AppTheme_Dialog_FullScreen);
         super.onCreate(savedInstanceState);
     }
 
@@ -70,11 +69,7 @@ public class MenuDialog extends BaseDialogFragment implements DialogInterface.On
     @Override
     public void onStart() {
         super.onStart();
-        Window window = getDialog().getWindow();
-        window.setBackgroundDrawable(new ColorDrawable(0xff000000));
-        DisplayMetrics dm = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-        window.setLayout(dm.widthPixels, getDialog().getWindow().getAttributes().height);
+
         if (mPresenter != null) {
             mPresenter.loadShareData(mMenuDetailInfo);
         }
@@ -154,7 +149,7 @@ public class MenuDialog extends BaseDialogFragment implements DialogInterface.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.cancel:
-                dismiss();
+//                dismiss();
                 break;
         }
     }

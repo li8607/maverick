@@ -1,7 +1,6 @@
 package com.maverick.adapter;
 
 import android.content.Context;
-import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -101,19 +100,9 @@ public class MenuDialogAdapter extends RecyclerView.Adapter {
 
             if (menuItemInfo.getMenuType() == MenuType.SEND_COLLENT && menuItemInfo.isCollect()) {
                 itemView.setSelected(true);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    title.setTextColor(itemView.getResources().getColor(R.color.sister_count_select_color, null));
-                } else {
-                    title.setTextColor(itemView.getResources().getColor(R.color.sister_count_select_color));
-                }
                 title.setText(itemView.getResources().getString(R.string.collect_select));
             } else {
                 itemView.setSelected(false);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    title.setTextColor(itemView.getResources().getColor(R.color.share_item_title_color, null));
-                } else {
-                    title.setTextColor(itemView.getResources().getColor(R.color.share_item_title_color));
-                }
                 title.setText(itemView.getResources().getString(R.string.collect));
             }
         }

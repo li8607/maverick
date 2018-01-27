@@ -9,6 +9,7 @@ import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVOSCloud;
 import com.maverick.base.BaseActivity;
 import com.maverick.global.SPKey;
+import com.maverick.global.ThemeType;
 import com.maverick.util.PreferenceUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.socialize.Config;
@@ -64,6 +65,26 @@ public class MainApp extends Application {
          * 第二个参数：如果发现滑动返回后立即触摸界面时应用崩溃，请把该界面里比较特殊的 View 的 class 添加到该集合中，目前在库中已经添加了 WebView 和 SurfaceView
          */
         BGASwipeBackHelper.init(this, null);
+    }
+
+    public int getCustomTheme() {
+        int theme = PreferenceUtil.getInstance(getApplicationContext()).getInt(SPKey.THEME, 0);
+        switch (theme) {
+            case ThemeType.PINK:
+                return R.style.AppTheme_Pink;
+            case ThemeType.RED:
+                return R.style.AppTheme_Red;
+            case ThemeType.YELLOW:
+                return R.style.AppTheme_Yellow;
+            case ThemeType.GREEN:
+                return R.style.AppTheme_Green;
+            case ThemeType.BLUE:
+                return R.style.AppTheme_Blue;
+            case ThemeType.PURPLE:
+                return R.style.AppTheme_Purple;
+            default:
+                return R.style.AppTheme_Pink;
+        }
     }
 
     private void initTheme() {

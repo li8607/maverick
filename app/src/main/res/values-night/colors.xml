@@ -2,9 +2,8 @@
 <resources>
 
 
-    <color name="colorBackground">#303030</color>
+    <!--<color name="colorBackground">#303030</color>-->
 
-    <color name="colorDivider">#11ffffff</color>
     <color name="colorForeground">#00000000</color>
 
 
@@ -17,12 +16,15 @@
     <color name="tabTextColor">#99999999</color>
     <color name="tabIndicatorColor">@color/colorPrimary</color>
     <!--共同-->
+    <color name="windowBackground">#303030</color>
     <color name="colorControlNormal">#ffffff</color>
     <color name="textColorPrimary">#ffffff</color>
     <color name="textColorTabLayout">#99999999</color>
     <color name="colorTitleColor">#fff</color>
     <color name="colorSubTitleColor">#666</color>
     <color name="radioButtonTextColor">#ffffff</color>
+    <color name="colorDivider">#11ffffff</color>
+
     <!--默认-->
     <color name="colorPrimaryDark">#333</color>
     <color name="colorPrimary">#333</color>

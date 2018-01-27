@@ -2,16 +2,15 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/share_background_color"
     android:orientation="vertical">
 
     <TextView
-        android:layout_marginTop="@dimen/y11"
-        android:layout_gravity="center_horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/y11"
         android:text="@string/share_title"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorTitleColor"
         android:textSize="@dimen/y11" />
 
     <android.support.v7.widget.RecyclerView
@@ -24,15 +23,21 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/y70"></android.support.v7.widget.RecyclerView>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorDivider" />
+
     <TextView
         android:id="@+id/cancel"
-        android:clickable="true"
         android:layout_width="match_parent"
         android:layout_height="@dimen/y30"
-        android:background="@drawable/share_cancel_selector"
+        android:clickable="true"
+        android:colorControlHighlight="@android:color/holo_red_dark"
+        android:foreground="?android:attr/selectableItemBackground"
         android:gravity="center"
         android:text="@string/share_cancel"
-        android:textColor="@android:color/black"
+        android:textColor="@color/colorTitleColor"
         android:textSize="@dimen/y10" />
 
 </LinearLayout>

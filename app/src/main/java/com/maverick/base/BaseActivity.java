@@ -10,6 +10,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import com.maverick.MainApp;
 import com.maverick.R;
 import com.maverick.global.SPKey;
 import com.maverick.global.ThemeType;
@@ -31,30 +32,10 @@ public abstract class BaseActivity extends AppCompatActivity implements BGASwipe
     public void onCreate(Bundle savedInstanceState) {
         // 「必须在 Application 的 onCreate 方法中执行 BGASwipeBackHelper.init 来初始化滑动返回」
         // 在 super.onCreate(savedInstanceState) 之前调用该方法
-        setTheme(getCustomTheme());
+        setTheme(MainApp.getInstance().getCustomTheme());
         super.onCreate(savedInstanceState);
         initSwipeBackFinish();
         onActivityCreated(savedInstanceState);
-    }
-
-    public int getCustomTheme() {
-        int theme = PreferenceUtil.getInstance(getApplicationContext()).getInt(SPKey.THEME, 0);
-        switch (theme) {
-            case ThemeType.PINK:
-                return R.style.AppTheme_Pink;
-            case ThemeType.RED:
-                return R.style.AppTheme_Red;
-            case ThemeType.YELLOW:
-                return R.style.AppTheme_Yellow;
-            case ThemeType.GREEN:
-                return R.style.AppTheme_Green;
-            case ThemeType.BLUE:
-                return R.style.AppTheme_Blue;
-            case ThemeType.PURPLE:
-                return R.style.AppTheme_Purple;
-            default:
-                return R.style.AppTheme_Pink;
-        }
     }
 
     /**

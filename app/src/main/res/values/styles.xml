@@ -27,6 +27,16 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
+    <style name="AppTheme.Dialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+        <item name="android:windowBackground">@color/windowBackground</item>
+    </style>
+
+    <style name="AppTheme.Dialog.FullScreen">
+        <item name="android:windowFullscreen">true</item>
+        <item name="windowMinWidthMinor">100%</item>
+        <item name="windowMinWidthMajor">100%</item>
+    </style>
+
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
@@ -39,6 +49,7 @@
         <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelected</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicator</item>
         <item name="colorLineHighlight">@color/colorLineHighlight</item>
+        <item name="android:windowBackground">@color/windowBackground</item>
     </style>
 
     <style name="AppTheme.FullScreen">
@@ -55,6 +66,7 @@
         <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelectedPink</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorPink</item>
         <item name="colorLineHighlight">@color/colorLineHighlightPink</item>
+        <item name="colorControlHighlight">@color/selectableItemBackgroundPink</item>
     </style>
 
     <!-- Base application theme. -->
@@ -67,6 +79,7 @@
         <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelectedYellow</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorYellow</item>
         <item name="colorLineHighlight">@color/colorLineHighlightYellow</item>
+        <item name="colorControlHighlight">@color/selectableItemBackgroundYellow</item>
     </style>
     <!-- Base application theme. -->
     <style name="AppTheme.Red">
@@ -78,6 +91,7 @@
         <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelectedRed</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorRed</item>
         <item name="colorLineHighlight">@color/colorLineHighlightRed</item>
+        <item name="colorControlHighlight">@color/selectableItemBackgroundRed</item>
     </style>
     <!-- Base application theme. -->
     <style name="AppTheme.Green">
@@ -89,6 +103,7 @@
         <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelectedGreen</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorGreen</item>
         <item name="colorLineHighlight">@color/colorLineHighlightGreen</item>
+        <item name="colorControlHighlight">@color/selectableItemBackgroundGreen</item>
     </style>
     <!-- Base application theme. -->
     <style name="AppTheme.Blue">
@@ -100,6 +115,7 @@
         <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelectedBlue</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorBlue</item>
         <item name="colorLineHighlight">@color/colorLineHighlightBlue</item>
+        <item name="colorControlHighlight">@color/selectableItemBackgroundBlue</item>
     </style>
     <!-- Base application theme. -->
     <style name="AppTheme.Purple">
@@ -111,6 +127,7 @@
         <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelectedPurple</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorPurple</item>
         <item name="colorLineHighlight">@color/colorLineHighlightPurple</item>
+        <item name="colorControlHighlight">@color/selectableItemBackgroundPurple</item>
     </style>
 
 
