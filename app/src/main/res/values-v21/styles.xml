@@ -5,8 +5,19 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
-    <style name="AppTheme.Dialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+    <style name="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/colorControlNormal</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="textColorHighlight">@color/textColorHighlight</item>
+        <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelected</item>
+        <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicator</item>
+        <item name="colorLineHighlight">@color/colorLineHighlight</item>
         <item name="android:windowBackground">@color/windowBackground</item>
+        <item name="android:colorControlHighlight">@color/selectableItemBackgroundPink</item>
     </style>
 
 </resources>
