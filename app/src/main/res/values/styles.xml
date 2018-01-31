@@ -27,14 +27,12 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
-    <style name="AppTheme.Dialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
+    <style name="AppTheme.Dialog" parent="Theme.AppCompat.DayNight.Dialog.MinWidth">
         <item name="android:windowBackground">@color/windowBackground</item>
     </style>
 
     <style name="AppTheme.Dialog.FullScreen">
         <item name="android:windowFullscreen">true</item>
-        <item name="windowMinWidthMinor">100%</item>
-        <item name="windowMinWidthMajor">100%</item>
     </style>
 
     <!-- Base application theme. -->
