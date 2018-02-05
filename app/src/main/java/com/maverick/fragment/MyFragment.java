@@ -16,6 +16,7 @@ import com.maverick.UserDetailActivity;
 import com.maverick.adapter.MyFragmentAdapter;
 import com.maverick.base.BaseFragment2;
 import com.maverick.bean.MyInfo;
+import com.maverick.global.ActivityCode;
 import com.maverick.leancloud.User;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.type.MyType;
@@ -120,7 +121,7 @@ public class MyFragment extends BaseFragment2 {
                         return;
                     }
                     Intent intent = new Intent(getContext(), SettingActivity.class);
-                    startActivity(intent);
+                    getActivity().startActivityForResult(intent, ActivityCode.REQUEST_CODE_THEME);
                 }
             }
         });

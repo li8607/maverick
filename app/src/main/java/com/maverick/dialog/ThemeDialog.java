@@ -98,9 +98,10 @@ public class ThemeDialog extends BaseDialogFragment {
 
 
     private void updateTheme(int position) {
-        ThemeInfo themeInfo = mList.get(position);
         mThemeType = mList.get(position).getThemeType();
-        PreferenceUtil.getInstance(MainApp.mContext).putInt(SPKey.THEME, themeInfo.getThemeType());
+        if (mOnThemeChangeListener != null) {
+            mOnThemeChangeListener.onThemeChange(mThemeType);
+        }
         mThemeAdapter.notifyDataSetChanged();
     }
 
@@ -144,5 +145,15 @@ public class ThemeDialog extends BaseDialogFragment {
         public int getItemCount() {
             return mList == null ? 0 : mList.size();
         }
+    }
+
+    private OnThemeChangeListener mOnThemeChangeListener;
+
+    public void setOnThemeChangeListener(OnThemeChangeListener listener) {
+        this.mOnThemeChangeListener = listener;
+    }
+
+    public interface OnThemeChangeListener {
+        void onThemeChange(int themeType);
     }
 }

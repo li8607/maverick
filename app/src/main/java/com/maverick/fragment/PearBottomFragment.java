@@ -128,7 +128,7 @@ public class PearBottomFragment extends BaseFragment2 implements IPearBottomFrag
         mAdapter.setOnItemClickListener(new PearBottomFragmentAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position, PearVideoInfo info) {
-                PearActivity.launch(getActivity(), BeanHelper.getPearVideoDetailBean(info));
+                PearActivity.launch_finish(getActivity(), BeanHelper.getPearVideoDetailBean(info));
             }
         });
     }

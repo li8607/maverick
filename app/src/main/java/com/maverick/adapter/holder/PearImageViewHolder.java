@@ -18,7 +18,7 @@ import com.maverick.weight.RatioImageView;
 public class PearImageViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     private final RatioImageView image;
-    private final TextView title, node, label;
+    public final TextView title, node, label;
     private PearVideoInfo mInfo;
 
     public PearImageViewHolder(View itemView) {

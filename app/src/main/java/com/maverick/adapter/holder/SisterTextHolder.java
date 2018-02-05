@@ -31,9 +31,9 @@ public class SisterTextHolder extends RecyclerView.ViewHolder implements View.On
 
     protected SisterInfo mSisterInfo;
     protected final ImageView image_head;
-    protected final TextView time, name;
+    public TextView time, name;
     protected final TextView content;
-    protected final TextView text_ding_count, text_cai_count, text_share_count, text_comment_count;
+    public TextView text_ding_count, text_cai_count, text_share_count, text_comment_count;
     private final View root_ding;
     private final View root_cai;
     private final View root_share;

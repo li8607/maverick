@@ -12,10 +12,7 @@ import android.view.View;
 
 import com.maverick.MainApp;
 import com.maverick.R;
-import com.maverick.global.SPKey;
-import com.maverick.global.ThemeType;
 import com.maverick.presenter.BasePresenter;
-import com.maverick.util.PreferenceUtil;
 import com.umeng.analytics.MobclickAgent;
 
 import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;

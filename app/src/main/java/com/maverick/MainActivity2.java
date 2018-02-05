@@ -3,6 +3,7 @@ package com.maverick;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,8 +11,10 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +27,7 @@ import com.maverick.base.BaseActivity;
 import com.maverick.base.BaseFragment2;
 import com.maverick.bean.ButtonInfo;
 import com.maverick.factory.FragmentFactory;
+import com.maverick.global.ActivityCode;
 import com.maverick.type.FragmentType;
 import com.umeng.socialize.UMShareAPI;
 
@@ -305,6 +309,63 @@ public class MainActivity2 extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
+        if (requestCode == ActivityCode.REQUEST_CODE_THEME && resultCode == ActivityCode.RESULT_CODE_THEME) {
+            setTheme(MainApp.getInstance().getCustomTheme());
+            refreshUI();
+        }
+//        else if (requestCode == ActivityCode.REQUEST_CODE_THEME) {
+//            getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+//            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+////            int value = data.getIntExtra("RESULT_CODE_MODE_NIGHT", -100);
+////            if (value == AppCompatDelegate.MODE_NIGHT_YES) {
+////                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+////            } else if (value == AppCompatDelegate.MODE_NIGHT_NO) {
+////                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+////            } else if (value == AppCompatDelegate.MODE_NIGHT_AUTO) {
+////                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+////            }
+//
+////            refreshUI();
+//        }
+    }
+
+    /**
+     * 刷新 StatusBar
+     */
+    private void refreshUI() {
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = getTheme();
+        theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
+        mToolbar.setBackgroundResource(typedValue.resourceId);
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            getWindow().setStatusBarColor(getResources().getColor(typedValue.resourceId));
+        }
+
+        for (int i = 0; i < radio_group.getChildCount(); i++) {
+            RadioButton radioButton = (RadioButton) radio_group.getChildAt(i);
+            radioButton.setTextColor(ContextCompat.getColorStateList(MainActivity2.this, R.color.selector_radiobutton_text_color_main));
+        }
+
+        if (fragment_0 != null) {
+            fragment_0.refreshUI();
+        }
+
+        if (fragment_1 != null) {
+            fragment_1.refreshUI();
+        }
+
+        if (fragment_2 != null) {
+            fragment_2.refreshUI();
+        }
+
+        if (fragment_3 != null) {
+            fragment_3.refreshUI();
+        }
+
+        if (fragment_4 != null) {
+            fragment_4.refreshUI();
+        }
     }
 
     @Override

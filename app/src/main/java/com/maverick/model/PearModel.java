@@ -1,7 +1,6 @@
 package com.maverick.model;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.maverick.api.PearApi;
 import com.maverick.api.PearApiInvokeProxy;
@@ -65,7 +64,9 @@ public class PearModel implements IPearModel {
 
             @Override
             public void onFailure(Call<PearVideoInfoObj> call, Throwable t) {
-                listener.onFail();
+                if (!call.isCanceled()) {
+                    listener.onFail();
+                }
             }
         });
     }
@@ -106,7 +107,9 @@ public class PearModel implements IPearModel {
 
             @Override
             public void onFailure(Call<PearVideoTabDetailInfo> call, Throwable t) {
-                listener.onFail();
+                if (!call.isCanceled()) {
+                    listener.onFail();
+                }
             }
         });
     }
@@ -147,7 +150,9 @@ public class PearModel implements IPearModel {
 
             @Override
             public void onFailure(Call<PearVideoTabDetailInfo> call, Throwable t) {
-                listener.onFail();
+                if (!call.isCanceled()) {
+                    listener.onFail();
+                }
             }
         });
     }
@@ -188,7 +193,9 @@ public class PearModel implements IPearModel {
 
             @Override
             public void onFailure(Call<PearVideoDetailInfoData> call, Throwable t) {
-                listener.onFail();
+                if (!call.isCanceled()) {
+                    listener.onFail();
+                }
             }
         });
     }

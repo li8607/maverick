@@ -2,12 +2,15 @@ package com.maverick;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -42,15 +45,34 @@ public class PearActivity extends BaseActivity implements PearBottomFragment.OnL
     private OrientationUtils orientationUtils;
     private PearVideoDetailBean mInfo;
 
+    private static int start_activity_num = 0;
+
     public static void launch(Activity activity, PearVideoDetailBean info) {
 
         if (activity == null || info == null) {
             return;
         }
+        start_activity_num = 0;
+        Intent intent = new Intent(activity, PearActivity.class);
+        intent.putExtra(EXTRA_IMAGE, info);
+        activity.startActivity(intent);
+    }
+
+    public static void launch_finish(Activity activity, PearVideoDetailBean info) {
+
+        if (activity == null || info == null) {
+            return;
+        }
+
+        start_activity_num++;
 
         Intent intent = new Intent(activity, PearActivity.class);
         intent.putExtra(EXTRA_IMAGE, info);
         activity.startActivity(intent);
+        if (start_activity_num % 2 == 0) {
+            activity.finish();
+            start_activity_num--;
+        }
     }
 
     @Override
@@ -100,6 +122,14 @@ public class PearActivity extends BaseActivity implements PearBottomFragment.OnL
     @Override
     protected int getRootViewId() {
         return R.layout.activity_pear;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
+        super.onCreate(savedInstanceState);
     }
 
     @Override

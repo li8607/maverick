@@ -1,8 +1,11 @@
 package com.maverick.fragment;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,5 +106,33 @@ public class PearFragment extends BaseFragment2 implements IPearFragmentView {
                 root.removeView(v);
             }
         });
+    }
+
+    public void refreshUI() {
+
+        TypedValue colorPrimary = new TypedValue();
+        TypedValue colorTabLayoutIndicator = new TypedValue();
+        TypedValue textColorTabLayoutSelected = new TypedValue();
+        Resources.Theme theme = getActivity().getTheme();
+        theme.resolveAttribute(R.attr.colorPrimary, colorPrimary, true);
+        theme.resolveAttribute(R.attr.colorTabLayoutIndicator, colorTabLayoutIndicator, true);
+        theme.resolveAttribute(R.attr.textColorTabLayoutSelected, textColorTabLayoutSelected, true);
+
+        tab_layout.setBackgroundResource(colorPrimary.resourceId);
+        tab_layout.setSelectedTabIndicatorColor(ContextCompat.getColor(getContext(), colorTabLayoutIndicator.resourceId));
+        tab_layout.setTabTextColors(ContextCompat.getColor(getContext(), R.color.textColorTabLayout), ContextCompat.getColor(getContext(), textColorTabLayoutSelected.resourceId));
+
+        for (int i = 0; i < mAdapter.getCount(); i++) {
+            Object object = mAdapter.instantiateItem(viewpager, i);
+
+            if (object == null) {
+                continue;
+            }
+
+            BaseFragment2 baseFragment2 = (BaseFragment2) object;
+            if (baseFragment2.isAdded()) {
+                baseFragment2.refreshUI();
+            }
+        }
     }
 }

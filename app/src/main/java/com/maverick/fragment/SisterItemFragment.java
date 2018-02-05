@@ -1,11 +1,14 @@
 package com.maverick.fragment;
 
+import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +37,9 @@ import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import cntv.greendaolibrary.dbbean.Collect;
@@ -41,7 +47,7 @@ import cntv.greendaolibrary.dbbean.Collect;
 /**
  * Created by Administrator on 2017/9/30.
  */
-public class SisterItemItemFragment extends BaseFragment2 implements ISisterItemFragmentView {
+public class SisterItemFragment extends BaseFragment2 implements ISisterItemFragmentView {
 
     private SisterItemFragmentAdapter mSisterItemFragmentAdapter;
     private SisterItemFragmentPresenter mPresenter;
@@ -52,9 +58,10 @@ public class SisterItemItemFragment extends BaseFragment2 implements ISisterItem
     int lastVisibleItem;
     int firstVisibleItem;
     private ViewGroup root;
+    private RecyclerView mRecyclerView;
 
-    public static SisterItemItemFragment newInstance(SisterTabInfo sisterTabInfo) {
-        SisterItemItemFragment fragment = new SisterItemItemFragment();
+    public static SisterItemFragment newInstance(SisterTabInfo sisterTabInfo) {
+        SisterItemFragment fragment = new SisterItemFragment();
 
         Bundle bundle = new Bundle();
         bundle.putSerializable(Tag.KEY_INFO, sisterTabInfo);
@@ -80,15 +87,15 @@ public class SisterItemItemFragment extends BaseFragment2 implements ISisterItem
         root = findView(R.id.root);
 
         pullLoadMoreRecyclerView = findView(R.id.recyclerView);
-        final RecyclerView recyclerView = pullLoadMoreRecyclerView.getRecyclerView();
+        mRecyclerView = pullLoadMoreRecyclerView.getRecyclerView();
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setAutoMeasureEnabled(true);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setHasFixedSize(true);
 
         mSisterItemFragmentAdapter = new SisterItemFragmentAdapter(getContext());
-        recyclerView.setAdapter(mSisterItemFragmentAdapter);
+        mRecyclerView.setAdapter(mSisterItemFragmentAdapter);
 
         mSisterItemFragmentAdapter.setOnSisterTextHolderListener(new SisterTextHolder.OnSisterTextHolderListener() {
             @Override
@@ -153,14 +160,14 @@ public class SisterItemItemFragment extends BaseFragment2 implements ISisterItem
             }
         });
 
-        recyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
+        mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 outRect.bottom = getResources().getDimensionPixelSize(R.dimen.x1);
             }
         });
 
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
 
             @Override
@@ -314,7 +321,7 @@ public class SisterItemItemFragment extends BaseFragment2 implements ISisterItem
             }
         });
 
-        recyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+        mRecyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
 
@@ -322,7 +329,7 @@ public class SisterItemItemFragment extends BaseFragment2 implements ISisterItem
 
             @Override
             public void onChildViewDetachedFromWindow(View view) {
-                int position = recyclerView.getChildAdapterPosition(view);
+                int position = mRecyclerView.getChildAdapterPosition(view);
 
 //                Glide.with(getActivity()).load(mSisterItemFragmentAdapter.getData().get(position).getImage2()).downloadOnly(null).getRequest().isComplete();
             }
@@ -478,5 +485,52 @@ public class SisterItemItemFragment extends BaseFragment2 implements ISisterItem
         super.onDestroyView();
         listVideoUtil.releaseVideoPlayer();
         GSYVideoPlayer.releaseAllVideos();
+    }
+
+    @Override
+    public void refreshUI() {
+        //让 RecyclerView 缓存在 Pool 中的 Item 失效
+        //那么，如果是ListView，要怎么做呢？这里的思路是通过反射拿到 AbsListView 类中的 RecycleBin 对象，然后同样再用反射去调用 clear 方法
+        Class<RecyclerView> recyclerViewClass = RecyclerView.class;
+        try {
+            Field declaredField = recyclerViewClass.getDeclaredField("mRecycler");
+            declaredField.setAccessible(true);
+            Method declaredMethod = Class.forName(RecyclerView.Recycler.class.getName()).getDeclaredMethod("clear", (Class<?>[]) new Class[0]);
+            declaredMethod.setAccessible(true);
+            declaredMethod.invoke(declaredField.get(mRecyclerView), new Object[0]);
+            RecyclerView.RecycledViewPool recycledViewPool = mRecyclerView.getRecycledViewPool();
+            recycledViewPool.clear();
+
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        TypedValue textColorHighlight = new TypedValue();
+        Resources.Theme theme = getActivity().getTheme();
+        theme.resolveAttribute(R.attr.textColorHighlight, textColorHighlight, true);
+
+        if (mRecyclerView != null) {
+
+            for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
+                RecyclerView.ViewHolder holder = mRecyclerView.getChildViewHolder(mRecyclerView.getChildAt(i));
+
+                if (holder != null && holder instanceof SisterTextHolder) {
+                    SisterTextHolder sisterTextHolder = (SisterTextHolder) holder;
+                    sisterTextHolder.name.setTextColor(ContextCompat.getColor(getContext(), textColorHighlight.resourceId));
+                    sisterTextHolder.text_ding_count.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.operation_count_day_selector));
+                    sisterTextHolder.text_cai_count.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.operation_count_day_selector));
+                    sisterTextHolder.text_comment_count.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.operation_count_day_selector));
+                    sisterTextHolder.text_share_count.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.operation_count_day_selector));
+                }
+            }
+        }
     }
 }

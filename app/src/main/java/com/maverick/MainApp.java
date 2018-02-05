@@ -2,7 +2,6 @@ package com.maverick;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatDelegate;
 
 import com.avos.avoscloud.AVAnalytics;
@@ -133,12 +132,13 @@ public class MainApp extends Application {
         }
 
         PreferenceUtil.getInstance(getApplicationContext()).putInt(SPKey.NIGHT, modeTheme);
+        activity.recreate();
 
-        Intent intent = activity.getIntent();
-        activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        activity.finish();
-
-        activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        activity.startActivity(intent);
+//        Intent intent = activity.getIntent();
+//        activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+//        activity.finish();
+//
+//        activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+//        activity.startActivity(intent);
     }
 }

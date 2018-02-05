@@ -104,4 +104,7 @@ public abstract class BaseFragment2 extends Fragment {
         MobclickAgent.onPageEnd(getClass().getSimpleName());
     }
 
+    public void refreshUI() {
+
+    }
 }

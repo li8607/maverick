@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.maverick.bean.SisterTabInfo;
-import com.maverick.fragment.SisterItemItemFragment;
+import com.maverick.fragment.SisterItemFragment;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public class SisterFragmentAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         SisterTabInfo info = mList.get(position);
-        return SisterItemItemFragment.newInstance(info);
+        return SisterItemFragment.newInstance(info);
     }
 
     @Override
