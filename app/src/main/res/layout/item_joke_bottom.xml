@@ -2,15 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/x8"
-    android:paddingLeft="@dimen/y5"
-    android:paddingRight="@dimen/y5">
+    android:layout_marginTop="12dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp">
 
 
     <ImageView
         android:id="@+id/collect"
-        android:layout_width="@dimen/y12"
-        android:layout_height="@dimen/y12"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:scaleType="fitXY"
@@ -25,6 +25,6 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:textColor="@color/colorSubTitleColor"
-        android:textSize="@dimen/x8" />
+        android:textSize="12sp" />
 
 </RelativeLayout>

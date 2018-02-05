@@ -36,57 +36,56 @@
         <RadioGroup
             android:id="@+id/radio_group"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/y30"
+            android:layout_height="48dp"
             android:layout_alignParentBottom="true"
-            android:orientation="horizontal"
-            android:paddingBottom="4dp"
-            android:paddingTop="4dp">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/radio_0"
+                style="@style/Widget.AppCompat.CompoundButton.RadioButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:button="@null"
-                android:textSize="@dimen/x8" />
+                android:button="@null" />
 
             <RadioButton
                 android:id="@+id/radio_1"
+                style="@style/Widget.AppCompat.CompoundButton.RadioButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:button="@null"
-                android:textSize="@dimen/x8" />
+                android:button="@null" />
 
             <RadioButton
                 android:id="@+id/radio_2"
+                style="@style/Widget.AppCompat.CompoundButton.RadioButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:button="@null"
-                android:textSize="@dimen/x8" />
+                android:button="@null" />
 
             <RadioButton
                 android:id="@+id/radio_3"
+                style="@style/Widget.AppCompat.CompoundButton.RadioButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:button="@null"
-                android:textSize="@dimen/x8" />
+                android:button="@null" />
 
             <RadioButton
                 android:id="@+id/radio_4"
+                style="@style/Widget.AppCompat.CompoundButton.RadioButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:button="@null"
-                android:textSize="@dimen/x8" />
+                android:button="@null" />
         </RadioGroup>
 
         <View
             android:id="@+id/bottom_bar_line"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/x1"
+            android:layout_height="1dp"
             android:layout_alignTop="@+id/radio_group"
             android:background="@color/colorDivider" />
 

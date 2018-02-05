@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/y8"
-    android:layout_marginTop="@dimen/y8"
+    android:layout_marginBottom="14dp"
+    android:layout_marginTop="14dp"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -17,9 +17,9 @@
 
         <ImageView
             android:id="@+id/image_ding"
-            android:layout_width="@dimen/y12"
-            android:layout_height="@dimen/y12"
-            android:layout_marginRight="@dimen/y3"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginRight="6dp"
             android:scaleType="fitXY"
             android:src="@drawable/operation_ding_day_selector" />
 
@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:text="0"
             android:textColor="@color/operation_count_day_selector"
-            android:textSize="@dimen/y10" />
+            android:textSize="12sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -43,9 +43,9 @@
 
         <ImageView
             android:id="@+id/image_cai"
-            android:layout_width="@dimen/y12"
-            android:layout_height="@dimen/y12"
-            android:layout_marginRight="@dimen/y3"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginRight="6dp"
             android:scaleType="fitXY"
             android:src="@drawable/operation_cai_day_selector" />
 
@@ -55,7 +55,7 @@
             android:layout_height="wrap_content"
             android:text="0"
             android:textColor="@color/operation_count_day_selector"
-            android:textSize="@dimen/y10" />
+            android:textSize="12sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -69,9 +69,9 @@
 
         <ImageView
             android:id="@+id/image_share"
-            android:layout_width="@dimen/y12"
-            android:layout_height="@dimen/y12"
-            android:layout_marginRight="@dimen/y3"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginRight="6dp"
             android:scaleType="fitXY"
             android:src="@drawable/operation_share_day_selector" />
 
@@ -81,7 +81,7 @@
             android:layout_height="wrap_content"
             android:text="@string/share"
             android:textColor="@color/operation_count_day_selector"
-            android:textSize="@dimen/y10" />
+            android:textSize="12sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -95,9 +95,9 @@
 
         <ImageView
             android:id="@+id/image_comment"
-            android:layout_width="@dimen/y12"
-            android:layout_height="@dimen/y12"
-            android:layout_marginRight="@dimen/y3"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginRight="6dp"
             android:scaleType="fitXY"
             android:src="@drawable/collect_selector" />
 
@@ -107,6 +107,6 @@
             android:layout_height="wrap_content"
             android:text="@string/collect"
             android:textColor="@color/operation_count_day_selector"
-            android:textSize="@dimen/y10" />
+            android:textSize="12sp" />
     </LinearLayout>
 </LinearLayout>

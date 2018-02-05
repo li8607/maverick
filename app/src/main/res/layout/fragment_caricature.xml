@@ -8,9 +8,9 @@
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y22"
+        android:layout_height="36dp"
         android:background="?attr/colorPrimaryDark"
-        android:paddingBottom="@dimen/x2"
+        android:paddingBottom="2dp"
         app:tabIndicatorColor="?attr/colorTabLayoutIndicator"
         app:tabMode="scrollable"
         app:tabSelectedTextColor="?attr/textColorTabLayoutSelected"

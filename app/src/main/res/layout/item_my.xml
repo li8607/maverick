@@ -7,36 +7,38 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/x32"
+        android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingLeft="@dimen/y13"
-        android:paddingRight="@dimen/y13">
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
         <ImageView
             android:id="@+id/image"
-            android:layout_width="@dimen/y15"
-            android:layout_height="@dimen/y15"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:scaleType="fitXY" />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/y12"
+            android:layout_marginLeft="20dp"
             android:maxLines="1"
             android:textColor="@color/colorTitleColor"
-            android:textSize="@dimen/y9" />
+            android:textSize="14sp" />
 
     </LinearLayout>
 
     <View
         android:id="@+id/line"
         android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_height="1dp"
         android:layout_gravity="bottom"
-        android:layout_marginLeft="@dimen/y13"
-        android:layout_marginRight="@dimen/y13"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
         android:background="@color/colorDivider"
         android:visibility="gone" />
 

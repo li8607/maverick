@@ -8,6 +8,7 @@ import com.maverick.CaricatureActivity;
 import com.maverick.R;
 import com.maverick.bean.CaricatureInfo;
 import com.maverick.hepler.BeanHelper;
+import com.maverick.util.DensityUtil;
 import com.maverick.util.GlideUtil;
 import com.maverick.weight.RatioImageView;
 
@@ -51,10 +52,12 @@ public class CaricatureOneImageViewHolder extends CaricatureItemViewHolder {
 
                 LinearLayout.LayoutParams image_1LP = (LinearLayout.LayoutParams) image_1.getLayoutParams();
                 image_1LP.width = 0;
+                image_1LP.leftMargin = 0;
                 image_1.setLayoutParams(image_1LP);
 
                 LinearLayout.LayoutParams image_2LP = (LinearLayout.LayoutParams) image_2.getLayoutParams();
                 image_2LP.width = 0;
+                image_2LP.leftMargin = 0;
                 image_2.setLayoutParams(image_2LP);
 
                 GlideUtil.loadImage(context, info.getThumbnailList().get(0), image_0);
@@ -68,10 +71,12 @@ public class CaricatureOneImageViewHolder extends CaricatureItemViewHolder {
                 LinearLayout.LayoutParams image_1LP = (LinearLayout.LayoutParams) image_1.getLayoutParams();
                 image_1LP.width = 0;
                 image_1LP.weight = 1;
+                image_1LP.leftMargin = DensityUtil.dip2px(context, 8);
                 image_1.setLayoutParams(image_1LP);
 
                 LinearLayout.LayoutParams image_2LP = (LinearLayout.LayoutParams) image_2.getLayoutParams();
                 image_2LP.width = 0;
+                image_2LP.leftMargin = 0;
                 image_2.setLayoutParams(image_2LP);
 
                 GlideUtil.loadImage(context, info.getThumbnailList().get(0), image_0);
@@ -85,11 +90,13 @@ public class CaricatureOneImageViewHolder extends CaricatureItemViewHolder {
                 LinearLayout.LayoutParams image_1LP = (LinearLayout.LayoutParams) image_1.getLayoutParams();
                 image_1LP.width = 0;
                 image_1LP.weight = 1;
+                image_1LP.leftMargin = DensityUtil.dip2px(context, 8);
                 image_1.setLayoutParams(image_1LP);
 
                 LinearLayout.LayoutParams image_2LP = (LinearLayout.LayoutParams) image_2.getLayoutParams();
                 image_2LP.width = 0;
                 image_2LP.weight = 1;
+                image_2LP.leftMargin = DensityUtil.dip2px(context, 8);
                 image_2.setLayoutParams(image_2LP);
 
                 GlideUtil.loadImage(context, info.getThumbnailList().get(0), image_0);

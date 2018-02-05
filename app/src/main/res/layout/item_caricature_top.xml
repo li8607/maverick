@@ -11,16 +11,16 @@
         android:layout_centerVertical="true"
         android:layout_toLeftOf="@+id/image_menu"
         android:textColor="@color/colorTitleColor"
-        android:textSize="@dimen/y11" />
+        android:textSize="16sp" />
 
 
     <ImageView
         android:id="@+id/image_menu"
-        android:layout_width="@dimen/y12"
-        android:layout_height="@dimen/y12"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/x8"
+        android:layout_marginLeft="14dp"
         android:scaleType="fitXY"
         android:src="@drawable/operation_share_day_selector" />
 </RelativeLayout>

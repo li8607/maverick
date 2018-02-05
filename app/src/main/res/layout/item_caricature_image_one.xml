@@ -9,10 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/y5"
-        android:paddingLeft="@dimen/y9"
-        android:paddingRight="@dimen/y9"
-        android:paddingTop="@dimen/y5">
+        android:paddingBottom="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingTop="8dp">
 
         <include layout="@layout/item_caricature_top" />
 
@@ -20,7 +20,7 @@
             android:id="@+id/image_root"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y5"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal">
 
             <com.maverick.weight.RatioImageView
@@ -36,7 +36,7 @@
                 android:id="@+id/image_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/y5"
+                android:layout_marginLeft="8dp"
                 android:adjustViewBounds="true"
                 android:background="#EFEFEF"
                 android:scaleType="centerCrop" />
@@ -45,7 +45,7 @@
                 android:id="@+id/image_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/y5"
+                android:layout_marginLeft="8dp"
                 android:adjustViewBounds="true"
                 android:background="#EFEFEF"
                 android:scaleType="centerCrop" />
