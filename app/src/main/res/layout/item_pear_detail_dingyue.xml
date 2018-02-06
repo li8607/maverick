@@ -2,15 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/y8"
-    android:paddingLeft="@dimen/y17"
-    android:paddingRight="@dimen/y17"
-    android:paddingTop="@dimen/y8">
+    android:paddingBottom="10dp"
+    android:paddingLeft="24dp"
+    android:paddingRight="24dp"
+    android:paddingTop="10dp">
 
     <TextView
         android:id="@+id/dingyue_btn"
-        android:layout_width="@dimen/x40"
-        android:layout_height="@dimen/x16"
+        android:layout_width="60dp"
+        android:layout_height="22dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:background="@drawable/pear_video_dingyue_shape"
@@ -19,12 +19,12 @@
         android:maxLines="1"
         android:text="订阅"
         android:textColor="@color/colorTitleColor"
-        android:textSize="@dimen/x9" />
+        android:textSize="14sp" />
 
     <ImageView
         android:id="@+id/dingyue_image"
-        android:layout_width="@dimen/y22"
-        android:layout_height="@dimen/y22"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:layout_centerVertical="true"
         android:scaleType="fitXY"
         android:src="@mipmap/ic_header" />
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/y6"
+        android:layout_marginLeft="8dp"
         android:layout_toLeftOf="@+id/dingyue_btn"
         android:layout_toRightOf="@+id/dingyue_image"
         android:orientation="vertical">
@@ -45,17 +45,17 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/colorTitleColor"
-            android:textSize="@dimen/y9" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/dingyue_huati"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/y3"
+            android:layout_marginTop="6dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:textColor="@color/colorSubTitleColor"
-            android:textSize="@dimen/y9" />
+            android:textSize="14sp" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -23,6 +23,7 @@ import com.maverick.presenter.PearBottomFragmentPresenter;
 import com.maverick.presenter.implView.IPearBottomFragmentView;
 import com.maverick.type.LineType;
 import com.maverick.type.PearItemType;
+import com.maverick.util.DensityUtil;
 
 import java.util.List;
 
@@ -117,9 +118,9 @@ public class PearBottomFragment extends BaseFragment2 implements IPearBottomFrag
                 int type = mAdapter.getItemViewType(position);
                 if (type == PearItemType.ITEM) {
                     if (mPresenter.getList().get(position).getRelateContPosition() % 2 == 0) {
-                        outRect.right = getResources().getDimensionPixelSize(R.dimen.y1);
+                        outRect.right = DensityUtil.dip2px(getContext(), 1);
                     } else {
-                        outRect.left = getResources().getDimensionPixelSize(R.dimen.y1);
+                        outRect.left = DensityUtil.dip2px(getContext(), 1);
                     }
                 }
             }

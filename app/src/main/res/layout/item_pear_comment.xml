@@ -3,26 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/y5"
-    android:paddingRight="@dimen/y5"
-    android:paddingTop="@dimen/y10">
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="12dp">
 
     <ImageView
         android:id="@+id/user_image"
-        android:layout_width="@dimen/y25"
-        android:layout_height="@dimen/y25"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:scaleType="fitXY" />
 
     <TextView
         android:id="@+id/user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/y10"
-        android:layout_marginRight="@dimen/y9"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
         android:layout_toRightOf="@+id/user_image"
         android:maxLines="1"
         android:textColor="@color/pear_video_label_color_5"
-        android:textSize="@dimen/y9" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/user_comment"
@@ -30,9 +30,9 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/user_name"
         android:layout_below="@+id/user_name"
-        android:layout_marginTop="@dimen/y5"
+        android:layout_marginTop="8dp"
         android:textColor="@color/colorTitleColor"
-        android:textSize="@dimen/y9" />
+        android:textSize="12sp" />
 
 
     <LinearLayout
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/user_name"
         android:layout_below="@+id/user_comment"
-        android:layout_marginTop="@dimen/y8"
+        android:layout_marginTop="12dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -52,7 +52,7 @@
             android:layout_weight="1"
             android:maxLines="1"
             android:textColor="@color/colorSubTitleColor"
-            android:textSize="@dimen/y6" />
+            android:textSize="10sp" />
 
 
         <LinearLayout
@@ -64,8 +64,8 @@
             android:visibility="invisible">
 
             <ImageView
-                android:layout_width="@dimen/y10"
-                android:layout_height="@dimen/y10"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
                 android:background="#666" />
 
             <TextView
@@ -75,7 +75,7 @@
                 android:maxLines="1"
                 android:text="0"
                 android:textColor="@color/colorSubTitleColor"
-                android:textSize="@dimen/y9" />
+                android:textSize="12dp" />
 
         </LinearLayout>
 
@@ -88,8 +88,8 @@
             android:visibility="invisible">
 
             <ImageView
-                android:layout_width="@dimen/y10"
-                android:layout_height="@dimen/y10"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
                 android:background="#666" />
 
             <TextView
@@ -99,7 +99,7 @@
                 android:maxLines="1"
                 android:text="0"
                 android:textColor="@color/colorSubTitleColor"
-                android:textSize="@dimen/y9" />
+                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -112,8 +112,8 @@
             android:visibility="invisible">
 
             <ImageView
-                android:layout_width="@dimen/y10"
-                android:layout_height="@dimen/y10"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
                 android:background="#666" />
 
             <TextView
@@ -123,7 +123,7 @@
                 android:maxLines="1"
                 android:text="0"
                 android:textColor="@color/colorSubTitleColor"
-                android:textSize="@dimen/y9" />
+                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -131,10 +131,10 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1px"
+        android:layout_height="1dp"
         android:layout_alignLeft="@+id/user_name"
         android:layout_below="@+id/comment_bottom_root"
-        android:layout_marginTop="@dimen/y10"
+        android:layout_marginTop="14dp"
         android:background="@color/divide_comment_color" />
 
 </RelativeLayout>

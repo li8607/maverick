@@ -34,7 +34,10 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon, android:theme">
         <activity
-            android:name=".MainActivity2">
+            android:name=".MainActivity2"
+            android:configChanges="orientation|keyboardHidden|screenSize|uiMode"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,8 +45,7 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity"></activity>
 
         <activity android:name=".DetailActivity" />
 
@@ -82,8 +84,7 @@
             android:name=".UserChangeActivity"
             android:windowSoftInputMode="stateHidden" />
 
-        <activity
-            android:name=".SettingActivity"/>
+        <activity android:name=".SettingActivity" />
 
         <!--微信-->
         <activity

@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingBottom="@dimen/y15"
-    android:paddingTop="@dimen/y17">
+    android:paddingBottom="24dp"
+    android:paddingTop="24dp">
 
     <TextView
         android:id="@+id/title"
@@ -14,8 +14,8 @@
         android:layout_alignParentTop="true"
         android:ellipsize="end"
         android:maxLines="2"
-        android:paddingLeft="@dimen/y17"
-        android:paddingRight="@dimen/y17"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
         android:textColor="@color/colorTitleColor"
         android:textSize="18sp"
         android:textStyle="bold" />
@@ -27,9 +27,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/title"
-        android:layout_marginLeft="@dimen/y17"
-        android:layout_marginRight="@dimen/y17"
-        android:layout_marginTop="@dimen/y9" />
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="14dp" />
 
     <include
         layout="@layout/item_pear_detail_love"
@@ -37,17 +37,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/title_time_root"
-        android:layout_marginLeft="@dimen/y17"
-        android:layout_marginRight="@dimen/y17"
-        android:layout_marginTop="@dimen/y16" />
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="24dp" />
 
     <com.github.aakira.expandablelayout.ExpandableRelativeLayout
         android:id="@+id/expandableLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title_love_root"
-        android:layout_marginLeft="@dimen/y17"
-        android:layout_marginRight="@dimen/y17"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
         app:ael_duration="500"
         app:ael_expanded="true"
         app:ael_interpolator="fastOutSlowIn"
@@ -57,28 +57,28 @@
             android:id="@+id/detail_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/y8"
-            android:layout_marginTop="@dimen/y15"
+            android:layout_marginBottom="12dp"
+            android:layout_marginTop="20dp"
             android:textColor="@color/colorTitleColor"
-            android:textSize="@dimen/y10" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/detail_source"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/detail_content"
-            android:layout_marginBottom="@dimen/y9"
+            android:layout_marginBottom="12dp"
             android:textColor="@color/colorSubTitleColor"
-            android:textSize="@dimen/y10"
+            android:textSize="14sp"
             android:visibility="gone" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/detail_source"
-            android:layout_marginBottom="@dimen/y12"
+            android:layout_marginBottom="18dp"
             android:text="举报"
             android:textColor="@color/pear_video_label_color_5"
-            android:textSize="@dimen/y10" />
+            android:textSize="14sp" />
     </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 </RelativeLayout>

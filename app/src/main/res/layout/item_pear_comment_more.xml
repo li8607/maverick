@@ -7,10 +7,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="@dimen/y13"
-        android:layout_marginTop="@dimen/y13"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
         android:text="@string/pear_comment_more_text"
         android:textColor="@color/colorTitleColor"
-        android:textSize="@dimen/y9" />
+        android:textSize="14sp" />
 
 </FrameLayout>

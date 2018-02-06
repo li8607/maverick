@@ -25,6 +25,7 @@ import com.maverick.hepler.BeanHelper;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.PearItemFragmentPresenter;
 import com.maverick.presenter.implView.IPearItemFragmentView;
+import com.maverick.util.DensityUtil;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import java.lang.reflect.Field;
@@ -108,12 +109,12 @@ public class PearItemFragment extends BaseFragment2 implements IPearItemFragment
                     }
                 }
 
-                outRect.bottom = getResources().getDimensionPixelSize(R.dimen.x2);
-                outRect.top = getResources().getDimensionPixelSize(R.dimen.y9);
+                outRect.bottom = DensityUtil.dip2px(getContext(), 2);
+                outRect.top = DensityUtil.dip2px(getContext(), 12);
                 if (position % 2 == 0) {
-                    outRect.right = getResources().getDimensionPixelSize(R.dimen.y1);
+                    outRect.right = DensityUtil.dip2px(getContext(), 1);
                 } else {
-                    outRect.left = getResources().getDimensionPixelSize(R.dimen.y1);
+                    outRect.left =  DensityUtil.dip2px(getContext(), 1);
                 }
             }
         });
