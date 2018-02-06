@@ -17,9 +17,9 @@
             android:id="@+id/edit_root"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/x10"
-            android:layout_marginRight="@dimen/x10"
-            android:layout_marginTop="@dimen/y10"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="12dp"
             android:orientation="vertical"
             android:visibility="gone">
 
@@ -38,25 +38,25 @@
                 <Button
                     android:id="@+id/send_btn"
                     android:layout_width="wrap_content"
-                    android:layout_height="@dimen/y18"
+                    android:layout_height="24dp"
                     android:layout_gravity="right"
-                    android:layout_marginRight="@dimen/y5"
+                    android:layout_marginRight="8dp"
                     android:background="@drawable/user_save_btn_shape"
                     android:text="认证"
                     android:textColor="@color/colorTitleColor"
-                    android:textSize="@dimen/y9"
+                    android:textSize="12sp"
                     android:visibility="gone" />
             </FrameLayout>
 
             <TextView
                 android:id="@+id/text"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/y25"
-                android:layout_marginLeft="@dimen/y3"
-                android:layout_marginRight="@dimen/y3"
-                android:layout_marginTop="@dimen/y10"
+                android:layout_height="34dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:layout_marginTop="12dp"
                 android:textColor="@color/colorTitleColor"
-                android:textSize="@dimen/y9" />
+                android:textSize="12sp" />
         </LinearLayout>
 
     </LinearLayout>

@@ -11,7 +11,6 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -29,6 +28,7 @@ import com.maverick.bean.ButtonInfo;
 import com.maverick.factory.FragmentFactory;
 import com.maverick.global.ActivityCode;
 import com.maverick.type.FragmentType;
+import com.maverick.util.DensityUtil;
 import com.umeng.socialize.UMShareAPI;
 
 import java.util.ArrayList;
@@ -272,7 +272,7 @@ public class MainActivity2 extends BaseActivity {
         } else {
             drawable = getResources().getDrawable(buttonInfo.getIconId());
         }
-        drawable.setBounds(0, 0, getResources().getDimensionPixelSize(R.dimen.x16), getResources().getDimensionPixelSize(R.dimen.x16));
+        drawable.setBounds(0, 0, DensityUtil.dip2px(this, 18), DensityUtil.dip2px(this, 18));
         radioButton.setCompoundDrawables(null, drawable, null, null);
         radioButton.setTag(buttonInfo);
     }

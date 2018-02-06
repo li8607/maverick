@@ -16,8 +16,8 @@
 
         <ImageView
             android:id="@+id/love"
-            android:layout_width="@dimen/y11"
-            android:layout_height="@dimen/y11"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
             android:scaleType="fitXY"
             android:src="@drawable/operation_ding_day_selector" />
 
@@ -26,9 +26,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="@dimen/y3"
+            android:layout_marginLeft="3dp"
             android:textColor="@color/operation_count_day_selector"
-            android:textSize="@dimen/x8" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 
@@ -42,8 +42,8 @@
 
         <ImageView
             android:id="@+id/collect"
-            android:layout_width="@dimen/y11"
-            android:layout_height="@dimen/y11"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
             android:scaleType="fitXY"
             android:src="@drawable/collect_selector" />
 
@@ -52,10 +52,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="@dimen/y3"
+            android:layout_marginLeft="3dp"
             android:text="收藏"
             android:textColor="@color/operation_count_day_selector"
-            android:textSize="@dimen/x8" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 
@@ -69,8 +69,8 @@
 
         <ImageView
             android:id="@+id/down"
-            android:layout_width="@dimen/y11"
-            android:layout_height="@dimen/y11"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
             android:scaleType="fitXY"
             android:src="@drawable/btn_download_selector" />
 
@@ -79,10 +79,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginLeft="@dimen/y3"
+            android:layout_marginLeft="3dp"
             android:text="缓存"
             android:textColor="@color/operation_count_day_selector"
-            android:textSize="@dimen/x8" />
+            android:textSize="12sp" />
 
     </LinearLayout>
 
@@ -101,13 +101,13 @@
             android:layout_gravity="center_horizontal"
             android:text="详情"
             android:textColor="@color/colorSubTitleColor"
-            android:textSize="@dimen/x8" />
+            android:textSize="12sp" />
 
         <ImageView
             android:id="@+id/detail"
-            android:layout_width="@dimen/y11"
-            android:layout_height="@dimen/y11"
-            android:layout_marginLeft="@dimen/y3"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:layout_marginLeft="3dp"
             android:scaleType="fitCenter"
             android:src="@mipmap/btn_detail_arrow_down" />
     </LinearLayout>

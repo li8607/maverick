@@ -24,6 +24,7 @@ import com.maverick.bean.WebDetailInfo;
 import com.maverick.dialog.MenuDialog;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.type.ShareType;
+import com.maverick.util.DensityUtil;
 
 /**
  * Created by limingfei on 2017/10/20.
@@ -71,7 +72,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
         mTitle = new TextView(this);
         mTitle.setLines(1);
         mTitle.setEllipsize(TextUtils.TruncateAt.END);
-        mTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.y10));
+        mTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             mTitle.setTextAppearance(android.R.style.TextAppearance_Material_Widget_ActionBar_Title);
         } else {
@@ -80,7 +81,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
         mTitle.setTextColor(ContextCompat.getColor(WebActivity.this, R.color.textColorPrimary));
         Toolbar.LayoutParams mTitleLP = new Toolbar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mTitleLP.gravity = Gravity.CENTER;
-        mTitleLP.rightMargin = getResources().getDimensionPixelSize(R.dimen.y10);
+        mTitleLP.rightMargin = DensityUtil.dip2px(this, 12);
         mTitle.setVisibility(View.GONE);
         mToolbar.addView(mTitle, mTitleLP);
 

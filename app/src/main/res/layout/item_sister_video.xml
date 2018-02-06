@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/y9"
-        android:paddingRight="@dimen/y9">
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
 
         <include layout="@layout/item_sister_top" />
 
@@ -18,8 +18,8 @@
 
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/x190"
-            android:layout_marginTop="@dimen/y5"
+            android:layout_height="180dp"
+            android:layout_marginTop="8dp"
             android:background="#000">
 
             <WebView

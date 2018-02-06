@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <size android:height="@dimen/y3"  android:width="@dimen/x10"/>
+    <size android:height="3dp"  android:width="12dp"/>
 
     <solid
         android:color="@color/colorDivider"/><!-- 填充的颜色 -->

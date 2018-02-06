@@ -28,12 +28,12 @@
         android:id="@+id/type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/y5"
+        android:layout_marginLeft="8dp"
         android:background="@drawable/pear_video_type_shape"
         android:ellipsize="end"
         android:maxLines="1"
-        android:paddingLeft="@dimen/x2"
-        android:paddingRight="@dimen/x2"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
         android:textColor="@color/colorWhite"
         android:textSize="14sp" />
 

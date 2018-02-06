@@ -8,7 +8,7 @@
         android:textColor="@color/colorWhite"
         android:id="@+id/title"
         android:text="标题"
-        android:textSize="@dimen/y12"
+        android:textSize="14sp"
         android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

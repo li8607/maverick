@@ -3,15 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:orientation="vertical">
 
     <android.support.design.widget.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/y22"
+        android:layout_height="36dp"
         android:background="@color/colorPrimaryDark"
-        android:paddingBottom="@dimen/x2"
+        android:paddingBottom="2dp"
         app:tabIndicatorColor="@color/tabIndicatorColor"
         app:tabSelectedTextColor="@color/tabSelectedTextColor"
         app:tabTextColor="@color/tabTextColor"></android.support.design.widget.TabLayout>

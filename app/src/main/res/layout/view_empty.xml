@@ -6,9 +6,9 @@
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="@dimen/y48"
-        android:layout_height="@dimen/y48"
-        android:layout_marginBottom="@dimen/x8"
+        android:layout_width="68dp"
+        android:layout_height="68dp"
+        android:layout_marginBottom="10dp"
         android:scaleType="fitXY"
         android:src="@mipmap/result_empty_image" />
 

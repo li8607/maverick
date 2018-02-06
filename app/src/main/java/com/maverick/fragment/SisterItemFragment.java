@@ -30,6 +30,7 @@ import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.SisterItemFragmentPresenter;
 import com.maverick.presenter.implView.ISisterItemFragmentView;
 import com.maverick.type.ShareType;
+import com.maverick.util.DensityUtil;
 import com.shuyu.gsyvideoplayer.listener.StandardVideoAllCallBack;
 import com.shuyu.gsyvideoplayer.utils.CommonUtil;
 import com.shuyu.gsyvideoplayer.utils.Debuger;
@@ -163,7 +164,7 @@ public class SisterItemFragment extends BaseFragment2 implements ISisterItemFrag
         mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                outRect.bottom = getResources().getDimensionPixelSize(R.dimen.x1);
+                outRect.bottom = DensityUtil.dip2px(getContext(), 1);
             }
         });
 

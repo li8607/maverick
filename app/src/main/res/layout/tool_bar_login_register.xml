@@ -6,12 +6,12 @@
 
     <ImageView
         android:id="@+id/user_back"
-        android:layout_width="@dimen/y22"
-        android:layout_height="@dimen/y22"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:paddingTop="@dimen/y5"
-        android:paddingBottom="@dimen/y5"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:scaleType="fitStart"
         android:src="@mipmap/toolbar_left_arrow_gray"></ImageView>
 
@@ -23,7 +23,7 @@
         android:layout_centerVertical="true"
         android:text="@string/title_activity_login"
         android:textColor="@color/user_btn_color"
-        android:textSize="@dimen/y9"
+        android:textSize="10dp"
         android:visibility="gone" />
 
 </RelativeLayout>

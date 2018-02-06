@@ -25,6 +25,7 @@ import com.maverick.global.Tag;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.type.FragmentType;
 import com.maverick.type.MyType;
+import com.maverick.util.DensityUtil;
 
 /**
  * Created by limingfei on 2017/9/29.
@@ -67,7 +68,7 @@ public class DataBankActivity extends BaseActivity implements View.OnClickListen
         mEdit = new TextView(this);
 
         mEdit.setId(R.id.edit);
-        mEdit.setTextSize(TypedValue.COMPLEX_UNIT_PX, getResources().getDimensionPixelSize(R.dimen.y10));
+        mEdit.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             mEdit.setTextAppearance(android.R.style.TextAppearance_Material_Widget_ActionBar_Title);
         } else {
@@ -77,7 +78,7 @@ public class DataBankActivity extends BaseActivity implements View.OnClickListen
         mEdit.setText("编辑");
         Toolbar.LayoutParams mTitleLP = new Toolbar.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         mTitleLP.gravity = Gravity.RIGHT;
-        mTitleLP.rightMargin = getResources().getDimensionPixelOffset(R.dimen.y10);
+        mTitleLP.rightMargin = DensityUtil.dip2px(this, 12);
         mToolbar.addView(mEdit, mTitleLP);
 
         setSupportActionBar(mToolbar);

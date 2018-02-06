@@ -22,6 +22,7 @@ import com.maverick.hepler.BeanHelper;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.CaricatureItemFragmentPresenter;
 import com.maverick.presenter.implView.ICaricatureItemFragmentView;
+import com.maverick.util.DensityUtil;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import java.util.List;
@@ -89,7 +90,7 @@ public class CaricatureItemFragment extends BaseFragment2 implements ICaricature
         mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                outRect.bottom = getResources().getDimensionPixelSize(R.dimen.y5);
+                outRect.bottom = DensityUtil.dip2px(getContext(), 8);
             }
         });
 

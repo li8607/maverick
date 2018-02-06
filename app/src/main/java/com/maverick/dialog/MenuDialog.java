@@ -25,6 +25,7 @@ import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.MenuDialogPresenter;
 import com.maverick.presenter.implView.IMenuDialogView;
 import com.maverick.type.MenuType;
+import com.maverick.util.DensityUtil;
 
 import java.util.List;
 
@@ -91,9 +92,9 @@ public class MenuDialog extends BaseDialogFragment implements DialogInterface.On
         share_list.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                outRect.left = view.getResources().getDimensionPixelOffset(R.dimen.y6);
-                outRect.top = view.getResources().getDimensionPixelOffset(R.dimen.y10);
-                outRect.bottom = view.getResources().getDimensionPixelOffset(R.dimen.y10);
+                outRect.left = DensityUtil.dip2px(getContext(), 8);
+                outRect.top = DensityUtil.dip2px(getContext(), 12);
+                outRect.bottom = DensityUtil.dip2px(getContext(), 12);
             }
         });
 
@@ -104,9 +105,9 @@ public class MenuDialog extends BaseDialogFragment implements DialogInterface.On
         send_list.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                outRect.left = view.getResources().getDimensionPixelOffset(R.dimen.y6);
-                outRect.top = view.getResources().getDimensionPixelOffset(R.dimen.y10);
-                outRect.bottom = view.getResources().getDimensionPixelOffset(R.dimen.y10);
+                outRect.left = DensityUtil.dip2px(getContext(), 8);
+                outRect.top = DensityUtil.dip2px(getContext(), 12);
+                outRect.bottom = DensityUtil.dip2px(getContext(), 12);
             }
         });
 

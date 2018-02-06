@@ -15,6 +15,7 @@ import com.maverick.bean.UserItemInfo;
 import com.maverick.leancloud.User;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.type.UserType;
+import com.maverick.util.DensityUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,7 +66,7 @@ public class UserDetailActivity extends BaseActivity {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 if (mAdapter.getItemViewType(parent.getChildAdapterPosition(view)) == UserType.EXITLOGIN) {
-                    outRect.top = getResources().getDimensionPixelOffset(R.dimen.y12);
+                    outRect.top = DensityUtil.dip2px(UserDetailActivity.this, 14);
                 }
             }
         });

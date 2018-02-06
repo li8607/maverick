@@ -18,6 +18,7 @@ import com.maverick.global.Tag;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.SinaItemFragmentPresenter;
 import com.maverick.presenter.implView.ISinaItemFragmentView;
+import com.maverick.util.DensityUtil;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import java.util.List;
@@ -85,7 +86,7 @@ public class SinaItemFragment extends BaseFragment2 implements ISinaItemFragment
         mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                outRect.bottom = getResources().getDimensionPixelSize(R.dimen.x1);
+                outRect.bottom = DensityUtil.dip2px(getContext(), 1);
             }
         });
 

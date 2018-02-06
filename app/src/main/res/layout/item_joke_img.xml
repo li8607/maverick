@@ -9,14 +9,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/y10"
-        android:paddingTop="@dimen/y10"
+        android:paddingBottom="14dp"
+        android:paddingTop="14dp"
         android:orientation="vertical">
 
         <include layout="@layout/item_joke_top" />
 
         <com.maverick.weight.RatioImageView
-            android:layout_marginTop="@dimen/y10"
+            android:layout_marginTop="14dp"
             android:id="@+id/img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

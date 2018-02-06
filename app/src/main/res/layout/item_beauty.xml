@@ -28,10 +28,10 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <ImageView
-            android:layout_margin="@dimen/y7"
+            android:layout_margin="8dp"
             android:id="@+id/collect"
-            android:layout_width="@dimen/y12"
-            android:layout_height="@dimen/y12"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
             android:scaleType="fitXY"

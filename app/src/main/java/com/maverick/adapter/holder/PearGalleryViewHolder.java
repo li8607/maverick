@@ -10,6 +10,7 @@ import com.maverick.R;
 import com.maverick.adapter.PearGalleryViewHolderAdapter;
 import com.maverick.bean.PearVideoInfo;
 import com.maverick.transformer.ZoomOutPageTransformer;
+import com.maverick.util.DensityUtil;
 
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class PearGalleryViewHolder extends RecyclerView.ViewHolder implements Vi
         //设置预加载数量
         viewPager.setOffscreenPageLimit(2);
         //设置每页之间的左右间隔
-        viewPager.setPageMargin(itemView.getResources().getDimensionPixelSize(R.dimen.x48));
+        viewPager.setPageMargin(DensityUtil.dip2px(itemView.getContext(), 60));
         //将容器的触摸事件反馈给ViewPager
         itemView.setOnTouchListener(this);
     }

@@ -21,6 +21,7 @@ import com.maverick.leancloud.User;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.type.MyType;
 import com.maverick.type.UserType;
+import com.maverick.util.DensityUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,13 +63,13 @@ public class MyFragment extends BaseFragment2 {
                 int position = parent.getChildAdapterPosition(view);
 
                 if (position == 0) {
-                    outRect.top = getResources().getDimensionPixelOffset(R.dimen.y12);
+                    outRect.top = DensityUtil.dip2px(getContext(), 14);
                 }
 
                 if (mList.get(position).getType() == MyType.LOGIN_REGISTER
                         || mList.get(position).getType() == MyType.USER
                         || mList.get(position).getType() == MyType.COLLECT) {
-                    outRect.bottom = getResources().getDimensionPixelOffset(R.dimen.y12);
+                    outRect.bottom = DensityUtil.dip2px(getContext(), 14);
                 }
             }
         });

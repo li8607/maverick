@@ -4,9 +4,9 @@
     android:layout_height="wrap_content"
     android:background="@color/colorWhite"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/y5"
-    android:paddingLeft="@dimen/y9"
-    android:paddingRight="@dimen/y9">
+    android:paddingBottom="8dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
 
     <include layout="@layout/item_sister_top" />
 

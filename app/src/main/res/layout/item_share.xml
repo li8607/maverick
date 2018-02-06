@@ -6,8 +6,8 @@
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="@dimen/x39"
-        android:layout_height="@dimen/x39"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_gravity="center_horizontal"
         android:scaleType="fitXY" />
 
@@ -16,8 +16,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/y6"
+        android:layout_marginTop="8dp"
         android:textColor="@color/selector_radiobutton_text_color_main"
-        android:textSize="@dimen/x8" />
+        android:textSize="12sp" />
 
 </LinearLayout>
