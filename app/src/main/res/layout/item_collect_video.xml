@@ -9,20 +9,20 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/y5">
+        android:padding="6dp">
 
         <FrameLayout
             android:id="@+id/img"
-            android:layout_width="@dimen/y60"
-            android:layout_height="@dimen/y45"
-            android:layout_marginRight="@dimen/y10"
+            android:layout_width="90dp"
+            android:layout_height="72dp"
+            android:layout_marginRight="12dp"
             android:background="@color/colorBackground"
             android:scaleType="centerCrop">
 
             <ImageView
                 android:id="@+id/list_item_btn"
-                android:layout_width="@dimen/y14"
-                android:layout_height="@dimen/y14"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_gravity="center"
                 android:src="@drawable/video_click_play_selector" />
         </FrameLayout>
@@ -36,7 +36,7 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:textColor="@color/colorTitleColor"
-            android:textSize="@dimen/x11" />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/time"
@@ -45,7 +45,7 @@
             android:layout_alignBottom="@+id/img"
             android:layout_alignParentRight="true"
             android:textColor="@color/colorSubTitleColor"
-            android:textSize="@dimen/x8" />
+            android:textSize="12sp" />
 
         <CheckBox
             android:id="@+id/checkbox"

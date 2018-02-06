@@ -18,6 +18,7 @@ import com.maverick.model.CollectModel;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.CollectItemFragmentPresenter;
 import com.maverick.presenter.implView.ICollectItemFragmentView;
+import com.maverick.util.DensityUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,12 +89,12 @@ public class CollectItemFragment extends BaseEditFragment implements ICollectIte
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
                 int position = parent.getChildAdapterPosition(view);
                 if (position == 0) {
-                    outRect.top = view.getResources().getDimensionPixelOffset(R.dimen.y10);
+                    outRect.top = DensityUtil.dip2px(getContext(), 8);
                 }
 
-                outRect.bottom = view.getResources().getDimensionPixelOffset(R.dimen.y10);
-                outRect.left = view.getResources().getDimensionPixelOffset(R.dimen.y10);
-                outRect.right = view.getResources().getDimensionPixelOffset(R.dimen.y10);
+                outRect.bottom = DensityUtil.dip2px(getContext(), 8);
+                outRect.left = DensityUtil.dip2px(getContext(), 8);
+                outRect.right = DensityUtil.dip2px(getContext(), 8);
             }
         });
     }

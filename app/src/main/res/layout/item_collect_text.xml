@@ -9,7 +9,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="@dimen/y5">
+        android:padding="6dp">
 
         <TextView
             android:id="@+id/title"
@@ -18,7 +18,7 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:textColor="@color/colorTitleColor"
-            android:textSize="@dimen/x11" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/time"
@@ -26,9 +26,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/title"
-            android:layout_marginTop="@dimen/y5"
+            android:layout_marginTop="6dp"
             android:textColor="@color/colorSubTitleColor"
-            android:textSize="@dimen/x8" />
+            android:textSize="12sp" />
 
         <CheckBox
             android:id="@+id/checkbox"
