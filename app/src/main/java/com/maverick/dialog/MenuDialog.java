@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 
 import com.maverick.R;
 import com.maverick.adapter.MenuDialogAdapter;
@@ -81,8 +83,11 @@ public class MenuDialog extends BaseDialogFragment implements DialogInterface.On
         getDialog().setOnKeyListener(this);
         getDialog().setCanceledOnTouchOutside(true);
         Window window = getDialog().getWindow();
-        window.getAttributes().windowAnimations = R.style.dialogAnim;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
         window.getAttributes().gravity = Gravity.BOTTOM;
+        window.getAttributes().height = DensityUtil.dip2px(getContext(), 360);
 
         share_list = findView(R.id.share_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
