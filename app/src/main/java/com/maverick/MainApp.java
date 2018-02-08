@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatDelegate;
 
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVOSCloud;
-import com.maverick.base.BaseActivity;
 import com.maverick.global.SPKey;
 import com.maverick.global.ThemeType;
 import com.maverick.util.PreferenceUtil;
@@ -105,40 +104,5 @@ public class MainApp extends Application {
             mMainApp = new MainApp();
         }
         return mMainApp;
-    }
-
-    public int getModeTheme() {
-        return modeTheme;
-    }
-
-    public void setModeTheme(BaseActivity activity, int modeTheme) {
-        if (this.modeTheme == modeTheme || activity == null) {
-            return;
-        }
-        this.modeTheme = modeTheme;
-
-        if (modeTheme == 1) {
-            //夜
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            activity.getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else if (modeTheme == 2) {
-            //自动
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
-            activity.getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
-        } else {
-            //日
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            activity.getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }
-
-        PreferenceUtil.getInstance(getApplicationContext()).putInt(SPKey.NIGHT, modeTheme);
-        activity.recreate();
-
-//        Intent intent = activity.getIntent();
-//        activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-//        activity.finish();
-//
-//        activity.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-//        activity.startActivity(intent);
     }
 }
