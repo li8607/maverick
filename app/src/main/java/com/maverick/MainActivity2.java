@@ -3,7 +3,6 @@ package com.maverick;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +24,11 @@ import com.maverick.base.BaseActivity;
 import com.maverick.base.BaseFragment2;
 import com.maverick.bean.ButtonInfo;
 import com.maverick.factory.FragmentFactory;
+import com.maverick.fragment.CaricatureFragment;
+import com.maverick.fragment.JokeFragment;
+import com.maverick.fragment.MyFragment;
+import com.maverick.fragment.PearFragment;
+import com.maverick.fragment.SisterFragment;
 import com.maverick.global.ActivityCode;
 import com.maverick.type.FragmentType;
 import com.maverick.util.DensityUtil;
@@ -46,7 +49,6 @@ public class MainActivity2 extends BaseActivity {
     private CoordinatorLayout mCoordinatorLayout;
     private AppBarLayout mAppBarLayout;
     private Toolbar mToolbar;
-    private View bottom_bar_line;
 
     @Override
     protected com.maverick.presenter.BasePresenter onCreatePresenter() {
@@ -78,8 +80,6 @@ public class MainActivity2 extends BaseActivity {
         setSupportActionBar(mToolbar);
 
         radio_group = findView(R.id.radio_group);
-
-        bottom_bar_line = findView(R.id.bottom_bar_line);
 
         radio_0 = findView(R.id.radio_0);
         radio_1 = findView(R.id.radio_1);
@@ -181,16 +181,40 @@ public class MainActivity2 extends BaseActivity {
         mTitle.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void recreate() {
-        if (mFragment != null) {
-            getSupportFragmentManager().beginTransaction().remove(mFragment).commitAllowingStateLoss();
-        }
-        super.recreate();
-    }
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBarLayout.getLayoutParams();
+//        if (layoutParams != null) {
+//            AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) layoutParams.getBehavior();
+//            outState.putParcelable("behavior_state", behavior.onSaveInstanceState(mCoordinatorLayout, mAppBarLayout));
+//        }
+//        super.onSaveInstanceState(outState);
+//    }
+//
+//    @Override
+//    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+//        super.onRestoreInstanceState(savedInstanceState);
+//
+//        Parcelable parcelable = savedInstanceState.getParcelable("behavior_state");
+//        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBarLayout.getLayoutParams();
+//        if (layoutParams != null && parcelable != null) {
+//            AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) layoutParams.getBehavior();
+//            if (behavior != null) {
+//                behavior.onRestoreInstanceState(mCoordinatorLayout, mAppBarLayout, parcelable);
+//            }
+//        }
+//    }
 
     @Override
     protected void onInitData(Bundle savedInstanceState) {
+
+        if (savedInstanceState != null) {
+            fragment_0 = (BaseFragment2) getSupportFragmentManager().findFragmentByTag(SisterFragment.class.getName());
+            fragment_1 = (BaseFragment2) getSupportFragmentManager().findFragmentByTag(CaricatureFragment.class.getName());
+            fragment_2 = (BaseFragment2) getSupportFragmentManager().findFragmentByTag(PearFragment.class.getName());
+            fragment_3 = (BaseFragment2) getSupportFragmentManager().findFragmentByTag(JokeFragment.class.getName());
+            fragment_4 = (BaseFragment2) getSupportFragmentManager().findFragmentByTag(MyFragment.class.getName());
+        }
 
         List<ButtonInfo> mList = new ArrayList<>();
         mList.add(getButtonInfo(getString(R.string.fragment_sister), R.drawable.bottom_sister_selector, FragmentType.SISTER));
@@ -224,10 +248,6 @@ public class MainActivity2 extends BaseActivity {
         }
 
         radio_0.setChecked(true);
-        if (fragment_0 == null) {
-            fragment_0 = FragmentFactory.getMainFragment((ButtonInfo) radio_0.getTag());
-        }
-        switchFragment(fragment_0);
     }
 
     private BaseFragment2 mFragment;
@@ -245,7 +265,7 @@ public class MainActivity2 extends BaseActivity {
         }
 
         if (!fragment.isAdded()) {
-            transaction.add(R.id.content, fragment, BaseFragment2.class.getSimpleName());
+            transaction.add(R.id.content, fragment, fragment.getClass().getName());
         } else {
             transaction.show(fragment);
         }
@@ -308,64 +328,10 @@ public class MainActivity2 extends BaseActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == ActivityCode.RESULT_CODE_THEME && requestCode == ActivityCode.REQUEST_CODE_THEME) {
+            recreate();
+        }
         UMShareAPI.get(this).onActivityResult(requestCode, resultCode, data);
-        if (requestCode == ActivityCode.REQUEST_CODE_THEME && resultCode == ActivityCode.RESULT_CODE_THEME) {
-            setTheme(MainApp.getInstance().getCustomTheme());
-            refreshUI();
-        }
-//        else if (requestCode == ActivityCode.REQUEST_CODE_THEME) {
-//            getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-//            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-////            int value = data.getIntExtra("RESULT_CODE_MODE_NIGHT", -100);
-////            if (value == AppCompatDelegate.MODE_NIGHT_YES) {
-////                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-////            } else if (value == AppCompatDelegate.MODE_NIGHT_NO) {
-////                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-////            } else if (value == AppCompatDelegate.MODE_NIGHT_AUTO) {
-////                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
-////            }
-//
-////            refreshUI();
-//        }
-    }
-
-    /**
-     * 刷新 StatusBar
-     */
-    private void refreshUI() {
-        TypedValue typedValue = new TypedValue();
-        Resources.Theme theme = getTheme();
-        theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
-        mToolbar.setBackgroundResource(typedValue.resourceId);
-
-        if (Build.VERSION.SDK_INT >= 21) {
-            getWindow().setStatusBarColor(getResources().getColor(typedValue.resourceId));
-        }
-
-        for (int i = 0; i < radio_group.getChildCount(); i++) {
-            RadioButton radioButton = (RadioButton) radio_group.getChildAt(i);
-            radioButton.setTextColor(ContextCompat.getColorStateList(MainActivity2.this, R.color.selector_radiobutton_text_color_main));
-        }
-
-        if (fragment_0 != null) {
-            fragment_0.refreshUI();
-        }
-
-        if (fragment_1 != null) {
-            fragment_1.refreshUI();
-        }
-
-        if (fragment_2 != null) {
-            fragment_2.refreshUI();
-        }
-
-        if (fragment_3 != null) {
-            fragment_3.refreshUI();
-        }
-
-        if (fragment_4 != null) {
-            fragment_4.refreshUI();
-        }
     }
 
     @Override

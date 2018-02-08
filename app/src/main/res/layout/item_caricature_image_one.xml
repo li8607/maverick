@@ -11,8 +11,7 @@
         android:orientation="vertical"
         android:paddingBottom="8dp"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:paddingTop="8dp">
+        android:paddingRight="16dp">
 
         <include layout="@layout/item_caricature_top" />
 

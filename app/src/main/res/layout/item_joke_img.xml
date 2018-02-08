@@ -18,6 +18,9 @@
         <com.maverick.weight.RatioImageView
             android:layout_marginTop="14dp"
             android:id="@+id/img"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scaleType="centerCrop" />

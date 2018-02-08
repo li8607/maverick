@@ -45,6 +45,7 @@
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="@color/colorTitleColor"
                 android:text="全选" />
 
             <Button
@@ -53,6 +54,7 @@
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:textColor="@color/colorTitleColor"
                 android:text="删除" />
 
         </LinearLayout>

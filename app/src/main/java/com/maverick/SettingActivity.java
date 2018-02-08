@@ -1,15 +1,11 @@
 package com.maverick;
 
-import android.content.Intent;
-import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
-import android.support.v4.content.ContextCompat;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.CompoundButton;
 
@@ -30,6 +26,7 @@ public class SettingActivity extends BaseActivity implements ThemeDialog.OnTheme
     private AppBarLayout mAppBarLayout;
     private SwitchCompat switchCompat;
     private int mDefaultNightMode;
+    private boolean themeChange = false;
 
     @Override
     protected BasePresenter onCreatePresenter() {
@@ -73,13 +70,8 @@ public class SettingActivity extends BaseActivity implements ThemeDialog.OnTheme
                     getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     PreferenceUtil.getInstance(getApplicationContext()).putInt(SPKey.NIGHT, 0);
                 }
-
-                if (mDefaultNightMode != getDelegate().getDefaultNightMode()) {
-                    Intent intent = new Intent();
-                    intent.putExtra("RESULT_CODE_MODE_NIGHT", getDelegate().getDefaultNightMode());
-                    setResult(ActivityCode.RESULT_CODE_MODE_NIGHT, intent);
-                    refreshUI();
-                }
+                themeChange = true;
+                recreate();
             }
         });
 
@@ -95,42 +87,39 @@ public class SettingActivity extends BaseActivity implements ThemeDialog.OnTheme
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean("themeChange", themeChange);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     protected void onInitData(Bundle savedInstanceState) {
 
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+
+            FragmentManager fm = getSupportFragmentManager();
+            ThemeDialog themeDialog = (ThemeDialog) fm.findFragmentByTag(ThemeDialog.class.getName());
+            if (themeDialog != null) {
+                themeDialog.setOnThemeChangeListener(this);
+            }
+
+            if (savedInstanceState.getBoolean("themeChange", false)) {
+                setResult(ActivityCode.RESULT_CODE_THEME);
+            }
+        }
     }
 
     @Override
     public void onThemeChange(int themeType) {
         PreferenceUtil.getInstance(MainApp.mContext).putInt(SPKey.THEME, themeType);
-        setResult(ActivityCode.RESULT_CODE_THEME);
         setTheme(MainApp.getInstance().getCustomTheme());
-        this.refreshUI();
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-    }
-
-    private void refreshUI() {
-        TypedValue typedValue = new TypedValue();
-        Resources.Theme theme = getTheme();
-        theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
-        mToolbar.setBackgroundResource(typedValue.resourceId);
-
-        if (Build.VERSION.SDK_INT >= 21) {
-            getWindow().setStatusBarColor(getResources().getColor(typedValue.resourceId));
-        }
-        switchCompat.setThumbTintList(ContextCompat.getColorStateList(this, typedValue.resourceId));
+        setResult(ActivityCode.RESULT_CODE_THEME);
+        themeChange = true;
+        recreate();
     }
 }
