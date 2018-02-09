@@ -29,10 +29,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingTop="10dp">
 
                 <android.support.v7.widget.CardView
-                    android:id="@+id/cv_day_night"
+                    android:id="@+id/cv_root_day_night"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/card_spacing"
@@ -45,25 +46,103 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:orientation="horizontal"
                         android:padding="24dp">
 
                         <TextView
-                            style="@style/TextAppearance.AppCompat.Small"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/tv_title_day_night"
+                            style="@style/TextAppearance.AppCompat.Subhead"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="夜" />
+                            android:layout_weight="1"
+                            android:text="@string/title_day_night" />
 
                         <android.support.v7.widget.SwitchCompat
-                            android:id="@+id/switchCompat"
+                            android:id="@+id/sc_day_night"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="right|center_vertical"
                             android:longClickable="false"
                             android:textOff="开"
                             android:textOn="关"
-                            app:showText="true"
-                            app:switchPadding="5dp" />
+                            app:showText="true" />
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cv_root_night_auto"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/card_spacing"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardCornerRadius="@dimen/card_corner_radius"
+                    app:cardElevation="@dimen/card_elevation">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="24dp">
+
+                        <TextView
+                            android:id="@+id/tv_title_night_auto"
+                            style="@style/TextAppearance.AppCompat.Subhead"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/title_night_auto" />
+
+                        <android.support.v7.widget.SwitchCompat
+                            android:id="@+id/sc_night_auto"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right|center_vertical"
+                            android:longClickable="false"
+                            android:textOff="开"
+                            android:textOn="关"
+                            app:showText="true" />
+
+                    </LinearLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cv_root_night_follow_system"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/card_spacing"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    app:cardCornerRadius="@dimen/card_corner_radius"
+                    app:cardElevation="@dimen/card_elevation">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="24dp">
+
+                        <TextView
+                            android:id="@+id/tv_title_night_follow_system"
+                            style="@style/TextAppearance.AppCompat.Subhead"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="@string/title_night_follow_system" />
+
+                        <android.support.v7.widget.SwitchCompat
+                            android:id="@+id/sc_night_follow_system"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="right|center_vertical"
+                            android:enabled="false"
+                            android:longClickable="false"
+                            android:textOff="开"
+                            android:textOn="关"
+                            app:showText="true" />
 
                     </LinearLayout>
                 </android.support.v7.widget.CardView>
@@ -86,11 +165,10 @@
                         android:padding="24dp">
 
                         <TextView
-                            style="@style/TextAppearance.AppCompat.Small"
+                            style="@style/TextAppearance.AppCompat.Subhead"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="主题" />
-
+                            android:text="@string/title_theme" />
 
                     </LinearLayout>
                 </android.support.v7.widget.CardView>

@@ -23,7 +23,6 @@ import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
  */
 public class MainApp extends Application {
 
-    private int modeTheme;
     private static MainApp mMainApp;
 
     {
@@ -86,17 +85,14 @@ public class MainApp extends Application {
     }
 
     private void initTheme() {
-        modeTheme = PreferenceUtil.getInstance(getApplicationContext()).getInt(SPKey.NIGHT, 0);
-        if (modeTheme == 1) {
-            //夜
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        } else if (modeTheme == 2) {
-            //自动
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
-        } else {
-            //日
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        int modeTheme = PreferenceUtil.getInstance(getApplicationContext()).getInt(SPKey.NIGHT, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        if (modeTheme != AppCompatDelegate.MODE_NIGHT_YES
+                && modeTheme != AppCompatDelegate.MODE_NIGHT_NO
+                && modeTheme != AppCompatDelegate.MODE_NIGHT_AUTO
+                ) {
+            modeTheme = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
         }
+        AppCompatDelegate.setDefaultNightMode(modeTheme);
     }
 
     public static MainApp getInstance() {

@@ -84,7 +84,8 @@
             android:name=".UserChangeActivity"
             android:windowSoftInputMode="stateHidden" />
 
-        <activity android:name=".SettingActivity" />
+        <activity android:name=".SettingActivity"
+            />
 
         <!--微信-->
         <activity

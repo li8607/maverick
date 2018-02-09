@@ -72,4 +72,10 @@
     <string name="theme_blue_title">胖次蓝</string>
     <string name="theme_purple_title">基佬紫</string>
 
+    <string name="title_theme">主题</string>
+    <string name="title_theme_dialog">@string/title_theme</string>
+    <string name="title_day_night">夜间模式</string>
+    <string name="title_night_auto">自动切换日夜间模式</string>
+    <string name="title_night_follow_system">默认模式(跟随系统)</string>
+    <string name="title_toast_close_night_follow_system">默认模式不可关闭</string>
 </resources>

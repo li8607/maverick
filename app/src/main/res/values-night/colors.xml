@@ -37,18 +37,18 @@
     <color name="colorPrimaryPink">@color/colorPrimary</color>
     <color name="colorPrimaryDarkPink">@color/colorPrimaryDark</color>
     <color name="colorAccentPink">@color/colorAccent</color>
-    <color name="textColorHighlightPink">#ee7799</color>
-    <color name="textColorTabLayoutSelectedPink">#ee7799</color>
-    <color name="colorTabLayoutIndicatorPink">#ee7799</color>
-    <color name="colorLineHighlightPink">#ee7799</color>
+    <color name="textColorHighlightPink">@color/colorPink</color>
+    <color name="textColorTabLayoutSelectedPink">@color/colorPink</color>
+    <color name="colorTabLayoutIndicatorPink">@color/colorPink</color>
+    <color name="colorLineHighlightPink">@color/colorPink</color>
     <!--粉色-->
     <color name="colorPrimaryYellow">@color/colorPrimary</color>
     <color name="colorPrimaryDarkYellow">@color/colorPrimaryDark</color>
     <color name="colorAccentYellow">@color/colorAccent</color>
-    <color name="textColorHighlightYellow">#f1bc1a</color>
-    <color name="textColorTabLayoutSelectedYellow">#f1bc1a</color>
-    <color name="colorTabLayoutIndicatorYellow">#f1bc1a</color>
-    <color name="colorLineHighlightYellow">#f1bc1a</color>
+    <color name="textColorHighlightYellow">@color/colorYellow</color>
+    <color name="textColorTabLayoutSelectedYellow">@color/colorYellow</color>
+    <color name="colorTabLayoutIndicatorYellow">@color/colorYellow</color>
+    <color name="colorLineHighlightYellow">@color/colorYellow</color>
     <!--红色-->
     <color name="colorPrimaryRed">@color/colorPrimary</color>
     <color name="colorPrimaryDarkRed">@color/colorPrimaryDark</color>

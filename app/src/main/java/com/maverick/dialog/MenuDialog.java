@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -54,7 +55,6 @@ public class MenuDialog extends BaseDialogFragment implements DialogInterface.On
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        setStyle(STYLE_NO_TITLE, R.style.AppTheme_Dialog_FullScreen);
         super.onCreate(savedInstanceState);
     }
 
@@ -78,16 +78,24 @@ public class MenuDialog extends BaseDialogFragment implements DialogInterface.On
         }
     }
 
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        super.onActivityCreated(savedInstanceState);
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0x00000000));
+        getDialog().getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getDialog().getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
+        getDialog().getWindow().getAttributes().gravity = Gravity.BOTTOM;
+        getDialog().getWindow().getAttributes().windowAnimations = R.style.dialogAnim;
+    }
+
     @Override
     protected void onInitView(View view) {
         getDialog().setOnKeyListener(this);
         getDialog().setCanceledOnTouchOutside(true);
-        Window window = getDialog().getWindow();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.setStatusBarColor(Color.TRANSPARENT);
-        }
-        window.getAttributes().gravity = Gravity.BOTTOM;
-        window.getAttributes().height = DensityUtil.dip2px(getContext(), 360);
 
         share_list = findView(R.id.share_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
@@ -97,9 +105,7 @@ public class MenuDialog extends BaseDialogFragment implements DialogInterface.On
         share_list.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                outRect.left = DensityUtil.dip2px(getContext(), 8);
-                outRect.top = DensityUtil.dip2px(getContext(), 12);
-                outRect.bottom = DensityUtil.dip2px(getContext(), 12);
+                outRect.left = DensityUtil.dip2px(getContext(), 12);
             }
         });
 
@@ -110,14 +116,13 @@ public class MenuDialog extends BaseDialogFragment implements DialogInterface.On
         send_list.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                outRect.left = DensityUtil.dip2px(getContext(), 8);
-                outRect.top = DensityUtil.dip2px(getContext(), 12);
-                outRect.bottom = DensityUtil.dip2px(getContext(), 12);
+                outRect.left = DensityUtil.dip2px(getContext(), 12);
             }
         });
 
         View cancel = findView(R.id.cancel);
         cancel.setOnClickListener(this);
+
 
         mProgressDialog = new ProgressDialog(getContext());
     }
@@ -155,7 +160,7 @@ public class MenuDialog extends BaseDialogFragment implements DialogInterface.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.cancel:
-//                dismiss();
+                dismiss();
                 break;
         }
     }
