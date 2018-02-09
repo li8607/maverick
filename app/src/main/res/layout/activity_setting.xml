@@ -114,6 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/card_spacing"
                     android:clickable="true"
+                    android:visibility="gone"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
                     app:cardCornerRadius="@dimen/card_corner_radius"

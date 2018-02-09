@@ -41,7 +41,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_gravity="bottom"
-                android:background="@color/colorStatusBarBackground"
                 android:gravity="center"
                 android:text="点击查看全图"
                 android:textColor="@color/colorWhite"

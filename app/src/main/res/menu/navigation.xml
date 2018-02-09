@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_sister"
+        android:icon="@drawable/bottom_sister_selector"
+        android:title="@string/fragment_sister" />
+
+    <item
+        android:id="@+id/navigation_caricature"
+        android:icon="@drawable/bottom_caricature_selector"
+        android:title="@string/fragment_caricature" />
+
+    <item
+        android:id="@+id/navigation_pear"
+        android:icon="@drawable/bottom_sina_selector"
+        android:title="@string/fragment_pear" />
+
+    <item
+        android:id="@+id/navigation_joke"
+        android:icon="@drawable/bottom_joke_selector"
+        android:title="@string/fragment_joke" />
+
+    <item
+        android:id="@+id/navigation_my"
+        android:icon="@drawable/bottom_my_selector"
+        android:title="@string/fragment_my" />
+
+</menu>

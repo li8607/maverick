@@ -3,63 +3,13 @@
 
     <color name="colorWhite">#ffffff</color>
 
-
-    <color name="colorBackground">#FFFFFF</color>
-    <color name="colorControlNormal">#FFFFFF</color>
-    <color name="colorButtonNormal">#FFFFFF</color>
-
-    <color name="colorForeground">#00000000</color>
-
-
-    <color name="radioButtonSelectedTextColor">#ff2d55</color>
-
-    <color name="colorStatusBarBackground">#66000000</color>
-
-    <color name="click_background">#aaaaaa</color>
-
-    <color name="sister_divider_color">#e6e6e6</color>
-    <color name="caricature_divider_color">@color/sister_divider_color</color>
-
-    <color name="sister_time_color">#949494</color>
-    <color name="sister_name_color">#4373a9</color>
-    <color name="sister_content_color">#333333</color>
-
-    <color name="sister_count_color">#929292</color>
-    <color name="sister_count_select_color">#ff2d55</color>
-
-    <color name="tool_bar_background_color">#ff2d55</color>
-
-    <color name="bottom_bar_background_color">#f6f6f6</color>
-    <color name="bottom_bar_line_background_color">#ececec</color>
-
-    <color name="result_text_color">#333333</color>
-
-    <color name="joke_time_color">#b6b6b6</color>
-
-    <color name="share_background_color">#f2f2f2</color>
-    <color name="share_item_title_color">#666666</color>
-    <color name="share_cancel_select_color">#e6e6e6</color>
-
-    <color name="my_background">#ffffff</color>
-
-    <color name="pear_node_color">#999999</color>
-    <color name="pear_video_label_color_5">#ffd100</color>
-    <color name="pear_video_label_color">#4990e2</color>
-    <color name="pear_video_detail_bg_color">#d7d7d7</color>
-    <color name="pear_video_detail_bg_shape">#a6a6a6</color>
-    <color name="pear_video_comment_gray">#bfbfbf</color>
-
-    <color name="divide_gray_color">#f2f2f2</color>
-    <color name="divide_comment_color">#eeeeee</color>
-
-    <color name="pear_tag_text_bg_color">#33a6a6a6</color>
-
     <color name="user_color">#999999</color>
     <color name="user_btn_color">#666666</color>
     <color name="user_text_color">#333333</color>
 
 
     <!--共同-->
+    <color name="colorControlNormal">#FFFFFF</color>
     <color name="windowBackground">#FFFFFF</color>
     <color name="colorTitleColor">#000</color>
     <color name="colorSubTitleColor">#666</color>
@@ -68,6 +18,7 @@
     <color name="radioButtonTextColor">#000000</color>
     <color name="colorDivider">#30000000</color>
 
+    <color name="colorDayNight">#303030</color>
     <color name="colorPink">#ee7799</color>
     <color name="colorRed">#e84e43</color>
     <color name="colorYellow">#f1bc1a</color>

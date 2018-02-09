@@ -9,14 +9,12 @@
         android:id="@+id/img_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/selector_btn_bg"
         android:text="@string/img_save" />
 
     <Button
         android:id="@+id/share"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/selector_btn_bg"
         android:text="@string/share" />
 
     <Button
@@ -24,7 +22,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:background="@drawable/selector_btn_bg"
         android:text="@string/cancel" />
 
 </LinearLayout>

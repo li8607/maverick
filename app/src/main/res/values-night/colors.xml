@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="colorWhite">#ffffff</color>
 
-    <!--<color name="colorBackground">#303030</color>-->
+    <color name="user_color">#999999</color>
+    <color name="user_btn_color">#666666</color>
+    <color name="user_text_color">#333333</color>
 
-    <color name="colorForeground">#00000000</color>
+    <color name="colorDayNight">#303030</color>
+    <color name="colorPink">#ee7799</color>
+    <color name="colorRed">#e84e43</color>
+    <color name="colorYellow">#f1bc1a</color>
+    <color name="colorGreen">#8dbd55</color>
+    <color name="colorBlue">#3196e7</color>
+    <color name="colorPurple">#9c36ad</color>
 
-
-    <color name="colorSubTitleColor_Selector">#666</color>
-
-
-    <color name="radioButtonSelectedTextColor">#ff2d55</color>
-
-    <color name="tabSelectedTextColor">@color/colorPrimary</color>
-    <color name="tabTextColor">#99999999</color>
-    <color name="tabIndicatorColor">@color/colorPrimary</color>
     <!--共同-->
     <color name="windowBackground">#303030</color>
     <color name="colorControlNormal">#ffffff</color>

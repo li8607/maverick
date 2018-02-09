@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="1"
-        android:textColor="@color/pear_video_label_color"
+        android:textColor="?attr/colorPrimary"
         android:textSize="14sp" />
 
     <TextView

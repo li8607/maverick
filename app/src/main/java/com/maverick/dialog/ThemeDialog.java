@@ -80,6 +80,7 @@ public class ThemeDialog extends BaseDialogFragment {
     protected void onInitData(Bundle savedInstanceState) {
         mThemeType = PreferenceUtil.getInstance(MainApp.mContext).getInt(SPKey.THEME, 0);
         mList = new ArrayList<>();
+        mList.add(getThemeInfo(R.color.colorDayNight, getString(R.string.theme_day_night_title), ThemeType.DAY_NIGHT));
         mList.add(getThemeInfo(R.color.colorPink, getString(R.string.theme_pink_title), ThemeType.PINK));
         mList.add(getThemeInfo(R.color.colorRed, getString(R.string.theme_red_title), ThemeType.RED));
         mList.add(getThemeInfo(R.color.colorYellow, getString(R.string.theme_yellow_title), ThemeType.YELLOW));

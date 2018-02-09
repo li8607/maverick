@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/detail_source"
             android:text="举报"
-            android:textColor="@color/pear_video_label_color_5"
+            android:textColor="?attr/colorPrimary"
             android:textSize="14sp" />
     </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
 </RelativeLayout>

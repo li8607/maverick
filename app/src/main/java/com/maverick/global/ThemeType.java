@@ -14,5 +14,6 @@ public class ThemeType implements Serializable {
     public static final int GREEN = 4;
     public static final int BLUE = 5;
     public static final int PURPLE = 6;
+    public static final int DAY_NIGHT = 7;
 
 }
