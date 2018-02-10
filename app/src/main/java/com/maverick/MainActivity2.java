@@ -54,6 +54,12 @@ public class MainActivity2 extends BaseActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Log.e("lmf", "item = " + item.getTitle());
+
+            CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBarLayout.getLayoutParams();
+            if (mBehavior != null) {
+                layoutParams.setBehavior(mBehavior);
+            }
+
             switch (item.getItemId()) {
                 case R.id.navigation_sister:
                     if (fragment_0 == null) {
@@ -107,11 +113,11 @@ public class MainActivity2 extends BaseActivity {
                     switchFragment(fragment_4);
                     setSupportActionBarTitle(item.getTitle());
 
-                    CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBarLayout.getLayoutParams();
-                    if (layoutParams != null) {
-                        AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) layoutParams.getBehavior();
-                        behavior.setTopAndBottomOffset(0);
+                    mBehavior = (AppBarLayout.Behavior) layoutParams.getBehavior();
+                    if (mBehavior != null) {
+                        mBehavior.setTopAndBottomOffset(0);
                     }
+                    layoutParams.setBehavior(null);
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         mAppBarLayout.setElevation(getResources().getDimension(R.dimen.card_elevation));
@@ -123,6 +129,7 @@ public class MainActivity2 extends BaseActivity {
     };
     private List<ButtonInfo> mList;
     private BottomNavigationView mBottomNavigationView;
+    private AppBarLayout.Behavior mBehavior;
 
     @Override
     protected com.maverick.presenter.BasePresenter onCreatePresenter() {
