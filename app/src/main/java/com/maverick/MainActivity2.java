@@ -110,7 +110,7 @@ public class MainActivity2 extends BaseActivity {
                     CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBarLayout.getLayoutParams();
                     if (layoutParams != null) {
                         AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) layoutParams.getBehavior();
-                        behavior.onNestedFling(mCoordinatorLayout, mAppBarLayout, null, 0, -1000, true);
+                        behavior.setTopAndBottomOffset(0);
                     }
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
