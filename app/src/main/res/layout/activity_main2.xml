@@ -13,7 +13,7 @@
             android:id="@+id/coordinatorLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/radio_group">
+            android:layout_above="@+id/navigation">
 
             <android.support.design.widget.AppBarLayout
                 android:id="@+id/appbar"
@@ -33,60 +33,19 @@
                 app:layout_behavior="@string/appbar_scrolling_view_behavior" />
         </android.support.design.widget.CoordinatorLayout>
 
-        <RadioGroup
-            android:id="@+id/radio_group"
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/radio_0"
-                style="@style/Widget.AppCompat.CompoundButton.RadioButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:button="@null" />
-
-            <RadioButton
-                android:id="@+id/radio_1"
-                style="@style/Widget.AppCompat.CompoundButton.RadioButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:button="@null" />
-
-            <RadioButton
-                android:id="@+id/radio_2"
-                style="@style/Widget.AppCompat.CompoundButton.RadioButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:button="@null" />
-
-            <RadioButton
-                android:id="@+id/radio_3"
-                style="@style/Widget.AppCompat.CompoundButton.RadioButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:button="@null" />
-
-            <RadioButton
-                android:id="@+id/radio_4"
-                style="@style/Widget.AppCompat.CompoundButton.RadioButton"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:button="@null" />
-        </RadioGroup>
+            android:background="?android:attr/windowBackground"
+            app:menu="@menu/navigation"></android.support.design.widget.BottomNavigationView>
 
         <View
             android:id="@+id/bottom_bar_line"
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:layout_alignTop="@+id/radio_group"
+            android:layout_alignTop="@+id/navigation"
             android:background="@color/colorDivider" />
 
 

@@ -6,17 +6,19 @@ import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,13 +44,87 @@ import java.util.List;
  */
 public class MainActivity2 extends BaseActivity {
 
-    private RadioGroup radio_group;
-    private RadioButton radio_0, radio_1, radio_2, radio_3, radio_4;
     private BaseFragment2 fragment_0, fragment_1, fragment_2, fragment_3, fragment_4;
     private TextView mTitle;
     private CoordinatorLayout mCoordinatorLayout;
     private AppBarLayout mAppBarLayout;
     private Toolbar mToolbar;
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_sister:
+                    if (fragment_0 == null) {
+                        fragment_0 = FragmentFactory.getMainFragment(mList.get(0));
+                    }
+                    switchFragment(fragment_0);
+                    setSupportActionBarTitle(getString(R.string.fragment_sister));
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        mAppBarLayout.setElevation(0);
+                    }
+                    return true;
+                case R.id.navigation_caricature:
+                    if (fragment_1 == null) {
+                        fragment_1 = FragmentFactory.getMainFragment(mList.get(1));
+                    }
+                    switchFragment(fragment_1);
+                    setSupportActionBarTitle(getString(R.string.fragment_caricature));
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        mAppBarLayout.setElevation(0);
+                    }
+                    return true;
+                case R.id.navigation_pear:
+                    if (fragment_2 == null) {
+                        fragment_2 = FragmentFactory.getMainFragment(mList.get(2));
+                    }
+                    switchFragment(fragment_2);
+                    setSupportActionBarTitle(getString(R.string.fragment_pear));
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        mAppBarLayout.setElevation(0);
+                    }
+                    return true;
+                case R.id.navigation_joke:
+                    if (fragment_3 == null) {
+                        fragment_3 = FragmentFactory.getMainFragment(mList.get(3));
+                    }
+                    switchFragment(fragment_3);
+                    setSupportActionBarTitle(getString(R.string.fragment_joke));
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        mAppBarLayout.setElevation(0);
+                    }
+
+                    return true;
+                case R.id.navigation_my:
+                    if (fragment_4 == null) {
+                        fragment_4 = FragmentFactory.getMainFragment(mList.get(4));
+                    }
+                    switchFragment(fragment_4);
+                    setSupportActionBarTitle(getString(R.string.fragment_my));
+
+                    CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBarLayout.getLayoutParams();
+                    if (layoutParams != null) {
+                        AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) layoutParams.getBehavior();
+                        behavior.onNestedFling(mCoordinatorLayout, mAppBarLayout, null, 0, -1000, true);
+                    }
+
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        mAppBarLayout.setElevation(getResources().getDimension(R.dimen.card_elevation));
+                    }
+                    return true;
+            }
+            return false;
+        }
+    };
+    private List<ButtonInfo> mList;
+    private BottomNavigationView mBottomNavigationView;
 
     @Override
     protected com.maverick.presenter.BasePresenter onCreatePresenter() {
@@ -79,89 +155,8 @@ public class MainActivity2 extends BaseActivity {
         mToolbar.addView(mTitle, mTitleLP);
         setSupportActionBar(mToolbar);
 
-        radio_group = findView(R.id.radio_group);
-
-        radio_0 = findView(R.id.radio_0);
-        radio_1 = findView(R.id.radio_1);
-        radio_2 = findView(R.id.radio_2);
-        radio_3 = findView(R.id.radio_3);
-        radio_4 = findView(R.id.radio_4);
-
-        radio_group.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.radio_0:
-                        if (fragment_0 == null) {
-                            fragment_0 = FragmentFactory.getMainFragment((ButtonInfo) radio_0.getTag());
-                        }
-                        switchFragment(fragment_0);
-                        setSupportActionBarTitle(radio_0.getText());
-
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            mAppBarLayout.setElevation(0);
-                        }
-
-                        break;
-                    case R.id.radio_1:
-                        if (fragment_1 == null) {
-                            fragment_1 = FragmentFactory.getMainFragment((ButtonInfo) radio_1.getTag());
-                        }
-                        switchFragment(fragment_1);
-                        setSupportActionBarTitle(radio_1.getText());
-
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            mAppBarLayout.setElevation(0);
-                        }
-
-                        break;
-                    case R.id.radio_2:
-                        if (fragment_2 == null) {
-                            fragment_2 = FragmentFactory.getMainFragment((ButtonInfo) radio_2.getTag());
-                        }
-                        switchFragment(fragment_2);
-                        setSupportActionBarTitle(radio_2.getText());
-
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            mAppBarLayout.setElevation(0);
-                        }
-
-                        break;
-                    case R.id.radio_3:
-                        if (fragment_3 == null) {
-                            fragment_3 = FragmentFactory.getMainFragment((ButtonInfo) radio_3.getTag());
-                        }
-                        switchFragment(fragment_3);
-                        setSupportActionBarTitle(radio_3.getText());
-
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            mAppBarLayout.setElevation(0);
-                        }
-
-                        break;
-                    case R.id.radio_4:
-                        if (fragment_4 == null) {
-                            fragment_4 = FragmentFactory.getMainFragment((ButtonInfo) radio_4.getTag());
-                        }
-                        switchFragment(fragment_4);
-                        setSupportActionBarTitle(radio_4.getText());
-
-                        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBarLayout.getLayoutParams();
-                        if (layoutParams != null) {
-                            AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) layoutParams.getBehavior();
-                            behavior.onNestedFling(mCoordinatorLayout, mAppBarLayout, null, 0, -1000, true);
-                        }
-
-
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            mAppBarLayout.setElevation(getResources().getDimension(R.dimen.card_elevation));
-                        }
-
-                        break;
-
-                }
-            }
-        });
+        mBottomNavigationView = findViewById(R.id.navigation);
+        mBottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -216,7 +211,7 @@ public class MainActivity2 extends BaseActivity {
             fragment_4 = (BaseFragment2) getSupportFragmentManager().findFragmentByTag(MyFragment.class.getName());
         }
 
-        List<ButtonInfo> mList = new ArrayList<>();
+        mList = new ArrayList<>();
         mList.add(getButtonInfo(getString(R.string.fragment_sister), R.drawable.bottom_sister_selector, FragmentType.SISTER));
 //        mList.add(getButtonInfo(getString(R.string.fragment_beauty), R.drawable.bottom_beauty_selector, FragmentType.BEAUTY));
         mList.add(getButtonInfo(getString(R.string.fragment_caricature), R.drawable.bottom_caricature_selector, FragmentType.CARICATURE));
@@ -225,29 +220,7 @@ public class MainActivity2 extends BaseActivity {
         mList.add(getButtonInfo(getString(R.string.fragment_joke), R.drawable.bottom_joke_selector, FragmentType.JOKE));
         mList.add(getButtonInfo(getString(R.string.fragment_my), R.drawable.bottom_my_selector, FragmentType.MY));
 
-        for (int i = 0; i < mList.size(); i++) {
-            ButtonInfo buttonInfo = mList.get(i);
-
-            switch (i) {
-                case 0:
-                    setRadioButtonData(radio_0, buttonInfo);
-                    break;
-                case 1:
-                    setRadioButtonData(radio_1, buttonInfo);
-                    break;
-                case 2:
-                    setRadioButtonData(radio_2, buttonInfo);
-                    break;
-                case 3:
-                    setRadioButtonData(radio_3, buttonInfo);
-                    break;
-                case 4:
-                    setRadioButtonData(radio_4, buttonInfo);
-                    break;
-            }
-        }
-
-        radio_0.setChecked(true);
+        mBottomNavigationView.setSelectedItemId(R.id.navigation_sister);
     }
 
     private BaseFragment2 mFragment;
