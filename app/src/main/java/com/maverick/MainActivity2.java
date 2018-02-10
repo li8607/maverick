@@ -3,7 +3,6 @@ package com.maverick;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,11 +13,11 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +32,6 @@ import com.maverick.fragment.PearFragment;
 import com.maverick.fragment.SisterFragment;
 import com.maverick.global.ActivityCode;
 import com.maverick.type.FragmentType;
-import com.maverick.util.DensityUtil;
 import com.umeng.socialize.UMShareAPI;
 
 import java.util.ArrayList;
@@ -55,13 +53,14 @@ public class MainActivity2 extends BaseActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            Log.e("lmf", "item = " + item.getTitle());
             switch (item.getItemId()) {
                 case R.id.navigation_sister:
                     if (fragment_0 == null) {
                         fragment_0 = FragmentFactory.getMainFragment(mList.get(0));
                     }
                     switchFragment(fragment_0);
-                    setSupportActionBarTitle(getString(R.string.fragment_sister));
+                    setSupportActionBarTitle(item.getTitle());
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         mAppBarLayout.setElevation(0);
@@ -72,7 +71,7 @@ public class MainActivity2 extends BaseActivity {
                         fragment_1 = FragmentFactory.getMainFragment(mList.get(1));
                     }
                     switchFragment(fragment_1);
-                    setSupportActionBarTitle(getString(R.string.fragment_caricature));
+                    setSupportActionBarTitle(item.getTitle());
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         mAppBarLayout.setElevation(0);
@@ -83,7 +82,7 @@ public class MainActivity2 extends BaseActivity {
                         fragment_2 = FragmentFactory.getMainFragment(mList.get(2));
                     }
                     switchFragment(fragment_2);
-                    setSupportActionBarTitle(getString(R.string.fragment_pear));
+                    setSupportActionBarTitle(item.getTitle());
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         mAppBarLayout.setElevation(0);
@@ -94,7 +93,7 @@ public class MainActivity2 extends BaseActivity {
                         fragment_3 = FragmentFactory.getMainFragment(mList.get(3));
                     }
                     switchFragment(fragment_3);
-                    setSupportActionBarTitle(getString(R.string.fragment_joke));
+                    setSupportActionBarTitle(item.getTitle());
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         mAppBarLayout.setElevation(0);
@@ -106,14 +105,13 @@ public class MainActivity2 extends BaseActivity {
                         fragment_4 = FragmentFactory.getMainFragment(mList.get(4));
                     }
                     switchFragment(fragment_4);
-                    setSupportActionBarTitle(getString(R.string.fragment_my));
+                    setSupportActionBarTitle(item.getTitle());
 
                     CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) mAppBarLayout.getLayoutParams();
                     if (layoutParams != null) {
                         AppBarLayout.Behavior behavior = (AppBarLayout.Behavior) layoutParams.getBehavior();
                         behavior.onNestedFling(mCoordinatorLayout, mAppBarLayout, null, 0, -1000, true);
                     }
-
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         mAppBarLayout.setElevation(getResources().getDimension(R.dimen.card_elevation));
@@ -203,14 +201,6 @@ public class MainActivity2 extends BaseActivity {
     @Override
     protected void onInitData(Bundle savedInstanceState) {
 
-        if (savedInstanceState != null) {
-            fragment_0 = (BaseFragment2) getSupportFragmentManager().findFragmentByTag(SisterFragment.class.getName());
-            fragment_1 = (BaseFragment2) getSupportFragmentManager().findFragmentByTag(CaricatureFragment.class.getName());
-            fragment_2 = (BaseFragment2) getSupportFragmentManager().findFragmentByTag(PearFragment.class.getName());
-            fragment_3 = (BaseFragment2) getSupportFragmentManager().findFragmentByTag(JokeFragment.class.getName());
-            fragment_4 = (BaseFragment2) getSupportFragmentManager().findFragmentByTag(MyFragment.class.getName());
-        }
-
         mList = new ArrayList<>();
         mList.add(getButtonInfo(getString(R.string.fragment_sister), R.drawable.bottom_sister_selector, FragmentType.SISTER));
 //        mList.add(getButtonInfo(getString(R.string.fragment_beauty), R.drawable.bottom_beauty_selector, FragmentType.BEAUTY));
@@ -220,21 +210,29 @@ public class MainActivity2 extends BaseActivity {
         mList.add(getButtonInfo(getString(R.string.fragment_joke), R.drawable.bottom_joke_selector, FragmentType.JOKE));
         mList.add(getButtonInfo(getString(R.string.fragment_my), R.drawable.bottom_my_selector, FragmentType.MY));
 
-        mBottomNavigationView.setSelectedItemId(R.id.navigation_sister);
+        if (savedInstanceState != null) {
+            fragment_0 = (BaseFragment2) getSupportFragmentManager().findFragmentByTag(SisterFragment.class.getName());
+            fragment_1 = (BaseFragment2) getSupportFragmentManager().findFragmentByTag(CaricatureFragment.class.getName());
+            fragment_2 = (BaseFragment2) getSupportFragmentManager().findFragmentByTag(PearFragment.class.getName());
+            fragment_3 = (BaseFragment2) getSupportFragmentManager().findFragmentByTag(JokeFragment.class.getName());
+            fragment_4 = (BaseFragment2) getSupportFragmentManager().findFragmentByTag(MyFragment.class.getName());
+        } else {
+            mBottomNavigationView.setSelectedItemId(R.id.navigation_sister);
+        }
     }
 
     private BaseFragment2 mFragment;
 
     private void switchFragment(BaseFragment2 fragment) {
 
-        if (fragment == null || fragment.isVisible() || fragment.equals(mFragment)) {
+        if (fragment == null || fragment.isVisible() || getSupportFragmentManager() == null || fragment.equals(getSupportFragmentManager().getPrimaryNavigationFragment())) {
             return;
         }
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-        if (mFragment != null && mFragment.isAdded()) {
-            transaction.hide(mFragment);
+        if (getSupportFragmentManager().getPrimaryNavigationFragment() != null) {
+            transaction.hide(getSupportFragmentManager().getPrimaryNavigationFragment());
         }
 
         if (!fragment.isAdded()) {
@@ -243,31 +241,13 @@ public class MainActivity2 extends BaseActivity {
             transaction.show(fragment);
         }
 
-        transaction.commitAllowingStateLoss();
+        transaction.setPrimaryNavigationFragment(fragment);
         this.mFragment = fragment;
+        transaction.commitAllowingStateLoss();
     }
 
     private void showToast(String str) {
         Toast.makeText(this, str, Toast.LENGTH_SHORT).show();
-    }
-
-    private void setRadioButtonData(RadioButton radioButton, ButtonInfo buttonInfo) {
-
-        radioButton.setButtonDrawable(null);
-        radioButton.setText(buttonInfo.getName());
-        radioButton.setGravity(Gravity.CENTER);
-
-        radioButton.setTextColor(ContextCompat.getColorStateList(MainActivity2.this, R.color.selector_radiobutton_text_color_main));
-
-        Drawable drawable;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            drawable = getDrawable(buttonInfo.getIconId());
-        } else {
-            drawable = getResources().getDrawable(buttonInfo.getIconId());
-        }
-        drawable.setBounds(0, 0, DensityUtil.dip2px(this, 18), DensityUtil.dip2px(this, 18));
-        radioButton.setCompoundDrawables(null, drawable, null, null);
-        radioButton.setTag(buttonInfo);
     }
 
     public ButtonInfo getButtonInfo(String name, int iconId, int type) {
@@ -283,7 +263,7 @@ public class MainActivity2 extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (mFragment != null && mFragment.onBackPressed()) {
+        if (getSupportFragmentManager().getPrimaryNavigationFragment() != null && ((BaseFragment2) (getSupportFragmentManager().getPrimaryNavigationFragment())).onBackPressed()) {
             return;
         }
 
