@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/title_love_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -17,12 +18,12 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/love"
             android:layout_width="14dp"
             android:layout_height="14dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/operation_ding_day_selector" />
+            app:srcCompat="@drawable/ic_thumb_up_black_24dp"
+            app:tint="@color/operation_count_day_selector" />
 
         <TextView
             android:id="@+id/love_title"
@@ -45,12 +46,12 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/collect"
             android:layout_width="14dp"
             android:layout_height="14dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/collect_selector" />
+            app:srcCompat="@drawable/ic_favorite_black_24dp"
+            app:tint="@color/operation_count_day_selector" />
 
         <TextView
             android:id="@+id/collect_title"
@@ -74,12 +75,12 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/down"
             android:layout_width="14dp"
             android:layout_height="14dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/btn_download_selector" />
+            app:srcCompat="@drawable/ic_cloud_download_black_24dp"
+            app:tint="@color/operation_count_day_selector" />
 
         <TextView
             android:id="@+id/down_title"

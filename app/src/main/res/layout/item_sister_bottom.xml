@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="50dp"
     android:layout_gravity="center_vertical"
@@ -16,13 +17,13 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/image_ding"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_marginRight="6dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/operation_ding_day_selector" />
+            app:srcCompat="@drawable/ic_thumb_up_black_24dp"
+            app:tint="@color/operation_count_day_selector" />
 
         <TextView
             android:id="@+id/text_ding_count"
@@ -44,13 +45,13 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/image_cai"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_marginRight="6dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/operation_cai_day_selector" />
+            app:srcCompat="@drawable/ic_thumb_down_black_24dp"
+            app:tint="@color/operation_count_day_selector" />
 
         <TextView
             android:id="@+id/text_cai_count"
@@ -72,13 +73,13 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/image_share"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_marginRight="6dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/operation_share_day_selector" />
+            app:srcCompat="@drawable/ic_open_in_new_black_24dp"
+            app:tint="@color/operation_count_day_selector" />
 
         <TextView
             android:id="@+id/text_share_count"
@@ -100,13 +101,13 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/image_comment"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_marginRight="6dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/collect_selector" />
+            app:srcCompat="@drawable/ic_favorite_black_24dp"
+            app:tint="@color/operation_count_day_selector" />
 
         <TextView
             android:id="@+id/text_comment_count"
