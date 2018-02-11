@@ -80,13 +80,13 @@ public class MyFragment extends BaseFragment2 {
         mList = new ArrayList<>();
 
         if (AVUser.getCurrentUser() != null) {
-            mList.add(getMyInfo(AVUser.getCurrentUser().getString(User.nickname), R.drawable.ic_menu_send, MyType.USER));
+            mList.add(getMyInfo(AVUser.getCurrentUser().getString(User.nickname), R.drawable.ic_account_box_black_24dp, MyType.USER));
         } else {
-            mList.add(getMyInfo("登录/注册", R.drawable.ic_menu_send, MyType.LOGIN_REGISTER));
+            mList.add(getMyInfo("登录/注册", R.drawable.ic_account_box_black_24dp, MyType.LOGIN_REGISTER));
         }
-        mList.add(getMyInfo("浏览记录", R.drawable.ic_menu_gallery, MyType.HISTORY));
-        mList.add(getMyInfo("收藏", R.drawable.ic_menu_camera, MyType.COLLECT));
-        mList.add(getMyInfo("设置", R.drawable.ic_menu_camera, MyType.SETTING));
+        mList.add(getMyInfo("浏览记录", R.drawable.ic_timelapse_black_24dp, MyType.HISTORY));
+        mList.add(getMyInfo("收藏", R.drawable.ic_favorite_black_24dp, MyType.COLLECT));
+        mList.add(getMyInfo("设置", R.drawable.ic_brightness_low_black_24dp, MyType.SETTING));
         mMyFragmentAdapter = new MyFragmentAdapter(getContext(), mList);
         recyclerView.setAdapter(mMyFragmentAdapter);
 

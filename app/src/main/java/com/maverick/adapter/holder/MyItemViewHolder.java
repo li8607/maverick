@@ -1,5 +1,6 @@
 package com.maverick.adapter.holder;
 
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -13,14 +14,14 @@ import com.maverick.R;
 
 public class MyItemViewHolder extends RecyclerView.ViewHolder {
 
-    public final ImageView imageView;
+    public final AppCompatImageView imageView;
     public final TextView title;
     public final View line;
 
     public MyItemViewHolder(View itemView) {
         super(itemView);
-        imageView = (ImageView) itemView.findViewById(R.id.image);
-        title = (TextView) itemView.findViewById(R.id.title);
+        imageView =  itemView.findViewById(R.id.image);
+        title =  itemView.findViewById(R.id.title);
         line = itemView.findViewById(R.id.line);
     }
 }
