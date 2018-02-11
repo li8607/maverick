@@ -29,14 +29,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:paddingTop="10dp">
+                android:orientation="vertical">
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/cv_root_day_night"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/card_spacing"
+                    android:layout_marginTop="10dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
@@ -46,14 +46,23 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:padding="24dp">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:id="@+id/iv_day_night"
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            app:srcCompat="@drawable/ic_brightness_3_black_24dp"
+                            app:tint="@color/selector_radiobutton_text_color_main" />
 
                         <TextView
                             android:id="@+id/tv_title_day_night"
                             style="@style/TextAppearance.AppCompat.Subhead"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
                             android:layout_weight="1"
                             android:text="@string/title_day_night" />
 
@@ -84,14 +93,22 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
                         android:orientation="horizontal"
                         android:padding="24dp">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            app:srcCompat="@drawable/ic_brightness_4_black_24dp"
+                            app:tint="@color/selector_radiobutton_text_color_main" />
 
                         <TextView
                             android:id="@+id/tv_title_night_auto"
                             style="@style/TextAppearance.AppCompat.Subhead"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
                             android:layout_weight="1"
                             android:text="@string/title_night_auto" />
 
@@ -114,23 +131,31 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/card_spacing"
                     android:clickable="true"
-                    android:visibility="gone"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackground"
+                    android:visibility="gone"
                     app:cardCornerRadius="@dimen/card_corner_radius"
                     app:cardElevation="@dimen/card_elevation">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
                         android:orientation="horizontal"
                         android:padding="24dp">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            app:srcCompat="@drawable/ic_brightness_4_black_24dp"
+                            app:tint="@color/selector_radiobutton_text_color_main" />
 
                         <TextView
                             android:id="@+id/tv_title_night_follow_system"
                             style="@style/TextAppearance.AppCompat.Subhead"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
                             android:layout_weight="1"
                             android:text="@string/title_night_follow_system" />
 
@@ -162,13 +187,21 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="horizontal"
                         android:padding="24dp">
+
+                        <android.support.v7.widget.AppCompatImageView
+                            android:layout_width="26dp"
+                            android:layout_height="26dp"
+                            app:srcCompat="@drawable/ic_color_lens_black_24dp"
+                            app:tint="@color/selector_radiobutton_text_color_main" />
 
                         <TextView
                             style="@style/TextAppearance.AppCompat.Subhead"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="16dp"
                             android:text="@string/title_theme" />
 
                     </LinearLayout>
