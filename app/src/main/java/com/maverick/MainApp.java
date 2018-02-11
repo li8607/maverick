@@ -1,8 +1,10 @@
 package com.maverick;
 
 import android.app.Application;
+import android.app.UiModeManager;
 import android.content.Context;
 import android.support.v7.app.AppCompatDelegate;
+import android.util.Log;
 
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVOSCloud;
@@ -29,7 +31,6 @@ public class MainApp extends Application {
         PlatformConfig.setWeixin("wx766193210f047aa3", "dacea00bc9908f50c730bb22f7528b25");
         PlatformConfig.setQQZone("1106104545", "gETKtj5JEd00Zsgn");
         PlatformConfig.setSinaWeibo("1053257822", "6a139b9cddd26bcfd78a770afd23c19f", "http://www.wandoujia.com/apps/com.maverick");
-
     }
 
     public static Context mContext;
@@ -86,13 +87,19 @@ public class MainApp extends Application {
 
     private void initTheme() {
         int modeTheme = PreferenceUtil.getInstance(getApplicationContext()).getInt(SPKey.NIGHT, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        if (modeTheme != AppCompatDelegate.MODE_NIGHT_YES
-                && modeTheme != AppCompatDelegate.MODE_NIGHT_NO
-                && modeTheme != AppCompatDelegate.MODE_NIGHT_AUTO
-                ) {
-            modeTheme = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
+        if (modeTheme == AppCompatDelegate.MODE_NIGHT_YES) {
+            AppCompatDelegate.setDefaultNightMode(modeTheme);
+            UiModeManager mUiModeManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
+            mUiModeManager.setNightMode(UiModeManager.MODE_NIGHT_YES);
+        } else if (modeTheme == AppCompatDelegate.MODE_NIGHT_NO) {
+            AppCompatDelegate.setDefaultNightMode(modeTheme);
+            UiModeManager mUiModeManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
+            mUiModeManager.setNightMode(UiModeManager.MODE_NIGHT_NO);
+        } else if (modeTheme == AppCompatDelegate.MODE_NIGHT_AUTO) {
+            AppCompatDelegate.setDefaultNightMode(modeTheme);
+            UiModeManager mUiModeManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
+            mUiModeManager.setNightMode(UiModeManager.MODE_NIGHT_AUTO);
         }
-        AppCompatDelegate.setDefaultNightMode(modeTheme);
     }
 
     public static MainApp getInstance() {
