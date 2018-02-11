@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="60dp"
     android:background="@color/colorPrimaryDark"
@@ -23,8 +24,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:ellipsize="marquee"
-        android:singleLine="true"
         android:maxWidth="250dp"
+        android:singleLine="true"
         android:textColor="@android:color/white"
         android:textSize="14sp"
         android:visibility="gone" />
@@ -40,14 +41,13 @@
         android:textSize="14sp"
         android:visibility="gone" />
 
-    <ImageView
+    <android.support.v7.widget.AppCompatImageView
         android:id="@+id/image_share"
         android:layout_width="18dp"
         android:layout_height="18dp"
         android:layout_gravity="center_vertical|right"
         android:layout_marginRight="10dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/operation_share_day_selector"
-        android:visibility="gone" />
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_open_in_new_black_24dp" />
 
 </FrameLayout>

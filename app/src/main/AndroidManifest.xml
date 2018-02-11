@@ -38,8 +38,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MainActivity"></activity>
-
         <activity android:name=".DetailActivity" />
 
         <activity android:name=".WebActivity" />

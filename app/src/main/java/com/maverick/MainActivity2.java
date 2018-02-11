@@ -209,13 +209,13 @@ public class MainActivity2 extends BaseActivity {
     protected void onInitData(Bundle savedInstanceState) {
 
         mList = new ArrayList<>();
-        mList.add(getButtonInfo(getString(R.string.fragment_sister), R.drawable.bottom_sister_selector, FragmentType.SISTER));
-//        mList.add(getButtonInfo(getString(R.string.fragment_beauty), R.drawable.bottom_beauty_selector, FragmentType.BEAUTY));
-        mList.add(getButtonInfo(getString(R.string.fragment_caricature), R.drawable.bottom_caricature_selector, FragmentType.CARICATURE));
-//        mList.add(getButtonInfo(getString(R.string.fragment_sina), R.drawable.bottom_sina_selector, FragmentType.SINA));
-        mList.add(getButtonInfo(getString(R.string.fragment_pear), R.drawable.bottom_sina_selector, FragmentType.PEAR));
-        mList.add(getButtonInfo(getString(R.string.fragment_joke), R.drawable.bottom_joke_selector, FragmentType.JOKE));
-        mList.add(getButtonInfo(getString(R.string.fragment_my), R.drawable.bottom_my_selector, FragmentType.MY));
+        mList.add(getButtonInfo(getString(R.string.fragment_sister), 0, FragmentType.SISTER));
+//        mList.add(getButtonInfo(getString(R.string.fragment_beauty), 0, FragmentType.BEAUTY));
+        mList.add(getButtonInfo(getString(R.string.fragment_caricature), 0, FragmentType.CARICATURE));
+//        mList.add(getButtonInfo(getString(R.string.fragment_sina), 0, FragmentType.SINA));
+        mList.add(getButtonInfo(getString(R.string.fragment_pear), 0, FragmentType.PEAR));
+        mList.add(getButtonInfo(getString(R.string.fragment_joke), 0, FragmentType.JOKE));
+        mList.add(getButtonInfo(getString(R.string.fragment_my), 0, FragmentType.MY));
 
         if (savedInstanceState != null) {
             fragment_0 = (BaseFragment2) getSupportFragmentManager().findFragmentByTag(SisterFragment.class.getName());

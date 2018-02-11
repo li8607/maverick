@@ -34,8 +34,7 @@
             android:layout_height="18dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentBottom="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/collect_selector" />
+            android:scaleType="fitXY" />
 
     </RelativeLayout>
 
