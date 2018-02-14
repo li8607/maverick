@@ -2,8 +2,11 @@
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -49,11 +52,12 @@
             android:layout_height="1dp"
             android:layout_alignTop="@+id/navigation"
             android:background="@color/colorDivider" />
-
+    </RelativeLayout>
 
         <FrameLayout
             android:id="@+id/video_full_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </RelativeLayout>
+
+    </FrameLayout>
 </android.support.v4.widget.DrawerLayout>
