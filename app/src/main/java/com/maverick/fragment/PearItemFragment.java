@@ -18,7 +18,7 @@ import com.maverick.R;
 import com.maverick.adapter.PearItemFragmentAdapter;
 import com.maverick.adapter.holder.PearBannerViewHolder;
 import com.maverick.adapter.holder.PearImageViewHolder;
-import com.maverick.base.BaseFragment2;
+import com.maverick.base.BaseFragment;
 import com.maverick.bean.PearVideoInfo;
 import com.maverick.bean.PearVideoTabInfo;
 import com.maverick.hepler.BeanHelper;
@@ -37,7 +37,7 @@ import java.util.List;
  * Created by Administrator on 2017/10/26.
  */
 
-public class PearItemFragment extends BaseFragment2 implements IPearItemFragmentView {
+public class PearItemFragment extends BaseFragment implements IPearItemFragmentView {
 
     private String TAG = getClass().getSimpleName();
 

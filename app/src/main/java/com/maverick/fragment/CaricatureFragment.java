@@ -10,7 +10,7 @@ import android.view.View;
 
 import com.maverick.R;
 import com.maverick.adapter.CaricatureFragmentAdapter;
-import com.maverick.base.BaseFragment2;
+import com.maverick.base.BaseFragment;
 import com.maverick.bean.CaricatureTabInfo;
 import com.maverick.global.Tag;
 import com.maverick.presenter.BasePresenter;
@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/9/25.
  */
-public class CaricatureFragment extends BaseFragment2 {
+public class CaricatureFragment extends BaseFragment {
 
     private TabLayout tab_layout;
     private ViewPager viewpager;

@@ -17,7 +17,7 @@ import com.umeng.analytics.MobclickAgent;
 /**
  * Created by Administrator on 2017/9/25.
  */
-public abstract class BaseFragment2 extends Fragment {
+public abstract class BaseFragment extends Fragment {
 
     private BasePresenter mBasePresenter;
     private View mView;

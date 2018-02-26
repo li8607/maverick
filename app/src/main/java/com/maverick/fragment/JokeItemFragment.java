@@ -12,7 +12,7 @@ import android.widget.FrameLayout;
 
 import com.maverick.R;
 import com.maverick.adapter.JokeItemFragmentAdapter;
-import com.maverick.base.BaseFragment2;
+import com.maverick.base.BaseFragment;
 import com.maverick.bean.GifInfo;
 import com.maverick.bean.JokeTabInfo;
 import com.maverick.global.Tag;
@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Created by ll on 2017/5/22.
  */
-public class JokeItemFragment extends BaseFragment2 implements IJokeItemFragmentView {
+public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentView {
 
     private JokeItemFragmentPresenter mPresenter;
     private JokeItemFragmentAdapter mJokeItemFragmentAdapter;

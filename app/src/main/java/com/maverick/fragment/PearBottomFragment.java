@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.maverick.PearActivity;
 import com.maverick.R;
 import com.maverick.adapter.PearBottomFragmentAdapter;
-import com.maverick.base.BaseFragment2;
+import com.maverick.base.BaseFragment;
 import com.maverick.bean.PearItemInfo;
 import com.maverick.bean.PearVideoDetailBean;
 import com.maverick.bean.PearVideoDetailInfoVideo;
@@ -31,7 +31,7 @@ import java.util.List;
  * Created by Administrator on 2017/10/31.
  */
 
-public class PearBottomFragment extends BaseFragment2 implements IPearBottomFragmentView {
+public class PearBottomFragment extends BaseFragment implements IPearBottomFragmentView {
 
     public static final String EXTRA_IMAGE = "EXTRA_IMAGE";
 

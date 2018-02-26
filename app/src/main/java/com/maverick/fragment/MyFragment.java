@@ -14,7 +14,7 @@ import com.maverick.R;
 import com.maverick.SettingActivity;
 import com.maverick.UserDetailActivity;
 import com.maverick.adapter.MyFragmentAdapter;
-import com.maverick.base.BaseFragment2;
+import com.maverick.base.BaseFragment;
 import com.maverick.bean.MyInfo;
 import com.maverick.global.ActivityCode;
 import com.maverick.leancloud.User;
@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/9/25.
  */
-public class MyFragment extends BaseFragment2 {
+public class MyFragment extends BaseFragment {
 
     private RecyclerView recyclerView;
     private List<MyInfo> mList;

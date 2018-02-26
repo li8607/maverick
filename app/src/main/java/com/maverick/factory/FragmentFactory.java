@@ -1,6 +1,6 @@
 package com.maverick.factory;
 
-import com.maverick.base.BaseFragment2;
+import com.maverick.base.BaseFragment;
 import com.maverick.bean.ButtonInfo;
 import com.maverick.fragment.BeautyFragment;
 import com.maverick.fragment.CaricatureFragment;
@@ -16,11 +16,11 @@ import com.maverick.type.FragmentType;
  */
 public class FragmentFactory {
 
-    public static BaseFragment2 getMainFragment(ButtonInfo buttonInfo) {
+    public static BaseFragment getMainFragment(ButtonInfo buttonInfo) {
         if (buttonInfo == null) {
             return BeautyFragment.newInstance();
         }
-        BaseFragment2 fragment;
+        BaseFragment fragment;
         switch (buttonInfo.getType()) {
             case FragmentType.SISTER:
                 fragment = SisterFragment.newInstance();

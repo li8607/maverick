@@ -18,7 +18,7 @@ import com.maverick.R;
 import com.maverick.adapter.SisterItemFragmentAdapter;
 import com.maverick.adapter.holder.SisterTextHolder;
 import com.maverick.adapter.holder.SisterVideoHolder;
-import com.maverick.base.BaseFragment2;
+import com.maverick.base.BaseFragment;
 import com.maverick.bean.MenuDetailInfo;
 import com.maverick.bean.SisterInfo;
 import com.maverick.bean.SisterTabInfo;
@@ -48,7 +48,7 @@ import cntv.greendaolibrary.dbbean.Collect;
 /**
  * Created by Administrator on 2017/9/30.
  */
-public class SisterItemFragment extends BaseFragment2 implements ISisterItemFragmentView {
+public class SisterItemFragment extends BaseFragment implements ISisterItemFragmentView {
 
     private SisterItemFragmentAdapter mSisterItemFragmentAdapter;
     private SisterItemFragmentPresenter mPresenter;

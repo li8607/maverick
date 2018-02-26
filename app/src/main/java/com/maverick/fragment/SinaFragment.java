@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.maverick.R;
 import com.maverick.adapter.SinaFragmentAdapter;
-import com.maverick.base.BaseFragment2;
+import com.maverick.base.BaseFragment;
 import com.maverick.bean.SinaTabInfo;
 import com.maverick.global.Tag;
 import com.maverick.presenter.BasePresenter;
@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/9/25.
  */
-public class SinaFragment extends BaseFragment2 {
+public class SinaFragment extends BaseFragment {
 
     private TabLayout tab_layout;
     private ViewPager viewpager;

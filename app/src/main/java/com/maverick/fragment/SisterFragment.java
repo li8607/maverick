@@ -10,7 +10,7 @@ import android.view.View;
 
 import com.maverick.R;
 import com.maverick.adapter.SisterFragmentAdapter;
-import com.maverick.base.BaseFragment2;
+import com.maverick.base.BaseFragment;
 import com.maverick.bean.SisterTabInfo;
 import com.maverick.global.Tag;
 import com.maverick.presenter.BasePresenter;
@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/9/25.
  */
-public class SisterFragment extends BaseFragment2 {
+public class SisterFragment extends BaseFragment {
 
     private TabLayout tab_layout;
     private ViewPager viewpager;
@@ -93,7 +93,7 @@ public class SisterFragment extends BaseFragment2 {
                 continue;
             }
 
-            BaseFragment2 baseFragment2 = (BaseFragment2) object;
+            BaseFragment baseFragment2 = (BaseFragment) object;
             if (baseFragment2.isAdded()) {
                 baseFragment2.refreshUI();
             }

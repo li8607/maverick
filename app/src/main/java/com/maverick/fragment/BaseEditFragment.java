@@ -1,12 +1,9 @@
 package com.maverick.fragment;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.TextView;
 
-import com.maverick.R;
-import com.maverick.base.BaseFragment2;
+import com.maverick.base.BaseFragment;
 import com.maverick.bean.CollectTabInfo;
 import com.maverick.global.Tag;
 import com.maverick.presenter.BasePresenter;
@@ -14,7 +11,7 @@ import com.maverick.presenter.BasePresenter;
 /**
  * Created by limingfei on 2017/9/29.
  */
-public class BaseEditFragment extends BaseFragment2 {
+public class BaseEditFragment extends BaseFragment {
 
     public static final int STATE_EDIT = 1;
     public static final int STATE_NO_EDIT = 2;

@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 
 import com.maverick.R;
 import com.maverick.adapter.PearFragmentAdapter;
-import com.maverick.base.BaseFragment2;
+import com.maverick.base.BaseFragment;
 import com.maverick.bean.PearVideoTabInfo;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.PearFragmentPresenter;
@@ -25,7 +25,7 @@ import java.util.List;
  * Created by Administrator on 2017/10/26.
  */
 
-public class PearFragment extends BaseFragment2 implements IPearFragmentView {
+public class PearFragment extends BaseFragment implements IPearFragmentView {
 
     private TabLayout tab_layout;
     private ViewPager viewpager;
@@ -129,7 +129,7 @@ public class PearFragment extends BaseFragment2 implements IPearFragmentView {
                 continue;
             }
 
-            BaseFragment2 baseFragment2 = (BaseFragment2) object;
+            BaseFragment baseFragment2 = (BaseFragment) object;
             if (baseFragment2.isAdded()) {
                 baseFragment2.refreshUI();
             }

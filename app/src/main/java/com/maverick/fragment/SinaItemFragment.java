@@ -11,7 +11,7 @@ import android.widget.FrameLayout;
 
 import com.maverick.R;
 import com.maverick.adapter.SinaItemFragmentAdapter;
-import com.maverick.base.BaseFragment2;
+import com.maverick.base.BaseFragment;
 import com.maverick.bean.SinaInfo;
 import com.maverick.bean.SinaTabInfo;
 import com.maverick.global.Tag;
@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/9/30.
  */
-public class SinaItemFragment extends BaseFragment2 implements ISinaItemFragmentView {
+public class SinaItemFragment extends BaseFragment implements ISinaItemFragmentView {
 
     private PullLoadMoreRecyclerView pullLoadMoreRecyclerView;
     private SinaItemFragmentAdapter mAdapter;

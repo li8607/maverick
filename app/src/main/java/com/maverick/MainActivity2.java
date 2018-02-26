@@ -22,7 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.maverick.base.BaseActivity;
-import com.maverick.base.BaseFragment2;
+import com.maverick.base.BaseFragment;
 import com.maverick.bean.ButtonInfo;
 import com.maverick.factory.FragmentFactory;
 import com.maverick.fragment.CaricatureFragment;
@@ -42,7 +42,7 @@ import java.util.List;
  */
 public class MainActivity2 extends BaseActivity {
 
-    private BaseFragment2 fragment_0, fragment_1, fragment_2, fragment_3, fragment_4;
+    private BaseFragment fragment_0, fragment_1, fragment_2, fragment_3, fragment_4;
     private TextView mTitle;
     private CoordinatorLayout mCoordinatorLayout;
     private AppBarLayout mAppBarLayout;
@@ -218,19 +218,19 @@ public class MainActivity2 extends BaseActivity {
         mList.add(getButtonInfo(getString(R.string.fragment_my), 0, FragmentType.MY));
 
         if (savedInstanceState != null) {
-            fragment_0 = (BaseFragment2) getSupportFragmentManager().findFragmentByTag(SisterFragment.class.getName());
-            fragment_1 = (BaseFragment2) getSupportFragmentManager().findFragmentByTag(CaricatureFragment.class.getName());
-            fragment_2 = (BaseFragment2) getSupportFragmentManager().findFragmentByTag(PearFragment.class.getName());
-            fragment_3 = (BaseFragment2) getSupportFragmentManager().findFragmentByTag(JokeFragment.class.getName());
-            fragment_4 = (BaseFragment2) getSupportFragmentManager().findFragmentByTag(MyFragment.class.getName());
+            fragment_0 = (BaseFragment) getSupportFragmentManager().findFragmentByTag(SisterFragment.class.getName());
+            fragment_1 = (BaseFragment) getSupportFragmentManager().findFragmentByTag(CaricatureFragment.class.getName());
+            fragment_2 = (BaseFragment) getSupportFragmentManager().findFragmentByTag(PearFragment.class.getName());
+            fragment_3 = (BaseFragment) getSupportFragmentManager().findFragmentByTag(JokeFragment.class.getName());
+            fragment_4 = (BaseFragment) getSupportFragmentManager().findFragmentByTag(MyFragment.class.getName());
         } else {
             mBottomNavigationView.setSelectedItemId(R.id.navigation_sister);
         }
     }
 
-    private BaseFragment2 mFragment;
+    private BaseFragment mFragment;
 
-    private void switchFragment(BaseFragment2 fragment) {
+    private void switchFragment(BaseFragment fragment) {
 
         if (fragment == null || fragment.isVisible() || getSupportFragmentManager() == null || fragment.equals(getSupportFragmentManager().getPrimaryNavigationFragment())) {
             return;
@@ -270,7 +270,7 @@ public class MainActivity2 extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        if (getSupportFragmentManager().getPrimaryNavigationFragment() != null && ((BaseFragment2) (getSupportFragmentManager().getPrimaryNavigationFragment())).onBackPressed()) {
+        if (getSupportFragmentManager().getPrimaryNavigationFragment() != null && ((BaseFragment) (getSupportFragmentManager().getPrimaryNavigationFragment())).onBackPressed()) {
             return;
         }
 

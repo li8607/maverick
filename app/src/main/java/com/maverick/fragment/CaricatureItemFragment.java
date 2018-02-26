@@ -12,7 +12,7 @@ import android.widget.FrameLayout;
 import com.maverick.R;
 import com.maverick.adapter.CaricatureItemFragmentAdapter;
 import com.maverick.adapter.holder.CaricatureItemViewHolder;
-import com.maverick.base.BaseFragment2;
+import com.maverick.base.BaseFragment;
 import com.maverick.bean.CaricatureInfo;
 import com.maverick.bean.CaricatureTabInfo;
 import com.maverick.bean.MenuDetailInfo;
@@ -30,7 +30,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/9/30.
  */
-public class CaricatureItemFragment extends BaseFragment2 implements ICaricatureItemFragmentView {
+public class CaricatureItemFragment extends BaseFragment implements ICaricatureItemFragmentView {
 
     private PullLoadMoreRecyclerView pullLoadMoreRecyclerView;
     private CaricatureItemFragmentAdapter mAdapter;
