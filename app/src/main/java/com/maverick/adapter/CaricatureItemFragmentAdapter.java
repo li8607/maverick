@@ -17,6 +17,9 @@ import java.util.List;
  */
 public class CaricatureItemFragmentAdapter extends RecyclerView.Adapter {
 
+    public static final int TYPE_TEXT = 1;
+    public static final int TYPE_IMAGE = 2;
+
     private Context mContext;
     private List<CaricatureInfo> mList;
 
@@ -26,8 +29,17 @@ public class CaricatureItemFragmentAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        CaricatureItemViewHolder holder = new CaricatureOneImageViewHolder(LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_caricature_image_one, parent, false));
+        CaricatureItemViewHolder holder;
+        switch (viewType) {
+            case TYPE_IMAGE:
+                holder = new CaricatureOneImageViewHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_caricature_image_one, parent, false));
+                break;
+            default:
+                holder = new CaricatureItemViewHolder(LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_caricature_text, parent, false));
+                break;
+        }
         holder.setOnListener(mOnListener);
         return holder;
     }
@@ -41,6 +53,15 @@ public class CaricatureItemFragmentAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return mList == null ? 0 : mList.size();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+
+        if (mList.get(position).getThumbnailList() != null && mList.get(position).getThumbnailList().size() > 0) {
+            return TYPE_IMAGE;
+        }
+        return TYPE_TEXT;
     }
 
     public void setMoreData(List<CaricatureInfo> list) {
