@@ -216,4 +216,12 @@ public class JokeItemFragmentPresenter extends BasePresenter {
             }
         });
     }
+
+    public int getPage() {
+        return mPage;
+    }
+
+    public void setPage(int page) {
+        mPage = page;
+    }
 }

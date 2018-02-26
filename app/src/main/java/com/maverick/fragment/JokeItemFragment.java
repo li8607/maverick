@@ -2,6 +2,8 @@ package com.maverick.fragment;
 
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
@@ -22,12 +24,15 @@ import com.maverick.presenter.JokeItemFragmentPresenter;
 import com.maverick.presenter.implView.IJokeItemFragmentView;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by ll on 2017/5/22.
  */
 public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentView {
+
+    private boolean re = false;
 
     private JokeItemFragmentPresenter mPresenter;
     private JokeItemFragmentAdapter mJokeItemFragmentAdapter;
@@ -59,7 +64,6 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
 
     @Override
     protected void onInitView(View view) {
-
         root = findView(R.id.root);
 
         pullLoadMoreRecyclerView = findView(R.id.recyclerView);
@@ -101,9 +105,30 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
     }
 
     @Override
-    protected void onInitData(Bundle savedInstanceState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        outState.putInt("page", mPresenter.getPage());
+        outState.putSerializable("data", (Serializable) mJokeItemFragmentAdapter.getData());
+        outState.putParcelable("state", pullLoadMoreRecyclerView.getLayoutManager().onSaveInstanceState());
+        super.onSaveInstanceState(outState);
+    }
 
+    @Override
+    protected void onInitData(Bundle savedInstanceState) {
         mJokeTabInfo = (JokeTabInfo) getArguments().getSerializable(Tag.KEY_INFO);
+
+        if (savedInstanceState != null) {
+            mPresenter.setPage(savedInstanceState.getInt("page", 1));
+            List<GifInfo> list = (List<GifInfo>) savedInstanceState.getSerializable("data");
+            if (list != null && list.size() > 0) {
+                Parcelable parcelable = savedInstanceState.getParcelable("state");
+                if (parcelable != null) {
+                    pullLoadMoreRecyclerView.getLayoutManager().onRestoreInstanceState(parcelable);
+                }
+
+                onShowSuccessView(list);
+                return;
+            }
+        }
 
         pullLoadMoreRecyclerView.setRefreshing(true);
         pullLoadMoreRecyclerView.refresh();
@@ -119,6 +144,7 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
 
     @Override
     public void onShowSuccessView(List<GifInfo> gifInfos) {
+        re = true;
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
         pullLoadMoreRecyclerView.setHasMore(true);
         mJokeItemFragmentAdapter.setData(gifInfos);
