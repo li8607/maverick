@@ -74,6 +74,10 @@ public class CaricatureItemFragmentAdapter extends RecyclerView.Adapter {
         this.mList = list;
     }
 
+    public List<CaricatureInfo> getData() {
+        return mList;
+    }
+
     private CaricatureItemViewHolder.OnListener mOnListener;
 
     public void setOnListener(CaricatureItemViewHolder.OnListener listener) {

@@ -10,6 +10,7 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.FrameLayout;
 
 import com.maverick.R;
@@ -31,8 +32,6 @@ import java.util.List;
  * Created by ll on 2017/5/22.
  */
 public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentView {
-
-    private boolean re = false;
 
     private JokeItemFragmentPresenter mPresenter;
     private JokeItemFragmentAdapter mJokeItemFragmentAdapter;
@@ -106,9 +105,11 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putInt("page", mPresenter.getPage());
-        outState.putSerializable("data", (Serializable) mJokeItemFragmentAdapter.getData());
-        outState.putParcelable("state", pullLoadMoreRecyclerView.getLayoutManager().onSaveInstanceState());
+        if(mJokeItemFragmentAdapter.getData() != null) {
+            outState.putInt("page", mPresenter.getPage());
+            outState.putSerializable("data", (Serializable) mJokeItemFragmentAdapter.getData());
+            outState.putParcelable("state", pullLoadMoreRecyclerView.getLayoutManager().onSaveInstanceState());
+        }
         super.onSaveInstanceState(outState);
     }
 
@@ -144,7 +145,6 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
 
     @Override
     public void onShowSuccessView(List<GifInfo> gifInfos) {
-        re = true;
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
         pullLoadMoreRecyclerView.setHasMore(true);
         mJokeItemFragmentAdapter.setData(gifInfos);
@@ -228,4 +228,22 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
             }
         }
     };
+
+//    @Override
+//    public void onDestroyView() {
+//        unbindDrawables(getView());
+//        super.onDestroyView();
+//    }
+//
+//    private void unbindDrawables(View view) {
+//        if (view.getBackground() != null) {
+//            view.getBackground().setCallback(null);
+//        }
+//        if (view instanceof ViewGroup && !(view instanceof AdapterView)) {
+//            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
+//                unbindDrawables(((ViewGroup) view).getChildAt(i));
+//            }
+//            ((ViewGroup) view).removeAllViews();
+//        }
+//    }
 }

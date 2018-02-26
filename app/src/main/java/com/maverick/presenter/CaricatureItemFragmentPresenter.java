@@ -79,8 +79,16 @@ public class CaricatureItemFragmentPresenter extends BasePresenter {
 
             @Override
             public void onFail() {
-                mView.onShowErrorView();
+                mView.onLoadMoreFail();
             }
         });
+    }
+
+    public int getPage() {
+        return mPage;
+    }
+
+    public void setPage(int mPage) {
+        this.mPage = mPage;
     }
 }

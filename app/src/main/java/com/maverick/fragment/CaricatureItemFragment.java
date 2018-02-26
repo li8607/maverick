@@ -2,6 +2,8 @@ package com.maverick.fragment;
 
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -25,6 +27,7 @@ import com.maverick.presenter.implView.ICaricatureItemFragmentView;
 import com.maverick.util.DensityUtil;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -123,8 +126,32 @@ public class CaricatureItemFragment extends BaseFragment implements ICaricatureI
     @Override
     protected void onInitData(Bundle savedInstanceState) {
         mInfo = (CaricatureTabInfo) getArguments().getSerializable(Tag.KEY_INFO);
+
+        if (savedInstanceState != null) {
+            mPresenter.setPage(savedInstanceState.getInt("page", 1));
+            List<CaricatureInfo> list = (List<CaricatureInfo>) savedInstanceState.getSerializable("data");
+            if (list != null || list.size() > 0) {
+                Parcelable parcelable = savedInstanceState.getParcelable("state");
+                if (parcelable != null) {
+                    pullLoadMoreRecyclerView.getLayoutManager().onRestoreInstanceState(parcelable);
+                }
+                onShowSuccessView(list, true);
+                return;
+            }
+        }
+
         pullLoadMoreRecyclerView.setRefreshing(true);
         pullLoadMoreRecyclerView.refresh();
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        if (mAdapter.getData() != null) {
+            outState.putInt("page", mPresenter.getPage());
+            outState.putSerializable("data", (Serializable) mAdapter.getData());
+            outState.putParcelable("state", pullLoadMoreRecyclerView.getLayoutManager().onSaveInstanceState());
+        }
+        super.onSaveInstanceState(outState);
     }
 
     @Override

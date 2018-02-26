@@ -32,12 +32,11 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         @LayoutRes int layoutResID = getRootViewId();
-        mView = null;
-        if (layoutResID != 0) {
+        if (mView == null && layoutResID != 0) {
             mView = inflater.inflate(layoutResID, container, false);
+            onInitView(mView);
+            onInitData(savedInstanceState);
         }
-        onInitView(mView);
-        onInitData(savedInstanceState);
         return mView;
     }
 

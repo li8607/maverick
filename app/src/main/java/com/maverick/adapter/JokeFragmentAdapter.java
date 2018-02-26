@@ -2,6 +2,7 @@ package com.maverick.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.maverick.bean.JokeTabInfo;
@@ -12,7 +13,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2017/9/25.
  */
-public class JokeFragmentAdapter extends FragmentStatePagerAdapter {
+public class JokeFragmentAdapter extends FragmentPagerAdapter {
 
     private List<JokeTabInfo> mList;
 
