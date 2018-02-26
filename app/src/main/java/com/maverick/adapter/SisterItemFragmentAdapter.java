@@ -56,7 +56,6 @@ public class SisterItemFragmentAdapter extends RecyclerView.Adapter {
             default:
                 holder = new SisterTextHolder(LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.item_sister_text, parent, false));
-                ;
                 break;
         }
         holder.setOnSisterTextHolderListener(mListener);
