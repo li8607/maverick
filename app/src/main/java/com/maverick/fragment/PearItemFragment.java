@@ -1,13 +1,10 @@
 package com.maverick.fragment;
 
-import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +14,6 @@ import com.maverick.PearActivity;
 import com.maverick.R;
 import com.maverick.adapter.PearItemFragmentAdapter;
 import com.maverick.adapter.holder.PearBannerViewHolder;
-import com.maverick.adapter.holder.PearImageViewHolder;
 import com.maverick.base.BaseFragment;
 import com.maverick.bean.PearVideoInfo;
 import com.maverick.bean.PearVideoTabInfo;
@@ -28,9 +24,6 @@ import com.maverick.presenter.implView.IPearItemFragmentView;
 import com.maverick.util.DensityUtil;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.List;
 
 /**
@@ -114,7 +107,7 @@ public class PearItemFragment extends BaseFragment implements IPearItemFragmentV
                 if (position % 2 == 0) {
                     outRect.right = DensityUtil.dip2px(getContext(), 1);
                 } else {
-                    outRect.left =  DensityUtil.dip2px(getContext(), 1);
+                    outRect.left = DensityUtil.dip2px(getContext(), 1);
                 }
             }
         });
@@ -233,7 +226,12 @@ public class PearItemFragment extends BaseFragment implements IPearItemFragmentV
 
     @Override
     public void onLoadMoreFail() {
-        pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+        pullLoadMoreRecyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+            }
+        });
     }
 
     @Override
@@ -248,49 +246,6 @@ public class PearItemFragment extends BaseFragment implements IPearItemFragmentV
                     pearBannerViewHolder.onStart();
                 } else {
                     pearBannerViewHolder.onStop();
-                }
-            }
-        }
-    }
-
-    @Override
-    public void refreshUI() {
-        //让 RecyclerView 缓存在 Pool 中的 Item 失效
-        //那么，如果是ListView，要怎么做呢？这里的思路是通过反射拿到 AbsListView 类中的 RecycleBin 对象，然后同样再用反射去调用 clear 方法
-        Class<RecyclerView> recyclerViewClass = RecyclerView.class;
-        try {
-            Field declaredField = recyclerViewClass.getDeclaredField("mRecycler");
-            declaredField.setAccessible(true);
-            Method declaredMethod = Class.forName(RecyclerView.Recycler.class.getName()).getDeclaredMethod("clear", (Class<?>[]) new Class[0]);
-            declaredMethod.setAccessible(true);
-            declaredMethod.invoke(declaredField.get(mRecyclerView), new Object[0]);
-            RecyclerView.RecycledViewPool recycledViewPool = mRecyclerView.getRecycledViewPool();
-            recycledViewPool.clear();
-
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
-        TypedValue textColorHighlight = new TypedValue();
-        Resources.Theme theme = getActivity().getTheme();
-        theme.resolveAttribute(R.attr.textColorHighlight, textColorHighlight, true);
-
-        if (mRecyclerView != null) {
-
-            for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
-                RecyclerView.ViewHolder holder = mRecyclerView.getChildViewHolder(mRecyclerView.getChildAt(i));
-
-                if (holder != null && holder instanceof PearImageViewHolder) {
-                    PearImageViewHolder pearImageViewHolder = (PearImageViewHolder) holder;
-                    pearImageViewHolder.label.setTextColor(ContextCompat.getColor(getContext(), textColorHighlight.resourceId));
                 }
             }
         }

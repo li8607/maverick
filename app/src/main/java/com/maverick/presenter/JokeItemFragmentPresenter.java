@@ -224,4 +224,8 @@ public class JokeItemFragmentPresenter extends BasePresenter {
     public void setPage(int page) {
         mPage = page;
     }
+
+    public void setJokeTabInfo(JokeTabInfo info) {
+        this.mJokeTabInfo = info;
+    }
 }

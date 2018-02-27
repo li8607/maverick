@@ -405,7 +405,12 @@ public class SisterItemFragment extends BaseFragment implements ISisterItemFragm
 
     @Override
     public void onLoadMoreFail() {
-        pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+        pullLoadMoreRecyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+            }
+        });
     }
 
     @Override
@@ -486,52 +491,5 @@ public class SisterItemFragment extends BaseFragment implements ISisterItemFragm
         super.onDestroyView();
         listVideoUtil.releaseVideoPlayer();
         GSYVideoPlayer.releaseAllVideos();
-    }
-
-    @Override
-    public void refreshUI() {
-        //让 RecyclerView 缓存在 Pool 中的 Item 失效
-        //那么，如果是ListView，要怎么做呢？这里的思路是通过反射拿到 AbsListView 类中的 RecycleBin 对象，然后同样再用反射去调用 clear 方法
-        Class<RecyclerView> recyclerViewClass = RecyclerView.class;
-        try {
-            Field declaredField = recyclerViewClass.getDeclaredField("mRecycler");
-            declaredField.setAccessible(true);
-            Method declaredMethod = Class.forName(RecyclerView.Recycler.class.getName()).getDeclaredMethod("clear", (Class<?>[]) new Class[0]);
-            declaredMethod.setAccessible(true);
-            declaredMethod.invoke(declaredField.get(mRecyclerView), new Object[0]);
-            RecyclerView.RecycledViewPool recycledViewPool = mRecyclerView.getRecycledViewPool();
-            recycledViewPool.clear();
-
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
-        TypedValue textColorHighlight = new TypedValue();
-        Resources.Theme theme = getActivity().getTheme();
-        theme.resolveAttribute(R.attr.textColorHighlight, textColorHighlight, true);
-
-        if (mRecyclerView != null) {
-
-            for (int i = 0; i < mRecyclerView.getChildCount(); i++) {
-                RecyclerView.ViewHolder holder = mRecyclerView.getChildViewHolder(mRecyclerView.getChildAt(i));
-
-                if (holder != null && holder instanceof SisterTextHolder) {
-                    SisterTextHolder sisterTextHolder = (SisterTextHolder) holder;
-                    sisterTextHolder.name.setTextColor(ContextCompat.getColor(getContext(), textColorHighlight.resourceId));
-                    sisterTextHolder.text_ding_count.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.operation_count_day_selector));
-                    sisterTextHolder.text_cai_count.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.operation_count_day_selector));
-                    sisterTextHolder.text_comment_count.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.operation_count_day_selector));
-                    sisterTextHolder.text_share_count.setTextColor(ContextCompat.getColorStateList(getContext(), R.color.operation_count_day_selector));
-                }
-            }
-        }
     }
 }

@@ -116,7 +116,7 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
     @Override
     protected void onInitData(Bundle savedInstanceState) {
         mJokeTabInfo = (JokeTabInfo) getArguments().getSerializable(Tag.KEY_INFO);
-
+        mPresenter.setJokeTabInfo(mJokeTabInfo);
         if (savedInstanceState != null) {
             mPresenter.setPage(savedInstanceState.getInt("page", 1));
             List<GifInfo> list = (List<GifInfo>) savedInstanceState.getSerializable("data");
@@ -204,7 +204,12 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
 
     @Override
     public void onLoadMoreFail() {
-        pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+        pullLoadMoreRecyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+            }
+        });
     }
 
     @Override

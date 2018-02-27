@@ -1,7 +1,6 @@
 package com.maverick.presenter;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.maverick.bean.CaricatureInfo;
 import com.maverick.bean.CaricatureTabInfo;
@@ -90,5 +89,9 @@ public class CaricatureItemFragmentPresenter extends BasePresenter {
 
     public void setPage(int mPage) {
         this.mPage = mPage;
+    }
+
+    public void setCaricatureTabInfo(CaricatureTabInfo info) {
+        this.mInfo = info;
     }
 }

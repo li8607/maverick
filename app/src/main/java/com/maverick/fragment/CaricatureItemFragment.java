@@ -126,16 +126,16 @@ public class CaricatureItemFragment extends BaseFragment implements ICaricatureI
     @Override
     protected void onInitData(Bundle savedInstanceState) {
         mInfo = (CaricatureTabInfo) getArguments().getSerializable(Tag.KEY_INFO);
-
+        mPresenter.setCaricatureTabInfo(mInfo);
         if (savedInstanceState != null) {
             mPresenter.setPage(savedInstanceState.getInt("page", 1));
             List<CaricatureInfo> list = (List<CaricatureInfo>) savedInstanceState.getSerializable("data");
-            if (list != null || list.size() > 0) {
+            if (list != null && list.size() > 0) {
                 Parcelable parcelable = savedInstanceState.getParcelable("state");
                 if (parcelable != null) {
                     pullLoadMoreRecyclerView.getLayoutManager().onRestoreInstanceState(parcelable);
                 }
-                onShowSuccessView(list, true);
+                onShowSuccessView(list, savedInstanceState.getBoolean("hasMore", false));
                 return;
             }
         }
@@ -150,6 +150,7 @@ public class CaricatureItemFragment extends BaseFragment implements ICaricatureI
             outState.putInt("page", mPresenter.getPage());
             outState.putSerializable("data", (Serializable) mAdapter.getData());
             outState.putParcelable("state", pullLoadMoreRecyclerView.getLayoutManager().onSaveInstanceState());
+            outState.putBoolean("hasMore", pullLoadMoreRecyclerView.isHasMore());
         }
         super.onSaveInstanceState(outState);
     }
@@ -214,6 +215,11 @@ public class CaricatureItemFragment extends BaseFragment implements ICaricatureI
 
     @Override
     public void onLoadMoreFail() {
-        pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+        pullLoadMoreRecyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+            }
+        });
     }
 }
