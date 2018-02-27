@@ -3,8 +3,6 @@ package com.maverick;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.PointF;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -16,26 +14,18 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.davemorrissey.labs.subscaleview.ImageSource;
-import com.davemorrissey.labs.subscaleview.ImageViewState;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.maverick.base.BaseActivity;
 import com.maverick.bean.BigImgInfo;
 import com.maverick.bean.MenuDetailInfo;
-import com.maverick.dialog.MultifunctionalDialog;
 import com.maverick.dialog.MenuDialog;
+import com.maverick.dialog.MultifunctionalDialog;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.DetailActivityPresenter;
 import com.maverick.presenter.implView.IDetailActivityView;
-import com.maverick.type.MenuType;
 import com.maverick.type.ShareType;
 import com.maverick.util.GlideUtil;
 import com.umeng.socialize.UMShareAPI;
-
-import java.io.File;
 
 /**
  * Created by ll on 2017/5/25.
@@ -46,6 +36,7 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
     private ImageView image_detail;
     private SubsamplingScaleImageView mSubsamplingScaleImageView;
     private BigImgInfo mBigImgInfo;
+    private ImageView imageView2;
 
     public static void launch(Activity activity, View transitionView, BigImgInfo info) {
 
@@ -95,6 +86,8 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
 
         image_detail.setOnLongClickListener(this);
         mSubsamplingScaleImageView.setOnLongClickListener(this);
+
+        imageView2 = findView(R.id.imageView2);
     }
 
     private void showMultifunctionalDialog() {
@@ -122,17 +115,18 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
 
     @Override
     public void onShowImageView(String imgUrl) {
-        mSubsamplingScaleImageView.setVisibility(View.VISIBLE);
-        ViewCompat.setTransitionName(mSubsamplingScaleImageView, EXTRA_IMAGE);
-        //下载图片保存到本地
-        Glide.with(this)
-                .load(imgUrl).downloadOnly(new SimpleTarget<File>() {
-            @Override
-            public void onResourceReady(File resource, GlideAnimation<? super File> glideAnimation) {
-                // 将保存的图片地址给SubsamplingScaleImageView,这里注意设置ImageViewState设置初始显示比例
-                mSubsamplingScaleImageView.setImage(ImageSource.uri(Uri.fromFile(resource)), new ImageViewState(2.0F, new PointF(0, 0), 0));
-            }
-        });
+        imageView2.setVisibility(View.VISIBLE);
+        ViewCompat.setTransitionName(imageView2, EXTRA_IMAGE);
+        GlideUtil.loadImage(this, imgUrl, imageView2);
+//        //下载图片保存到本地
+//        Glide.with(this)
+//                .load(imgUrl).downloadOnly(new SimpleTarget<File>() {
+//            @Override
+//            public void onResourceReady(File resource, GlideAnimation<? super File> glideAnimation) {
+//                // 将保存的图片地址给SubsamplingScaleImageView,这里注意设置ImageViewState设置初始显示比例
+//                mSubsamplingScaleImageView.setImage(ImageSource.uri(Uri.fromFile(resource)), new ImageViewState(2.0F, new PointF(0, 0), 0));
+//            }
+//        });
     }
 
     @Override

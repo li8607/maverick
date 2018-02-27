@@ -31,7 +31,7 @@ public abstract class BaseActivity extends AppCompatActivity implements BGASwipe
         // 在 super.onCreate(savedInstanceState) 之前调用该方法
         setTheme(MainApp.getInstance().getCustomTheme());
         super.onCreate(savedInstanceState);
-        initSwipeBackFinish();
+//        initSwipeBackFinish();
         onActivityCreated(savedInstanceState);
     }
 
@@ -95,14 +95,14 @@ public abstract class BaseActivity extends AppCompatActivity implements BGASwipe
         mSwipeBackHelper.swipeBackward();
     }
 
-    @Override
-    public void onBackPressed() {
-        // 正在滑动返回的时候取消返回按钮事件
-        if (mSwipeBackHelper.isSliding()) {
-            return;
-        }
-        mSwipeBackHelper.backward();
-    }
+//    @Override
+//    public void onBackPressed() {
+//        // 正在滑动返回的时候取消返回按钮事件
+//        if (mSwipeBackHelper.isSliding()) {
+//            return;
+//        }
+//        mSwipeBackHelper.backward();
+//    }
 
     private void onActivityCreated(Bundle savedInstanceState) {
         @LayoutRes int layoutResID = getRootViewId();

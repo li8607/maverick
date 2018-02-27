@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.maverick.DetailActivity;
 import com.maverick.R;
@@ -17,15 +18,14 @@ import com.maverick.weight.RatioImageView;
  */
 public class JokeImgViewHolder extends JokeTextViewHolder {
 
-    private final RatioImageView img;
+    private final ImageView img;
     private GifInfo mGifInfo;
     private Context mContext;
 
     public JokeImgViewHolder(View itemView) {
         super(itemView);
-        img = (RatioImageView) itemView.findViewById(R.id.img);
+        img = itemView.findViewById(R.id.img);
         img.setOnClickListener(this);
-        img.setOriginalSize(4, 3);
     }
 
     @Override
