@@ -18,7 +18,7 @@ import com.maverick.weight.RatioImageView;
  */
 public class JokeImgViewHolder extends JokeTextViewHolder {
 
-    private final ImageView img;
+    public final ImageView img;
     private GifInfo mGifInfo;
     private Context mContext;
 
@@ -42,19 +42,5 @@ public class JokeImgViewHolder extends JokeTextViewHolder {
         }
 
         GlideUtil.loadImage(context, gifInfo.getImg(), img);
-    }
-
-    @Override
-    public void onClick(View v) {
-        super.onClick(v);
-
-
-        switch (v.getId()) {
-            case R.id.img:
-                BigImgInfo bigImgInfo = new BigImgInfo();
-                bigImgInfo.setImg(mGifInfo.img);
-                DetailActivity.launch((Activity) mContext, img, bigImgInfo);
-                break;
-        }
     }
 }

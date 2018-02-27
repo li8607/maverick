@@ -30,6 +30,8 @@ public class JokeItemFragmentPresenter extends BasePresenter {
 
     private JokeTabInfo mJokeTabInfo;
 
+    private List<GifInfo> mList;
+
     public JokeItemFragmentPresenter(Context context, IJokeItemFragmentView view) {
         this.mView = view;
         this.mModel = new JokeModel();
@@ -58,18 +60,33 @@ public class JokeItemFragmentPresenter extends BasePresenter {
         }
     }
 
+    public void success(List<GifInfo> list) {
+        if (list != null && list.size() > 1) {
+            checkCollect(list);
+            mView.onShowSuccessView(list, list.size() >= mNum);
+        } else {
+            mView.onShowEmptyView();
+        }
+    }
+
+    public void successLoadMore(List<GifInfo> list) {
+        int positionStart = 0;
+        checkCollect(list);
+        if (mList != null) {
+            positionStart = mList.size();
+            mList.addAll(list);
+        } else {
+            mList = list;
+        }
+        mView.onLoadMoreSuccess(mList, positionStart, list.size(), list.size() >= mNum);
+    }
+
     private void refreshGifData() {
         mModel.requestGifData(1, mNum, new IJokeModel.OnGifResultListener() {
             @Override
             public void onSuccess(GifInfoObj infoObj) {
-
-                if (infoObj.showapi_res_body.contentlist != null && infoObj.showapi_res_body.contentlist.size() > 1) {
-                    checkCollect(infoObj.showapi_res_body.contentlist);
-                    mView.onShowSuccessView(infoObj.showapi_res_body.contentlist, infoObj.showapi_res_body.contentlist.size() >= mNum);
-                } else {
-                    mView.onShowEmptyView();
-                }
-
+                mList = infoObj.showapi_res_body.contentlist;
+                JokeItemFragmentPresenter.this.success(mList);
                 mPage = 1;
             }
 
@@ -99,14 +116,8 @@ public class JokeItemFragmentPresenter extends BasePresenter {
         mModel.requestImgData(1, mNum, new IJokeModel.OnImgResultListener() {
             @Override
             public void onSuccess(GifInfoObj infoObj) {
-
-                if (infoObj.showapi_res_body.contentlist != null && infoObj.showapi_res_body.contentlist.size() > 1) {
-                    checkCollect(infoObj.showapi_res_body.contentlist);
-                    mView.onShowSuccessView(infoObj.showapi_res_body.contentlist, infoObj.showapi_res_body.contentlist.size() >= mNum);
-                } else {
-                    mView.onShowEmptyView();
-                }
-
+                mList = infoObj.showapi_res_body.contentlist;
+                JokeItemFragmentPresenter.this.success(mList);
                 mPage = 1;
             }
 
@@ -121,14 +132,8 @@ public class JokeItemFragmentPresenter extends BasePresenter {
         mModel.requestTextData(1, mNum, new IJokeModel.OnTextResultListener() {
             @Override
             public void onSuccess(GifInfoObj infoObj) {
-
-                if (infoObj.showapi_res_body.contentlist != null && infoObj.showapi_res_body.contentlist.size() > 1) {
-                    checkCollect(infoObj.showapi_res_body.contentlist);
-                    mView.onShowSuccessView(infoObj.showapi_res_body.contentlist, infoObj.showapi_res_body.contentlist.size() >= mNum);
-                } else {
-                    mView.onShowEmptyView();
-                }
-
+                mList = infoObj.showapi_res_body.contentlist;
+                JokeItemFragmentPresenter.this.success(mList);
                 mPage = 1;
             }
 
@@ -173,8 +178,7 @@ public class JokeItemFragmentPresenter extends BasePresenter {
         mModel.requestGifData(mPage + 1, mNum, new IJokeModel.OnGifResultListener() {
             @Override
             public void onSuccess(GifInfoObj infoObj) {
-                checkCollect(infoObj.showapi_res_body.contentlist);
-                mView.onLoadMoreSuccess(infoObj.showapi_res_body.contentlist, true);
+                successLoadMore(infoObj.showapi_res_body.contentlist);
                 mPage++;
             }
 
@@ -189,8 +193,7 @@ public class JokeItemFragmentPresenter extends BasePresenter {
         mModel.requestImgData(mPage + 1, mNum, new IJokeModel.OnImgResultListener() {
             @Override
             public void onSuccess(GifInfoObj infoObj) {
-                checkCollect(infoObj.showapi_res_body.contentlist);
-                mView.onLoadMoreSuccess(infoObj.showapi_res_body.contentlist, true);
+                successLoadMore(infoObj.showapi_res_body.contentlist);
                 mPage++;
             }
 
@@ -205,8 +208,7 @@ public class JokeItemFragmentPresenter extends BasePresenter {
         mModel.requestTextData(mPage + 1, mNum, new IJokeModel.OnTextResultListener() {
             @Override
             public void onSuccess(GifInfoObj infoObj) {
-                checkCollect(infoObj.showapi_res_body.contentlist);
-                mView.onLoadMoreSuccess(infoObj.showapi_res_body.contentlist, true);
+                successLoadMore(infoObj.showapi_res_body.contentlist);
                 mPage++;
             }
 
@@ -227,5 +229,13 @@ public class JokeItemFragmentPresenter extends BasePresenter {
 
     public void setJokeTabInfo(JokeTabInfo info) {
         this.mJokeTabInfo = info;
+    }
+
+    public List<GifInfo> getData() {
+        return mList;
+    }
+
+    public void setData(List<GifInfo> mList) {
+        this.mList = mList;
     }
 }

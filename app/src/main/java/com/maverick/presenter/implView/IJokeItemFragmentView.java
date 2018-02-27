@@ -15,7 +15,7 @@ public interface IJokeItemFragmentView {
 
     void onShowErrorView();
 
-    void onLoadMoreSuccess(List<GifInfo> beautyInfo, boolean isHasMore);
+    void onLoadMoreSuccess(List<GifInfo> list, int positionStart, int count, boolean isHasMore);
 
     void onLoadMoreFail();
 }

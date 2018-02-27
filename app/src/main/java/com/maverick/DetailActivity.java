@@ -27,11 +27,15 @@ import com.maverick.type.ShareType;
 import com.maverick.util.GlideUtil;
 import com.umeng.socialize.UMShareAPI;
 
+import java.io.Serializable;
+import java.util.List;
+
 /**
  * Created by ll on 2017/5/25.
  */
 public class DetailActivity extends BaseActivity implements IDetailActivityView, View.OnLongClickListener {
     public static final String EXTRA_IMAGE = "DetailActivity:image";
+    public static final String EXTRA_IMAGE2 = "DetailActivity:image";
     private DetailActivityPresenter mPresenter;
     private ImageView image_detail;
     private SubsamplingScaleImageView mSubsamplingScaleImageView;
@@ -48,6 +52,21 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
 
         Intent intent = new Intent(activity, DetailActivity.class);
         intent.putExtra(EXTRA_IMAGE, info);
+
+        ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
+    }
+
+    public static void launch(Activity activity, View transitionView, List<BigImgInfo> bigImgInfos, int position) {
+
+        if (bigImgInfos == null || bigImgInfos.size() < 1) {
+            return;
+        }
+
+        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, transitionView, EXTRA_IMAGE);
+
+        Intent intent = new Intent(activity, DetailActivity.class);
+        intent.putExtra(EXTRA_IMAGE2, (Serializable) bigImgInfos);
+        intent.putExtra(EXTRA_IMAGE, bigImgInfos.get(position));
 
         ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
     }

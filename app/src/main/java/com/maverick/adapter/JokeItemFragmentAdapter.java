@@ -58,9 +58,29 @@ public class JokeItemFragmentAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        JokeTextViewHolder mMyViewHolder = (JokeTextViewHolder) holder;
-        mMyViewHolder.bindData(mContext, mList.get(position));
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        JokeTextViewHolder jokeTextViewHolder;
+        final GifInfo gifInfo = mList.get(position);
+        switch (holder.getItemViewType()) {
+            case JOKE_IMG:
+            case JOKE_GIF:
+                JokeImgViewHolder mMyViewHolder = (JokeImgViewHolder) holder;
+                jokeTextViewHolder = mMyViewHolder;
+                if (mOnItemClickListener != null) {
+                    mMyViewHolder.img.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            mOnItemClickListener.onItemClick(view, position, gifInfo);
+                        }
+                    });
+                }
+                break;
+            default:
+                jokeTextViewHolder = (JokeTextViewHolder) holder;
+                break;
+        }
+
+        jokeTextViewHolder.bindData(mContext, gifInfo);
     }
 
     @Override
@@ -82,18 +102,20 @@ public class JokeItemFragmentAdapter extends RecyclerView.Adapter {
     }
 
     public void setData(List<GifInfo> list) {
-        if (list != null) {
-            this.mList = list;
-        }
-    }
-
-    public void setMoreData(List<GifInfo> list) {
-        if (list != null) {
-            mList.addAll(list);
-        }
+        this.mList = list;
     }
 
     public List<GifInfo> getData() {
         return mList;
+    }
+
+    private OnItemClickListener mOnItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mOnItemClickListener = listener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position, GifInfo gifInfo);
     }
 }

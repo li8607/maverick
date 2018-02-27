@@ -18,6 +18,9 @@ import com.maverick.global.Tag;
 import com.maverick.type.CollectType;
 import com.maverick.type.ShareType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import cntv.greendaolibrary.dbbean.Collect;
 import cntv.greendaolibrary.dbbean.History;
 
@@ -180,6 +183,16 @@ public class BeanHelper {
 //        collect.setCollectImage(sisterInfo.getImage2());
 //        collect.setCollectItemType(sisterInfo.getType());
         return bigImgInfo;
+    }
+
+    public static List<BigImgInfo> getBigImgInfo(List<GifInfo> list) {
+        List<BigImgInfo> bigImgInfos = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            BigImgInfo bigImgInfo = new BigImgInfo();
+            bigImgInfo.setImg(list.get(i).img);
+            bigImgInfos.add(bigImgInfo);
+        }
+        return bigImgInfos;
     }
 
     public static WebDetailInfo getWebDetailInfo(CaricatureInfo info) {

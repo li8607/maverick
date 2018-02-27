@@ -12,12 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.maverick.DetailActivity;
 import com.maverick.R;
 import com.maverick.adapter.JokeItemFragmentAdapter;
 import com.maverick.base.BaseFragment;
 import com.maverick.bean.GifInfo;
 import com.maverick.bean.JokeTabInfo;
 import com.maverick.global.Tag;
+import com.maverick.hepler.BeanHelper;
 import com.maverick.model.CollectModel;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.JokeItemFragmentPresenter;
@@ -74,6 +76,17 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
         mJokeItemFragmentAdapter = new JokeItemFragmentAdapter(getContext());
         mRecyclerView.setAdapter(mJokeItemFragmentAdapter);
 
+        mJokeItemFragmentAdapter.setOnItemClickListener(new JokeItemFragmentAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position, GifInfo gifInfo) {
+                if (getActivity() != null) {
+                    List<GifInfo> list = mPresenter.getData();
+                    if (list != null && list.size() > 0) {
+                        DetailActivity.launch(getActivity(), view, BeanHelper.getBigImgInfo(list), position);
+                    }
+                }
+            }
+        });
 
         final int bottom = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getContext().getResources().getDisplayMetrics()));
 
@@ -106,7 +119,7 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
     public void onSaveInstanceState(@NonNull Bundle outState) {
         if (mJokeItemFragmentAdapter.getData() != null) {
             outState.putInt("page", mPresenter.getPage());
-            outState.putSerializable("data", (Serializable) mJokeItemFragmentAdapter.getData());
+            outState.putSerializable("data", (Serializable) mPresenter.getData());
             outState.putParcelable("state", pullLoadMoreRecyclerView.getLayoutManager().onSaveInstanceState());
             outState.putBoolean("hasMore", pullLoadMoreRecyclerView.isHasMore());
         }
@@ -125,7 +138,7 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
                 if (parcelable != null) {
                     pullLoadMoreRecyclerView.getLayoutManager().onRestoreInstanceState(parcelable);
                 }
-
+                mPresenter.setData(list);
                 onShowSuccessView(list, savedInstanceState.getBoolean("hasMore", false));
                 return;
             }
@@ -143,9 +156,9 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
 //    }
 
     @Override
-    public void onShowSuccessView(List<GifInfo> gifInfos, boolean b) {
+    public void onShowSuccessView(List<GifInfo> gifInfos, boolean hasMore) {
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
-        pullLoadMoreRecyclerView.setHasMore(true);
+        pullLoadMoreRecyclerView.setHasMore(hasMore);
         mJokeItemFragmentAdapter.setData(gifInfos);
         mJokeItemFragmentAdapter.notifyDataSetChanged();
     }
@@ -193,12 +206,12 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
     }
 
     @Override
-    public void onLoadMoreSuccess(List<GifInfo> beautyInfo, boolean isHasMore) {
+    public void onLoadMoreSuccess(List<GifInfo> list, int positionStart, int count, boolean isHasMore) {
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
         pullLoadMoreRecyclerView.setHasMore(isHasMore);
         int startPosition = mJokeItemFragmentAdapter.getItemCount();
-        mJokeItemFragmentAdapter.setMoreData(beautyInfo);
-        mJokeItemFragmentAdapter.notifyItemRangeInserted(startPosition, beautyInfo.size());
+        mJokeItemFragmentAdapter.setData(list);
+        mJokeItemFragmentAdapter.notifyItemRangeInserted(startPosition, count);
     }
 
     @Override
