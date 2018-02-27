@@ -65,7 +65,7 @@ public class JokeItemFragmentPresenter extends BasePresenter {
 
                 if (infoObj.showapi_res_body.contentlist != null && infoObj.showapi_res_body.contentlist.size() > 1) {
                     checkCollect(infoObj.showapi_res_body.contentlist);
-                    mView.onShowSuccessView(infoObj.showapi_res_body.contentlist);
+                    mView.onShowSuccessView(infoObj.showapi_res_body.contentlist, infoObj.showapi_res_body.contentlist.size() >= mNum);
                 } else {
                     mView.onShowEmptyView();
                 }
@@ -102,7 +102,7 @@ public class JokeItemFragmentPresenter extends BasePresenter {
 
                 if (infoObj.showapi_res_body.contentlist != null && infoObj.showapi_res_body.contentlist.size() > 1) {
                     checkCollect(infoObj.showapi_res_body.contentlist);
-                    mView.onShowSuccessView(infoObj.showapi_res_body.contentlist);
+                    mView.onShowSuccessView(infoObj.showapi_res_body.contentlist, infoObj.showapi_res_body.contentlist.size() >= mNum);
                 } else {
                     mView.onShowEmptyView();
                 }
@@ -124,7 +124,7 @@ public class JokeItemFragmentPresenter extends BasePresenter {
 
                 if (infoObj.showapi_res_body.contentlist != null && infoObj.showapi_res_body.contentlist.size() > 1) {
                     checkCollect(infoObj.showapi_res_body.contentlist);
-                    mView.onShowSuccessView(infoObj.showapi_res_body.contentlist);
+                    mView.onShowSuccessView(infoObj.showapi_res_body.contentlist, infoObj.showapi_res_body.contentlist.size() >= mNum);
                 } else {
                     mView.onShowEmptyView();
                 }

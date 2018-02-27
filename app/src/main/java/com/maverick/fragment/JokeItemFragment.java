@@ -10,7 +10,6 @@ import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.FrameLayout;
 
 import com.maverick.R;
@@ -105,10 +104,11 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        if(mJokeItemFragmentAdapter.getData() != null) {
+        if (mJokeItemFragmentAdapter.getData() != null) {
             outState.putInt("page", mPresenter.getPage());
             outState.putSerializable("data", (Serializable) mJokeItemFragmentAdapter.getData());
             outState.putParcelable("state", pullLoadMoreRecyclerView.getLayoutManager().onSaveInstanceState());
+            outState.putBoolean("hasMore", pullLoadMoreRecyclerView.isHasMore());
         }
         super.onSaveInstanceState(outState);
     }
@@ -126,14 +126,13 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
                     pullLoadMoreRecyclerView.getLayoutManager().onRestoreInstanceState(parcelable);
                 }
 
-                onShowSuccessView(list);
+                onShowSuccessView(list, savedInstanceState.getBoolean("hasMore", false));
                 return;
             }
         }
 
         pullLoadMoreRecyclerView.setRefreshing(true);
         pullLoadMoreRecyclerView.refresh();
-//        mPresenter.refreshData();
     }
 
 //    public void randomReFresh() {
@@ -144,7 +143,7 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
 //    }
 
     @Override
-    public void onShowSuccessView(List<GifInfo> gifInfos) {
+    public void onShowSuccessView(List<GifInfo> gifInfos, boolean b) {
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
         pullLoadMoreRecyclerView.setHasMore(true);
         mJokeItemFragmentAdapter.setData(gifInfos);
@@ -233,22 +232,4 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
             }
         }
     };
-
-//    @Override
-//    public void onDestroyView() {
-//        unbindDrawables(getView());
-//        super.onDestroyView();
-//    }
-//
-//    private void unbindDrawables(View view) {
-//        if (view.getBackground() != null) {
-//            view.getBackground().setCallback(null);
-//        }
-//        if (view instanceof ViewGroup && !(view instanceof AdapterView)) {
-//            for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
-//                unbindDrawables(((ViewGroup) view).getChildAt(i));
-//            }
-//            ((ViewGroup) view).removeAllViews();
-//        }
-//    }
 }

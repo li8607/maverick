@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface IJokeItemFragmentView {
 
-    void onShowSuccessView(List<GifInfo> beautyInfo);
+    void onShowSuccessView(List<GifInfo> beautyInfo, boolean isHasMore);
 
     void onShowEmptyView();
 
