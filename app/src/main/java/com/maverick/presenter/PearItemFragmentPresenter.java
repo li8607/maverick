@@ -94,4 +94,12 @@ public class PearItemFragmentPresenter extends BasePresenter {
             }
         });
     }
+
+    public PearVideoTabDetailInfo getTabDetailInfo() {
+        return mTabDetailInfo;
+    }
+
+    public void setTabDetailInfo(PearVideoTabDetailInfo tabDetailInfo) {
+        mTabDetailInfo = tabDetailInfo;
+    }
 }

@@ -2,6 +2,8 @@ package com.maverick.fragment;
 
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,6 +18,7 @@ import com.maverick.adapter.PearItemFragmentAdapter;
 import com.maverick.adapter.holder.PearBannerViewHolder;
 import com.maverick.base.BaseFragment;
 import com.maverick.bean.PearVideoInfo;
+import com.maverick.bean.PearVideoTabDetailInfo;
 import com.maverick.bean.PearVideoTabInfo;
 import com.maverick.hepler.BeanHelper;
 import com.maverick.presenter.BasePresenter;
@@ -24,6 +27,7 @@ import com.maverick.presenter.implView.IPearItemFragmentView;
 import com.maverick.util.DensityUtil;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -102,12 +106,10 @@ public class PearItemFragment extends BaseFragment implements IPearItemFragmentV
                     }
                 }
 
-                outRect.bottom = DensityUtil.dip2px(getContext(), 2);
-                outRect.top = DensityUtil.dip2px(getContext(), 12);
                 if (position % 2 == 0) {
-                    outRect.right = DensityUtil.dip2px(getContext(), 1);
+                    outRect.right = DensityUtil.dip2px(getContext(), 2);
                 } else {
-                    outRect.left = DensityUtil.dip2px(getContext(), 1);
+                    outRect.left = DensityUtil.dip2px(getContext(), 2);
                 }
             }
         });
@@ -161,8 +163,34 @@ public class PearItemFragment extends BaseFragment implements IPearItemFragmentV
     }
 
     @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        if (mAdapter.getData() != null) {
+            outState.putSerializable("data", (Serializable) mAdapter.getData());
+            outState.putSerializable("data1", (Serializable) mAdapter.getHotList());
+            outState.putBoolean("hasMore", pullLoadMoreRecyclerView.isHasMore());
+            outState.putSerializable("info", mPresenter.getTabDetailInfo());
+            outState.putParcelable("state", pullLoadMoreRecyclerView.getLayoutManager().onSaveInstanceState());
+        }
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     protected void onInitData(Bundle savedInstanceState) {
         mInfo = (PearVideoTabInfo) getArguments().getSerializable(ARGUMENT);
+
+        if (savedInstanceState != null) {
+            mPresenter.setTabDetailInfo((PearVideoTabDetailInfo) savedInstanceState.getSerializable("info"));
+            List<PearVideoInfo> list = (List<PearVideoInfo>) savedInstanceState.getSerializable("data");
+            if (list != null) {
+                Parcelable parcelable = savedInstanceState.getParcelable("state");
+                if (parcelable != null) {
+                    pullLoadMoreRecyclerView.getLayoutManager().onRestoreInstanceState(parcelable);
+                }
+                onShowSuccessView((List<PearVideoInfo>) savedInstanceState.getSerializable("data1"), list, savedInstanceState.getBoolean("hasMore", false));
+                return;
+            }
+        }
+
         mPresenter.loadData(mInfo);
     }
 

@@ -106,6 +106,14 @@ public class PearItemFragmentAdapter extends RecyclerView.Adapter implements Pea
         this.mList = list;
     }
 
+    public List<PearVideoInfo> getData() {
+        return mList;
+    }
+
+    public List<PearVideoInfo> getHotList() {
+        return mHotList;
+    }
+
     public void setMoreData(List<PearVideoInfo> list) {
         if (mList != null && list != null) {
             mList.addAll(list);
