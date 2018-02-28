@@ -50,6 +50,7 @@
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicator</item>
         <item name="colorLineHighlight">@color/colorLineHighlight</item>
         <item name="android:windowBackground">@color/windowBackground</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 
     <style name="AppTheme.FullScreen">

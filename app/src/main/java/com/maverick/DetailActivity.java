@@ -11,6 +11,7 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.maverick.adapter.DetailActivityAdapter;
@@ -23,6 +24,8 @@ import com.umeng.socialize.UMShareAPI;
 
 import java.io.Serializable;
 import java.util.List;
+
+import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 
 /**
  * Created by ll on 2017/5/25.
@@ -118,23 +121,11 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
-
         getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        super.onCreate(savedInstanceState);
-    }
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                View decorView = getWindow().getDecorView();
-                int uiOptions = View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_FULLSCREEN;
-                decorView.setSystemUiVisibility(uiOptions);
-            }
-        }
+        getWindow().addFlags(FLAG_FULLSCREEN);
+
+        super.onCreate(savedInstanceState);
     }
 
     private void showMultifunctionalDialog() {
