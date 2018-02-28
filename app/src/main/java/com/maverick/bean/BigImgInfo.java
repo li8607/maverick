@@ -14,6 +14,7 @@ public class BigImgInfo implements Serializable {
     private List<String> imgs;
     private String title;
     private String webUrl;
+    private String sharedElementName;
 
     private Collect collect;
 
@@ -55,5 +56,13 @@ public class BigImgInfo implements Serializable {
 
     public void setImgs(List<String> imgs) {
         this.imgs = imgs;
+    }
+
+    public String getSharedElementName() {
+        return sharedElementName;
+    }
+
+    public void setSharedElementName(String sharedElementName) {
+        this.sharedElementName = sharedElementName;
     }
 }

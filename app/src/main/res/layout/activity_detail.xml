@@ -25,17 +25,6 @@
         android:layout_height="match_parent"
         android:visibility="gone" />
 
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/imageView2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="14dp"
-        android:adjustViewBounds="true"
-        android:clickable="true"
-        android:focusable="true"
-        android:foreground="?android:attr/selectableItemBackground" />
-
-
     <TextView
         android:id="@+id/title_detail"
         android:layout_width="match_parent"

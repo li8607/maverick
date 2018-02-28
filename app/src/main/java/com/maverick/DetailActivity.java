@@ -7,7 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
-import android.support.v4.view.ViewCompat;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
@@ -15,15 +15,12 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
+import com.maverick.adapter.DetailActivityAdapter;
 import com.maverick.base.BaseActivity;
 import com.maverick.bean.BigImgInfo;
-import com.maverick.bean.MenuDetailInfo;
-import com.maverick.dialog.MenuDialog;
-import com.maverick.dialog.MultifunctionalDialog;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.DetailActivityPresenter;
 import com.maverick.presenter.implView.IDetailActivityView;
-import com.maverick.type.ShareType;
 import com.maverick.util.GlideUtil;
 import com.umeng.socialize.UMShareAPI;
 
@@ -35,12 +32,11 @@ import java.util.List;
  */
 public class DetailActivity extends BaseActivity implements IDetailActivityView, View.OnLongClickListener {
     public static final String EXTRA_IMAGE = "DetailActivity:image";
-    public static final String EXTRA_IMAGE2 = "DetailActivity:image";
+    public static final String EXTRA_IMAGE2 = "DetailActivity:image2";
     private DetailActivityPresenter mPresenter;
     private ImageView image_detail;
     private SubsamplingScaleImageView mSubsamplingScaleImageView;
-    private BigImgInfo mBigImgInfo;
-    private ImageView imageView2;
+    private ViewPager mViewPager;
 
     public static void launch(Activity activity, View transitionView, BigImgInfo info) {
 
@@ -56,7 +52,7 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
         ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
     }
 
-    public static void launch(Activity activity, View transitionView, List<BigImgInfo> bigImgInfos, int position) {
+    public static void launch(Activity activity, View transitionView, List<BigImgInfo> bigImgInfos, BigImgInfo bigImgInfo) {
 
         if (bigImgInfos == null || bigImgInfos.size() < 1) {
             return;
@@ -66,9 +62,13 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
 
         Intent intent = new Intent(activity, DetailActivity.class);
         intent.putExtra(EXTRA_IMAGE2, (Serializable) bigImgInfos);
-        intent.putExtra(EXTRA_IMAGE, bigImgInfos.get(position));
+        intent.putExtra(EXTRA_IMAGE, bigImgInfo);
 
         ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
+    }
+
+    public static void launch(Activity activity, View transitionView, List<BigImgInfo> bigImgInfos) {
+        launch(activity, transitionView, bigImgInfos, null);
     }
 
     @Override
@@ -84,6 +84,9 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
 
     @Override
     protected void onInitView() {
+
+        mViewPager = findView(R.id.vp_detail_image);
+
         image_detail = (ImageView) findViewById(R.id.image_detail);
         mSubsamplingScaleImageView = (SubsamplingScaleImageView) findViewById(R.id.imageView);
         mSubsamplingScaleImageView.setMinimumScaleType(SubsamplingScaleImageView.SCALE_TYPE_CUSTOM);
@@ -105,25 +108,40 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
 
         image_detail.setOnLongClickListener(this);
         mSubsamplingScaleImageView.setOnLongClickListener(this);
-
-        imageView2 = findView(R.id.imageView2);
     }
 
     private void showMultifunctionalDialog() {
-        if (mBigImgInfo != null) {
-            MultifunctionalDialog mMultifunctionalDialog = MultifunctionalDialog.newInstance(mBigImgInfo.getImg());
-            showDialogFragment(mMultifunctionalDialog);
-        }
+//        if (mBigImgInfo != null) {
+//            MultifunctionalDialog mMultifunctionalDialog = MultifunctionalDialog.newInstance(mBigImgInfo.getImg());
+//            showDialogFragment(mMultifunctionalDialog);
+//        }
     }
 
     @Override
     protected void onInitData(Bundle savedInstanceState) {
         Intent intent = getIntent();
-        mBigImgInfo = (BigImgInfo) intent.getSerializableExtra(EXTRA_IMAGE);
-        if (mBigImgInfo == null) {
+
+        if (intent == null) {
             return;
         }
-        mPresenter.loadImage(mBigImgInfo.getImg());
+
+        final List<BigImgInfo> list = (List<BigImgInfo>) intent.getSerializableExtra(EXTRA_IMAGE2);
+        BigImgInfo bigImgInfo = (BigImgInfo) intent.getSerializableExtra(EXTRA_IMAGE);
+
+        DetailActivityAdapter mAdapter = new DetailActivityAdapter(getSupportFragmentManager(), bigImgInfo);
+        mAdapter.setList(list);
+        mViewPager.setAdapter(mAdapter);
+
+        if (bigImgInfo == null || list == null || list.size() < 1) {
+            return;
+        }
+
+        for (int i = 0; i < list.size(); i++) {
+            if (TextUtils.equals(list.get(i).getImg(), bigImgInfo.getImg())) {
+                mViewPager.setCurrentItem(i);
+                break;
+            }
+        }
     }
 
     @Override
@@ -134,9 +152,9 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
 
     @Override
     public void onShowImageView(String imgUrl) {
-        imageView2.setVisibility(View.VISIBLE);
-        ViewCompat.setTransitionName(imageView2, EXTRA_IMAGE);
-        GlideUtil.loadImage(this, imgUrl, imageView2);
+//        imageView2.setVisibility(View.VISIBLE);
+//        ViewCompat.setTransitionName(imageView2, EXTRA_IMAGE);
+//        GlideUtil.loadImage(this, imgUrl, imageView2);
 //        //下载图片保存到本地
 //        Glide.with(this)
 //                .load(imgUrl).downloadOnly(new SimpleTarget<File>() {
@@ -164,18 +182,18 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
 
     private void showShareDialog() {
 
-        if (mBigImgInfo == null) {
-            return;
-        }
-
-        MenuDetailInfo menuDetailInfo = new MenuDetailInfo();
-        menuDetailInfo.setShareType(ShareType.IMAGE_TEXT);
-        menuDetailInfo.setTitle(mBigImgInfo.getTitle());
-        menuDetailInfo.setImageurl(mBigImgInfo.getImg());
-        menuDetailInfo.setWeburl(mBigImgInfo.getWebUrl());
-        menuDetailInfo.setCollect(mBigImgInfo.getCollect());
-        MenuDialog dialog = MenuDialog.newInstance(menuDetailInfo);
-        showDialogFragment(dialog);
+//        if (mBigImgInfo == null) {
+//            return;
+//        }
+//
+//        MenuDetailInfo menuDetailInfo = new MenuDetailInfo();
+//        menuDetailInfo.setShareType(ShareType.IMAGE_TEXT);
+//        menuDetailInfo.setTitle(mBigImgInfo.getTitle());
+//        menuDetailInfo.setImageurl(mBigImgInfo.getImg());
+//        menuDetailInfo.setWeburl(mBigImgInfo.getWebUrl());
+//        menuDetailInfo.setCollect(mBigImgInfo.getCollect());
+//        MenuDialog dialog = MenuDialog.newInstance(menuDetailInfo);
+//        showDialogFragment(dialog);
     }
 
     @Override

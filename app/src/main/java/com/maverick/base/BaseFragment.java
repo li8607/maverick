@@ -48,9 +48,9 @@ public abstract class BaseFragment extends Fragment {
         super.onDestroyView();
     }
 
-    protected abstract BasePresenter onCreatePresenter();
-
     protected abstract int getRootViewId();
+
+    protected abstract BasePresenter onCreatePresenter();
 
     protected abstract void onInitView(View view);
 

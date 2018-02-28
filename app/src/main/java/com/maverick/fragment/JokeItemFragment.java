@@ -16,6 +16,7 @@ import com.maverick.DetailActivity;
 import com.maverick.R;
 import com.maverick.adapter.JokeItemFragmentAdapter;
 import com.maverick.base.BaseFragment;
+import com.maverick.bean.BigImgInfo;
 import com.maverick.bean.GifInfo;
 import com.maverick.bean.JokeTabInfo;
 import com.maverick.global.Tag;
@@ -79,10 +80,17 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
         mJokeItemFragmentAdapter.setOnItemClickListener(new JokeItemFragmentAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position, GifInfo gifInfo) {
-                if (getActivity() != null) {
+                if (getActivity() != null && gifInfo != null) {
                     List<GifInfo> list = mPresenter.getData();
                     if (list != null && list.size() > 0) {
-                        DetailActivity.launch(getActivity(), view, BeanHelper.getBigImgInfo(list), position);
+
+                        List<BigImgInfo> bigImgInfos = BeanHelper.getBigImgInfo(list);
+
+                        BigImgInfo bigImgInfo = new BigImgInfo();
+                        bigImgInfo.setImg(gifInfo.img);
+                        bigImgInfos.add(bigImgInfo);
+                        
+                        DetailActivity.launch(getActivity(), view, bigImgInfos, bigImgInfo);
                     }
                 }
             }

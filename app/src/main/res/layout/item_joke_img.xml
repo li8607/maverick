@@ -18,13 +18,12 @@
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/img"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="260dp"
             android:layout_marginTop="14dp"
             android:adjustViewBounds="true"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:maxHeight="300dp" />
+            android:foreground="?android:attr/selectableItemBackground" />
 
         <include layout="@layout/item_joke_bottom" />
     </LinearLayout>
