@@ -11,7 +11,6 @@ import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.WindowManager;
 
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.maverick.adapter.DetailActivityAdapter;
