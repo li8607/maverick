@@ -79,4 +79,6 @@
     <string name="title_night_auto">自动切换日夜间模式</string>
     <string name="title_night_follow_system">默认模式(跟随系统)</string>
     <string name="title_toast_close_night_follow_system">默认模式不可关闭</string>
+
+    <string name="image_transition_name">image_transition_name</string>
 </resources>

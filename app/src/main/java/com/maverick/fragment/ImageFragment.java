@@ -1,12 +1,9 @@
 package com.maverick.fragment;
 
 import android.os.Bundle;
-import android.support.v4.view.ViewCompat;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.maverick.DetailActivity;
 import com.maverick.R;
 import com.maverick.base.BaseFragment;
 import com.maverick.bean.BigImgInfo;
@@ -62,18 +59,6 @@ public class ImageFragment extends BaseFragment {
             return;
         }
 
-        if (!TextUtils.isEmpty(mImgUrl) && TextUtils.equals(mBigImgInfo.getImg(), mImgUrl)) {
-            ViewCompat.setTransitionName(mImageView, DetailActivity.EXTRA_IMAGE);
-        }
-
         GlideUtil.loadImage(getContext(), mBigImgInfo.getImg(), mImageView);
-    }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (mImageView != null && mBigImgInfo != null && !TextUtils.isEmpty(mImgUrl) && TextUtils.equals(mBigImgInfo.getImg(), mImgUrl)) {
-            ViewCompat.setTransitionName(mImageView, isVisibleToUser ? DetailActivity.EXTRA_IMAGE : "");
-        }
     }
 }

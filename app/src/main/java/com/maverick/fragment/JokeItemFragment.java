@@ -28,6 +28,7 @@ import com.maverick.presenter.implView.IJokeItemFragmentView;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -84,12 +85,21 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
                     List<GifInfo> list = mPresenter.getData();
                     if (list != null && list.size() > 0) {
 
-                        List<BigImgInfo> bigImgInfos = BeanHelper.getBigImgInfo(list);
+                        List<GifInfo> tempList = new ArrayList<>();
+
+                        int index = list.indexOf(gifInfo);
+
+                        for (int i = 0; i < list.size(); i++) {
+                            if (Math.abs(index - i) < 5) {
+                                tempList.add(list.get(i));
+                            }
+                        }
+
+                        List<BigImgInfo> bigImgInfos = BeanHelper.getBigImgInfo(tempList);
 
                         BigImgInfo bigImgInfo = new BigImgInfo();
                         bigImgInfo.setImg(gifInfo.img);
-                        bigImgInfos.add(bigImgInfo);
-                        
+
                         DetailActivity.launch(getActivity(), view, bigImgInfos, bigImgInfo);
                     }
                 }

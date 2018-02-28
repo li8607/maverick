@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
@@ -37,6 +38,8 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
     private ImageView image_detail;
     private SubsamplingScaleImageView mSubsamplingScaleImageView;
     private ViewPager mViewPager;
+    private List<BigImgInfo> mBigImgInfoList;
+    private BigImgInfo mBigImgInfo;
 
     public static void launch(Activity activity, View transitionView, BigImgInfo info) {
 
@@ -58,7 +61,7 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
             return;
         }
 
-        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, transitionView, EXTRA_IMAGE);
+        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity, transitionView, activity.getString(R.string.image_transition_name));
 
         Intent intent = new Intent(activity, DetailActivity.class);
         intent.putExtra(EXTRA_IMAGE2, (Serializable) bigImgInfos);
@@ -108,6 +111,27 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
 
         image_detail.setOnLongClickListener(this);
         mSubsamplingScaleImageView.setOnLongClickListener(this);
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if (TextUtils.equals(mBigImgInfoList.get(position).getImg(), mBigImgInfo.getImg())) {
+                    ViewCompat.setTransitionName(mViewPager, getString(R.string.image_transition_name));
+                } else {
+                    ViewCompat.setTransitionName(mViewPager, "");
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
 
     private void showMultifunctionalDialog() {
@@ -125,23 +149,25 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
             return;
         }
 
-        final List<BigImgInfo> list = (List<BigImgInfo>) intent.getSerializableExtra(EXTRA_IMAGE2);
-        BigImgInfo bigImgInfo = (BigImgInfo) intent.getSerializableExtra(EXTRA_IMAGE);
+        mBigImgInfoList = (List<BigImgInfo>) intent.getSerializableExtra(EXTRA_IMAGE2);
+        mBigImgInfo = (BigImgInfo) intent.getSerializableExtra(EXTRA_IMAGE);
 
-        DetailActivityAdapter mAdapter = new DetailActivityAdapter(getSupportFragmentManager(), bigImgInfo);
-        mAdapter.setList(list);
+        DetailActivityAdapter mAdapter = new DetailActivityAdapter(getSupportFragmentManager(), mBigImgInfo);
+        mAdapter.setList(mBigImgInfoList);
         mViewPager.setAdapter(mAdapter);
 
-        if (bigImgInfo == null || list == null || list.size() < 1) {
+        if (mBigImgInfo == null || mBigImgInfoList == null || mBigImgInfoList.size() < 1) {
             return;
         }
 
-        for (int i = 0; i < list.size(); i++) {
-            if (TextUtils.equals(list.get(i).getImg(), bigImgInfo.getImg())) {
+        for (int i = 0; i < mBigImgInfoList.size(); i++) {
+            if (TextUtils.equals(mBigImgInfoList.get(i).getImg(), mBigImgInfo.getImg())) {
+                ViewCompat.setTransitionName(mViewPager, getString(R.string.image_transition_name));
                 mViewPager.setCurrentItem(i);
                 break;
             }
         }
+
     }
 
     @Override

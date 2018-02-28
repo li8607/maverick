@@ -13,13 +13,16 @@
         android:paddingBottom="14dp"
         android:paddingTop="14dp">
 
-        <include layout="@layout/item_joke_top" />
+        <include
+            layout="@layout/item_joke_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="14dp" />
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/img"
             android:layout_width="match_parent"
             android:layout_height="260dp"
-            android:layout_marginTop="14dp"
             android:adjustViewBounds="true"
             android:clickable="true"
             android:focusable="true"

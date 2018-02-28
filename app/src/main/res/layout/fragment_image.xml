@@ -7,7 +7,6 @@
         android:id="@+id/iv_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="14dp"
         android:adjustViewBounds="true"
         android:clickable="true"
         android:focusable="true"
