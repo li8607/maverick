@@ -2,7 +2,7 @@ package com.maverick.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.maverick.bean.BigImgInfo;
 import com.maverick.fragment.ImageFragment;
@@ -13,19 +13,17 @@ import java.util.List;
  * Created by limingfei on 2018/2/11.
  */
 
-public class DetailActivityAdapter extends FragmentPagerAdapter {
+public class DetailActivityAdapter extends FragmentStatePagerAdapter {
 
     private List<BigImgInfo> mList;
-    private BigImgInfo mBigImgInfo;
 
-    public DetailActivityAdapter(FragmentManager fm, BigImgInfo info) {
+    public DetailActivityAdapter(FragmentManager fm) {
         super(fm);
-        this.mBigImgInfo = info;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return ImageFragment.newInstance(mList.get(position), mBigImgInfo == null ? position == 0 ? mList.get(position).getImg() : "" : mBigImgInfo.getImg());
+        return ImageFragment.newInstance(mList.get(position));
     }
 
     @Override

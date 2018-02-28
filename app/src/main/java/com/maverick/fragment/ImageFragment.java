@@ -2,7 +2,6 @@ package com.maverick.fragment;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.maverick.R;
 import com.maverick.base.BaseFragment;
@@ -10,21 +9,20 @@ import com.maverick.bean.BigImgInfo;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.util.GlideUtil;
 
+import uk.co.senab.photoview.PhotoView;
+
 /**
  * Created by limingfei on 2018/2/28.
  */
 
 public class ImageFragment extends BaseFragment {
 
-    private ImageView mImageView;
-    private String mImgUrl;
-    private BigImgInfo mBigImgInfo;
+    private PhotoView mImageView;
 
-    public static ImageFragment newInstance(BigImgInfo info, String imgUrl) {
+    public static ImageFragment newInstance(BigImgInfo info) {
         ImageFragment fragment = new ImageFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable("info", info);
-        bundle.putString("imgUrl", imgUrl);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -39,7 +37,6 @@ public class ImageFragment extends BaseFragment {
         return null;
     }
 
-
     @Override
     protected void onInitView(View view) {
         mImageView = view.findViewById(R.id.iv_image);
@@ -52,8 +49,7 @@ public class ImageFragment extends BaseFragment {
             return;
         }
 
-        mBigImgInfo = (BigImgInfo) getArguments().getSerializable("info");
-        mImgUrl = getArguments().getString("imgUrl");
+        BigImgInfo mBigImgInfo = (BigImgInfo) getArguments().getSerializable("info");
 
         if (mBigImgInfo == null) {
             return;

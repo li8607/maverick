@@ -13,7 +13,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.maverick.adapter.DetailActivityAdapter;
@@ -22,7 +21,6 @@ import com.maverick.bean.BigImgInfo;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.DetailActivityPresenter;
 import com.maverick.presenter.implView.IDetailActivityView;
-import com.maverick.util.GlideUtil;
 import com.umeng.socialize.UMShareAPI;
 
 import java.io.Serializable;
@@ -35,7 +33,6 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
     public static final String EXTRA_IMAGE = "DetailActivity:image";
     public static final String EXTRA_IMAGE2 = "DetailActivity:image2";
     private DetailActivityPresenter mPresenter;
-    private ImageView image_detail;
     private SubsamplingScaleImageView mSubsamplingScaleImageView;
     private ViewPager mViewPager;
     private List<BigImgInfo> mBigImgInfoList;
@@ -90,7 +87,6 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
 
         mViewPager = findView(R.id.vp_detail_image);
 
-        image_detail = (ImageView) findViewById(R.id.image_detail);
         mSubsamplingScaleImageView = (SubsamplingScaleImageView) findViewById(R.id.imageView);
         mSubsamplingScaleImageView.setMinimumScaleType(SubsamplingScaleImageView.SCALE_TYPE_CUSTOM);
         mSubsamplingScaleImageView.setMinScale(1.0F);
@@ -109,7 +105,6 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
             window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
 
-        image_detail.setOnLongClickListener(this);
         mSubsamplingScaleImageView.setOnLongClickListener(this);
 
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -152,7 +147,7 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
         mBigImgInfoList = (List<BigImgInfo>) intent.getSerializableExtra(EXTRA_IMAGE2);
         mBigImgInfo = (BigImgInfo) intent.getSerializableExtra(EXTRA_IMAGE);
 
-        DetailActivityAdapter mAdapter = new DetailActivityAdapter(getSupportFragmentManager(), mBigImgInfo);
+        DetailActivityAdapter mAdapter = new DetailActivityAdapter(getSupportFragmentManager());
         mAdapter.setList(mBigImgInfoList);
         mViewPager.setAdapter(mAdapter);
 
@@ -172,8 +167,7 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
 
     @Override
     public void onShowGifImageView(String imgUrl) {
-        image_detail.setVisibility(View.VISIBLE);
-        GlideUtil.loadImage(this, imgUrl, image_detail);
+
     }
 
     @Override
