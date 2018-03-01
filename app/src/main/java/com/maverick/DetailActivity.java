@@ -1,17 +1,18 @@
 package com.maverick;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.WindowManager;
 
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 import com.maverick.adapter.DetailActivityAdapter;
@@ -24,6 +25,8 @@ import com.umeng.socialize.UMShareAPI;
 
 import java.io.Serializable;
 import java.util.List;
+
+import me.imid.swipebacklayout.lib.SwipeBackLayout;
 
 import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 
@@ -38,6 +41,7 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
     private ViewPager mViewPager;
     private List<BigImgInfo> mBigImgInfoList;
     private BigImgInfo mBigImgInfo;
+    private SwipeBackLayout mSwipeBackLayout;
 
     public static void launch(Activity activity, View transitionView, BigImgInfo info) {
 
@@ -114,6 +118,34 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
 
             }
         });
+
+        mSwipeBackLayout = getSwipeBackLayout();
+        mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_ALL);
+
+        mSwipeBackLayout.addSwipeListener(new SwipeBackLayout.SwipeListener() {
+            @Override
+            public void onScrollStateChange(int state, float scrollPercent) {
+
+            }
+
+            @Override
+            public void onEdgeTouch(int edgeFlag) {
+                vibrate(20);
+            }
+
+            @Override
+            public void onScrollOverThreshold() {
+                vibrate(20);
+            }
+        });
+    }
+
+    private void vibrate(long duration) {
+        Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        long[] pattern = {
+                0, duration
+        };
+        vibrator.vibrate(pattern, -1);
     }
 
     @Override

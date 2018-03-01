@@ -11,6 +11,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.ViewDragHelper;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
@@ -160,7 +161,8 @@ public class MainActivity2 extends BaseActivity {
         mToolbar.addView(mTitle, mTitleLP);
         setSupportActionBar(mToolbar);
 
-        mBottomNavigationView = findViewById(R.id.navigation);
+
+        mBottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
