@@ -26,8 +26,6 @@ import com.umeng.socialize.UMShareAPI;
 import java.io.Serializable;
 import java.util.List;
 
-import me.imid.swipebacklayout.lib.SwipeBackLayout;
-
 import static android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN;
 
 /**
@@ -41,7 +39,6 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
     private ViewPager mViewPager;
     private List<BigImgInfo> mBigImgInfoList;
     private BigImgInfo mBigImgInfo;
-    private SwipeBackLayout mSwipeBackLayout;
 
     public static void launch(Activity activity, View transitionView, BigImgInfo info) {
 
@@ -116,26 +113,6 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
             @Override
             public void onPageScrollStateChanged(int state) {
 
-            }
-        });
-
-        mSwipeBackLayout = getSwipeBackLayout();
-        mSwipeBackLayout.setEdgeTrackingEnabled(SwipeBackLayout.EDGE_ALL);
-
-        mSwipeBackLayout.addSwipeListener(new SwipeBackLayout.SwipeListener() {
-            @Override
-            public void onScrollStateChange(int state, float scrollPercent) {
-
-            }
-
-            @Override
-            public void onEdgeTouch(int edgeFlag) {
-                vibrate(20);
-            }
-
-            @Override
-            public void onScrollOverThreshold() {
-                vibrate(20);
             }
         });
     }

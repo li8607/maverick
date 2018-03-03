@@ -88,6 +88,4 @@ dependencies {
     // LeanCloud 基础包
     compile 'cn.leancloud.android:avoscloud-sdk:v3.+'
     compile 'cn.leancloud.android:avoscloud-statistics:v3.+'
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
-    compile 'me.imid.swipebacklayout.lib:library:1.1.0'
 }

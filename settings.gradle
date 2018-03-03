@@ -1,1 +1,1 @@
-include ':app', ':greendaolibrary', ':sharelibrary', ':LeeSwipeBackLayoutLibrary'
+include ':app', ':greendaolibrary', ':sharelibrary'

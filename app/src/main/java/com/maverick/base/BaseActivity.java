@@ -7,18 +7,17 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.maverick.MainApp;
 import com.maverick.presenter.BasePresenter;
 import com.umeng.analytics.MobclickAgent;
 
-import me.imid.swipebacklayout.lib.app.SwipeBackActivity;
-
 /**
  * Created by limingfei on 2017/9/25.
  */
-public abstract class BaseActivity extends SwipeBackActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     private BasePresenter mBasePresenter;
 

@@ -1,7 +1,5 @@
 package com.maverick.bean;
 
-import com.chad.library.adapter.base.entity.MultiItemEntity;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -9,7 +7,7 @@ import java.util.List;
  * Created by Administrator on 2017/11/1.
  */
 
-public class PearItemInfo implements Serializable, MultiItemEntity {
+public class PearItemInfo implements Serializable {
 
     private int type;
     private String tabTitle;
@@ -100,10 +98,5 @@ public class PearItemInfo implements Serializable, MultiItemEntity {
 
     public void setRelateContCount(int relateContCount) {
         this.relateContCount = relateContCount;
-    }
-
-    @Override
-    public int getItemType() {
-        return 0;
     }
 }
