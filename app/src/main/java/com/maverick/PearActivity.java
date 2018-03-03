@@ -251,7 +251,7 @@ public class PearActivity extends BaseActivity implements PearBottomFragment.OnL
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressedSupport() {
         //先返回正常状态
         if (orientationUtils.getScreenType() == ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
             mVideo.getFullscreenButton().performClick();

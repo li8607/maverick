@@ -14,10 +14,12 @@ import com.maverick.MainApp;
 import com.maverick.presenter.BasePresenter;
 import com.umeng.analytics.MobclickAgent;
 
+import me.yokeyword.fragmentation_swipeback.SwipeBackActivity;
+
 /**
  * Created by limingfei on 2017/9/25.
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends SwipeBackActivity {
 
     private BasePresenter mBasePresenter;
 

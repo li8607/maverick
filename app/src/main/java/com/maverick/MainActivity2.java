@@ -38,6 +38,8 @@ import com.umeng.socialize.UMShareAPI;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.yokeyword.fragmentation.SwipeBackLayout;
+
 /**
  * Created by limingfei on 2017/9/25.
  */
@@ -144,6 +146,9 @@ public class MainActivity2 extends BaseActivity {
 
     @Override
     protected void onInitView() {
+        // 设置滑动方向
+        getSwipeBackLayout().setEdgeOrientation(SwipeBackLayout.STATE_IDLE); // EDGE_LEFT(默认),EDGE_ALL
+
         mCoordinatorLayout = findView(R.id.coordinatorLayout);
         mAppBarLayout = findView(R.id.appbar);
 
@@ -271,7 +276,7 @@ public class MainActivity2 extends BaseActivity {
     private long currentTime;
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressedSupport() {
         if (getSupportFragmentManager().getPrimaryNavigationFragment() != null && ((BaseFragment) (getSupportFragmentManager().getPrimaryNavigationFragment())).onBackPressed()) {
             return;
         }

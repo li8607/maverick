@@ -88,4 +88,6 @@ dependencies {
     // LeanCloud 基础包
     compile 'cn.leancloud.android:avoscloud-sdk:v3.+'
     compile 'cn.leancloud.android:avoscloud-statistics:v3.+'
+    compile 'me.yokeyword:fragmentation:1.2.7'
+    compile 'me.yokeyword:fragmentation-swipeback:1.2.7'
 }

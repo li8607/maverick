@@ -1,24 +1,24 @@
 package com.maverick.fragment;
 
-import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.maverick.DetailActivity;
 import com.maverick.R;
 import com.maverick.adapter.SisterItemFragmentAdapter;
+import com.maverick.adapter.holder.SisterImageHolder;
 import com.maverick.adapter.holder.SisterTextHolder;
 import com.maverick.adapter.holder.SisterVideoHolder;
 import com.maverick.base.BaseFragment;
+import com.maverick.bean.BigImgInfo;
 import com.maverick.bean.MenuDetailInfo;
 import com.maverick.bean.SisterInfo;
 import com.maverick.bean.SisterTabInfo;
@@ -38,9 +38,6 @@ import com.shuyu.gsyvideoplayer.utils.ListVideoUtil;
 import com.shuyu.gsyvideoplayer.video.base.GSYVideoPlayer;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.List;
 
 import cntv.greendaolibrary.dbbean.Collect;
@@ -97,6 +94,38 @@ public class SisterItemFragment extends BaseFragment implements ISisterItemFragm
 
         mSisterItemFragmentAdapter = new SisterItemFragmentAdapter(getContext());
         mRecyclerView.setAdapter(mSisterItemFragmentAdapter);
+
+        mSisterItemFragmentAdapter.setOnItemChildClickListener(new SisterItemFragmentAdapter.OnItemChildClickListener() {
+            @Override
+            public void onImageClick(RecyclerView.ViewHolder viewHolder, int position) {
+                if(mPresenter.getList() == null) {
+                    return;
+                }
+
+                List<BigImgInfo> bigImgInfos = BeanHelper.getBigImgInfo2SisterInfo(mPresenter.getList());
+                SisterInfo sisterInfo=mPresenter.getList().get(position);
+                BigImgInfo bigImgInfo = new BigImgInfo();
+                bigImgInfo.setImg(sisterInfo.getImage2());
+                bigImgInfo.setTitle(sisterInfo.getText());
+                bigImgInfo.setWebUrl(sisterInfo.getWeixin_url());
+                bigImgInfo.setCollect(BeanHelper.getCollect(sisterInfo));
+
+                View view = null;
+
+                switch (viewHolder.getItemViewType()) {
+                    case SisterItemFragmentAdapter.IMAGE:
+                        SisterImageHolder sisterImageHolder = (SisterImageHolder) viewHolder;
+                        view = sisterImageHolder.image;
+                        break;
+                }
+
+                if(view != null) {
+                    DetailActivity.launch(getActivity(), view, bigImgInfos, bigImgInfo);
+                }else {
+                    DetailActivity.launch(getActivity(), bigImgInfos, bigImgInfo);
+                }
+            }
+        });
 
         mSisterItemFragmentAdapter.setOnSisterTextHolderListener(new SisterTextHolder.OnSisterTextHolderListener() {
             @Override
@@ -395,12 +424,11 @@ public class SisterItemFragment extends BaseFragment implements ISisterItemFragm
     }
 
     @Override
-    public void onLoadMoreSuccess(List<SisterInfo> list, boolean isHasMore) {
+    public void onLoadMoreSuccess(List<SisterInfo> list, int positionStart, int count, boolean isHasMore) {
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
         pullLoadMoreRecyclerView.setHasMore(isHasMore);
-        int positionStart = mSisterItemFragmentAdapter.getItemCount();
         mSisterItemFragmentAdapter.setMoreData(list);
-        mSisterItemFragmentAdapter.notifyItemRangeInserted(positionStart, list.size());
+        mSisterItemFragmentAdapter.notifyItemRangeInserted(positionStart, count);
     }
 
     @Override

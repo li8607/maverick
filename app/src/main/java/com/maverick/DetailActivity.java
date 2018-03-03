@@ -69,6 +69,19 @@ public class DetailActivity extends BaseActivity implements IDetailActivityView,
         ActivityCompat.startActivity(activity, intent, optionsCompat.toBundle());
     }
 
+    public static void launch(Activity activity, List<BigImgInfo> bigImgInfos, BigImgInfo bigImgInfo) {
+
+        if (bigImgInfos == null || bigImgInfos.size() < 1) {
+            return;
+        }
+
+        Intent intent = new Intent(activity, DetailActivity.class);
+        intent.putExtra(EXTRA_IMAGE2, (Serializable) bigImgInfos);
+        intent.putExtra(EXTRA_IMAGE, bigImgInfo);
+
+        activity.startActivity(intent);
+    }
+
     public static void launch(Activity activity, View transitionView, List<BigImgInfo> bigImgInfos) {
         launch(activity, transitionView, bigImgInfos, null);
     }

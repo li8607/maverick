@@ -16,7 +16,7 @@ public interface ISisterItemFragmentView {
 
     void onShowErrorView();
 
-    void onLoadMoreSuccess(List<SisterInfo> beautyInfo, boolean isHasMore);
+    void onLoadMoreSuccess(List<SisterInfo> list, int positionStart, int count, boolean isHasMore);
 
     void onLoadMoreFail();
 }

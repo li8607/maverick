@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.maverick.R;
@@ -63,12 +64,23 @@ public class SisterItemFragmentAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         if (holder instanceof SisterVideoHolder) {
             SisterVideoHolder sisterVideoHolder = (SisterVideoHolder) holder;
             sisterVideoHolder.setListVideoUtil(listVideoUtil);
             sisterVideoHolder.setRecyclerAdapter(this);
             sisterVideoHolder.bindData(mContext, mList.get(position));
+        }else if (holder instanceof SisterImageHolder) {
+            SisterImageHolder sisterImageHolder = (SisterImageHolder) holder;
+            sisterImageHolder.bindData(mContext, mList.get(position));
+            if(mOnItemChildClickListener != null) {
+                sisterImageHolder.image.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mOnItemChildClickListener.onImageClick(holder, position);
+                    }
+                });
+            }
         } else if (holder instanceof SisterTextHolder) {
             SisterTextHolder sisterTextHolder = (SisterTextHolder) holder;
             sisterTextHolder.bindData(mContext, mList.get(position));
@@ -125,5 +137,15 @@ public class SisterItemFragmentAdapter extends RecyclerView.Adapter {
 
     public void setOnSisterTextHolderListener(SisterTextHolder.OnSisterTextHolderListener listener) {
         this.mListener = listener;
+    }
+
+    private OnItemChildClickListener mOnItemChildClickListener;
+
+    public void setOnItemChildClickListener(OnItemChildClickListener listener) {
+        this.mOnItemChildClickListener = listener;
+    }
+
+    public interface OnItemChildClickListener {
+        void onImageClick(RecyclerView.ViewHolder viewHolder, int position);
     }
 }

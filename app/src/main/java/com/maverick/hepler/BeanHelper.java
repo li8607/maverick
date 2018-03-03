@@ -195,6 +195,23 @@ public class BeanHelper {
         return bigImgInfos;
     }
 
+    public static List<BigImgInfo> getBigImgInfo2SisterInfo(List<SisterInfo> list) {
+        List<BigImgInfo> bigImgInfos = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            SisterInfo sisterInfo=list.get(i);
+            if(TextUtils.isEmpty(sisterInfo.getImage2())) {
+                continue;
+            }
+            BigImgInfo bigImgInfo = new BigImgInfo();
+            bigImgInfo.setImg(sisterInfo.getImage2());
+            bigImgInfo.setTitle(sisterInfo.getText());
+            bigImgInfo.setWebUrl(sisterInfo.getWeixin_url());
+            bigImgInfo.setCollect(BeanHelper.getCollect(sisterInfo));
+            bigImgInfos.add(bigImgInfo);
+        }
+        return bigImgInfos;
+    }
+
     public static WebDetailInfo getWebDetailInfo(CaricatureInfo info) {
 
         if (info == null) {

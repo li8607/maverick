@@ -20,13 +20,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.maverick.weight.RatioImageView
-                android:id="@+id/image"
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/img"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_height="260dp"
                 android:adjustViewBounds="true"
-                android:scaleType="centerCrop" />
+                android:clickable="true"
+                android:focusable="true"
+                android:foreground="?android:attr/selectableItemBackground" />
 
             <ImageView
                 android:id="@+id/loading"

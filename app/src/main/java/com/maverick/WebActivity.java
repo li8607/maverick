@@ -171,7 +171,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
     }
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressedSupport() {
 
         if (web.canGoBack()) {
             web.goBack();

@@ -31,6 +31,7 @@ public class SisterItemFragmentPresenter extends BasePresenter {
     private final ISisterModel mModel;
     private int mPage = 1;
     private SisterTabInfo mSisterTabInfo;
+    private List<SisterInfo> mList;
 
     public SisterItemFragmentPresenter(Context context, ISisterItemFragmentView view) {
         this.mContext = context;
@@ -80,7 +81,8 @@ public class SisterItemFragmentPresenter extends BasePresenter {
                             sisterInfo.setCai(dingCai.getCai());
                         }
                     }
-                    mView.onShowSuccessView(list);
+                    mList = list;
+                    mView.onShowSuccessView(mList);
                 } else {
                     mView.onShowEmptyView();
                 }
@@ -131,7 +133,22 @@ public class SisterItemFragmentPresenter extends BasePresenter {
             @Override
             public void onSuccess(List<SisterInfo> list) {
                 //此接口固定20条数据
-                mView.onLoadMoreSuccess(list, list.size() >= 20);
+
+                if(list == null) {
+                    mView.onLoadMoreSuccess(mList, 0,0,false);
+                    return;
+                }
+
+                int positionStart = 0;
+
+                if(mList != null) {
+                    positionStart = mList.size();
+                    mList.addAll(list);
+                }else {
+                    mList = list;
+                }
+
+                mView.onLoadMoreSuccess(list, positionStart, list.size(), list.size() >= 20);
                 mPage++;
             }
 
@@ -140,6 +157,14 @@ public class SisterItemFragmentPresenter extends BasePresenter {
                 mView.onLoadMoreFail();
             }
         });
+    }
+
+    public List<SisterInfo> getList() {
+        return mList;
+    }
+
+    public void setList(List<SisterInfo> mList) {
+        this.mList = mList;
     }
 
     public int getRandom(String ding) {
