@@ -164,7 +164,7 @@ public class PearItemFragment extends BaseFragment implements IPearItemFragmentV
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        if (mAdapter.getData() != null) {
+        if (mAdapter != null && mAdapter.getData() != null) {
             outState.putSerializable("data", (Serializable) mAdapter.getData());
             outState.putSerializable("data1", (Serializable) mAdapter.getHotList());
             outState.putBoolean("hasMore", pullLoadMoreRecyclerView.isHasMore());

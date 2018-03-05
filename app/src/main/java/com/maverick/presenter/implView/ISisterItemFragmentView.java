@@ -10,7 +10,7 @@ import java.util.List;
 public interface ISisterItemFragmentView {
 
 
-    void onShowSuccessView(List<SisterInfo> beautyInfo);
+    void onShowSuccessView(List<SisterInfo> beautyInfo, boolean hasMore);
 
     void onShowEmptyView();
 

@@ -174,13 +174,13 @@ public class MainActivity2 extends BaseActivity {
     @Override
     protected void onInitData(Bundle savedInstanceState) {
         mList = new ArrayList<>();
-        mList.add(getButtonInfo(getString(R.string.fragment_sister), 0, FragmentType.SISTER));
-//        mList.add(getButtonInfo(getString(R.string.fragment_beauty), 0, FragmentType.BEAUTY));
-        mList.add(getButtonInfo(getString(R.string.fragment_caricature), 0, FragmentType.CARICATURE));
-//        mList.add(getButtonInfo(getString(R.string.fragment_sina), 0, FragmentType.SINA));
-        mList.add(getButtonInfo(getString(R.string.fragment_pear), 0, FragmentType.PEAR));
-        mList.add(getButtonInfo(getString(R.string.fragment_joke), 0, FragmentType.JOKE));
-        mList.add(getButtonInfo(getString(R.string.fragment_my), 0, FragmentType.MY));
+        mList.add(getButtonInfo(getString(R.string.fragment_sister), FragmentType.SISTER));
+        mList.add(getButtonInfo(getString(R.string.fragment_caricature), FragmentType.CARICATURE));
+//        mList.add(getButtonInfo(getString(R.string.fragment_beauty),  FragmentType.BEAUTY));
+//        mList.add(getButtonInfo(getString(R.string.fragment_sina),  FragmentType.SINA));
+        mList.add(getButtonInfo(getString(R.string.fragment_pear), FragmentType.PEAR));
+        mList.add(getButtonInfo(getString(R.string.fragment_joke), FragmentType.JOKE));
+        mList.add(getButtonInfo(getString(R.string.fragment_my), FragmentType.MY));
 
         mMainActivityAdapter = new MainActivityAdapter(getSupportFragmentManager());
         mMainActivityAdapter.setList(mList);
@@ -189,10 +189,9 @@ public class MainActivity2 extends BaseActivity {
         setSupportActionBarTitle(mList.get(0).getName());
     }
 
-    public ButtonInfo getButtonInfo(String name, int iconId, int type) {
+    public ButtonInfo getButtonInfo(String name, int type) {
         ButtonInfo buttonInfo = new ButtonInfo();
         buttonInfo.setName(name);
-        buttonInfo.setIconId(iconId);
         buttonInfo.setType(type);
         return buttonInfo;
     }

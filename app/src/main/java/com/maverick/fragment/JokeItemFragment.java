@@ -135,7 +135,7 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        if (mJokeItemFragmentAdapter.getData() != null) {
+        if (mPresenter != null && mPresenter.getData() != null) {
             outState.putInt("page", mPresenter.getPage());
             outState.putSerializable("data", (Serializable) mPresenter.getData());
             outState.putParcelable("state", pullLoadMoreRecyclerView.getLayoutManager().onSaveInstanceState());

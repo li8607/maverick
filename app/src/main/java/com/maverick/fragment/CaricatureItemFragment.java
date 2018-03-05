@@ -146,7 +146,7 @@ public class CaricatureItemFragment extends BaseFragment implements ICaricatureI
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        if (mAdapter.getData() != null) {
+        if (mAdapter != null && mAdapter.getData() != null) {
             outState.putInt("page", mPresenter.getPage());
             outState.putSerializable("data", (Serializable) mAdapter.getData());
             outState.putParcelable("state", pullLoadMoreRecyclerView.getLayoutManager().onSaveInstanceState());

@@ -82,7 +82,7 @@ public class SisterItemFragmentPresenter extends BasePresenter {
                         }
                     }
                     mList = list;
-                    mView.onShowSuccessView(mList);
+                    mView.onShowSuccessView(mList, mList.size() >= 20);
                 } else {
                     mView.onShowEmptyView();
                 }
@@ -134,21 +134,21 @@ public class SisterItemFragmentPresenter extends BasePresenter {
             public void onSuccess(List<SisterInfo> list) {
                 //此接口固定20条数据
 
-                if(list == null) {
-                    mView.onLoadMoreSuccess(mList, 0,0,false);
+                if (list == null) {
+                    mView.onLoadMoreSuccess(mList, 0, 0, false);
                     return;
                 }
 
                 int positionStart = 0;
 
-                if(mList != null) {
+                if (mList != null) {
                     positionStart = mList.size();
                     mList.addAll(list);
-                }else {
+                } else {
                     mList = list;
                 }
 
-                mView.onLoadMoreSuccess(list, positionStart, list.size(), list.size() >= 20);
+                mView.onLoadMoreSuccess(mList, positionStart, list.size(), list.size() >= 20);
                 mPage++;
             }
 
@@ -180,5 +180,25 @@ public class SisterItemFragmentPresenter extends BasePresenter {
 
         }
         return 0;
+    }
+
+    public List<SisterInfo> getData() {
+        return mList;
+    }
+
+    public int getPage() {
+        return mPage;
+    }
+
+    public void setPage(int page) {
+        this.mPage = page;
+    }
+
+    public void setData(List<SisterInfo> list) {
+        this.mList = list;
+    }
+
+    public void setSisterTabInfo(SisterTabInfo sisterTabInfo) {
+        this.mSisterTabInfo = sisterTabInfo;
     }
 }

@@ -117,12 +117,6 @@ public class SisterItemFragmentAdapter extends RecyclerView.Adapter {
         this.mList = list;
     }
 
-    public void setMoreData(List<SisterInfo> list) {
-        if (mList != null) {
-            mList.addAll(list);
-        }
-    }
-
     public List<SisterInfo> getData() {
         return mList;
     }
