@@ -1,5 +1,7 @@
 package com.maverick.base;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
@@ -25,6 +27,9 @@ public abstract class BaseActivity extends SwipeBackActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
         // 「必须在 Application 的 onCreate 方法中执行 BGASwipeBackHelper.init 来初始化滑动返回」
         // 在 super.onCreate(savedInstanceState) 之前调用该方法
         setTheme(MainApp.getInstance().getCustomTheme());

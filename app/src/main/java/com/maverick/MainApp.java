@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatDelegate;
 
 import com.avos.avoscloud.AVAnalytics;
 import com.avos.avoscloud.AVOSCloud;
+import com.iflytek.cloud.SpeechConstant;
+import com.iflytek.cloud.SpeechUtility;
 import com.maverick.global.SPKey;
 import com.maverick.global.ThemeType;
 import com.maverick.util.PreferenceUtil;
@@ -50,8 +52,7 @@ public class MainApp extends Application {
         AVOSCloud.setDebugLogEnabled(true);
         AVAnalytics.enableCrashReport(this, true);
 
-//        AVOSCloud.initialize(this,"0C89a76qNodEmSHBpCSTGgCX-gzGzoHsz", "2Bcw0fzmDjYF6WXqEJumCKxR");
-//        AVOSCloud.setDebugLogEnabled(true);
+        SpeechUtility.createUtility(mContext, SpeechConstant.APPID +"=5a9fb98c");
     }
 
     public int getCustomTheme() {

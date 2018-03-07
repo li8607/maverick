@@ -66,11 +66,22 @@ public class JokeItemFragmentAdapter extends RecyclerView.Adapter {
             case JOKE_GIF:
                 JokeImgViewHolder mMyViewHolder = (JokeImgViewHolder) holder;
                 jokeTextViewHolder = mMyViewHolder;
-                if (mOnItemClickListener != null) {
+                if (mOnItemChildClickListener != null) {
                     mMyViewHolder.img.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            mOnItemClickListener.onItemClick(view, position, gifInfo);
+                            mOnItemChildClickListener.onImageClick(view, position, gifInfo);
+                        }
+                    });
+                }
+                break;
+            case JOKE_TEXT:
+                jokeTextViewHolder = (JokeTextViewHolder) holder;
+                if (mOnItemChildClickListener != null) {
+                    jokeTextViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            mOnItemChildClickListener.onTextClick(view, position, gifInfo);
                         }
                     });
                 }
@@ -109,13 +120,14 @@ public class JokeItemFragmentAdapter extends RecyclerView.Adapter {
         return mList;
     }
 
-    private OnItemClickListener mOnItemClickListener;
+    private OnItemChildClickListener mOnItemChildClickListener;
 
-    public void setOnItemClickListener(OnItemClickListener listener) {
-        this.mOnItemClickListener = listener;
+    public void setOnItemChildClickListener(OnItemChildClickListener listener) {
+        this.mOnItemChildClickListener = listener;
     }
 
-    public interface OnItemClickListener {
-        void onItemClick(View view, int position, GifInfo gifInfo);
+    public interface OnItemChildClickListener {
+        void onImageClick(View view, int position, GifInfo gifInfo);
+        void onTextClick(View view, int position, GifInfo gifInfo);
     }
 }

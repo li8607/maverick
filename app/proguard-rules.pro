@@ -359,3 +359,8 @@ public static final int *;
 -keep class org.xbill.** { *;}
 
 -keepattributes *Annotation*
+
+#--------------------------------科大讯飞  start--------------------------------------
+-keep class com.iflytek.**{*;}
+-keepattributes Signature
+#--------------------------------科大讯飞  start--------------------------------------
