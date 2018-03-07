@@ -17,4 +17,6 @@ public class UrlData {
     public static String BEAUTY_BASE = "http://gank.io/api/";
 
     public static String PEAR_BASE = "http://app.pearvideo.com/clt/jsp/v2/";
+
+    public static String LEAN_CLOUD_BASE = "https://leancloud.cn:443/1.1/";
 }
