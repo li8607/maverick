@@ -291,6 +291,36 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
         });
     }
 
+    public void setUserVisibleHintSuper(boolean isVisibleToUser) {
+        if (isVisibleToUser) {
+            if (mSpeechHelper != null && pause) {
+                mSpeechHelper.resumeSpeaking();
+                pause = false;
+            }
+        } else {
+            if (mSpeechHelper != null && !mSpeechHelper.isPause()) {
+                this.pause = true;
+                mSpeechHelper.pauseSpeaking();
+            }
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (mSpeechHelper != null && pause) {
+                mSpeechHelper.resumeSpeaking();
+                pause = false;
+            }
+        } else {
+            if (mSpeechHelper != null && !mSpeechHelper.isPause()) {
+                this.pause = true;
+                mSpeechHelper.pauseSpeaking();
+            }
+        }
+    }
+
     @Override
     public void onResume() {
         super.onResume();

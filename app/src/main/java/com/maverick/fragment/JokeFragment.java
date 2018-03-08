@@ -85,4 +85,15 @@ public class JokeFragment extends BaseFragment {
         tab_layout.setSelectedTabIndicatorColor(ContextCompat.getColor(getContext(), colorTabLayoutIndicator.resourceId));
         tab_layout.setTabTextColors(ContextCompat.getColor(getContext(), R.color.textColorTabLayout), ContextCompat.getColor(getContext(), textColorTabLayoutSelected.resourceId));
     }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (mJokeFragmentAdapter != null) {
+            JokeItemFragment jokeItemFragment = (JokeItemFragment) mJokeFragmentAdapter.instantiateItem(viewpager, viewpager.getCurrentItem());
+            if (jokeItemFragment != null) {
+                jokeItemFragment.setUserVisibleHintSuper(isVisibleToUser);
+            }
+        }
+    }
 }
