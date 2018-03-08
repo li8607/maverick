@@ -11,7 +11,6 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ProgressBar;
 
 import com.maverick.DetailActivity;
 import com.maverick.R;
@@ -55,7 +54,8 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
     private RecyclerView mRecyclerView;
     private boolean pause;
     private ControlSpeechView mControlSpeechView;
-    private ProgressBar mProgressBar;
+    private int bottom;
+    private int childHeight;
 
     public static JokeItemFragment newInstance(JokeTabInfo jokeTabInfo) {
         JokeItemFragment fragment = new JokeItemFragment();
@@ -80,6 +80,9 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
 
     @Override
     protected void onInitView(final View view) {
+        bottom = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getContext().getResources().getDisplayMetrics()));
+        childHeight = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 42, getContext().getResources().getDisplayMetrics()));
+
         root = findView(R.id.root);
 
         mControlSpeechView = findView(R.id.controlSpeechView);
@@ -114,27 +117,52 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
         mRecyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
             @Override
             public void onChildViewAttachedToWindow(View view) {
-                if (mSpeechInfo != null) {
-                    int position = mRecyclerView.getChildAdapterPosition(view);
-                    if (position == mPresenter.getData().indexOf(mSpeechInfo)) {
-                        mControlSpeechView.setVisibility(View.INVISIBLE);
-                        mProgressBar = view.findViewById(R.id.pb_progress);
-                        mProgressBar.setSecondaryProgress(mControlSpeechView.getSecondaryProgress());
-                        mProgressBar.setProgress(mControlSpeechView.getProgress());
-                        mProgressBar.setVisibility(View.VISIBLE);
-                    }
-                }
+//                if (mSpeechInfo != null) {
+//                    int position = mRecyclerView.getChildAdapterPosition(view);
+//                    if (position == mPresenter.getData().indexOf(mSpeechInfo)) {
+//                        mControlSpeechView.setVisibility(View.INVISIBLE);
+//                        mProgressBar = view.findViewById(R.id.pb_progress);
+//                        mProgressBar.setSecondaryProgress(mControlSpeechView.getSecondaryProgress());
+//                        mProgressBar.setProgress(mControlSpeechView.getProgress());
+//                        mProgressBar.setVisibility(View.VISIBLE);
+//                    }
+//                }
             }
 
             @Override
             public void onChildViewDetachedFromWindow(View view) {
-                if (mSpeechInfo != null) {
-                    int position = mRecyclerView.getChildAdapterPosition(view);
-                    if (position == mPresenter.getData().indexOf(mSpeechInfo)) {
-                        mControlSpeechView.setVisibility(View.VISIBLE);
-                        if (mProgressBar != null) {
-                            mProgressBar.setVisibility(View.INVISIBLE);
-                            mProgressBar = null;
+//                if (mSpeechInfo != null) {
+//                    int position = mRecyclerView.getChildAdapterPosition(view);
+//                    if (position == mPresenter.getData().indexOf(mSpeechInfo)) {
+//                        mControlSpeechView.setVisibility(View.VISIBLE);
+//                        if (mProgressBar != null) {
+//                            mProgressBar.setVisibility(View.INVISIBLE);
+//                            mProgressBar = null;
+//                        }
+//                    }
+//                }
+            }
+        });
+
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                if(mSpeechInfo == null) {
+                    return;
+                }
+
+                View stickview = recyclerView.findChildViewUnder(bottom, 0);
+                if(stickview != null) {
+                    int position = recyclerView.getChildAdapterPosition(stickview);
+                    if(position == mPresenter.getData().indexOf(mSpeechInfo)) {
+                        int height = stickview.getMeasuredHeight();
+                        int top = stickview.getTop();
+                        if(top + height <= childHeight){
+                            mControlSpeechView.setVisibility(View.VISIBLE);
+                        }else {
+                            mControlSpeechView.setVisibility(View.INVISIBLE);
                         }
                     }
                 }
@@ -191,7 +219,6 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
                 if (viewHolder.getItemViewType() == JOKE_TEXT) {
                     JokeTextViewHolder jokeTextViewHolder = (JokeTextViewHolder) viewHolder;
                     jokeTextViewHolder.pb_loading.setVisibility(View.VISIBLE);
-                    mProgressBar = jokeTextViewHolder.pb_progress;
                 }
 
                 mSpeechInfo = gifInfo;
@@ -207,7 +234,6 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
             }
         });
 
-        final int bottom = Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getContext().getResources().getDisplayMetrics()));
 
         mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
@@ -435,17 +461,24 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
 
     @Override
     public void onBufferProgress(int percent, int beginPos, int endPos) {
-        if (mProgressBar != null) {
-            mProgressBar.setSecondaryProgress(percent);
+
+        RecyclerView.ViewHolder viewHolder = mRecyclerView.findViewHolderForAdapterPosition(mPresenter.getData().indexOf(mSpeechInfo));
+        if(viewHolder != null && viewHolder.getItemViewType() == JOKE_TEXT) {
+            JokeTextViewHolder jokeTextViewHolder = (JokeTextViewHolder) viewHolder;
+            jokeTextViewHolder.pb_progress.setSecondaryProgress(percent);
         }
+
         mControlSpeechView.setSecondaryProgress(percent);
     }
 
     @Override
     public void onSpeakProgress(int percent, int beginPos, int endPos) {
-        if (mProgressBar != null) {
-            mProgressBar.setProgress(percent);
+        RecyclerView.ViewHolder viewHolder = mRecyclerView.findViewHolderForAdapterPosition(mPresenter.getData().indexOf(mSpeechInfo));
+        if(viewHolder != null && viewHolder.getItemViewType() == JOKE_TEXT) {
+            JokeTextViewHolder jokeTextViewHolder = (JokeTextViewHolder) viewHolder;
+            jokeTextViewHolder.pb_progress.setProgress(percent);
         }
+
         mControlSpeechView.setProgress(percent);
     }
 
@@ -457,20 +490,23 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
         }
 
         boolean next = PreferenceUtil.getInstance(getContext()).getBoolean(SPKey.JOKE_NEXT, false);
-        next = true;
         if (next) {
-
             int index = mPresenter.getData().indexOf(mSpeechInfo);
             if (index != mPresenter.getData().size() - 1) {
                 mSpeechInfo = mPresenter.getData().get(++index);
 
-                int firstPosition = mLinearLayoutManager.findFirstCompletelyVisibleItemPosition();
-                int lastPosition = mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
-
-                if (index >= firstPosition && index <= lastPosition) {
-
-                } else {
-                    mControlSpeechView.setVisibility(View.VISIBLE);
+                View stickview = mRecyclerView.findChildViewUnder(bottom, 0);
+                if(stickview != null) {
+                    int position = mRecyclerView.getChildAdapterPosition(stickview);
+                    if(position == mPresenter.getData().indexOf(mSpeechInfo)) {
+                        int height = stickview.getMeasuredHeight();
+                        int top = stickview.getTop();
+                        if(top + height <= childHeight){
+                            mControlSpeechView.setVisibility(View.VISIBLE);
+                        }else {
+                            mControlSpeechView.setVisibility(View.INVISIBLE);
+                        }
+                    }
                 }
 
                 updateUI(START);
@@ -500,6 +536,7 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
                 break;
             case START:
                 mSpeechHelper.startSpeaking(mSpeechInfo.getText());
+                mJokeItemFragmentAdapter.setSpeaking(true);
                 mJokeItemFragmentAdapter.setSpeechData(mSpeechInfo);
                 mJokeItemFragmentAdapter.notifyDataSetChanged();
                 mControlSpeechView.start();
