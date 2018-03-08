@@ -1,29 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="12dp"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp">
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:weightSum="3">
+
+        <FrameLayout
+            android:id="@+id/fl_play_joke"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/iv_play_joke"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="6dp"
+                app:srcCompat="@drawable/ic_play_arrow_black_24dp"
+                app:tint="@color/operation_count_day_selector" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/fl_stop_joke"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/iv_stop_joke"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="6dp"
+                app:srcCompat="@drawable/ic_stop_black_24dp"
+                app:tint="@color/operation_count_day_selector" />
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:visibility="invisible"
+            android:id="@+id/fl_next_joke"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:paddingBottom="12dp"
+            android:paddingTop="12dp">
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/iv_next_joke"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="6dp"
+                app:srcCompat="@drawable/ic_fast_forward_black_24dp"
+                app:tint="@color/operation_count_day_selector" />
+
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/collect"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:scaleType="fitXY"
+            android:visibility="gone" />
 
 
-    <ImageView
-        android:id="@+id/collect"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:scaleType="fitXY"
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxWidth="120dp"
+            android:singleLine="true"
+            android:textColor="@color/colorSubTitleColor"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/pb_progress"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="#000"
+        android:max="100"
+        android:minHeight="0dp"
         android:visibility="gone" />
 
-
-    <TextView
-        android:id="@+id/time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:textColor="@color/colorSubTitleColor"
-        android:textSize="12sp" />
-
-</RelativeLayout>
+</FrameLayout>

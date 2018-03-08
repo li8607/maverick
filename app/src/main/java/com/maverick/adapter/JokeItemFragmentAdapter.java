@@ -28,6 +28,9 @@ public class JokeItemFragmentAdapter extends RecyclerView.Adapter {
 
     private Context mContext;
 
+    private GifInfo mSpeechInfo;
+    private boolean mSpeaking;
+
     public JokeItemFragmentAdapter(Context context) {
         this.mContext = context;
     }
@@ -58,7 +61,7 @@ public class JokeItemFragmentAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         JokeTextViewHolder jokeTextViewHolder;
         final GifInfo gifInfo = mList.get(position);
         switch (holder.getItemViewType()) {
@@ -77,11 +80,24 @@ public class JokeItemFragmentAdapter extends RecyclerView.Adapter {
                 break;
             case JOKE_TEXT:
                 jokeTextViewHolder = (JokeTextViewHolder) holder;
+                jokeTextViewHolder.iv_play_joke.setSelected(gifInfo != null && gifInfo.equals(mSpeechInfo));
+                jokeTextViewHolder.iv_play_joke.setImageResource(gifInfo != null && gifInfo.equals(mSpeechInfo) && mSpeaking ? R.drawable.ic_pause_black_24dp : R.drawable.ic_play_arrow_black_24dp);
+                if (mSpeaking && jokeTextViewHolder.pb_loading.getVisibility() == View.VISIBLE) {
+                    jokeTextViewHolder.pb_loading.setVisibility(View.INVISIBLE);
+                }
+                jokeTextViewHolder.pb_progress.setVisibility(gifInfo != null && gifInfo.equals(mSpeechInfo) ? View.VISIBLE : View.INVISIBLE);
                 if (mOnItemChildClickListener != null) {
-                    jokeTextViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    jokeTextViewHolder.fl_play_joke.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-                            mOnItemChildClickListener.onTextClick(view, position, gifInfo);
+                            mOnItemChildClickListener.onPlayClick(holder, position, gifInfo);
+                        }
+                    });
+
+                    jokeTextViewHolder.fl_stop_joke.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            mOnItemChildClickListener.onStopClick(holder, position, gifInfo);
                         }
                     });
                 }
@@ -126,8 +142,19 @@ public class JokeItemFragmentAdapter extends RecyclerView.Adapter {
         this.mOnItemChildClickListener = listener;
     }
 
+    public void setSpeechData(GifInfo info) {
+        this.mSpeechInfo = info;
+    }
+
+    public void setSpeaking(boolean speaking) {
+        this.mSpeaking = speaking;
+    }
+
     public interface OnItemChildClickListener {
         void onImageClick(View view, int position, GifInfo gifInfo);
-        void onTextClick(View view, int position, GifInfo gifInfo);
+
+        void onPlayClick(RecyclerView.ViewHolder viewHolder, int position, GifInfo gifInfo);
+
+        void onStopClick(RecyclerView.ViewHolder viewHolder, int position, GifInfo gifInfo);
     }
 }

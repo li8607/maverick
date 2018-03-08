@@ -24,8 +24,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.iflytek.cloud.SpeechConstant;
-import com.iflytek.cloud.SpeechUtility;
 import com.maverick.adapter.MainActivityAdapter;
 import com.maverick.base.BaseActivity;
 import com.maverick.base.BaseFragment;

@@ -1,9 +1,11 @@
 package com.maverick.adapter.holder;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.maverick.R;
@@ -22,6 +24,11 @@ public class JokeTextViewHolder extends RecyclerView.ViewHolder implements View.
     private GifInfo gifInfo;
     private final TextView time;
     private final View collect;
+    public final View fl_play_joke;
+    public final AppCompatImageView iv_play_joke;
+    public final ProgressBar pb_loading;
+    public final ProgressBar pb_progress;
+    public final View fl_stop_joke;
 
     public JokeTextViewHolder(final View itemView) {
         super(itemView);
@@ -29,6 +36,11 @@ public class JokeTextViewHolder extends RecyclerView.ViewHolder implements View.
         time = (TextView) itemView.findViewById(R.id.time);
         collect = itemView.findViewById(R.id.collect);
         collect.setOnClickListener(this);
+        fl_play_joke = itemView.findViewById(R.id.fl_play_joke);
+        iv_play_joke = itemView.findViewById(R.id.iv_play_joke);
+        pb_loading = itemView.findViewById(R.id.pb_loading);
+        pb_progress = itemView.findViewById(R.id.pb_progress);
+        fl_stop_joke = itemView.findViewById(R.id.fl_stop_joke);
     }
 
     public void bindData(Context context, GifInfo gifInfo) {

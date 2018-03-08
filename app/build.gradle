@@ -90,4 +90,6 @@ dependencies {
     compile 'cn.leancloud.android:avoscloud-statistics:v3.+'
     compile 'me.yokeyword:fragmentation:1.2.7'
     compile 'me.yokeyword:fragmentation-swipeback:1.2.7'
+    compile files('libs/Msc.jar')
+    compile files('libs/Sunflower.jar')
 }
