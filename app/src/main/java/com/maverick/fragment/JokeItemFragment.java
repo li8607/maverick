@@ -20,7 +20,6 @@ import com.maverick.base.BaseFragment;
 import com.maverick.bean.BigImgInfo;
 import com.maverick.bean.GifInfo;
 import com.maverick.bean.JokeTabInfo;
-import com.maverick.dialog.SpeechSettingDialog;
 import com.maverick.global.SPKey;
 import com.maverick.global.Tag;
 import com.maverick.hepler.BeanHelper;
@@ -193,6 +192,7 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
                 }
 
                 mSpeechInfo = gifInfo;
+                mControlSpeechView.setVisibility(View.INVISIBLE);
                 updateUI(START);
             }
 
@@ -414,7 +414,6 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
         mJokeItemFragmentAdapter.setSpeaking(true);
         mJokeItemFragmentAdapter.notifyDataSetChanged();
         mControlSpeechView.start();
-        showDialogFragment(SpeechSettingDialog.newInstance());
     }
 
     @Override
