@@ -114,36 +114,6 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
         mLinearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLinearLayoutManager);
 
-        mRecyclerView.addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
-            @Override
-            public void onChildViewAttachedToWindow(View view) {
-//                if (mSpeechInfo != null) {
-//                    int position = mRecyclerView.getChildAdapterPosition(view);
-//                    if (position == mPresenter.getData().indexOf(mSpeechInfo)) {
-//                        mControlSpeechView.setVisibility(View.INVISIBLE);
-//                        mProgressBar = view.findViewById(R.id.pb_progress);
-//                        mProgressBar.setSecondaryProgress(mControlSpeechView.getSecondaryProgress());
-//                        mProgressBar.setProgress(mControlSpeechView.getProgress());
-//                        mProgressBar.setVisibility(View.VISIBLE);
-//                    }
-//                }
-            }
-
-            @Override
-            public void onChildViewDetachedFromWindow(View view) {
-//                if (mSpeechInfo != null) {
-//                    int position = mRecyclerView.getChildAdapterPosition(view);
-//                    if (position == mPresenter.getData().indexOf(mSpeechInfo)) {
-//                        mControlSpeechView.setVisibility(View.VISIBLE);
-//                        if (mProgressBar != null) {
-//                            mProgressBar.setVisibility(View.INVISIBLE);
-//                            mProgressBar = null;
-//                        }
-//                    }
-//                }
-            }
-        });
-
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
