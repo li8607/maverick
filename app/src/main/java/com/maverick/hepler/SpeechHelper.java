@@ -3,7 +3,6 @@ package com.maverick.hepler;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Environment;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.iflytek.cloud.ErrorCode;
@@ -27,7 +26,6 @@ public class SpeechHelper {
     private String voicer = "xiaoyan";
     private Context mContext;
     private boolean pause;
-    private ProgressBar mProgress;
 
     public static SpeechHelper newInstance(Context context) {
         SpeechHelper speechHelper = new SpeechHelper(context);
@@ -202,10 +200,6 @@ public class SpeechHelper {
 
     public void setOnSpeechInitListener(OnSpeechInitListener listener) {
         this.mOnSpeechInitListener = listener;
-    }
-
-    public void setProgressBar(ProgressBar progress) {
-        this.mProgress = progress;
     }
 
     public interface OnSpeechInitListener {

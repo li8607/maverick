@@ -6,10 +6,16 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+    <com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-        <com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+    <com.maverick.weight.ControlSpeechView
+        android:id="@+id/controlSpeechView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:visibility="gone" />
 
 </FrameLayout>
