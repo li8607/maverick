@@ -17,6 +17,7 @@ import com.maverick.adapter.SettingTabFragmentAdapter;
 import com.maverick.base.BaseFragment;
 import com.maverick.bean.SettingItemInfo;
 import com.maverick.bean.SettingTabInfo;
+import com.maverick.dialog.ChoiceDialog;
 import com.maverick.dialog.ThemeDialog;
 import com.maverick.global.SPKey;
 import com.maverick.presenter.BasePresenter;
@@ -36,6 +37,8 @@ public class SettingTabFragment extends BaseFragment implements SettingTabFragme
     private SettingTabFragmentAdapter mAdapter;
     private int mNightMode;
     private int mTheme;
+    private String[] mVoicer_cloud_entries;
+    private String[] mVoicer_cloud_values;
 
     public static SettingTabFragment newInstance() {
         SettingTabFragment fragment = new SettingTabFragment();
@@ -100,6 +103,9 @@ public class SettingTabFragment extends BaseFragment implements SettingTabFragme
 
         String[] play_entries = getResources().getStringArray(R.array.play_entries);
         String[] play_values = getResources().getStringArray(R.array.play_values);
+
+        mVoicer_cloud_entries = getResources().getStringArray(R.array.voicer_cloud_entries);
+        mVoicer_cloud_values = getResources().getStringArray(R.array.voicer_cloud_values);
 
         mList = new ArrayList<>();
 
@@ -203,6 +209,11 @@ public class SettingTabFragment extends BaseFragment implements SettingTabFragme
                     }
                 } else if (TextUtils.equals(settingTabInfo.getType(), "1")) {
                     //播放
+                    if (TextUtils.equals(settingItemInfo.getType(), "0")) {
+                        //发音人
+                        ChoiceDialog choiceDialog = ChoiceDialog.newInstance(ChoiceDialog.SINGLE, settingItemInfo.getTitle(), mVoicer_cloud_entries, "取消", "");
+                        showDialogFragment(choiceDialog);
+                    }
                 }
 
                 break;
@@ -221,10 +232,6 @@ public class SettingTabFragment extends BaseFragment implements SettingTabFragme
 
     @Override
     public void onThemeChange(int themeType) {
-
-
-
-
         if (mOnDayNightChangeListener != null) {
             mOnDayNightChangeListener.onThemeChange(themeType);
         }

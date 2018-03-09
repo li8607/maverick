@@ -1,0 +1,118 @@
+package com.maverick.dialog;
+
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.TextView;
+
+import com.maverick.R;
+import com.maverick.adapter.ChoiceDialogAdapter;
+import com.maverick.base.BaseDialogFragment;
+import com.maverick.presenter.BasePresenter;
+
+/**
+ * Created by maver on 2018/3/8.
+ */
+
+public class ChoiceDialog extends BaseDialogFragment {
+
+    public static final int SINGLE = 1;
+    public static final int MULTI = 2;
+    private TextView mTvTitle;
+    private RecyclerView mRecyclerView;
+    private TextView mSure;
+    private TextView mCancel;
+    private View mBtn_root;
+
+    public static ChoiceDialog newInstance(int type, String title, String[] items, String btn1, String btn2) {
+        ChoiceDialog dialog = new ChoiceDialog();
+        Bundle bundle = new Bundle();
+        bundle.putInt("type", type);
+        bundle.putString("title", title);
+        bundle.putStringArray("items", items);
+        bundle.putString("btn1", btn1);
+        bundle.putString("btn2", btn2);
+        dialog.setArguments(bundle);
+        return dialog;
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        super.onActivityCreated(savedInstanceState);
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0x00000000));
+        getDialog().getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getDialog().getWindow().setStatusBarColor(Color.TRANSPARENT);
+        }
+        getDialog().getWindow().getAttributes().gravity = Gravity.BOTTOM;
+        getDialog().getWindow().getAttributes().windowAnimations = R.style.dialogAnim;
+    }
+
+    @Override
+    protected BasePresenter onCreatePresenter() {
+        return null;
+    }
+
+    @Override
+    protected int getRootViewId() {
+        return R.layout.dialog_choice;
+    }
+
+    @Override
+    protected void onInitView(View view) {
+        mTvTitle = view.findViewById(R.id.tv_title);
+        mRecyclerView = view.findViewById(R.id.rv_choice);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        mRecyclerView.setLayoutManager(layoutManager);
+
+        mSure = findView(R.id.tv_sure);
+        mCancel = findView(R.id.tv_cancel);
+        mBtn_root = findView(R.id.ll_btn_root);
+    }
+
+    @Override
+    protected void onInitData(Bundle savedInstanceState) {
+        if (getArguments() == null) {
+            return;
+        }
+
+        int type = getArguments().getInt("type");
+        String title = getArguments().getString("title");
+        String[] items = getArguments().getStringArray("items");
+        String btn1 = getArguments().getString("btn1");
+        String btn2 = getArguments().getString("btn2");
+
+        if (!TextUtils.isEmpty(title)) {
+            mTvTitle.setText(title);
+            mTvTitle.setVisibility(View.VISIBLE);
+        }
+
+        if (items != null) {
+            mRecyclerView.setVisibility(View.VISIBLE);
+            ChoiceDialogAdapter mChoiceDialogAdapter = new ChoiceDialogAdapter(getContext(), items);
+            mRecyclerView.setAdapter(mChoiceDialogAdapter);
+        }
+
+        if (!TextUtils.isEmpty(btn1)) {
+            mSure.setText(btn1);
+            mSure.setVisibility(View.VISIBLE);
+            mBtn_root.setVisibility(View.VISIBLE);
+        }
+
+        if (!TextUtils.isEmpty(btn2)) {
+            mCancel.setText(btn2);
+            mSure.setVisibility(View.VISIBLE);
+            mBtn_root.setVisibility(View.VISIBLE);
+        }
+    }
+}

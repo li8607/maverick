@@ -203,7 +203,6 @@ public class SettingActivity extends BaseActivity implements ThemeDialog.OnTheme
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-
             FragmentManager fm = getSupportFragmentManager();
             ThemeDialog themeDialog = (ThemeDialog) fm.findFragmentByTag(ThemeDialog.class.getName());
             if (themeDialog != null) {
@@ -219,7 +218,6 @@ public class SettingActivity extends BaseActivity implements ThemeDialog.OnTheme
 
     @Override
     public void onThemeChange(int themeType) {
-
         if (themeType == ThemeType.DAY_NIGHT) {
             getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
@@ -228,7 +226,6 @@ public class SettingActivity extends BaseActivity implements ThemeDialog.OnTheme
             getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             PreferenceUtil.getInstance(getApplicationContext()).putInt(SPKey.NIGHT, AppCompatDelegate.MODE_NIGHT_NO);
-
             setTheme(MainApp.getInstance().getCustomTheme());
         }
 
