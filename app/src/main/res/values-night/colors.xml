@@ -75,7 +75,7 @@
     <!--紫色-->
     <color name="colorPrimaryPurple">@color/colorPrimary</color>
     <color name="colorPrimaryDarkPurple">@color/colorPrimaryDark</color>
-    <color name="colorAccentPurple">@color/colorAccent</color>
+    <color name="colorAccentPurple">@color/colorPurple</color>
     <color name="textColorHighlightPurple">@color/colorPurple</color>
     <color name="textColorTabLayoutSelectedPurple">@color/colorPurple</color>
     <color name="colorTabLayoutIndicatorPurple">@color/colorPurple</color>
