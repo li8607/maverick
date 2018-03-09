@@ -28,7 +28,6 @@
     <!--默认-->
     <color name="colorPrimaryDark">#333</color>
     <color name="colorPrimary">#333</color>
-    <color name="colorAccent">#60999999</color>
     <color name="textColorHighlight">#fff</color>
     <color name="textColorTabLayoutSelected">#ffffff</color>
     <color name="colorTabLayoutIndicator">#ffffff</color>

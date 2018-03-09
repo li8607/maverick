@@ -3,6 +3,7 @@ package com.maverick;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.Toast;
 
 import com.maverick.base.BaseActivity;
 import com.maverick.dialog.ThemeDialog;
+import com.maverick.fragment.SettingTabFragment;
 import com.maverick.global.ActivityCode;
 import com.maverick.global.SPKey;
 import com.maverick.global.ThemeType;
@@ -27,7 +29,9 @@ import com.maverick.util.PreferenceUtil;
  * Created by limingfei on 2017/12/22.
  */
 
-public class SettingActivity extends BaseActivity implements ThemeDialog.OnThemeChangeListener, View.OnClickListener, CompoundButton.OnCheckedChangeListener {
+public class SettingActivity extends BaseActivity implements ThemeDialog.OnThemeChangeListener, View.OnClickListener, CompoundButton.OnCheckedChangeListener, SettingTabFragment.OnDayNightChangeListener {
+
+    public static final String INFO_SETTINGINFO = "INFO_SETTINGINFO";
 
     private Toolbar mToolbar;
     private int mDefaultNightMode;
@@ -85,6 +89,8 @@ public class SettingActivity extends BaseActivity implements ThemeDialog.OnTheme
         mNightFollowSystem = findView(R.id.sc_night_follow_system);
 
         mDefaultNightMode = getDelegate().getDefaultNightMode();
+
+        replaceFragment(R.id.fl_root_setting, SettingTabFragment.newInstance());
     }
 
 
@@ -179,6 +185,11 @@ public class SettingActivity extends BaseActivity implements ThemeDialog.OnTheme
         if (savedInstanceState == null) {
             initSwitchCompat();
         }
+
+        Intent intent = getIntent();
+        if (intent == null) {
+            return;
+        }
     }
 
     public void initSwitchCompat() {
@@ -272,4 +283,12 @@ public class SettingActivity extends BaseActivity implements ThemeDialog.OnTheme
         return bitmap;
     }
 
+    @Override
+    public void onDayNightChange(int nightMode) {
+        getDelegate().setDefaultNightMode(nightMode);
+        getDelegate().setLocalNightMode(nightMode);
+        PreferenceUtil.getInstance(getApplicationContext()).putInt(SPKey.NIGHT, nightMode);
+        themeChange = true;
+        recreate();
+    }
 }

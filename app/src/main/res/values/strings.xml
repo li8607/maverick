@@ -159,6 +159,40 @@
         <item>4</item>
         <item>5</item>
     </string-array>
-    <string formatted="false" name="tts_toast_format">缓冲进度为%d%%，播放进度为%d%%</string>
+    <string name="tts_toast_format" formatted="false">缓冲进度为%d%%，播放进度为%d%%</string>
     <!-- 语言 -->
+    <string-array name="setting_entries">
+        <item>基本样式</item>
+        <item>语音播放</item>
+    </string-array>
+    <string-array name="setting_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+    <string-array name="theme_entries">
+        <item>夜间模式</item>
+        <item>自动切换日夜间模式</item>
+        <item>主题</item>
+    </string-array>
+    <string-array name="theme_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="play_entries">
+        <item>发音人</item>
+        <item>语速</item>
+        <item>音调</item>
+        <item>音量</item>
+        <item>音频流类型</item>
+        <item>音频打断音乐播放</item>
+    </string-array>
+    <string-array name="play_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
 </resources>
