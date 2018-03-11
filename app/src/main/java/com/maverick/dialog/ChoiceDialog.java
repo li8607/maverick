@@ -1,16 +1,11 @@
 package com.maverick.dialog;
 
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.maverick.R;
@@ -31,6 +26,7 @@ public class ChoiceDialog extends BaseDialogFragment {
     private TextView mSure;
     private TextView mCancel;
     private View mBtn_root;
+    private Toolbar mToolbar;
 
     public static ChoiceDialog newInstance(int type, String title, String[] items, String btn1, String btn2) {
         ChoiceDialog dialog = new ChoiceDialog();
@@ -45,19 +41,6 @@ public class ChoiceDialog extends BaseDialogFragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        super.onActivityCreated(savedInstanceState);
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(0x00000000));
-        getDialog().getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getDialog().getWindow().setStatusBarColor(Color.TRANSPARENT);
-        }
-        getDialog().getWindow().getAttributes().gravity = Gravity.BOTTOM;
-        getDialog().getWindow().getAttributes().windowAnimations = R.style.dialogAnim;
-    }
-
-    @Override
     protected BasePresenter onCreatePresenter() {
         return null;
     }
@@ -69,10 +52,13 @@ public class ChoiceDialog extends BaseDialogFragment {
 
     @Override
     protected void onInitView(View view) {
+
+        mToolbar = findView(R.id.tb_dialog_theme);
+
         mTvTitle = view.findViewById(R.id.tv_title);
         mRecyclerView = view.findViewById(R.id.rv_choice);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
 
         mSure = findView(R.id.tv_sure);
@@ -86,20 +72,21 @@ public class ChoiceDialog extends BaseDialogFragment {
             return;
         }
 
-        int type = getArguments().getInt("type");
+        int type = getArguments().getInt("type", 0);
         String title = getArguments().getString("title");
         String[] items = getArguments().getStringArray("items");
         String btn1 = getArguments().getString("btn1");
         String btn2 = getArguments().getString("btn2");
 
         if (!TextUtils.isEmpty(title)) {
-            mTvTitle.setText(title);
-            mTvTitle.setVisibility(View.VISIBLE);
+            mToolbar.setTitle(title);
+            mToolbar.setVisibility(View.VISIBLE);
         }
 
         if (items != null) {
             mRecyclerView.setVisibility(View.VISIBLE);
             ChoiceDialogAdapter mChoiceDialogAdapter = new ChoiceDialogAdapter(getContext(), items);
+            mChoiceDialogAdapter.setType(type);
             mRecyclerView.setAdapter(mChoiceDialogAdapter);
         }
 

@@ -5,10 +5,12 @@
     android:orientation="vertical">
 
     <include
+        android:visibility="gone"
         android:id="@+id/tb_dialog_theme"
         layout="@layout/toolbar_default"></include>
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tv_title"
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="match_parent"
@@ -19,7 +21,8 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_choice"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="0dp"
+        android:layout_weight="1"></android.support.v7.widget.RecyclerView>
 
     <LinearLayout
         android:id="@+id/ll_btn_root"
@@ -28,21 +31,28 @@
         android:orientation="horizontal">
 
         <TextView
+            android:padding="10dp"
             android:id="@+id/tv_sure"
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:textColor="@color/colorTitleColor"
             android:gravity="center" />
 
         <TextView
+            android:padding="10dp"
             android:id="@+id/tv_cancel"
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:clickable="true"
+            android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
-            android:textColor="?attr/colorAccent" />
+            android:textColor="@color/colorTitleColor" />
 
     </LinearLayout>
 

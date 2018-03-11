@@ -76,23 +76,6 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
         fragmentTransaction.commitAllowingStateLoss();
     }
 
-    public void showDialogFragment(@Nullable DialogFragment dialogFragment) {
-        if (dialogFragment == null || getChildFragmentManager() == null || getChildFragmentManager().isDestroyed())
-            return;
-
-        FragmentTransaction fragmentTransaction = this.getChildFragmentManager().beginTransaction();
-
-        String tag = dialogFragment.getClass().getName();
-        Fragment fragment = this.getChildFragmentManager().findFragmentByTag(tag);
-        if (fragment != null) {
-            fragmentTransaction.remove(fragment);
-        }
-
-        fragmentTransaction.add(dialogFragment, tag);
-        fragmentTransaction.commitAllowingStateLoss();//注意这里使用commitAllowingStateLoss()
-        //Fragment Or DialogFragment Can not perform this action after onSaveInstanceState
-    }
-
     public boolean onBackPressed() {
         return false;
     }

@@ -105,8 +105,7 @@ public class SettingTabFragment extends BaseFragment implements SettingTabFragme
         String[] play_entries = getResources().getStringArray(R.array.play_entries);
         String[] play_values = getResources().getStringArray(R.array.play_values);
 
-        mVoicer_cloud_entries = getResources().getStringArray(R.array.voicer_cloud_entries);
-        mVoicer_cloud_values = getResources().getStringArray(R.array.voicer_cloud_values);
+
 
         mList = new ArrayList<>();
 
@@ -206,14 +205,23 @@ public class SettingTabFragment extends BaseFragment implements SettingTabFragme
                         //主题
                         ThemeDialog dialog = ThemeDialog.newInstance();
                         dialog.setOnThemeChangeListener(this);
-                        showDialogFragment(dialog);
+                        dialog.show(getChildFragmentManager(), "");
                     }
                 } else if (TextUtils.equals(settingTabInfo.getType(), "1")) {
                     //播放
                     if (TextUtils.equals(settingItemInfo.getType(), "0")) {
+
+                        if(mVoicer_cloud_entries == null) {
+                            mVoicer_cloud_entries = getResources().getStringArray(R.array.voicer_cloud_entries);
+                        }
+
+                        if(mVoicer_cloud_values == null) {
+                            mVoicer_cloud_values = getResources().getStringArray(R.array.voicer_cloud_values);
+                        }
+
                         //发音人
-                        ChoiceDialog choiceDialog = ChoiceDialog.newInstance(ChoiceDialog.SINGLE, settingItemInfo.getTitle(), mVoicer_cloud_entries, "取消", "");
-                        showDialogFragment(choiceDialog);
+                        ChoiceDialog choiceDialog = ChoiceDialog.newInstance(ChoiceDialog.SINGLE, settingItemInfo.getTitle(), mVoicer_cloud_entries, "", "取消");
+                        choiceDialog.show(getChildFragmentManager(), "");
                     }
                 }
 
