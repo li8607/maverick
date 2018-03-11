@@ -8,5 +8,4 @@
     </declare-styleable>
 
     <attr name="colorTabLayoutIndicator" format="color|reference" />
-    <attr name="colorLineHighlight" format="color|reference" />
 </resources>

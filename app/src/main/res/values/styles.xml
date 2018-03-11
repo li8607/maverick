@@ -46,7 +46,6 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@color/colorControlNormal</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicator</item>
-        <item name="colorLineHighlight">@color/colorLineHighlight</item>
         <item name="android:windowBackground">@color/windowBackground</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
@@ -58,62 +57,56 @@
     <!-- Base application theme. -->
     <style name="AppTheme.Pink">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimaryPink</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDarkPink</item>
+        <item name="colorPrimary">@color/colorPink</item>
+        <item name="colorPrimaryDark">@color/colorPink</item>
         <item name="colorAccent">@color/colorPink</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorPink</item>
-        <item name="colorLineHighlight">@color/colorLineHighlightPink</item>
         <item name="colorControlHighlight">@color/selectableItemBackgroundPink</item>
     </style>
 
     <!-- Base application theme. -->
     <style name="AppTheme.Yellow">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimaryYellow</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDarkYellow</item>
+        <item name="colorPrimary">@color/colorYellow</item>
+        <item name="colorPrimaryDark">@color/colorYellow</item>
         <item name="colorAccent">@color/colorYellow</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorYellow</item>
-        <item name="colorLineHighlight">@color/colorLineHighlightYellow</item>
         <item name="colorControlHighlight">@color/selectableItemBackgroundYellow</item>
     </style>
     <!-- Base application theme. -->
     <style name="AppTheme.Red">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimaryRed</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDarkRed</item>
+        <item name="colorPrimary">@color/colorRed</item>
+        <item name="colorPrimaryDark">@color/colorRed</item>
         <item name="colorAccent">@color/colorRed</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorRed</item>
-        <item name="colorLineHighlight">@color/colorLineHighlightRed</item>
         <item name="colorControlHighlight">@color/selectableItemBackgroundRed</item>
     </style>
     <!-- Base application theme. -->
     <style name="AppTheme.Green">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimaryGreen</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDarkGreen</item>
+        <item name="colorPrimary">@color/colorGreen</item>
+        <item name="colorPrimaryDark">@color/colorGreen</item>
         <item name="colorAccent">@color/colorGreen</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorGreen</item>
-        <item name="colorLineHighlight">@color/colorLineHighlightGreen</item>
         <item name="colorControlHighlight">@color/selectableItemBackgroundGreen</item>
     </style>
     <!-- Base application theme. -->
     <style name="AppTheme.Blue">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimaryBlue</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDarkBlue</item>
+        <item name="colorPrimary">@color/colorBlue</item>
+        <item name="colorPrimaryDark">@color/colorBlue</item>
         <item name="colorAccent">@color/colorBlue</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorBlue</item>
-        <item name="colorLineHighlight">@color/colorLineHighlightBlue</item>
         <item name="colorControlHighlight">@color/selectableItemBackgroundBlue</item>
     </style>
     <!-- Base application theme. -->
     <style name="AppTheme.Purple">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimaryPurple</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDarkPurple</item>
+        <item name="colorPrimary">@color/colorPurple</item>
+        <item name="colorPrimaryDark">@color/colorPurple</item>
         <item name="colorAccent">@color/colorPurple</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorPurple</item>
-        <item name="colorLineHighlight">@color/colorLineHighlightPurple</item>
         <item name="colorControlHighlight">@color/selectableItemBackgroundPurple</item>
     </style>
 
