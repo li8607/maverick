@@ -1,23 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!--日夜一样的color-->
     <color name="colorWhite">#ffffff</color>
 
     <color name="user_color">#999999</color>
     <color name="user_btn_color">#666666</color>
     <color name="user_text_color">#333333</color>
-
-
-    <!--共同-->
-    <color name="colorControlNormal">#FFFFFF</color>
-    <color name="windowBackground">#FFFFFF</color>
-    <color name="colorTitleColor">#000</color>
-    <color name="colorSubTitleColor">#666</color>
-    <color name="textColorPrimary">#ffffff</color>
-    <color name="textColorTabLayout">#ff999999</color>
-    <color name="radioButtonTextColor">#000000</color>
-    <color name="colorDivider">#30000000</color>
-    <color name="colorDivider2">#666666</color>
 
     <color name="colorDayNight">#303030</color>
     <color name="colorPink">#ee7799</color>
@@ -27,61 +15,54 @@
     <color name="colorBlue">#3196e7</color>
     <color name="colorPurple">#9c36ad</color>
 
+    <color name="colorControlNormal">#FFFFFF</color>
+    <color name="textColorPrimary">#ffffff</color>
+    <color name="colorSubTitleColor">#666</color>
+    <color name="colorDivider2">#666666</color>
+
+    <!--日夜不一样的color-->
+    <color name="windowBackground">#FFFFFF</color>
+    <color name="textColorTabLayout">#ff999999</color>
+    <color name="colorTitleColor">#000</color>
+    <color name="radioButtonTextColor">#000000</color>
+    <color name="colorDivider">#30000000</color>
+
     <!--默认-->
-    <color name="colorPrimaryDark">#ffffff</color>
-    <color name="colorPrimary">#ff2d55</color>
-    <color name="colorAccent">#FF4081</color>
-    <color name="textColorHighlight">#ff2d55</color>
-    <color name="textColorTabLayoutSelected">#ffffff</color>
+    <color name="colorAccent">@color/colorPink</color>
+
+    <color name="colorPrimaryDark">@color/colorPink</color>
+    <color name="colorPrimary">@color/colorPink</color>
+    <color name="colorControlHighlight">@color/colorPink</color>
     <color name="colorTabLayoutIndicator">#ffffff</color>
-    <color name="colorLineHighlight">#ff2d55</color>
     <!--粉色-->
     <color name="colorPrimaryDarkPink">@color/colorPink</color>
     <color name="colorPrimaryPink">@color/colorPink</color>
-    <color name="textColorHighlightPink">@color/colorPink</color>
-    <color name="textColorTabLayoutSelectedPink">@color/textColorTabLayoutSelected</color>
+    <color name="colorControlHighlightPink">@color/colorPink</color>
     <color name="colorTabLayoutIndicatorPink">@color/colorTabLayoutIndicator</color>
-    <color name="colorLineHighlightPink">@color/colorPink</color>
-    <color name="selectableItemBackgroundPink">@color/colorPink</color>
     <!--黄色-->
     <color name="colorPrimaryDarkYellow">@color/colorYellow</color>
     <color name="colorPrimaryYellow">@color/colorYellow</color>
-    <color name="textColorHighlightYellow">@color/colorYellow</color>
-    <color name="textColorTabLayoutSelectedYellow">@color/textColorTabLayoutSelected</color>
+    <color name="colorControlHighlightYellow">@color/colorYellow</color>
     <color name="colorTabLayoutIndicatorYellow">@color/colorTabLayoutIndicator</color>
-    <color name="colorLineHighlightYellow">@color/colorYellow</color>
-    <color name="selectableItemBackgroundYellow">@color/colorYellow</color>
     <!--红色-->
     <color name="colorPrimaryRed">@color/colorRed</color>
     <color name="colorPrimaryDarkRed">@color/colorRed</color>
-    <color name="textColorHighlightRed">@color/colorRed</color>
-    <color name="textColorTabLayoutSelectedRed">@color/textColorTabLayoutSelected</color>
+    <color name="colorControlHighlightRed">@color/colorRed</color>
     <color name="colorTabLayoutIndicatorRed">@color/colorTabLayoutIndicator</color>
-    <color name="colorLineHighlightRed">@color/colorRed</color>
-    <color name="selectableItemBackgroundRed">@color/colorRed</color>
     <!--绿色-->
     <color name="colorPrimaryGreen">@color/colorGreen</color>
     <color name="colorPrimaryDarkGreen">@color/colorGreen</color>
-    <color name="textColorHighlightGreen">@color/colorGreen</color>
-    <color name="textColorTabLayoutSelectedGreen">@color/textColorTabLayoutSelected</color>
+    <color name="colorControlHighlightGreen">@color/colorGreen</color>
     <color name="colorTabLayoutIndicatorGreen">@color/colorTabLayoutIndicator</color>
-    <color name="colorLineHighlightGreen">@color/colorGreen</color>
-    <color name="selectableItemBackgroundGreen">@color/colorGreen</color>
     <!--蓝色-->
     <color name="colorPrimaryBlue">@color/colorBlue</color>
     <color name="colorPrimaryDarkBlue">@color/colorBlue</color>
-    <color name="textColorHighlightBlue">@color/colorBlue</color>
-    <color name="textColorTabLayoutSelectedBlue">@color/textColorTabLayoutSelected</color>
+    <color name="colorControlHighlightBlue">@color/colorBlue</color>
     <color name="colorTabLayoutIndicatorBlue">@color/colorTabLayoutIndicator</color>
-    <color name="colorLineHighlightBlue">@color/colorBlue</color>
-    <color name="selectableItemBackgroundBlue">@color/colorBlue</color>
     <!--紫色-->
     <color name="colorPrimaryPurple">@color/colorPurple</color>
     <color name="colorPrimaryDarkPurple">@color/colorPurple</color>
-    <color name="textColorHighlightPurple">@color/colorPurple</color>
-    <color name="textColorTabLayoutSelectedPurple">@color/textColorTabLayoutSelected</color>
+    <color name="colorControlHighlightPurple">@color/colorPurple</color>
     <color name="colorTabLayoutIndicatorPurple">@color/colorTabLayoutIndicator</color>
-    <color name="colorLineHighlightPurple">@color/colorPurple</color>
-    <color name="selectableItemBackgroundPurple">@color/colorPurple</color>
 
 </resources>
