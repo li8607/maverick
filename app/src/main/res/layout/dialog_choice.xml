@@ -13,7 +13,7 @@
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="?attr/textColorHighlight"
+        android:textColor="?attr/colorAccent"
         android:textStyle="bold" />
 
     <android.support.v7.widget.RecyclerView
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:textColor="?attr/textColorHighlight" />
+            android:textColor="?attr/colorAccent" />
 
     </LinearLayout>
 

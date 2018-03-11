@@ -50,7 +50,7 @@
         android:maxLines="1"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        android:textColor="?attr/textColorHighlight"
+        android:textColor="?attr/colorAccent"
         android:textSize="10sp"
         android:visibility="gone" />
 </RelativeLayout>

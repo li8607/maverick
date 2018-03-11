@@ -79,19 +79,4 @@ public class CaricatureFragment extends BaseFragment {
         info.setType(type);
         return info;
     }
-
-    public void refreshUI() {
-
-        TypedValue colorPrimary = new TypedValue();
-        TypedValue colorTabLayoutIndicator = new TypedValue();
-        TypedValue textColorTabLayoutSelected = new TypedValue();
-        Resources.Theme theme = getActivity().getTheme();
-        theme.resolveAttribute(R.attr.colorPrimary, colorPrimary, true);
-        theme.resolveAttribute(R.attr.colorTabLayoutIndicator, colorTabLayoutIndicator, true);
-        theme.resolveAttribute(R.attr.textColorTabLayoutSelected, textColorTabLayoutSelected, true);
-
-        tab_layout.setBackgroundResource(colorPrimary.resourceId);
-        tab_layout.setSelectedTabIndicatorColor(ContextCompat.getColor(getContext(), colorTabLayoutIndicator.resourceId));
-        tab_layout.setTabTextColors(ContextCompat.getColor(getContext(), R.color.textColorTabLayout), ContextCompat.getColor(getContext(), textColorTabLayoutSelected.resourceId));
-    }
 }

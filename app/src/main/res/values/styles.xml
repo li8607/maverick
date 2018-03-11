@@ -45,8 +45,6 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlNormal">@color/colorControlNormal</item>
-        <item name="textColorHighlight">@color/textColorHighlight</item>
-        <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelected</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicator</item>
         <item name="colorLineHighlight">@color/colorLineHighlight</item>
         <item name="android:windowBackground">@color/windowBackground</item>
@@ -62,9 +60,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimaryPink</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkPink</item>
-        <item name="colorAccent">@color/colorAccentPink</item>
-        <item name="textColorHighlight">@color/textColorHighlightPink</item>
-        <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelectedPink</item>
+        <item name="colorAccent">@color/colorPink</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorPink</item>
         <item name="colorLineHighlight">@color/colorLineHighlightPink</item>
         <item name="colorControlHighlight">@color/selectableItemBackgroundPink</item>
@@ -75,9 +71,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimaryYellow</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkYellow</item>
-        <item name="colorAccent">@color/colorAccentYellow</item>
-        <item name="textColorHighlight">@color/textColorHighlightYellow</item>
-        <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelectedYellow</item>
+        <item name="colorAccent">@color/colorYellow</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorYellow</item>
         <item name="colorLineHighlight">@color/colorLineHighlightYellow</item>
         <item name="colorControlHighlight">@color/selectableItemBackgroundYellow</item>
@@ -87,9 +81,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimaryRed</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkRed</item>
-        <item name="colorAccent">@color/colorAccentRed</item>
-        <item name="textColorHighlight">@color/textColorHighlightRed</item>
-        <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelectedRed</item>
+        <item name="colorAccent">@color/colorRed</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorRed</item>
         <item name="colorLineHighlight">@color/colorLineHighlightRed</item>
         <item name="colorControlHighlight">@color/selectableItemBackgroundRed</item>
@@ -99,9 +91,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimaryGreen</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkGreen</item>
-        <item name="colorAccent">@color/colorAccentGreen</item>
-        <item name="textColorHighlight">@color/textColorHighlightGreen</item>
-        <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelectedGreen</item>
+        <item name="colorAccent">@color/colorGreen</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorGreen</item>
         <item name="colorLineHighlight">@color/colorLineHighlightGreen</item>
         <item name="colorControlHighlight">@color/selectableItemBackgroundGreen</item>
@@ -111,9 +101,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimaryBlue</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkBlue</item>
-        <item name="colorAccent">@color/colorAccentBlue</item>
-        <item name="textColorHighlight">@color/textColorHighlightBlue</item>
-        <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelectedBlue</item>
+        <item name="colorAccent">@color/colorBlue</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorBlue</item>
         <item name="colorLineHighlight">@color/colorLineHighlightBlue</item>
         <item name="colorControlHighlight">@color/selectableItemBackgroundBlue</item>
@@ -123,9 +111,7 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimaryPurple</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDarkPurple</item>
-        <item name="colorAccent">@color/colorAccentPurple</item>
-        <item name="textColorHighlight">@color/textColorHighlightPurple</item>
-        <item name="textColorTabLayoutSelected">@color/textColorTabLayoutSelectedPurple</item>
+        <item name="colorAccent">@color/colorPurple</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicatorPurple</item>
         <item name="colorLineHighlight">@color/colorLineHighlightPurple</item>
         <item name="colorControlHighlight">@color/selectableItemBackgroundPurple</item>

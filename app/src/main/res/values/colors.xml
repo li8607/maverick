@@ -38,7 +38,6 @@
     <!--粉色-->
     <color name="colorPrimaryDarkPink">@color/colorPink</color>
     <color name="colorPrimaryPink">@color/colorPink</color>
-    <color name="colorAccentPink">@color/colorPink</color>
     <color name="textColorHighlightPink">@color/colorPink</color>
     <color name="textColorTabLayoutSelectedPink">@color/textColorTabLayoutSelected</color>
     <color name="colorTabLayoutIndicatorPink">@color/colorTabLayoutIndicator</color>
@@ -47,7 +46,6 @@
     <!--黄色-->
     <color name="colorPrimaryDarkYellow">@color/colorYellow</color>
     <color name="colorPrimaryYellow">@color/colorYellow</color>
-    <color name="colorAccentYellow">@color/colorYellow</color>
     <color name="textColorHighlightYellow">@color/colorYellow</color>
     <color name="textColorTabLayoutSelectedYellow">@color/textColorTabLayoutSelected</color>
     <color name="colorTabLayoutIndicatorYellow">@color/colorTabLayoutIndicator</color>
@@ -56,7 +54,6 @@
     <!--红色-->
     <color name="colorPrimaryRed">@color/colorRed</color>
     <color name="colorPrimaryDarkRed">@color/colorRed</color>
-    <color name="colorAccentRed">@color/colorRed</color>
     <color name="textColorHighlightRed">@color/colorRed</color>
     <color name="textColorTabLayoutSelectedRed">@color/textColorTabLayoutSelected</color>
     <color name="colorTabLayoutIndicatorRed">@color/colorTabLayoutIndicator</color>
@@ -65,7 +62,6 @@
     <!--绿色-->
     <color name="colorPrimaryGreen">@color/colorGreen</color>
     <color name="colorPrimaryDarkGreen">@color/colorGreen</color>
-    <color name="colorAccentGreen">@color/colorGreen</color>
     <color name="textColorHighlightGreen">@color/colorGreen</color>
     <color name="textColorTabLayoutSelectedGreen">@color/textColorTabLayoutSelected</color>
     <color name="colorTabLayoutIndicatorGreen">@color/colorTabLayoutIndicator</color>
@@ -74,7 +70,6 @@
     <!--蓝色-->
     <color name="colorPrimaryBlue">@color/colorBlue</color>
     <color name="colorPrimaryDarkBlue">@color/colorBlue</color>
-    <color name="colorAccentBlue">@color/colorBlue</color>
     <color name="textColorHighlightBlue">@color/colorBlue</color>
     <color name="textColorTabLayoutSelectedBlue">@color/textColorTabLayoutSelected</color>
     <color name="colorTabLayoutIndicatorBlue">@color/colorTabLayoutIndicator</color>
@@ -83,7 +78,6 @@
     <!--紫色-->
     <color name="colorPrimaryPurple">@color/colorPurple</color>
     <color name="colorPrimaryDarkPurple">@color/colorPurple</color>
-    <color name="colorAccentPurple">@color/colorPurple</color>
     <color name="textColorHighlightPurple">@color/colorPurple</color>
     <color name="textColorTabLayoutSelectedPurple">@color/textColorTabLayoutSelected</color>
     <color name="colorTabLayoutIndicatorPurple">@color/colorTabLayoutIndicator</color>

@@ -7,9 +7,6 @@
         <attr name="settingCaption" format="reference" />
     </declare-styleable>
 
-    <attr name="textColorHighlight" format="color|reference" />
-    <attr name="textColorTabLayoutSelected" format="color|reference" />
-    <attr name="textColorTabLayout" format="color|reference" />
     <attr name="colorTabLayoutIndicator" format="color|reference" />
     <attr name="colorLineHighlight" format="color|reference" />
 </resources>
