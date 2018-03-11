@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
@@ -204,7 +205,7 @@ public class SettingTabFragment extends BaseFragment implements SettingTabFragme
                     } else if (TextUtils.equals(settingItemInfo.getType(), "2")) {
                         //主题
                         ThemeDialog dialog = ThemeDialog.newInstance();
-                        dialog.setOnThemeChangeListener(SettingTabFragment.this);
+                        dialog.setOnThemeChangeListener(this);
                         showDialogFragment(dialog);
                     }
                 } else if (TextUtils.equals(settingTabInfo.getType(), "1")) {
@@ -226,6 +227,15 @@ public class SettingTabFragment extends BaseFragment implements SettingTabFragme
         if (context instanceof OnDayNightChangeListener) {
             mOnDayNightChangeListener = (OnDayNightChangeListener) context;
         }
+    }
+
+    @Override
+    public void onAttachFragment(Fragment childFragment) {
+        if(childFragment instanceof ThemeDialog) {
+            ThemeDialog themeDialog = (ThemeDialog) childFragment;
+            themeDialog.setOnThemeChangeListener(this);
+        }
+        super.onAttachFragment(childFragment);
     }
 
     private OnDayNightChangeListener mOnDayNightChangeListener;

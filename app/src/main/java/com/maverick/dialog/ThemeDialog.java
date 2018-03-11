@@ -100,6 +100,7 @@ public class ThemeDialog extends BaseDialogFragment {
     }
 
 
+
     private void updateTheme(int position) {
         mThemeType = mList.get(position).getThemeType();
         if (mOnThemeChangeListener != null) {

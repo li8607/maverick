@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.maverick.MainApp;
@@ -70,8 +69,8 @@ public abstract class BaseActivity extends SwipeBackActivity {
             return;
 
         FragmentTransaction fragmentTransaction = this.getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(containerViewId, fragment);
-        fragmentTransaction.commitAllowingStateLoss();
+        fragmentTransaction.replace(containerViewId, fragment, fragment.getClass().getSimpleName());
+        fragmentTransaction.commit();
     }
 
     public void showDialogFragment(@Nullable DialogFragment dialogFragment) {
