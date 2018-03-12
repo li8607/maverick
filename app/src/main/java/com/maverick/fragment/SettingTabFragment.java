@@ -149,6 +149,8 @@ public class SettingTabFragment extends BaseFragment implements SettingTabFragme
                         settingItemInfo.setBrief(String.valueOf(PreferenceUtil.getInstance().getInt(SPKey.PITCH, 50)));
                     } else if (TextUtils.equals(settingItemInfo.getType(), "3")) {
                         settingItemInfo.setBrief(String.valueOf(PreferenceUtil.getInstance().getInt(SPKey.VOLUME, 50)));
+                    } else if (TextUtils.equals(settingItemInfo.getType(), "5")) {
+                        settingItemInfo.setKey_request_focus(PreferenceUtil.getInstance().getBoolean(SPKey.KEY_REQUEST_FOCUS, true));
                     }
 
                     mList.add(settingItemInfo);
@@ -249,12 +251,17 @@ public class SettingTabFragment extends BaseFragment implements SettingTabFragme
                         seekBarDialog.setOnSureListener(this);
                         seekBarDialog.setOnProgressChangeListener(this);
                         seekBarDialog.show(getChildFragmentManager(), "pitch");
-                    }else if (TextUtils.equals(settingItemInfo.getType(), "3")) {
+                    } else if (TextUtils.equals(settingItemInfo.getType(), "3")) {
                         SeekBarDialog seekBarDialog = SeekBarDialog.newInstance(settingItemInfo.getTitle(), PreferenceUtil.getInstance().getInt(SPKey.VOLUME, 50), 100, "确定", "取消");
                         seekBarDialog.setOnCancelListener(this);
                         seekBarDialog.setOnSureListener(this);
                         seekBarDialog.setOnProgressChangeListener(this);
                         seekBarDialog.show(getChildFragmentManager(), "volume");
+                    } else if (TextUtils.equals(settingItemInfo.getType(), "5")) {
+                        settingItemInfo.setKey_request_focus(!settingItemInfo.isKey_request_focus());
+                        PreferenceUtil.getInstance().putBoolean(SPKey.KEY_REQUEST_FOCUS, settingItemInfo.isKey_request_focus());
+                        SpeechHelper.newInstance().setParamKeyRequestFocus(settingItemInfo.isKey_request_focus());
+                        mAdapter.notifyItemChanged(position);
                     }
                 }
 
@@ -361,7 +368,7 @@ public class SettingTabFragment extends BaseFragment implements SettingTabFragme
                     }
                 }
             }
-        }else if (TextUtils.equals(dialogFragment.getTag(), "volume")) {
+        } else if (TextUtils.equals(dialogFragment.getTag(), "volume")) {
             PreferenceUtil.getInstance().putInt(SPKey.VOLUME, mProgress);
             SpeechHelper.newInstance().setParamVolume(mProgress);
 

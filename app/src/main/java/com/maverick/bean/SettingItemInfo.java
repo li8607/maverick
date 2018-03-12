@@ -13,6 +13,7 @@ public class SettingItemInfo implements Serializable {
     private String type;
     private int state; // 1, 显示切换按钮， 2，显示文字
     private String groupType;
+    private boolean key_request_focus;
 
     public String getTitle() {
         return title;
@@ -52,6 +53,14 @@ public class SettingItemInfo implements Serializable {
 
     public void setBrief(String brief) {
         this.brief = brief;
+    }
+
+    public boolean isKey_request_focus() {
+        return key_request_focus;
+    }
+
+    public void setKey_request_focus(boolean key_request_focus) {
+        this.key_request_focus = key_request_focus;
     }
 
     @Override

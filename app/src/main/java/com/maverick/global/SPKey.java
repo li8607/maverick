@@ -14,5 +14,6 @@ public class SPKey {
     public static final String SPEED = "SPEED";
     public static final String PITCH = "PITCH";
     public static final String VOLUME = "VOLUME";
+    public static final String KEY_REQUEST_FOCUS = "KEY_REQUEST_FOCUS";
 
 }

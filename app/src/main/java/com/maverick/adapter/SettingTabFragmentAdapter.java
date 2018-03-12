@@ -95,12 +95,20 @@ public class SettingTabFragmentAdapter extends RecyclerView.Adapter {
                         settingItemViewHolder.mSubTitle.setVisibility(View.GONE);
                         break;
                     }
-                } else if (TextUtils.equals(settingItemInfo.getGroupType(), "1") && !TextUtils.isEmpty(settingItemInfo.getBrief())) {
-                    settingItemViewHolder.mSubTitle.setText(settingItemInfo.getBrief());
-                    settingItemViewHolder.mSubTitle.setVisibility(View.VISIBLE);
-                    settingItemViewHolder.mTheme.setVisibility(View.GONE);
-                    settingItemViewHolder.mSwitch.setVisibility(View.GONE);
-                    break;
+                } else if (TextUtils.equals(settingItemInfo.getGroupType(), "1")) {
+                    if (!TextUtils.isEmpty(settingItemInfo.getBrief())) {
+                        settingItemViewHolder.mSubTitle.setText(settingItemInfo.getBrief());
+                        settingItemViewHolder.mSubTitle.setVisibility(View.VISIBLE);
+                        settingItemViewHolder.mTheme.setVisibility(View.GONE);
+                        settingItemViewHolder.mSwitch.setVisibility(View.GONE);
+                        break;
+                    } else if (TextUtils.equals(settingItemInfo.getType(), "5")) {
+                        settingItemViewHolder.mSwitch.setVisibility(View.VISIBLE);
+                        settingItemViewHolder.mTheme.setVisibility(View.GONE);
+                        settingItemViewHolder.mSubTitle.setVisibility(View.GONE);
+                        settingItemViewHolder.mSwitch.setChecked(settingItemInfo.isKey_request_focus());
+                        break;
+                    }
                 }
                 settingItemViewHolder.mTheme.setVisibility(View.GONE);
                 settingItemViewHolder.mSwitch.setVisibility(View.GONE);
