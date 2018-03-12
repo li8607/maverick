@@ -29,11 +29,8 @@ public abstract class BaseActivity extends SwipeBackActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(Color.TRANSPARENT);
         }
-        // 「必须在 Application 的 onCreate 方法中执行 BGASwipeBackHelper.init 来初始化滑动返回」
-        // 在 super.onCreate(savedInstanceState) 之前调用该方法
         setTheme(MainApp.getInstance().getCustomTheme());
         super.onCreate(savedInstanceState);
-//        initSwipeBackFinish();
         onActivityCreated(savedInstanceState);
     }
 
