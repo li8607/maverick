@@ -84,15 +84,15 @@ public class SettingActivity extends BaseActivity implements SettingTabFragment.
         if (themeType == ThemeType.DAY_NIGHT) {
             getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-            PreferenceUtil.getInstance(getApplicationContext()).putInt(SPKey.NIGHT, AppCompatDelegate.MODE_NIGHT_YES);
+            PreferenceUtil.getInstance().putInt(SPKey.NIGHT, AppCompatDelegate.MODE_NIGHT_YES);
         } else {
             getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            PreferenceUtil.getInstance(getApplicationContext()).putInt(SPKey.NIGHT, AppCompatDelegate.MODE_NIGHT_NO);
+            PreferenceUtil.getInstance().putInt(SPKey.NIGHT, AppCompatDelegate.MODE_NIGHT_NO);
             setTheme(MainApp.getInstance().getCustomTheme());
         }
 
-        PreferenceUtil.getInstance(MainApp.mContext).putInt(SPKey.THEME, themeType);
+        PreferenceUtil.getInstance().putInt(SPKey.THEME, themeType);
         setResult(ActivityCode.RESULT_CODE_THEME);
         themeChange = true;
         recreate();
@@ -147,7 +147,7 @@ public class SettingActivity extends BaseActivity implements SettingTabFragment.
     public void onDayNightChange(int nightMode) {
         getDelegate().setDefaultNightMode(nightMode);
         getDelegate().setLocalNightMode(nightMode);
-        PreferenceUtil.getInstance(getApplicationContext()).putInt(SPKey.NIGHT, nightMode);
+        PreferenceUtil.getInstance().putInt(SPKey.NIGHT, nightMode);
         themeChange = true;
         recreate();
     }

@@ -5,33 +5,41 @@
     android:orientation="vertical">
 
     <include
-        android:visibility="gone"
         android:id="@+id/tb_dialog_theme"
-        layout="@layout/toolbar_default"></include>
+        layout="@layout/toolbar_default"
+        android:visibility="gone"></include>
 
     <TextView
-        android:visibility="gone"
         android:id="@+id/tv_title"
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="?attr/colorAccent"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:visibility="gone" />
 
     <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/rv_choice"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"></android.support.v7.widget.RecyclerView>
 
+    <View
+        android:visibility="gone"
+        android:id="@+id/ll_line_top_btn_root"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/colorDivider2" />
+
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/ll_btn_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <TextView
-            android:padding="10dp"
             android:id="@+id/tv_sure"
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="0dp"
@@ -39,11 +47,11 @@
             android:layout_weight="1"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            android:textColor="@color/colorTitleColor"
-            android:gravity="center" />
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/colorTitleColor" />
 
         <TextView
-            android:padding="10dp"
             android:id="@+id/tv_cancel"
             style="@style/TextAppearance.AppCompat.Title"
             android:layout_width="0dp"
@@ -52,6 +60,7 @@
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="center"
+            android:padding="10dp"
             android:textColor="@color/colorTitleColor" />
 
     </LinearLayout>

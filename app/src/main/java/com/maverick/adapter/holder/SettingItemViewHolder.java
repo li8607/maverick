@@ -16,12 +16,14 @@ public class SettingItemViewHolder extends RecyclerView.ViewHolder {
     private final TextView mTitle;
     public final SwitchCompat mSwitch;
     public final View mTheme;
+    public final TextView mSubTitle;
 
     public SettingItemViewHolder(View itemView) {
         super(itemView);
         mTitle = itemView.findViewById(R.id.tv_title);
         mSwitch = itemView.findViewById(R.id.sc_switch);
         mTheme = itemView.findViewById(R.id.v_theme);
+        mSubTitle = itemView.findViewById(R.id.tv_subTitle);
     }
 
     public void setTitle(String title) {

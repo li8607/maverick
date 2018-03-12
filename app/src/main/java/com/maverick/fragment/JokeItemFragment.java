@@ -119,19 +119,19 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                if(mSpeechInfo == null) {
+                if (mSpeechInfo == null) {
                     return;
                 }
 
                 View stickview = recyclerView.findChildViewUnder(bottom, 0);
-                if(stickview != null) {
+                if (stickview != null) {
                     int position = recyclerView.getChildAdapterPosition(stickview);
-                    if(position == mPresenter.getData().indexOf(mSpeechInfo)) {
+                    if (position == mPresenter.getData().indexOf(mSpeechInfo)) {
                         int height = stickview.getMeasuredHeight();
                         int top = stickview.getTop();
-                        if(top + height <= childHeight){
+                        if (top + height <= childHeight) {
                             mControlSpeechView.setVisibility(View.VISIBLE);
-                        }else {
+                        } else {
                             mControlSpeechView.setVisibility(View.INVISIBLE);
                         }
                     }
@@ -172,7 +172,7 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
             @Override
             public void onPlayClick(final RecyclerView.ViewHolder viewHolder, int position, final GifInfo gifInfo) {
                 if (mSpeechHelper == null) {
-                    mSpeechHelper = SpeechHelper.newInstance(getContext());
+                    mSpeechHelper = SpeechHelper.newInstance();
                     mSpeechHelper.setOnSpeechInitListener(JokeItemFragment.this);
                     mSpeechHelper.setOnSpeechListener(JokeItemFragment.this);
                 }
@@ -193,6 +193,7 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
 
                 mSpeechInfo = gifInfo;
                 mControlSpeechView.setVisibility(View.INVISIBLE);
+                mSpeechHelper.startSpeaking(mSpeechInfo.getText());
                 updateUI(START);
             }
 
@@ -201,6 +202,11 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
                 if (!mSpeechHelper.isSpeaking()) {
                     return;
                 }
+
+                if (mSpeechHelper != null) {
+                    mSpeechHelper.stopSpeaking();
+                }
+
                 updateUI(STOP);
             }
         });
@@ -341,7 +347,10 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
         });
     }
 
+    private boolean isVisibleToUserSuper;
+
     public void setUserVisibleHintSuper(boolean isVisibleToUser) {
+        this.isVisibleToUserSuper = isVisibleToUser;
         if (isVisibleToUser) {
             if (mSpeechHelper != null && pause) {
                 mSpeechHelper.resumeSpeaking();
@@ -375,7 +384,7 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
     public void onResume() {
         super.onResume();
         CollectModel.newInstance().removeOnCollectListener(mListener);
-        if (mSpeechHelper != null && pause) {
+        if (mSpeechHelper != null && pause && getUserVisibleHint() && isVisibleToUserSuper) {
             mSpeechHelper.resumeSpeaking();
             pause = false;
         }
@@ -434,7 +443,7 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
     public void onBufferProgress(int percent, int beginPos, int endPos) {
 
         RecyclerView.ViewHolder viewHolder = mRecyclerView.findViewHolderForAdapterPosition(mPresenter.getData().indexOf(mSpeechInfo));
-        if(viewHolder != null && viewHolder.getItemViewType() == JOKE_TEXT) {
+        if (viewHolder != null && viewHolder.getItemViewType() == JOKE_TEXT) {
             JokeTextViewHolder jokeTextViewHolder = (JokeTextViewHolder) viewHolder;
             jokeTextViewHolder.pb_progress.setSecondaryProgress(percent);
         }
@@ -445,7 +454,7 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
     @Override
     public void onSpeakProgress(int percent, int beginPos, int endPos) {
         RecyclerView.ViewHolder viewHolder = mRecyclerView.findViewHolderForAdapterPosition(mPresenter.getData().indexOf(mSpeechInfo));
-        if(viewHolder != null && viewHolder.getItemViewType() == JOKE_TEXT) {
+        if (viewHolder != null && viewHolder.getItemViewType() == JOKE_TEXT) {
             JokeTextViewHolder jokeTextViewHolder = (JokeTextViewHolder) viewHolder;
             jokeTextViewHolder.pb_progress.setProgress(percent);
         }
@@ -460,30 +469,35 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
             return;
         }
 
-        boolean next = PreferenceUtil.getInstance(getContext()).getBoolean(SPKey.JOKE_NEXT, false);
+        boolean next = PreferenceUtil.getInstance().getBoolean(SPKey.JOKE_NEXT, false);
         if (next) {
             int index = mPresenter.getData().indexOf(mSpeechInfo);
             if (index != mPresenter.getData().size() - 1) {
                 mSpeechInfo = mPresenter.getData().get(++index);
 
                 View stickview = mRecyclerView.findChildViewUnder(bottom, 0);
-                if(stickview != null) {
+                if (stickview != null) {
                     int position = mRecyclerView.getChildAdapterPosition(stickview);
-                    if(position == mPresenter.getData().indexOf(mSpeechInfo)) {
+                    if (position == mPresenter.getData().indexOf(mSpeechInfo)) {
                         int height = stickview.getMeasuredHeight();
                         int top = stickview.getTop();
-                        if(top + height <= childHeight){
+                        if (top + height <= childHeight) {
                             mControlSpeechView.setVisibility(View.VISIBLE);
-                        }else {
+                        } else {
                             mControlSpeechView.setVisibility(View.INVISIBLE);
                         }
                     }
                 }
-
+                mSpeechHelper.startSpeaking(mSpeechInfo.getText());
                 updateUI(START);
                 return;
             }
         }
+        updateUI(STOP);
+    }
+
+    @Override
+    public void onStopSpeaking() {
         updateUI(STOP);
     }
 
@@ -495,9 +509,6 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
         switch (state) {
             case INIT:
             case STOP:
-                if (mSpeechHelper != null) {
-                    mSpeechHelper.stopSpeaking();
-                }
                 mJokeItemFragmentAdapter.setSpeaking(false);
                 mSpeechInfo = null;
                 mJokeItemFragmentAdapter.setSpeechData(mSpeechInfo);
@@ -506,7 +517,6 @@ public class JokeItemFragment extends BaseFragment implements IJokeItemFragmentV
                 mControlSpeechView.setVisibility(View.INVISIBLE);
                 break;
             case START:
-                mSpeechHelper.startSpeaking(mSpeechInfo.getText());
                 mJokeItemFragmentAdapter.setSpeaking(true);
                 mJokeItemFragmentAdapter.setSpeechData(mSpeechInfo);
                 mJokeItemFragmentAdapter.notifyDataSetChanged();

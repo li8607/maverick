@@ -36,10 +36,10 @@ public class MainApp extends Application {
 
     @Override
     public void onCreate() {
-        initTheme();
-        super.onCreate();
         mMainApp = this;
         mContext = getApplicationContext();
+        initTheme();
+        super.onCreate();
 
         //开启debug模式，方便定位错误，具体错误检查方式可以查看http://dev.umeng.com/social/android/quick-integration的报错必看，正式发布，请关闭该模式
         Config.DEBUG = false;
@@ -56,7 +56,7 @@ public class MainApp extends Application {
     }
 
     public int getCustomTheme() {
-        int theme = PreferenceUtil.getInstance(getApplicationContext()).getInt(SPKey.THEME, 0);
+        int theme = PreferenceUtil.getInstance().getInt(SPKey.THEME, 0);
         switch (theme) {
             case ThemeType.PINK:
                 return R.style.AppTheme_Pink;
@@ -76,7 +76,7 @@ public class MainApp extends Application {
     }
 
     private void initTheme() {
-        int modeTheme = PreferenceUtil.getInstance(getApplicationContext()).getInt(SPKey.NIGHT, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        int modeTheme = PreferenceUtil.getInstance().getInt(SPKey.NIGHT, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
         if (modeTheme == AppCompatDelegate.MODE_NIGHT_YES) {
             AppCompatDelegate.setDefaultNightMode(modeTheme);
             UiModeManager mUiModeManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);

@@ -73,24 +73,38 @@ public class SettingTabFragmentAdapter extends RecyclerView.Adapter {
                     });
                 }
 
+
                 if (TextUtils.equals(settingItemInfo.getGroupType(), "0")) {
                     if (TextUtils.equals(settingItemInfo.getType(), "0")) {
                         //夜间模式
                         settingItemViewHolder.mSwitch.setVisibility(View.VISIBLE);
+                        settingItemViewHolder.mTheme.setVisibility(View.GONE);
+                        settingItemViewHolder.mSubTitle.setVisibility(View.GONE);
                         settingItemViewHolder.mSwitch.setChecked(mNightMode == AppCompatDelegate.MODE_NIGHT_YES);
                         break;
                     } else if (TextUtils.equals(settingItemInfo.getType(), "1")) {
                         //自动切换日夜模式
                         settingItemViewHolder.mSwitch.setVisibility(View.VISIBLE);
+                        settingItemViewHolder.mTheme.setVisibility(View.GONE);
+                        settingItemViewHolder.mSubTitle.setVisibility(View.GONE);
                         settingItemViewHolder.mSwitch.setChecked(mNightMode == AppCompatDelegate.MODE_NIGHT_AUTO);
                         break;
                     } else if (TextUtils.equals(settingItemInfo.getType(), "2")) {
                         settingItemViewHolder.mTheme.setVisibility(View.VISIBLE);
+                        settingItemViewHolder.mSwitch.setVisibility(View.GONE);
+                        settingItemViewHolder.mSubTitle.setVisibility(View.GONE);
                         break;
                     }
+                } else if (TextUtils.equals(settingItemInfo.getGroupType(), "1") && !TextUtils.isEmpty(settingItemInfo.getBrief())) {
+                    settingItemViewHolder.mSubTitle.setText(settingItemInfo.getBrief());
+                    settingItemViewHolder.mSubTitle.setVisibility(View.VISIBLE);
+                    settingItemViewHolder.mTheme.setVisibility(View.GONE);
+                    settingItemViewHolder.mSwitch.setVisibility(View.GONE);
+                    break;
                 }
-                settingItemViewHolder.mSwitch.setVisibility(View.GONE);
                 settingItemViewHolder.mTheme.setVisibility(View.GONE);
+                settingItemViewHolder.mSwitch.setVisibility(View.GONE);
+                settingItemViewHolder.mSubTitle.setVisibility(View.GONE);
                 break;
         }
     }

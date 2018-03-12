@@ -39,4 +39,17 @@
         android:background="?attr/colorAccent"
         android:visibility="gone" />
 
+    <TextView
+        android:id="@+id/tv_subTitle"
+        style="@style/TextAppearance.AppCompat.Subhead.Inverse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:maxWidth="100dp"
+        android:singleLine="true"
+        android:textColor="@color/colorTitleColor"
+        android:visibility="gone" />
+
 </LinearLayout>

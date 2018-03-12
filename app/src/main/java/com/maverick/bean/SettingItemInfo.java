@@ -9,6 +9,7 @@ import java.io.Serializable;
 public class SettingItemInfo implements Serializable {
 
     private String title;
+    private String brief;
     private String type;
     private int state; // 1, 显示切换按钮， 2，显示文字
     private String groupType;
@@ -43,6 +44,14 @@ public class SettingItemInfo implements Serializable {
 
     public void setGroupType(String groupType) {
         this.groupType = groupType;
+    }
+
+    public String getBrief() {
+        return brief;
+    }
+
+    public void setBrief(String brief) {
+        this.brief = brief;
     }
 
     @Override

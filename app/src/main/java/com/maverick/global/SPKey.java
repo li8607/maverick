@@ -10,4 +10,6 @@ public class SPKey {
     public static final String THEME = "THEME";
     public static final String JOKE_NEXT = "JOKE_NEXT";
 
+    public static final String VOICER = "VOICER";
+
 }

@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatDelegate;
@@ -21,6 +22,7 @@ import com.maverick.bean.SettingTabInfo;
 import com.maverick.dialog.ChoiceDialog;
 import com.maverick.dialog.ThemeDialog;
 import com.maverick.global.SPKey;
+import com.maverick.hepler.SpeechHelper;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.util.PreferenceUtil;
 
@@ -31,7 +33,7 @@ import java.util.List;
  * Created by limingfei on 2018/3/9.
  */
 
-public class SettingTabFragment extends BaseFragment implements SettingTabFragmentAdapter.OnItemClickListener, ThemeDialog.OnThemeChangeListener {
+public class SettingTabFragment extends BaseFragment implements SettingTabFragmentAdapter.OnItemClickListener, ThemeDialog.OnThemeChangeListener, ChoiceDialog.OnMultiChoiceClickListener, ChoiceDialog.OnCancelListener, ChoiceDialog.OnSureListener {
 
     private RecyclerView mRecyclerView;
     private List<Object> mList;
@@ -105,7 +107,8 @@ public class SettingTabFragment extends BaseFragment implements SettingTabFragme
         String[] play_entries = getResources().getStringArray(R.array.play_entries);
         String[] play_values = getResources().getStringArray(R.array.play_values);
 
-
+        mVoicer_cloud_entries = getResources().getStringArray(R.array.voicer_cloud_entries);
+        mVoicer_cloud_values = getResources().getStringArray(R.array.voicer_cloud_values);
 
         mList = new ArrayList<>();
 
@@ -130,14 +133,26 @@ public class SettingTabFragment extends BaseFragment implements SettingTabFragme
                     settingItemInfo.setTitle(play_entries[j]);
                     settingItemInfo.setType(play_values[j]);
                     settingItemInfo.setGroupType(settingTabInfo.getType());
+
+                    if (TextUtils.equals(settingTabInfo.getType(), "1")) {
+                        if (TextUtils.equals(settingItemInfo.getType(), "0")) {
+                            for (int k = 0; k < mVoicer_cloud_values.length; k++) {
+                                if (TextUtils.equals(mVoicer_cloud_values[k], PreferenceUtil.getInstance().getString(SPKey.VOICER, mVoicer_cloud_values[0]))) {
+                                    settingItemInfo.setBrief(mVoicer_cloud_entries[k]);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
                     mList.add(settingItemInfo);
                 }
             }
         }
 
         mAdapter = new SettingTabFragmentAdapter(getContext(), mList);
-        mNightMode = PreferenceUtil.getInstance(getContext()).getInt(SPKey.NIGHT, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        mTheme = PreferenceUtil.getInstance(getContext()).getInt(SPKey.THEME, 0);
+        mNightMode = PreferenceUtil.getInstance().getInt(SPKey.NIGHT, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        mTheme = PreferenceUtil.getInstance().getInt(SPKey.THEME, 0);
         mAdapter.setNightMode(mNightMode);
         mAdapter.setTheme(mTheme);
         mAdapter.setOnItemClickListener(this);
@@ -210,18 +225,12 @@ public class SettingTabFragment extends BaseFragment implements SettingTabFragme
                 } else if (TextUtils.equals(settingTabInfo.getType(), "1")) {
                     //播放
                     if (TextUtils.equals(settingItemInfo.getType(), "0")) {
-
-                        if(mVoicer_cloud_entries == null) {
-                            mVoicer_cloud_entries = getResources().getStringArray(R.array.voicer_cloud_entries);
-                        }
-
-                        if(mVoicer_cloud_values == null) {
-                            mVoicer_cloud_values = getResources().getStringArray(R.array.voicer_cloud_values);
-                        }
-
                         //发音人
-                        ChoiceDialog choiceDialog = ChoiceDialog.newInstance(ChoiceDialog.SINGLE, settingItemInfo.getTitle(), mVoicer_cloud_entries, "", "取消");
-                        choiceDialog.show(getChildFragmentManager(), "");
+                        ChoiceDialog choiceDialog = ChoiceDialog.newInstance(ChoiceDialog.SINGLE, settingItemInfo.getTitle(), mVoicer_cloud_entries, new String[]{settingItemInfo.getBrief()}, "", "取消");
+                        choiceDialog.setOnMultiChoiceClickListener(this);
+                        choiceDialog.setOnCancelListener(this);
+                        choiceDialog.setOnSureListener(this);
+                        choiceDialog.show(getChildFragmentManager(), "mVoicer_cloud_entries");
                     }
                 }
 
@@ -239,9 +248,14 @@ public class SettingTabFragment extends BaseFragment implements SettingTabFragme
 
     @Override
     public void onAttachFragment(Fragment childFragment) {
-        if(childFragment instanceof ThemeDialog) {
+        if (childFragment instanceof ThemeDialog) {
             ThemeDialog themeDialog = (ThemeDialog) childFragment;
             themeDialog.setOnThemeChangeListener(this);
+        } else if (childFragment instanceof ChoiceDialog) {
+            ChoiceDialog choiceDialog = (ChoiceDialog) childFragment;
+            choiceDialog.setOnMultiChoiceClickListener(this);
+            choiceDialog.setOnCancelListener(this);
+            choiceDialog.setOnSureListener(this);
         }
         super.onAttachFragment(childFragment);
     }
@@ -253,6 +267,39 @@ public class SettingTabFragment extends BaseFragment implements SettingTabFragme
         if (mOnDayNightChangeListener != null) {
             mOnDayNightChangeListener.onThemeChange(themeType);
         }
+    }
+
+    @Override
+    public void onClick(DialogFragment dialogFragment, int position, boolean isChecked) {
+        if (TextUtils.equals(dialogFragment.getTag(), "mVoicer_cloud_entries") && isChecked) {
+            String value = mVoicer_cloud_values[position];
+            PreferenceUtil.getInstance().putString(SPKey.VOICER, value);
+            SpeechHelper.newInstance().setParamVoicer(value);
+
+            for (int i = 0; i < mList.size(); i++) {
+                Object object = mList.get(i);
+                if (object instanceof SettingItemInfo) {
+                    SettingItemInfo settingItemInfo = (SettingItemInfo) object;
+                    if (TextUtils.equals(settingItemInfo.getGroupType(), "1") && TextUtils.equals(settingItemInfo.getType(), "0")) {
+                        settingItemInfo.setBrief(mVoicer_cloud_entries[position]);
+                        mAdapter.notifyItemChanged(i);
+                        dialogFragment.dismiss();
+                        break;
+                    }
+                }
+            }
+
+        }
+    }
+
+    @Override
+    public void onCancelClick(DialogFragment dialogFragment) {
+        dialogFragment.dismiss();
+    }
+
+    @Override
+    public void onSureClick(DialogFragment dialogFragment) {
+        dialogFragment.dismiss();
     }
 
     public interface OnDayNightChangeListener {

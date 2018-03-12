@@ -11,6 +11,9 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
+import com.maverick.MainApp;
+import com.maverick.global.SPKey;
+import com.maverick.util.PreferenceUtil;
 
 /**
  * Created by limingfei on 2018/3/8.
@@ -26,18 +29,31 @@ public class SpeechHelper {
     private String voicer = "xiaoyan";
     private Context mContext;
     private boolean pause;
+    private static SpeechHelper mSpeechHelper;
 
-    public static SpeechHelper newInstance(Context context) {
-        SpeechHelper speechHelper = new SpeechHelper(context);
-        return speechHelper;
+    public static SpeechHelper newInstance() {
+        if (mSpeechHelper == null) {
+            mSpeechHelper = new SpeechHelper(MainApp.mContext);
+        }
+        return mSpeechHelper;
     }
 
     public SpeechHelper(Context context) {
         this.mContext = context;
         // 初始化合成对象
         mTts = SpeechSynthesizer.createSynthesizer(context, mTtsInitListener);
+        voicer = PreferenceUtil.getInstance().getString(SPKey.VOICER, "xiaoyan");
         // 设置参数
         setParam();
+    }
+
+    public void setParamVoicer(String voicer) {
+        // 设置在线合成发音人
+        mTts.setParameter(SpeechConstant.VOICE_NAME, voicer);
+        mTts.stopSpeaking();
+        if(mOnSpeechListener != null) {
+            mOnSpeechListener.onStopSpeaking();
+        }
     }
 
     /**
@@ -225,5 +241,7 @@ public class SpeechHelper {
         void onSpeakProgress(int percent, int beginPos, int endPos);
 
         void onCompleted();
+
+        void onStopSpeaking();
     }
 }

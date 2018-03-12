@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.maverick.MainApp;
+
 /**
  * Created by dnld on 31/07/16.
  */
@@ -17,30 +19,30 @@ public class PreferenceUtil {
         SP = PreferenceManager.getDefaultSharedPreferences(mContext);
     }
 
-    public static PreferenceUtil getInstance(Context context) {
+    public static PreferenceUtil getInstance() {
         if (instance == null) {
             synchronized (PreferenceUtil.class) {
                 if (instance == null)
-                    instance = new PreferenceUtil(context);
+                    instance = new PreferenceUtil(MainApp.mContext);
             }
         }
         return instance;
     }
 
     public static boolean getBool(Context context, String key, boolean defValue) {
-        return getInstance(context).getBoolean(key, defValue);
+        return getInstance().getBoolean(key, defValue);
     }
 
     public static int getInt(Context context, String key, int defValue) {
-        return getInstance(context).getInt(key, defValue);
+        return getInstance().getInt(key, defValue);
     }
 
     public static void putInt(Context context, String key, int value) {
-        getInstance(context).putInt(key, value);
+        getInstance().putInt(key, value);
     }
 
     public static void putBool(Context context, String key, boolean value) {
-        getInstance(context).putBoolean(key, value);
+        getInstance().putBoolean(key, value);
     }
 
     public SharedPreferences.Editor getEditor() {
