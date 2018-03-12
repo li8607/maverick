@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -20,10 +21,14 @@ import android.widget.Toast;
 
 import com.maverick.base.BaseActivity;
 import com.maverick.base.BaseFragment;
+import com.maverick.bean.CollectTabInfo;
+import com.maverick.fragment.BrowsingHistoryFragment;
+import com.maverick.fragment.CollectFragment;
 import com.maverick.fragment.MainFragment;
 import com.maverick.fragment.PearFragment;
 import com.maverick.fragment.SisterFragment;
 import com.maverick.global.ActivityCode;
+import com.maverick.type.FragmentType;
 import com.umeng.socialize.UMShareAPI;
 
 import me.yokeyword.fragmentation.SwipeBackLayout;
@@ -37,6 +42,9 @@ public class MainActivity2 extends BaseActivity {
     private MainFragment mMainFragment;
     private SisterFragment mSisterFragment;
     private PearFragment mPearFragment;
+    private BrowsingHistoryFragment mBrowsingHistoryFragment;
+    private CollectFragment mCollectFragment;
+    private Fragment mCurrentFragment;
 
     @Override
     protected com.maverick.presenter.BasePresenter onCreatePresenter() {
@@ -75,6 +83,7 @@ public class MainActivity2 extends BaseActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 // Handle navigation view item clicks here.
                 int id = item.getItemId();
+                mToolbar.setTitle(item.getTitle());
 
                 if (id == R.id.nav_gif) {
                     if (mMainFragment == null) {
@@ -82,18 +91,23 @@ public class MainActivity2 extends BaseActivity {
                     }
                     switchContent(mMainFragment);
                     mToolbar.setVisibility(View.GONE);
-                } else if (id == R.id.nav_img) {
-                    if (mSisterFragment == null) {
-                        mSisterFragment = SisterFragment.newInstance();
+                } else if (id == R.id.nav_history) {
+                    if (mBrowsingHistoryFragment == null) {
+                        mBrowsingHistoryFragment = BrowsingHistoryFragment.newInstance();
                     }
-                    switchContent(mSisterFragment);
+
+                    switchContent(mBrowsingHistoryFragment);
                     mToolbar.setVisibility(View.VISIBLE);
                     setSupportActionBar(mToolbar);
-                } else if (id == R.id.nav_text) {
-                    if (mPearFragment == null) {
-                        mPearFragment = PearFragment.newInstance();
+                } else if (id == R.id.nav_collect) {
+
+                    if (mCollectFragment == null) {
+                        CollectTabInfo collectTabInfo = new CollectTabInfo();
+                        collectTabInfo.setType(FragmentType.COLLECT);
+                        mCollectFragment = CollectFragment.newInstance(collectTabInfo);
                     }
-                    switchContent(mPearFragment);
+
+                    switchContent(mCollectFragment);
                     mToolbar.setVisibility(View.VISIBLE);
                     setSupportActionBar(mToolbar);
                 } else if (id == R.id.nav_share) {
@@ -110,6 +124,12 @@ public class MainActivity2 extends BaseActivity {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        getSupportFragmentManager().beginTransaction().setPrimaryNavigationFragment(mCurrentFragment);
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @Override
     protected void onInitData(Bundle savedInstanceState) {
 
         if (savedInstanceState == null) {
@@ -118,10 +138,10 @@ public class MainActivity2 extends BaseActivity {
             if (mMainFragment == null) {
                 mMainFragment = MainFragment.newInstance();
             }
-            isFragment = mMainFragment;
             ft.replace(R.id.fl_content, mMainFragment).commit();
+            mCurrentFragment = mMainFragment;
         } else {
-
+            mCurrentFragment = getSupportFragmentManager().getPrimaryNavigationFragment();
         }
     }
 
@@ -159,24 +179,22 @@ public class MainActivity2 extends BaseActivity {
         UMShareAPI.get(this).release();
     }
 
-    private Fragment isFragment;
-
     /**
      * 当fragment进行切换时，采用隐藏与显示的方法加载fragment以防止数据的重复加载
      *
      * @param to
      */
     public void switchContent(Fragment to) {
-        if (isFragment != to) {
+        if (mCurrentFragment != to) {
             FragmentManager fm = getSupportFragmentManager();
             //添加渐隐渐现的动画
             FragmentTransaction ft = fm.beginTransaction();
             if (!to.isAdded()) {    // 先判断是否被add过
-                ft.hide(isFragment).add(R.id.fl_content, to).commit(); // 隐藏当前的fragment，add下一个到Activity中
+                ft.hide(mCurrentFragment).add(R.id.fl_content, to).commit(); // 隐藏当前的fragment，add下一个到Activity中
             } else {
-                ft.hide(isFragment).show(to).commit(); // 隐藏当前的fragment，显示下一个
+                ft.hide(mCurrentFragment).show(to).commit(); // 隐藏当前的fragment，显示下一个
             }
-            isFragment = to;
+            mCurrentFragment = to;
         }
     }
 }

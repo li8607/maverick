@@ -7,13 +7,13 @@
             android:icon="@drawable/ic_menu_camera"
             android:title="动态搞笑图" />
         <item
-            android:id="@+id/nav_img"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="图片笑话大全" />
+            android:id="@+id/nav_history"
+            android:icon="@drawable/ic_timelapse_black_24dp"
+            android:title="浏览记录" />
         <item
-            android:id="@+id/nav_text"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="文本笑话大全" />
+            android:id="@+id/nav_collect"
+            android:icon="@drawable/ic_favorite_black_24dp"
+            android:title="我的收藏" />
     </group>
 
     <item android:title="Communicate">

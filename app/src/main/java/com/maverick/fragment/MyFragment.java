@@ -85,7 +85,7 @@ public class MyFragment extends BaseFragment {
             mList.add(getMyInfo("登录/注册", R.drawable.ic_account_box_black_24dp, MyType.LOGIN_REGISTER));
         }
         mList.add(getMyInfo("浏览记录", R.drawable.ic_timelapse_black_24dp, MyType.HISTORY));
-        mList.add(getMyInfo("收藏", R.drawable.ic_favorite_black_24dp, MyType.COLLECT));
+        mList.add(getMyInfo("我的收藏", R.drawable.ic_favorite_black_24dp, MyType.COLLECT));
         mList.add(getMyInfo("设置", R.drawable.ic_brightness_low_black_24dp, MyType.SETTING));
         mMyFragmentAdapter = new MyFragmentAdapter(getContext(), mList);
         recyclerView.setAdapter(mMyFragmentAdapter);
