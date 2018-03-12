@@ -125,7 +125,6 @@ public class MainActivity2 extends BaseActivity {
 
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        getSupportFragmentManager().beginTransaction().setPrimaryNavigationFragment(mCurrentFragment);
         super.onSaveInstanceState(outState, outPersistentState);
     }
 
@@ -138,10 +137,8 @@ public class MainActivity2 extends BaseActivity {
             if (mMainFragment == null) {
                 mMainFragment = MainFragment.newInstance();
             }
-            ft.replace(R.id.fl_content, mMainFragment).commit();
+            ft.replace(R.id.fl_content, mMainFragment).setPrimaryNavigationFragment(mMainFragment).commit();
             mCurrentFragment = mMainFragment;
-        } else {
-            mCurrentFragment = getSupportFragmentManager().getPrimaryNavigationFragment();
         }
     }
 
@@ -185,16 +182,15 @@ public class MainActivity2 extends BaseActivity {
      * @param to
      */
     public void switchContent(Fragment to) {
-        if (mCurrentFragment != to) {
+        if (getSupportFragmentManager().getPrimaryNavigationFragment() != to) {
             FragmentManager fm = getSupportFragmentManager();
             //添加渐隐渐现的动画
             FragmentTransaction ft = fm.beginTransaction();
             if (!to.isAdded()) {    // 先判断是否被add过
-                ft.hide(mCurrentFragment).add(R.id.fl_content, to).commit(); // 隐藏当前的fragment，add下一个到Activity中
+                ft.hide(getSupportFragmentManager().getPrimaryNavigationFragment()).add(R.id.fl_content, to).setPrimaryNavigationFragment(to).commit(); // 隐藏当前的fragment，add下一个到Activity中
             } else {
-                ft.hide(mCurrentFragment).show(to).commit(); // 隐藏当前的fragment，显示下一个
+                ft.hide(getSupportFragmentManager().getPrimaryNavigationFragment()).show(to).setPrimaryNavigationFragment(to).commit(); // 隐藏当前的fragment，显示下一个
             }
-            mCurrentFragment = to;
         }
     }
 }
