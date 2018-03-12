@@ -11,5 +11,8 @@ public class SPKey {
     public static final String JOKE_NEXT = "JOKE_NEXT";
 
     public static final String VOICER = "VOICER";
+    public static final String SPEED = "SPEED";
+    public static final String PITCH = "PITCH";
+    public static final String VOLUME = "VOLUME";
 
 }

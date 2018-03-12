@@ -51,7 +51,31 @@ public class SpeechHelper {
         // 设置在线合成发音人
         mTts.setParameter(SpeechConstant.VOICE_NAME, voicer);
         mTts.stopSpeaking();
-        if(mOnSpeechListener != null) {
+        if (mOnSpeechListener != null) {
+            mOnSpeechListener.onStopSpeaking();
+        }
+    }
+
+    public void setParamSpeed(int speed) {
+        mTts.setParameter(SpeechConstant.SPEED, String.valueOf(speed));
+        mTts.stopSpeaking();
+        if (mOnSpeechListener != null) {
+            mOnSpeechListener.onStopSpeaking();
+        }
+    }
+
+    public void setParamPitch(int pitch) {
+        mTts.setParameter(SpeechConstant.PITCH, String.valueOf(pitch));
+        mTts.stopSpeaking();
+        if (mOnSpeechListener != null) {
+            mOnSpeechListener.onStopSpeaking();
+        }
+    }
+
+    public void setParamVolume(int volume) {
+        mTts.setParameter(SpeechConstant.VOLUME, String.valueOf(volume));
+        mTts.stopSpeaking();
+        if (mOnSpeechListener != null) {
             mOnSpeechListener.onStopSpeaking();
         }
     }
@@ -70,14 +94,11 @@ public class SpeechHelper {
             // 设置在线合成发音人
             mTts.setParameter(SpeechConstant.VOICE_NAME, voicer);
             //设置合成语速
-            mTts.setParameter(SpeechConstant.SPEED, "50");
-//            mTts.setParameter(SpeechConstant.SPEED, mSharedPreferences.getString("speed_preference", "50"));
+            mTts.setParameter(SpeechConstant.SPEED, String.valueOf(PreferenceUtil.getInstance().getInt(SPKey.SPEED, 50)));
             //设置合成音调
-            mTts.setParameter(SpeechConstant.PITCH, "50");
-//            mTts.setParameter(SpeechConstant.PITCH, mSharedPreferences.getString("pitch_preference", "50"));
+            mTts.setParameter(SpeechConstant.PITCH, String.valueOf(PreferenceUtil.getInstance().getInt(SPKey.PITCH, 50)));
             //设置合成音量
-            mTts.setParameter(SpeechConstant.VOLUME, "50");
-//            mTts.setParameter(SpeechConstant.VOLUME, mSharedPreferences.getString("volume_preference", "50"));
+            mTts.setParameter(SpeechConstant.VOLUME, String.valueOf(PreferenceUtil.getInstance().getInt(SPKey.VOLUME, 50)));
         } else {
             mTts.setParameter(SpeechConstant.ENGINE_TYPE, SpeechConstant.TYPE_LOCAL);
             // 设置本地合成发音人 voicer为空，默认通过语记界面指定发音人。

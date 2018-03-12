@@ -20,6 +20,7 @@ import com.maverick.base.BaseFragment;
 import com.maverick.bean.SettingItemInfo;
 import com.maverick.bean.SettingTabInfo;
 import com.maverick.dialog.ChoiceDialog;
+import com.maverick.dialog.SeekBarDialog;
 import com.maverick.dialog.ThemeDialog;
 import com.maverick.global.SPKey;
 import com.maverick.hepler.SpeechHelper;
@@ -33,7 +34,7 @@ import java.util.List;
  * Created by limingfei on 2018/3/9.
  */
 
-public class SettingTabFragment extends BaseFragment implements SettingTabFragmentAdapter.OnItemClickListener, ThemeDialog.OnThemeChangeListener, ChoiceDialog.OnMultiChoiceClickListener, ChoiceDialog.OnCancelListener, ChoiceDialog.OnSureListener {
+public class SettingTabFragment extends BaseFragment implements SettingTabFragmentAdapter.OnItemClickListener, ThemeDialog.OnThemeChangeListener, ChoiceDialog.OnMultiChoiceClickListener, ChoiceDialog.OnCancelListener, ChoiceDialog.OnSureListener, SeekBarDialog.OnCancelListener, SeekBarDialog.OnSureListener, SeekBarDialog.OnProgressChangeListener {
 
     private RecyclerView mRecyclerView;
     private List<Object> mList;
@@ -42,6 +43,7 @@ public class SettingTabFragment extends BaseFragment implements SettingTabFragme
     private int mTheme;
     private String[] mVoicer_cloud_entries;
     private String[] mVoicer_cloud_values;
+    private int mProgress;
 
     public static SettingTabFragment newInstance() {
         SettingTabFragment fragment = new SettingTabFragment();
@@ -134,15 +136,19 @@ public class SettingTabFragment extends BaseFragment implements SettingTabFragme
                     settingItemInfo.setType(play_values[j]);
                     settingItemInfo.setGroupType(settingTabInfo.getType());
 
-                    if (TextUtils.equals(settingTabInfo.getType(), "1")) {
-                        if (TextUtils.equals(settingItemInfo.getType(), "0")) {
-                            for (int k = 0; k < mVoicer_cloud_values.length; k++) {
-                                if (TextUtils.equals(mVoicer_cloud_values[k], PreferenceUtil.getInstance().getString(SPKey.VOICER, mVoicer_cloud_values[0]))) {
-                                    settingItemInfo.setBrief(mVoicer_cloud_entries[k]);
-                                    break;
-                                }
+                    if (TextUtils.equals(settingItemInfo.getType(), "0")) {
+                        for (int k = 0; k < mVoicer_cloud_values.length; k++) {
+                            if (TextUtils.equals(mVoicer_cloud_values[k], PreferenceUtil.getInstance().getString(SPKey.VOICER, mVoicer_cloud_values[0]))) {
+                                settingItemInfo.setBrief(mVoicer_cloud_entries[k]);
+                                break;
                             }
                         }
+                    } else if (TextUtils.equals(settingItemInfo.getType(), "1")) {
+                        settingItemInfo.setBrief(String.valueOf(PreferenceUtil.getInstance().getInt(SPKey.SPEED, 50)));
+                    } else if (TextUtils.equals(settingItemInfo.getType(), "2")) {
+                        settingItemInfo.setBrief(String.valueOf(PreferenceUtil.getInstance().getInt(SPKey.PITCH, 50)));
+                    } else if (TextUtils.equals(settingItemInfo.getType(), "3")) {
+                        settingItemInfo.setBrief(String.valueOf(PreferenceUtil.getInstance().getInt(SPKey.VOLUME, 50)));
                     }
 
                     mList.add(settingItemInfo);
@@ -231,6 +237,24 @@ public class SettingTabFragment extends BaseFragment implements SettingTabFragme
                         choiceDialog.setOnCancelListener(this);
                         choiceDialog.setOnSureListener(this);
                         choiceDialog.show(getChildFragmentManager(), "mVoicer_cloud_entries");
+                    } else if (TextUtils.equals(settingItemInfo.getType(), "1")) {
+                        SeekBarDialog seekBarDialog = SeekBarDialog.newInstance(settingItemInfo.getTitle(), PreferenceUtil.getInstance().getInt(SPKey.SPEED, 50), 100, "确定", "取消");
+                        seekBarDialog.setOnCancelListener(this);
+                        seekBarDialog.setOnSureListener(this);
+                        seekBarDialog.setOnProgressChangeListener(this);
+                        seekBarDialog.show(getChildFragmentManager(), "speed");
+                    } else if (TextUtils.equals(settingItemInfo.getType(), "2")) {
+                        SeekBarDialog seekBarDialog = SeekBarDialog.newInstance(settingItemInfo.getTitle(), PreferenceUtil.getInstance().getInt(SPKey.PITCH, 50), 100, "确定", "取消");
+                        seekBarDialog.setOnCancelListener(this);
+                        seekBarDialog.setOnSureListener(this);
+                        seekBarDialog.setOnProgressChangeListener(this);
+                        seekBarDialog.show(getChildFragmentManager(), "pitch");
+                    }else if (TextUtils.equals(settingItemInfo.getType(), "3")) {
+                        SeekBarDialog seekBarDialog = SeekBarDialog.newInstance(settingItemInfo.getTitle(), PreferenceUtil.getInstance().getInt(SPKey.VOLUME, 50), 100, "确定", "取消");
+                        seekBarDialog.setOnCancelListener(this);
+                        seekBarDialog.setOnSureListener(this);
+                        seekBarDialog.setOnProgressChangeListener(this);
+                        seekBarDialog.show(getChildFragmentManager(), "volume");
                     }
                 }
 
@@ -256,6 +280,11 @@ public class SettingTabFragment extends BaseFragment implements SettingTabFragme
             choiceDialog.setOnMultiChoiceClickListener(this);
             choiceDialog.setOnCancelListener(this);
             choiceDialog.setOnSureListener(this);
+        } else if (childFragment instanceof SeekBarDialog) {
+            SeekBarDialog seekBarDialog = (SeekBarDialog) childFragment;
+            seekBarDialog.setOnCancelListener(this);
+            seekBarDialog.setOnSureListener(this);
+            seekBarDialog.setOnProgressChangeListener(this);
         }
         super.onAttachFragment(childFragment);
     }
@@ -300,6 +329,60 @@ public class SettingTabFragment extends BaseFragment implements SettingTabFragme
     @Override
     public void onSureClick(DialogFragment dialogFragment) {
         dialogFragment.dismiss();
+        if (TextUtils.equals(dialogFragment.getTag(), "speed")) {
+            PreferenceUtil.getInstance().putInt(SPKey.SPEED, mProgress);
+            SpeechHelper.newInstance().setParamSpeed(mProgress);
+
+            for (int i = 0; i < mList.size(); i++) {
+                Object object = mList.get(i);
+                if (object instanceof SettingItemInfo) {
+                    SettingItemInfo settingItemInfo = (SettingItemInfo) object;
+                    if (TextUtils.equals(settingItemInfo.getGroupType(), "1") && TextUtils.equals(settingItemInfo.getType(), "1")) {
+                        settingItemInfo.setBrief(String.valueOf(mProgress));
+                        mAdapter.notifyItemChanged(i);
+                        dialogFragment.dismiss();
+                        break;
+                    }
+                }
+            }
+        } else if (TextUtils.equals(dialogFragment.getTag(), "pitch")) {
+            PreferenceUtil.getInstance().putInt(SPKey.PITCH, mProgress);
+            SpeechHelper.newInstance().setParamPitch(mProgress);
+
+            for (int i = 0; i < mList.size(); i++) {
+                Object object = mList.get(i);
+                if (object instanceof SettingItemInfo) {
+                    SettingItemInfo settingItemInfo = (SettingItemInfo) object;
+                    if (TextUtils.equals(settingItemInfo.getGroupType(), "1") && TextUtils.equals(settingItemInfo.getType(), "2")) {
+                        settingItemInfo.setBrief(String.valueOf(mProgress));
+                        mAdapter.notifyItemChanged(i);
+                        dialogFragment.dismiss();
+                        break;
+                    }
+                }
+            }
+        }else if (TextUtils.equals(dialogFragment.getTag(), "volume")) {
+            PreferenceUtil.getInstance().putInt(SPKey.VOLUME, mProgress);
+            SpeechHelper.newInstance().setParamVolume(mProgress);
+
+            for (int i = 0; i < mList.size(); i++) {
+                Object object = mList.get(i);
+                if (object instanceof SettingItemInfo) {
+                    SettingItemInfo settingItemInfo = (SettingItemInfo) object;
+                    if (TextUtils.equals(settingItemInfo.getGroupType(), "1") && TextUtils.equals(settingItemInfo.getType(), "3")) {
+                        settingItemInfo.setBrief(String.valueOf(mProgress));
+                        mAdapter.notifyItemChanged(i);
+                        dialogFragment.dismiss();
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onProgressChanged(int progress) {
+        this.mProgress = progress;
     }
 
     public interface OnDayNightChangeListener {
