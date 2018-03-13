@@ -28,17 +28,53 @@
                 android:layout_height="match_parent"></FrameLayout>
         </LinearLayout>
 
-        <android.support.design.widget.NavigationView
-            android:id="@+id/nav_view"
+        <android.support.design.internal.ScrimInsetsFrameLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_gravity="left"
             android:fitsSystemWindows="true"
+            android:layout_gravity="left"
+            >
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             app:headerLayout="@layout/nav_header_main"
             app:insetForeground="?attr/selectableItemBackground"
+            app:itemBackground="@drawable/menu_main_item_background_selector"
             app:itemIconTint="@color/operation_count_day_selector"
             app:itemTextColor="@color/operation_count_day_selector"
-            app:menu="@menu/activity_main_drawer" />
+            app:menu="@menu/activity_main_drawer"
+            android:layout_marginBottom="60dp"
+            >
+        </android.support.design.widget.NavigationView>
+
+            <LinearLayout
+                android:layout_gravity="bottom"
+                android:orientation="horizontal" android:layout_width="match_parent"
+                android:layout_height="60dp">
+
+                <View
+                    android:background="#F00"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+                <View
+                    android:background="#0F0"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+                <View
+                    android:background="#00F"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+
+        </android.support.design.internal.ScrimInsetsFrameLayout>
     </android.support.v4.widget.DrawerLayout>
 
     <FrameLayout

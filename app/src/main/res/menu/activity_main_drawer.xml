@@ -3,9 +3,9 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_gif"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="动态搞笑图" />
+            android:id="@+id/nav_main"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="首页" />
         <item
             android:id="@+id/nav_history"
             android:icon="@drawable/ic_timelapse_black_24dp"
@@ -28,5 +28,4 @@
                 android:title="Send" />
         </menu>
     </item>
-
 </menu>

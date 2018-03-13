@@ -5,16 +5,15 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -41,6 +40,7 @@ public class MainActivity2 extends BaseActivity {
     private BrowsingHistoryFragment mBrowsingHistoryFragment;
     private CollectFragment mCollectFragment;
     private NavigationView mNavigationView;
+    private DrawerLayout mDrawer;
 
     @Override
     protected com.maverick.presenter.BasePresenter onCreatePresenter() {
@@ -59,7 +59,6 @@ public class MainActivity2 extends BaseActivity {
 
         mToolbar = findView(R.id.toolbar_actionbar);
 
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -67,13 +66,14 @@ public class MainActivity2 extends BaseActivity {
             }
         }
 
-        DrawerLayout drawer = (DrawerLayout) MainActivity2.this.findViewById(R.id.drawer_layout);
+        mDrawer = (DrawerLayout) MainActivity2.this.findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
+                this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawer.addDrawerListener(toggle);
         toggle.syncState();
 
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+        mNavigationView.setCheckedItem(R.id.nav_main);
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -81,7 +81,7 @@ public class MainActivity2 extends BaseActivity {
                 int id = item.getItemId();
                 mToolbar.setTitle(item.getTitle());
 
-                if (id == R.id.nav_gif) {
+                if (id == R.id.nav_main ) {
                     if (mMainFragment == null) {
                         mMainFragment = MainFragment.newInstance();
                     }
@@ -113,15 +113,10 @@ public class MainActivity2 extends BaseActivity {
                 }
 
                 DrawerLayout drawer = (DrawerLayout) MainActivity2.this.findViewById(R.id.drawer_layout);
-                drawer.closeDrawer(GravityCompat.START);
+                drawer.closeDrawer(Gravity.LEFT);
                 return true;
             }
         });
-    }
-
-    @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
     }
 
     @Override
@@ -141,12 +136,18 @@ public class MainActivity2 extends BaseActivity {
 
     @Override
     public void onBackPressedSupport() {
+
+        if(mDrawer.isDrawerOpen(Gravity.LEFT)) {
+           mDrawer.closeDrawer(Gravity.LEFT);
+           return;
+        }
+
         if (getSupportFragmentManager().getPrimaryNavigationFragment() != null && ((BaseFragment) (getSupportFragmentManager().getPrimaryNavigationFragment())).onBackPressed()) {
             return;
         }
 
         if (!(getSupportFragmentManager().getPrimaryNavigationFragment() instanceof MainFragment)) {
-            mNavigationView.setCheckedItem(R.id.nav_gif);
+            mNavigationView.setCheckedItem(R.id.nav_main);
             if (mMainFragment == null) {
                 mMainFragment = MainFragment.newInstance();
             }
