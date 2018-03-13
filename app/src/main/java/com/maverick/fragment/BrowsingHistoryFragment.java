@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -56,7 +59,7 @@ public class BrowsingHistoryFragment extends BaseEditFragment implements IBrowsi
 
     @Override
     protected void onInitView(View view) {
-
+        setHasOptionsMenu(true);
         root = findView(R.id.root);
 
         recyclerView = findView(R.id.recyclerView);
@@ -111,6 +114,28 @@ public class BrowsingHistoryFragment extends BaseEditFragment implements IBrowsi
                 }
             }
         });
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.menu_collect_toolbar, menu);
+        MenuItem menuItem = menu.findItem(R.id.edit);
+        menuItem.setChecked(getStateEdit() == STATE_EDIT);
+        menuItem.setTitle(menuItem.isChecked() ? "取消" : "编辑");
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.edit:
+                item.setChecked(!item.isChecked());
+                item.setTitle(item.isChecked() ? "取消" : "编辑");
+                setStateEdit(item.isChecked() ? STATE_EDIT : STATE_NO_EDIT);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public int getClickCheckState() {

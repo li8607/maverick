@@ -4,8 +4,10 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -48,14 +50,6 @@ public class CollectItemFragment extends BaseEditFragment implements ICollectIte
     }
 
     @Override
-    public void onHiddenChanged(boolean hidden) {
-        super.onHiddenChanged(hidden);
-        if (!hidden) {
-            mPresenter.loadData(mCollectTabInfo);
-        }
-    }
-
-    @Override
     protected BasePresenter onCreatePresenter() {
         mPresenter = new CollectItemFragmentPresenter(getContext(), this);
         return mPresenter;
@@ -69,6 +63,7 @@ public class CollectItemFragment extends BaseEditFragment implements ICollectIte
     @Override
     protected void onInitView(View view) {
         super.onInitView(view);
+        setHasOptionsMenu(true);
 
         root = findView(R.id.root);
 
@@ -144,6 +139,39 @@ public class CollectItemFragment extends BaseEditFragment implements ICollectIte
         super.onInitData(savedInstanceState);
         mCollectTabInfo = (CollectTabInfo) getArguments().getSerializable(Tag.KEY_INFO);
         mPresenter.loadData(mCollectTabInfo);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.menu_collect_toolbar, menu);
+        MenuItem menuItem = menu.findItem(R.id.edit);
+        menuItem.setChecked(getStateEdit() == STATE_EDIT);
+        menuItem.setTitle(menuItem.isChecked() ? "取消" : "编辑");
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.edit:
+                item.setChecked(!item.isChecked());
+                item.setTitle(item.isChecked() ? "取消" : "编辑");
+                setStateEdit(item.isChecked() ? STATE_EDIT : STATE_NO_EDIT);
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            mPresenter.loadData(mCollectTabInfo);
+        }
     }
 
     @Override

@@ -46,7 +46,7 @@
         <item name="colorControlHighlight">@color/colorControlHighlight</item>
         <item name="colorTabLayoutIndicator">@color/colorTabLayoutIndicator</item>
 
-
+        <item name="actionMenuTextColor">@color/colorWhite</item>
         <item name="android:windowBackground">@color/windowBackground</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>

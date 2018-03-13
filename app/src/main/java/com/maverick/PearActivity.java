@@ -265,7 +265,7 @@ public class PearActivity extends BaseActivity implements PearBottomFragment.OnL
         //释放所有
         mVideo.setStandardVideoAllCallBack(null);
         GSYVideoPlayer.releaseAllVideos();
-        super.onBackPressed();
+        super.onBackPressedSupport();
 //        if (isTransition && Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 //            super.onBackPressed();
 //        } else {

@@ -156,7 +156,7 @@ public class MainActivity2 extends BaseActivity {
             finish();
         }
 
-        super.onBackPressed();
+        super.onBackPressedSupport();
     }
 
     @Override

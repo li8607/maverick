@@ -162,7 +162,7 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.back:
-                onBackPressed();
+                onBackPressedSupport();
                 break;
             case R.id.image_share:
                 openMenuDialog(v, mInfo);
@@ -172,13 +172,11 @@ public class WebActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onBackPressedSupport() {
-
         if (web.canGoBack()) {
             web.goBack();
             return;
         }
-
-        super.onBackPressed();
+        super.onBackPressedSupport();
     }
 
     private void openMenuDialog(final View v, WebDetailInfo info) {

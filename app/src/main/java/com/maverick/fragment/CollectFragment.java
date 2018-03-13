@@ -4,11 +4,14 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Toast;
 
 import com.maverick.R;
 import com.maverick.adapter.CollectFragmentAdapter;
+import com.maverick.base.BaseFragment;
 import com.maverick.bean.CollectTabInfo;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.CollectFragmentPresenter;
@@ -20,7 +23,7 @@ import java.util.List;
 /**
  * Created by limingfei on 2017/9/29.
  */
-public class CollectFragment extends BaseEditFragment implements ICollectFragmentView {
+public class CollectFragment extends BaseFragment implements ICollectFragmentView {
 
     private static final String KEY_INFOS = "CollectTabInfos";
 
@@ -68,9 +71,7 @@ public class CollectFragment extends BaseEditFragment implements ICollectFragmen
 
             @Override
             public void onPageSelected(int position) {
-                if (mOnCollectFragmentListener != null) {
-                    mOnCollectFragmentListener.onPageSelected();
-                }
+
             }
 
             @Override
@@ -80,8 +81,6 @@ public class CollectFragment extends BaseEditFragment implements ICollectFragmen
         });
 
         mCollectFragmentAdapter = new CollectFragmentAdapter(getChildFragmentManager());
-        mCollectFragmentAdapter.setOnCollectFragmentListener(mOnCollectFragmentListener);
-        mCollectFragmentAdapter.setOnBaseEditFragmentListener(mOnBaseEditFragmentListener);
         viewpager.setAdapter(mCollectFragmentAdapter);
         tab_layout.setupWithViewPager(viewpager);
     }
@@ -96,68 +95,6 @@ public class CollectFragment extends BaseEditFragment implements ICollectFragmen
         }
     }
 
-    public int getStateEdit() {
-        if (viewpager.getAdapter() != null && viewpager.getAdapter().getCount() > viewpager.getCurrentItem()) {
-            Fragment fragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
-            if (fragment != null) {
-                if (fragment instanceof BaseEditFragment) {
-                    BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
-                    return baseEditFragment.getStateEdit();
-                }
-            }
-        }
-        return -1;
-    }
-
-    public void setStateEdit(int stateEdit) {
-        if (viewpager.getAdapter() != null && viewpager.getAdapter().getCount() > viewpager.getCurrentItem()) {
-            Fragment fragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
-            if (fragment != null) {
-                if (fragment instanceof BaseEditFragment) {
-                    BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
-                    baseEditFragment.setStateEdit(stateEdit);
-                }
-            }
-        }
-    }
-
-    public void delete() {
-        if (viewpager.getAdapter() != null && viewpager.getAdapter().getCount() > viewpager.getCurrentItem()) {
-            Fragment fragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
-            if (fragment != null) {
-                if (fragment instanceof BaseEditFragment) {
-                    BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
-                    baseEditFragment.delete();
-                }
-            }
-        }
-    }
-
-    public int getCheckState() {
-        if (viewpager.getAdapter() != null && viewpager.getAdapter().getCount() > viewpager.getCurrentItem()) {
-            Fragment fragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
-            if (fragment != null) {
-                if (fragment instanceof BaseEditFragment) {
-                    BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
-                    return baseEditFragment.getCheckState();
-                }
-            }
-        }
-        return -1;
-    }
-
-    public void setCheckState(int checkState) {
-        if (viewpager.getAdapter() != null && viewpager.getAdapter().getCount() > viewpager.getCurrentItem()) {
-            Fragment fragment = (Fragment) viewpager.getAdapter().instantiateItem(viewpager, viewpager.getCurrentItem());
-            if (fragment != null) {
-                if (fragment instanceof BaseEditFragment) {
-                    BaseEditFragment baseEditFragment = (BaseEditFragment) fragment;
-                    baseEditFragment.setCheckState(checkState);
-                }
-            }
-        }
-    }
-
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
@@ -169,12 +106,6 @@ public class CollectFragment extends BaseEditFragment implements ICollectFragmen
         }
     }
 
-    private OnCollectFragmentListener mOnCollectFragmentListener;
-
-    public void setOnCollectFragmentListener(OnCollectFragmentListener listener) {
-        this.mOnCollectFragmentListener = listener;
-    }
-
     @Override
     public void onShowSuccessView(List<CollectTabInfo> list) {
         mCollectFragmentAdapter.setData(list);
@@ -184,9 +115,5 @@ public class CollectFragment extends BaseEditFragment implements ICollectFragmen
     @Override
     public void onShowEmptyView() {
         Toast.makeText(getContext(), "暂无数据", Toast.LENGTH_SHORT).show();
-    }
-
-    public interface OnCollectFragmentListener {
-        void onPageSelected();
     }
 }

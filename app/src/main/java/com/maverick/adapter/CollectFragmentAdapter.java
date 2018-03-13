@@ -29,7 +29,6 @@ public class CollectFragmentAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         CollectItemFragment collectItemFragment = CollectItemFragment.newInstance(mList.get(position));
-        collectItemFragment.setOnBaseEditFragmentListener(mOnBaseEditFragmentListener);
         return collectItemFragment;
     }
 
@@ -55,17 +54,5 @@ public class CollectFragmentAdapter extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         return mList.get(position).getTitle();
-    }
-
-    private CollectFragment.OnCollectFragmentListener mOnCollectFragmentListener;
-
-    public void setOnCollectFragmentListener(CollectFragment.OnCollectFragmentListener listener) {
-        this.mOnCollectFragmentListener = listener;
-    }
-
-    private BaseEditFragment.OnBaseEditFragmentListener mOnBaseEditFragmentListener;
-
-    public void setOnBaseEditFragmentListener(BaseEditFragment.OnBaseEditFragmentListener listener) {
-        this.mOnBaseEditFragmentListener = listener;
     }
 }
