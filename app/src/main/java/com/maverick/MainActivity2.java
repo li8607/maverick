@@ -25,8 +25,6 @@ import com.maverick.bean.CollectTabInfo;
 import com.maverick.fragment.BrowsingHistoryFragment;
 import com.maverick.fragment.CollectFragment;
 import com.maverick.fragment.MainFragment;
-import com.maverick.fragment.PearFragment;
-import com.maverick.fragment.SisterFragment;
 import com.maverick.global.ActivityCode;
 import com.maverick.type.FragmentType;
 import com.umeng.socialize.UMShareAPI;
@@ -42,7 +40,7 @@ public class MainActivity2 extends BaseActivity {
     private MainFragment mMainFragment;
     private BrowsingHistoryFragment mBrowsingHistoryFragment;
     private CollectFragment mCollectFragment;
-    private Fragment mCurrentFragment;
+    private NavigationView mNavigationView;
 
     @Override
     protected com.maverick.presenter.BasePresenter onCreatePresenter() {
@@ -75,8 +73,8 @@ public class MainActivity2 extends BaseActivity {
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+        mNavigationView = (NavigationView) findViewById(R.id.nav_view);
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 // Handle navigation view item clicks here.
@@ -136,7 +134,6 @@ public class MainActivity2 extends BaseActivity {
                 mMainFragment = MainFragment.newInstance();
             }
             ft.replace(R.id.fl_content, mMainFragment).setPrimaryNavigationFragment(mMainFragment).commit();
-            mCurrentFragment = mMainFragment;
         }
     }
 
@@ -145,6 +142,16 @@ public class MainActivity2 extends BaseActivity {
     @Override
     public void onBackPressedSupport() {
         if (getSupportFragmentManager().getPrimaryNavigationFragment() != null && ((BaseFragment) (getSupportFragmentManager().getPrimaryNavigationFragment())).onBackPressed()) {
+            return;
+        }
+
+        if (!(getSupportFragmentManager().getPrimaryNavigationFragment() instanceof MainFragment)) {
+            mNavigationView.setCheckedItem(R.id.nav_gif);
+            if (mMainFragment == null) {
+                mMainFragment = MainFragment.newInstance();
+            }
+            switchContent(mMainFragment);
+            mToolbar.setVisibility(View.GONE);
             return;
         }
 
