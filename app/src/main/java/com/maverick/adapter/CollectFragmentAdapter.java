@@ -1,5 +1,6 @@
 package com.maverick.adapter;
 
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -8,6 +9,8 @@ import com.maverick.bean.CollectTabInfo;
 import com.maverick.fragment.BaseEditFragment;
 import com.maverick.fragment.CollectFragment;
 import com.maverick.fragment.CollectItemFragment;
+import com.maverick.global.Tag;
+import com.maverick.type.CollectType;
 import com.maverick.type.FragmentType;
 
 import java.util.List;
@@ -19,35 +22,29 @@ public class CollectFragmentAdapter extends FragmentStatePagerAdapter {
 
     private List<CollectTabInfo> mList;
 
-    public CollectFragmentAdapter(FragmentManager fm, List<CollectTabInfo> list) {
+    public CollectFragmentAdapter(FragmentManager fm) {
         super(fm);
-        this.mList = list;
     }
 
     @Override
     public Fragment getItem(int position) {
+        CollectItemFragment collectItemFragment = CollectItemFragment.newInstance(mList.get(position));
+        collectItemFragment.setOnBaseEditFragmentListener(mOnBaseEditFragmentListener);
+        return collectItemFragment;
+    }
 
-        Fragment fragment;
-        int type = mList.get(position).getType();
-        switch (type) {
-            case FragmentType.COLLECT:
-                CollectFragment collectFragment = CollectFragment.newInstance(mList.get(position));
-                collectFragment.setOnCollectFragmentListener(mOnCollectFragmentListener);
-                collectFragment.setOnBaseEditFragmentListener(mOnBaseEditFragmentListener);
-                fragment = collectFragment;
-                break;
-            case FragmentType.COLLECT_CARICATURE:
-            case FragmentType.COLLECT_SISTER:
-            case FragmentType.COLLECT_SINA:
-                CollectItemFragment collectItemFragment = CollectItemFragment.newInstance(mList.get(position));
-                collectItemFragment.setOnBaseEditFragmentListener(mOnBaseEditFragmentListener);
-                fragment = collectItemFragment;
-                break;
-            default:
-                fragment = new Fragment();
-                break;
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        int index = mList.indexOf(((Fragment) object).getArguments().getSerializable(Tag.KEY_INFO));
+        if (index == -1) {
+            return POSITION_NONE;
+        } else {
+            return index;
         }
-        return fragment;
+    }
+
+    public void setData(List<CollectTabInfo> list) {
+        this.mList = list;
     }
 
     @Override

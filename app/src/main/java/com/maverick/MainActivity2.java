@@ -40,8 +40,6 @@ public class MainActivity2 extends BaseActivity {
 
     private Toolbar mToolbar;
     private MainFragment mMainFragment;
-    private SisterFragment mSisterFragment;
-    private PearFragment mPearFragment;
     private BrowsingHistoryFragment mBrowsingHistoryFragment;
     private CollectFragment mCollectFragment;
     private Fragment mCurrentFragment;

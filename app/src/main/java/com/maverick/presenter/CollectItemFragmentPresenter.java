@@ -1,12 +1,10 @@
 package com.maverick.presenter;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.maverick.bean.CollectTabInfo;
 import com.maverick.model.CollectModel;
 import com.maverick.presenter.implView.ICollectItemFragmentView;
-import com.maverick.type.FragmentType;
 
 import java.util.List;
 
@@ -39,24 +37,9 @@ public class CollectItemFragmentPresenter extends BasePresenter {
             mView.onShowEmptyView();
             return;
         }
-
-        List<Collect> list;
-        switch (collectTabInfo.getType()) {
-            case FragmentType.COLLECT_SISTER:
-                list = CollectModel.newInstance().getSisterData();
-                break;
-            case FragmentType.COLLECT_CARICATURE:
-                list = CollectModel.newInstance().getCaricatureData();
-                break;
-            case FragmentType.COLLECT_SINA:
-                list = CollectModel.newInstance().getSinaData();
-                break;
-            default:
-                list = null;
-                break;
-        }
-
-        Log.e(TAG, "list.size() = " + list.size());
+        Collect collect = new Collect();
+        collect.setCollectType(collectTabInfo.getCollectType());
+        List<Collect> list = CollectModel.newInstance().getData(collect);
 
         if (list != null && list.size() > 0) {
             mView.onShowSuccessView(list);

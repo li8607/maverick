@@ -23,6 +23,8 @@ public interface ICollectModel {
 
     List<Collect> getSinaData();
 
+    List<Collect> getData(Collect collect);
+
     boolean insertCollectDB(Collect collect);
 
     boolean deleteCollectDB(Collect collect);

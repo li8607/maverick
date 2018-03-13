@@ -100,6 +100,14 @@ public class CollectModel implements ICollectModel {
     }
 
     @Override
+    public List<Collect> getData(Collect collect) {
+        List<Collect> list = mCollectDao.queryBuilder().where(
+                CollectDao.Properties.CollectUserId.eq(Tag.USER_ID)
+                , CollectDao.Properties.CollectType.eq(collect.getCollectType())).orderDesc(CollectDao.Properties.CollectTime).build().list();
+        return list;
+    }
+
+    @Override
     public boolean insertCollectDB(Collect collect) {
 
         if (collect == null) {
