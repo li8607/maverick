@@ -67,6 +67,22 @@ public class GlideUtil {
                 .into(imageView);
     }
 
+    public static void loadCircleImage(Context context, int id, ImageView imageView) {
+        if (assertNotLoad(context, imageView)) {
+            return;
+        }
+
+        Glide.with(context).load(id)
+                .fitCenter()
+                .skipMemoryCache(false)
+                .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                .bitmapTransform(new CropCircleTransformation(context))
+                .placeholder(R.mipmap.ic_header)
+                .error(R.mipmap.ic_header)
+                .crossFade()
+                .into(imageView);
+    }
+
     private static boolean assertNotLoad(Context context, ImageView view) {
 
         if (context == null || view == null) {

@@ -1,7 +1,10 @@
 package com.maverick.fragment;
 
+import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
@@ -10,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.maverick.R;
+import com.maverick.adapter.SettingTabFragmentAdapter;
 import com.maverick.adapter.SinaItemFragmentAdapter;
 import com.maverick.base.BaseFragment;
 import com.maverick.bean.SinaInfo;
@@ -59,6 +63,10 @@ public class SinaItemFragment extends BaseFragment implements ISinaItemFragmentV
 
     @Override
     protected void onInitView(View view) {
+        final int space = 1;
+        final Paint mPaint = new Paint();
+        mPaint.setAntiAlias(true);
+        mPaint.setColor(ContextCompat.getColor(getContext(), R.color.colorDivider2));
 
         root = findView(R.id.root);
 
@@ -86,7 +94,23 @@ public class SinaItemFragment extends BaseFragment implements ISinaItemFragmentV
         mRecyclerView.addItemDecoration(new RecyclerView.ItemDecoration() {
             @Override
             public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-                outRect.bottom = DensityUtil.dip2px(getContext(), 1);
+                outRect.bottom = space;
+            }
+
+            @Override
+            public void onDraw(Canvas c, RecyclerView parent, RecyclerView.State state) {
+                final int childCount = parent.getChildCount();
+                for (int i = 0; i < childCount; i++) {
+                    final View child = parent.getChildAt(i);
+                    int position = parent.getChildAdapterPosition(child);
+                    if (position == parent.getAdapter().getItemCount() - 1
+                            || parent.getAdapter().getItemViewType(position) == SettingTabFragmentAdapter.TAB_TITLE
+                            || parent.getAdapter().getItemViewType(position + 1) == SettingTabFragmentAdapter.TAB_TITLE) {
+                        continue;
+                    }
+
+                    c.drawLine(parent.getLeft(), child.getBottom() + space, parent.getRight(), child.getBottom() + space, mPaint);
+                }
             }
         });
 

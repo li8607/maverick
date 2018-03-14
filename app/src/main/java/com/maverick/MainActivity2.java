@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,21 +15,28 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.avos.avoscloud.AVUser;
 import com.maverick.base.BaseActivity;
 import com.maverick.base.BaseFragment;
 import com.maverick.bean.CollectTabInfo;
+import com.maverick.dialog.ThemeDialog;
 import com.maverick.fragment.BrowsingHistoryFragment;
 import com.maverick.fragment.CollectFragment;
 import com.maverick.fragment.MainFragment;
 import com.maverick.global.ActivityCode;
 import com.maverick.global.SPKey;
+import com.maverick.global.ThemeType;
+import com.maverick.leancloud.User;
 import com.maverick.type.FragmentType;
+import com.maverick.util.GlideUtil;
 import com.maverick.util.PreferenceUtil;
 import com.umeng.socialize.UMShareAPI;
 
@@ -37,7 +45,7 @@ import me.yokeyword.fragmentation.SwipeBackLayout;
 /**
  * Created by limingfei on 2017/9/25.
  */
-public class MainActivity2 extends BaseActivity implements View.OnClickListener {
+public class MainActivity2 extends BaseActivity implements View.OnClickListener, ThemeDialog.OnThemeChangeListener {
 
     private Toolbar mToolbar;
     private MainFragment mMainFragment;
@@ -46,6 +54,8 @@ public class MainActivity2 extends BaseActivity implements View.OnClickListener 
     private NavigationView mNavigationView;
     private DrawerLayout mDrawer;
     private ImageView mIvNight;
+    private TextView mTv_heard;
+    private ImageView mIv_heard;
 
     @Override
     protected com.maverick.presenter.BasePresenter onCreatePresenter() {
@@ -133,6 +143,9 @@ public class MainActivity2 extends BaseActivity implements View.OnClickListener 
         ll_night.setOnClickListener(this);
         mIvNight = findView(R.id.iv_night);
         mIvNight.setImageResource(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES ? R.drawable.ic_brightness_4_black_24dp : R.drawable.ic_brightness_3_black_24dp);
+
+        mIv_heard = mNavigationView.findViewById(R.id.iv_heard);
+        mTv_heard = mNavigationView.findViewById(R.id.tv_heard);
     }
 
     @Override
@@ -145,6 +158,20 @@ public class MainActivity2 extends BaseActivity implements View.OnClickListener 
                 mMainFragment = MainFragment.newInstance();
             }
             ft.replace(R.id.fl_content, mMainFragment).setPrimaryNavigationFragment(mMainFragment).commit();
+
+            String title = AVUser.getCurrentUser().getString(User.nickname);
+            if (!TextUtils.isEmpty(title)) {
+                mTv_heard.setText(title);
+            } else {
+                mTv_heard.setText("登录");
+            }
+
+            String imgUrl = (String) AVUser.getCurrentUser().get(User.headUrl);
+            if (!TextUtils.isEmpty(imgUrl)) {
+                GlideUtil.loadCircleImage(this, imgUrl, mIv_heard);
+            } else {
+                GlideUtil.loadCircleImage(this, R.drawable.ic_chrome_reader_mode_black_24dp, mIv_heard);
+            }
         }
     }
 
@@ -224,6 +251,8 @@ public class MainActivity2 extends BaseActivity implements View.OnClickListener 
                 startActivityForResult(intent, ActivityCode.REQUEST_CODE_THEME);
                 break;
             case R.id.ll_theme:
+                ThemeDialog themeDialog = ThemeDialog.newInstance();
+                themeDialog.show(getSupportFragmentManager(), "");
                 break;
             case R.id.ll_night:
                 //夜间模式
@@ -244,5 +273,23 @@ public class MainActivity2 extends BaseActivity implements View.OnClickListener 
                 recreate();
                 break;
         }
+    }
+
+    @Override
+    public void onThemeChange(DialogFragment dialogFragment, int themeType) {
+        dialogFragment.dismiss();
+        if (themeType == ThemeType.DAY_NIGHT) {
+            getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            PreferenceUtil.getInstance().putInt(SPKey.NIGHT, AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            PreferenceUtil.getInstance().putInt(SPKey.NIGHT, AppCompatDelegate.MODE_NIGHT_NO);
+            setTheme(MainApp.getInstance().getCustomTheme());
+        }
+
+        PreferenceUtil.getInstance().putInt(SPKey.THEME, themeType);
+        recreate();
     }
 }

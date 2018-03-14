@@ -299,7 +299,8 @@ public class SettingTabFragment extends BaseFragment implements SettingTabFragme
     private OnDayNightChangeListener mOnDayNightChangeListener;
 
     @Override
-    public void onThemeChange(int themeType) {
+    public void onThemeChange(DialogFragment dialogFragment, int themeType) {
+        dialogFragment.dismiss();
         if (mOnDayNightChangeListener != null) {
             mOnDayNightChangeListener.onThemeChange(themeType);
         }

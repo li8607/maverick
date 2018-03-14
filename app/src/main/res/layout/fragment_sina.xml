@@ -9,7 +9,7 @@
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="36dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="?attr/colorPrimary"
         android:paddingBottom="2dp"
         app:tabIndicatorColor="?attr/colorTabLayoutIndicator"
         app:tabSelectedTextColor="?attr/colorTabLayoutIndicator"

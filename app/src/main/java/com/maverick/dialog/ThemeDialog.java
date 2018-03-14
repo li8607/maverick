@@ -1,7 +1,9 @@
 package com.maverick.dialog;
 
+import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -9,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.maverick.MainApp;
 import com.maverick.R;
 import com.maverick.adapter.holder.ThemeHolder;
 import com.maverick.base.BaseDialogFragment;
@@ -100,11 +101,10 @@ public class ThemeDialog extends BaseDialogFragment {
     }
 
 
-
     private void updateTheme(int position) {
         mThemeType = mList.get(position).getThemeType();
         if (mOnThemeChangeListener != null) {
-            mOnThemeChangeListener.onThemeChange(mThemeType);
+            mOnThemeChangeListener.onThemeChange(this, mThemeType);
         }
         mThemeAdapter.notifyDataSetChanged();
     }
@@ -151,6 +151,14 @@ public class ThemeDialog extends BaseDialogFragment {
         }
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if(context instanceof OnThemeChangeListener) {
+            mOnThemeChangeListener = (OnThemeChangeListener) context;
+        }
+    }
+
     private OnThemeChangeListener mOnThemeChangeListener;
 
     public void setOnThemeChangeListener(OnThemeChangeListener listener) {
@@ -158,6 +166,6 @@ public class ThemeDialog extends BaseDialogFragment {
     }
 
     public interface OnThemeChangeListener {
-        void onThemeChange(int themeType);
+        void onThemeChange(DialogFragment dialogFragment, int themeType);
     }
 }
