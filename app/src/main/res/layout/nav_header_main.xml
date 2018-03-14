@@ -11,19 +11,25 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <android.support.v7.widget.AppCompatImageView
-        android:id="@+id/iv_heard"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:background="@color/colorWhite"
-        app:srcCompat="@drawable/ic_chrome_reader_mode_black_24dp"
-        app:tint="@color/black_color_selector" />
-
-    <TextView
-        android:id="@+id/tv_heard"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="笑一笑"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/iv_heard"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:srcCompat="@drawable/ic_chrome_reader_mode_black_24dp"
+            app:tint="@color/black_color_selector" />
+
+        <TextView
+            android:id="@+id/tv_heard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:text="笑一笑"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+    </LinearLayout>
 </LinearLayout>
