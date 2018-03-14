@@ -4,6 +4,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -116,8 +117,10 @@ public class BrowsingHistoryFragment extends BaseEditFragment implements IBrowsi
         });
     }
 
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        Log.e("lmf", "onCreateOptionsMenu");
         menu.clear();
         inflater.inflate(R.menu.menu_collect_toolbar, menu);
         MenuItem menuItem = menu.findItem(R.id.edit);
@@ -173,6 +176,11 @@ public class BrowsingHistoryFragment extends BaseEditFragment implements IBrowsi
 
     @Override
     protected void onInitData(Bundle savedInstanceState) {
+        if(savedInstanceState == null) {
+            Log.e("lmf","savedInstanceState == null");
+        }else {
+            Log.e("lmf","savedInstanceState != null");
+        }
         mPresenter.loadData();
     }
 

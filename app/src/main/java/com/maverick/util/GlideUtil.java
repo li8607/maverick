@@ -35,6 +35,14 @@ public class GlideUtil {
         Glide.with(context).load(url).thumbnail(0.1f).priority(Priority.HIGH).error(R.mipmap.fail).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
     }
 
+    public static void loadImage(Context context, int id, ImageView imageView) {
+        if (assertNotLoad(context, imageView)) {
+            return;
+        }
+
+        Glide.with(context).load(id).thumbnail(0.1f).priority(Priority.HIGH).error(R.mipmap.fail).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(imageView);
+    }
+
     public static void loadImage(Context context, String url, ImageView imageView, SizeReadyCallback cb) {
         if (assertNotLoad(context, imageView)) {
             return;

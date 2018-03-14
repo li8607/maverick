@@ -56,6 +56,7 @@ public class MainActivity2 extends BaseActivity implements View.OnClickListener,
     private ImageView mIvNight;
     private TextView mTv_heard;
     private ImageView mIv_heard;
+    private String mImgUrl;
 
     @Override
     protected com.maverick.presenter.BasePresenter onCreatePresenter() {
@@ -82,8 +83,7 @@ public class MainActivity2 extends BaseActivity implements View.OnClickListener,
         }
 
         mDrawer = (DrawerLayout) MainActivity2.this.findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         mDrawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -157,6 +157,7 @@ public class MainActivity2 extends BaseActivity implements View.OnClickListener,
             if (mMainFragment == null) {
                 mMainFragment = MainFragment.newInstance();
             }
+
             ft.replace(R.id.fl_content, mMainFragment).setPrimaryNavigationFragment(mMainFragment).commit();
 
             String title = AVUser.getCurrentUser().getString(User.nickname);
@@ -166,13 +167,35 @@ public class MainActivity2 extends BaseActivity implements View.OnClickListener,
                 mTv_heard.setText("登录");
             }
 
-            String imgUrl = (String) AVUser.getCurrentUser().get(User.headUrl);
-            if (!TextUtils.isEmpty(imgUrl)) {
-                GlideUtil.loadCircleImage(this, imgUrl, mIv_heard);
+            mImgUrl = (String) AVUser.getCurrentUser().get(User.headUrl);
+            if (!TextUtils.isEmpty(mImgUrl)) {
+                GlideUtil.loadImage(this, mImgUrl, mIv_heard);
             } else {
-                GlideUtil.loadCircleImage(this, R.drawable.ic_chrome_reader_mode_black_24dp, mIv_heard);
+                GlideUtil.loadImage(this, R.drawable.ic_chrome_reader_mode_black_24dp, mIv_heard);
             }
+        }else {
+            String title = savedInstanceState.getString("mTv_heard");
+            if (!TextUtils.isEmpty(title)) {
+                mTv_heard.setText(title);
+            }
+
+            mImgUrl = savedInstanceState.getString("mImgUrl");
+            if (!TextUtils.isEmpty(mImgUrl)) {
+                GlideUtil.loadImage(this, mImgUrl, mIv_heard);
+            }
+
+            mToolbar.setVisibility(savedInstanceState.getInt("toolbar", View.GONE));
+            mToolbar.setTitle(savedInstanceState.getCharSequence("toolbarTitle", ""));
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putCharSequence("mTv_heard", mTv_heard.getText());
+        outState.putString("mImgUrl", mImgUrl);
+        outState.putInt("toolbar", mToolbar.getVisibility());
+        outState.putCharSequence("toolbarTitle", mToolbar.getTitle());
+        super.onSaveInstanceState(outState);
     }
 
     private long currentTime;

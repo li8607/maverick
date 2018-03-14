@@ -86,7 +86,6 @@ public class MainFragment extends BaseFragment {
 
     @Override
     protected void onInitView(View view) {
-
         mActivity = ((AppCompatActivity) getActivity());
 
         mAppBarLayout = view.findViewById(R.id.appbar);
