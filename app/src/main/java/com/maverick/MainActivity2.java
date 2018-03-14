@@ -143,9 +143,9 @@ public class MainActivity2 extends BaseActivity implements View.OnClickListener,
         ll_night.setOnClickListener(this);
         mIvNight = findView(R.id.iv_night);
         mIvNight.setImageResource(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES ? R.drawable.ic_brightness_4_black_24dp : R.drawable.ic_brightness_3_black_24dp);
-
-        mIv_heard = mNavigationView.findViewById(R.id.iv_heard);
-        mTv_heard = mNavigationView.findViewById(R.id.tv_heard);
+        View view = mNavigationView.getHeaderView(0);
+        mIv_heard = view.findViewById(R.id.iv_heard);
+        mTv_heard = view.findViewById(R.id.tv_heard);
     }
 
     @Override
