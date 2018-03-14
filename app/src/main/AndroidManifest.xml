@@ -72,6 +72,8 @@
 
         <activity android:name=".CaricatureActivity" />
 
+        <activity android:name=".FragmentActivity" />
+
         <activity
             android:name=".PearActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"

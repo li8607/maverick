@@ -29,50 +29,118 @@
         </LinearLayout>
 
         <android.support.design.internal.ScrimInsetsFrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            android:layout_gravity="left"
-            >
-
-        <android.support.design.widget.NavigationView
-            android:id="@+id/nav_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:headerLayout="@layout/nav_header_main"
-            app:insetForeground="?attr/selectableItemBackground"
-            app:itemBackground="@drawable/menu_main_item_background_selector"
-            app:itemIconTint="@color/operation_count_day_selector"
-            app:itemTextColor="@color/operation_count_day_selector"
-            app:menu="@menu/activity_main_drawer"
-            android:layout_marginBottom="60dp"
-            >
-        </android.support.design.widget.NavigationView>
+            android:layout_gravity="left"
+            android:background="@color/windowBackground"
+            android:fitsSystemWindows="true">
+
+            <android.support.design.widget.NavigationView
+                android:id="@+id/nav_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="62dp"
+                android:background="@android:color/transparent"
+                app:headerLayout="@layout/nav_header_main"
+                app:insetForeground="?attr/selectableItemBackground"
+                app:itemBackground="@drawable/menu_main_item_background_selector"
+                app:itemIconTint="@color/black_color_selector"
+                app:itemTextColor="@color/black_color_selector"
+                app:menu="@menu/activity_main_drawer"></android.support.design.widget.NavigationView>
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
                 android:layout_gravity="bottom"
-                android:orientation="horizontal" android:layout_width="match_parent"
-                android:layout_height="60dp">
+                android:orientation="horizontal">
 
-                <View
-                    android:background="#F00"
-                    android:layout_weight="1"
+                <LinearLayout
+                    android:id="@+id/ll_setting"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
-                <View
-                    android:background="#0F0"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent" />
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginRight="6dp"
+                        app:srcCompat="@drawable/ic_brightness_low_black_24dp"
+                        app:tint="@color/black_color_selector" />
 
-                <View
-                    android:background="#00F"
-                    android:layout_weight="1"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="设置"
+                        android:textColor="@color/black_color_selector"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_theme"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginRight="6dp"
+                        app:srcCompat="@drawable/ic_color_lens_black_24dp"
+                        app:tint="@color/black_color_selector" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="主题"
+                        android:textColor="@color/black_color_selector"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_night"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:id="@+id/iv_night"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginRight="6dp"
+                        app:srcCompat="@drawable/ic_brightness_3_black_24dp"
+                        app:tint="@color/black_color_selector" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="夜间"
+                        android:textColor="@color/black_color_selector"
+                        android:textSize="12sp" />
+                </LinearLayout>
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="60dp"
+                android:background="@color/colorDivider" />
 
         </android.support.design.internal.ScrimInsetsFrameLayout>
     </android.support.v4.widget.DrawerLayout>

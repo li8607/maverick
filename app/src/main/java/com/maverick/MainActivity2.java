@@ -12,10 +12,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.maverick.base.BaseActivity;
@@ -25,7 +27,9 @@ import com.maverick.fragment.BrowsingHistoryFragment;
 import com.maverick.fragment.CollectFragment;
 import com.maverick.fragment.MainFragment;
 import com.maverick.global.ActivityCode;
+import com.maverick.global.SPKey;
 import com.maverick.type.FragmentType;
+import com.maverick.util.PreferenceUtil;
 import com.umeng.socialize.UMShareAPI;
 
 import me.yokeyword.fragmentation.SwipeBackLayout;
@@ -33,7 +37,7 @@ import me.yokeyword.fragmentation.SwipeBackLayout;
 /**
  * Created by limingfei on 2017/9/25.
  */
-public class MainActivity2 extends BaseActivity {
+public class MainActivity2 extends BaseActivity implements View.OnClickListener {
 
     private Toolbar mToolbar;
     private MainFragment mMainFragment;
@@ -41,6 +45,7 @@ public class MainActivity2 extends BaseActivity {
     private CollectFragment mCollectFragment;
     private NavigationView mNavigationView;
     private DrawerLayout mDrawer;
+    private ImageView mIvNight;
 
     @Override
     protected com.maverick.presenter.BasePresenter onCreatePresenter() {
@@ -81,7 +86,7 @@ public class MainActivity2 extends BaseActivity {
                 int id = item.getItemId();
                 mToolbar.setTitle(item.getTitle());
 
-                if (id == R.id.nav_main ) {
+                if (id == R.id.nav_main) {
                     if (mMainFragment == null) {
                         mMainFragment = MainFragment.newInstance();
                     }
@@ -106,10 +111,12 @@ public class MainActivity2 extends BaseActivity {
                     switchContent(mCollectFragment);
                     mToolbar.setVisibility(View.VISIBLE);
                     setSupportActionBar(mToolbar);
-                } else if (id == R.id.nav_share) {
-
-                } else if (id == R.id.nav_send) {
-
+                } else if (id == R.id.nav_beauty) {
+                    FragmentActivity.launch(MainActivity2.this, item.getTitle(), FragmentType.BEAUTY);
+                    return true;
+                } else if (id == R.id.nav_sina) {
+                    FragmentActivity.launch(MainActivity2.this, item.getTitle(), FragmentType.SINA);
+                    return true;
                 }
 
                 DrawerLayout drawer = (DrawerLayout) MainActivity2.this.findViewById(R.id.drawer_layout);
@@ -117,6 +124,15 @@ public class MainActivity2 extends BaseActivity {
                 return true;
             }
         });
+
+        View ll_setting = findView(R.id.ll_setting);
+        ll_setting.setOnClickListener(this);
+        View ll_theme = findView(R.id.ll_theme);
+        ll_theme.setOnClickListener(this);
+        View ll_night = findView(R.id.ll_night);
+        ll_night.setOnClickListener(this);
+        mIvNight = findView(R.id.iv_night);
+        mIvNight.setImageResource(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES ? R.drawable.ic_brightness_4_black_24dp : R.drawable.ic_brightness_3_black_24dp);
     }
 
     @Override
@@ -137,9 +153,9 @@ public class MainActivity2 extends BaseActivity {
     @Override
     public void onBackPressedSupport() {
 
-        if(mDrawer.isDrawerOpen(Gravity.LEFT)) {
-           mDrawer.closeDrawer(Gravity.LEFT);
-           return;
+        if (mDrawer.isDrawerOpen(Gravity.LEFT)) {
+            mDrawer.closeDrawer(Gravity.LEFT);
+            return;
         }
 
         if (getSupportFragmentManager().getPrimaryNavigationFragment() != null && ((BaseFragment) (getSupportFragmentManager().getPrimaryNavigationFragment())).onBackPressed()) {
@@ -197,6 +213,36 @@ public class MainActivity2 extends BaseActivity {
             } else {
                 ft.hide(getSupportFragmentManager().getPrimaryNavigationFragment()).show(to).setPrimaryNavigationFragment(to).commit(); // 隐藏当前的fragment，显示下一个
             }
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.ll_setting:
+                Intent intent = new Intent(this, SettingActivity.class);
+                startActivityForResult(intent, ActivityCode.REQUEST_CODE_THEME);
+                break;
+            case R.id.ll_theme:
+                break;
+            case R.id.ll_night:
+                //夜间模式
+                switch (AppCompatDelegate.getDefaultNightMode()) {
+                    case AppCompatDelegate.MODE_NIGHT_YES:
+                        getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                        PreferenceUtil.getInstance().putInt(SPKey.NIGHT, AppCompatDelegate.MODE_NIGHT_NO);
+                        mIvNight.setImageResource(R.drawable.ic_brightness_3_black_24dp);
+                        break;
+                    default:
+                        getDelegate().setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                        getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                        PreferenceUtil.getInstance().putInt(SPKey.NIGHT, AppCompatDelegate.MODE_NIGHT_YES);
+                        mIvNight.setImageResource(R.drawable.ic_brightness_4_black_24dp);
+                        break;
+                }
+                recreate();
+                break;
         }
     }
 }

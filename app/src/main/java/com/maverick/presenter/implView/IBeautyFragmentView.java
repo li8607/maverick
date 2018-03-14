@@ -9,13 +9,13 @@ import java.util.List;
  */
 public interface IBeautyFragmentView {
 
-    void onShowSuccessView(List<BeautyItemInfo> beautyInfo);
+    void onShowSuccessView(List<BeautyItemInfo> beautyInfo, boolean isHasMore);
 
     void onShowEmptyView();
 
     void onShowErrorView();
 
-    void onLoadMoreSuccess(List<BeautyItemInfo> beautyInfo, boolean isHasMore);
+    void onLoadMoreSuccess(List<BeautyItemInfo> beautyInfo, int positionStart, int count, boolean isHasMore);
 
     void onLoadMoreFail();
 }

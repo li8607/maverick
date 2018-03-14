@@ -50,4 +50,35 @@ public class FragmentFactory {
         return fragment;
     }
 
+    public static BaseFragment getFragment(int type) {
+
+        BaseFragment fragment;
+        switch (type) {
+            case FragmentType.SISTER:
+                fragment = SisterFragment.newInstance();
+                break;
+            case FragmentType.JOKE:
+                fragment = JokeFragment.newInstance();
+                break;
+            case FragmentType.BEAUTY:
+                fragment = BeautyFragment.newInstance();
+                break;
+            case FragmentType.MY:
+                fragment = MyFragment.newInstance();
+                break;
+            case FragmentType.CARICATURE:
+                fragment = CaricatureFragment.newInstance();
+                break;
+            case FragmentType.SINA:
+                fragment = SinaFragment.newInstance();
+                break;
+            case FragmentType.PEAR:
+                fragment = PearFragment.newInstance();
+                break;
+            default:
+                fragment = BeautyFragment.newInstance();
+                break;
+        }
+        return fragment;
+    }
 }

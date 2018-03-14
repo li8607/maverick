@@ -9,10 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
+import com.maverick.DetailActivity;
 import com.maverick.R;
 import com.maverick.adapter.BeautyFragmentAdapter;
 import com.maverick.base.BaseFragment;
 import com.maverick.bean.BeautyItemInfo;
+import com.maverick.bean.BigImgInfo;
+import com.maverick.hepler.BeanHelper;
 import com.maverick.model.CollectModel;
 import com.maverick.presenter.BasePresenter;
 import com.maverick.presenter.BeautyFragmentPresenter;
@@ -20,6 +23,7 @@ import com.maverick.presenter.implView.IBeautyFragmentView;
 import com.maverick.util.DensityUtil;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,6 +69,30 @@ public class BeautyFragment extends BaseFragment implements IBeautyFragmentView 
         mBeautyFragmentAdapter = new BeautyFragmentAdapter(getContext());
         recyclerView.setAdapter(mBeautyFragmentAdapter);
 
+        mBeautyFragmentAdapter.setOnItemClickListener(new BeautyFragmentAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(RecyclerView.ViewHolder viewHolder, int position) {
+                List<BeautyItemInfo> list = mPresenter.getBeautyInfos();
+                if (list != null && list.size() > 0) {
+
+                    List<BeautyItemInfo> tempList = new ArrayList<>();
+
+                    for (int i = 0; i < list.size(); i++) {
+                        if (Math.abs(position - i) < 5) {
+                            tempList.add(list.get(i));
+                        }
+                    }
+
+                    List<BigImgInfo> bigImgInfos = BeanHelper.getBeautyBigImgInfo(tempList);
+
+                    BigImgInfo bigImgInfo = new BigImgInfo();
+                    bigImgInfo.setImg(list.get(position).getUrl());
+
+                    DetailActivity.launch(getActivity(), ((BeautyFragmentAdapter.BeautyHolder)viewHolder).image, bigImgInfos, bigImgInfo);
+                }
+            }
+        });
+
         pullLoadMoreRecyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
             @Override
             public void onRefresh() {
@@ -109,8 +137,9 @@ public class BeautyFragment extends BaseFragment implements IBeautyFragmentView 
     }
 
     @Override
-    public void onShowSuccessView(List<BeautyItemInfo> beautyItemInfos) {
+    public void onShowSuccessView(List<BeautyItemInfo> beautyItemInfos, boolean isHasMore) {
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
+        pullLoadMoreRecyclerView.setHasMore(isHasMore);
         mBeautyFragmentAdapter.setData(beautyItemInfos);
         mBeautyFragmentAdapter.notifyDataSetChanged();
     }
@@ -158,14 +187,11 @@ public class BeautyFragment extends BaseFragment implements IBeautyFragmentView 
     }
 
     @Override
-    public void onLoadMoreSuccess(List<BeautyItemInfo> beautyInfo, boolean isHasMore) {
+    public void onLoadMoreSuccess(List<BeautyItemInfo> beautyInfo, int positionStart, int count, boolean isHasMore) {
         pullLoadMoreRecyclerView.setPullLoadMoreCompleted();
         pullLoadMoreRecyclerView.setHasMore(isHasMore);
-
-        int positionStart = mBeautyFragmentAdapter.getItemCount();
-
         mBeautyFragmentAdapter.setMoreData(beautyInfo);
-        mBeautyFragmentAdapter.notifyItemRangeInserted(positionStart, beautyInfo.size());
+        mBeautyFragmentAdapter.notifyItemRangeInserted(positionStart, count);
     }
 
     @Override

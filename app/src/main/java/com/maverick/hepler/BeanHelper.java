@@ -195,6 +195,16 @@ public class BeanHelper {
         return bigImgInfos;
     }
 
+    public static List<BigImgInfo> getBeautyBigImgInfo(List<BeautyItemInfo> list) {
+        List<BigImgInfo> bigImgInfos = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            BigImgInfo bigImgInfo = new BigImgInfo();
+            bigImgInfo.setImg(list.get(i).getUrl());
+            bigImgInfos.add(bigImgInfo);
+        }
+        return bigImgInfos;
+    }
+
     public static List<BigImgInfo> getBigImgInfo2SisterInfo(List<SisterInfo> list) {
         List<BigImgInfo> bigImgInfos = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {

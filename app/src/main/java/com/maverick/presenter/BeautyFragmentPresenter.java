@@ -23,6 +23,7 @@ public class BeautyFragmentPresenter extends BasePresenter {
     private int mPage = 1;
     private int mNum = 20;
     private String TAG = getClass().getSimpleName();
+    private List<BeautyItemInfo> mBeautyInfos;
 
     public BeautyFragmentPresenter(Context context, IBeautyFragmentView view) {
         this.mContext = context;
@@ -34,9 +35,10 @@ public class BeautyFragmentPresenter extends BasePresenter {
         mModel.requestData(1, mNum, new IBeautyModel.OnResultListener() {
             @Override
             public void onSuccess(List<BeautyItemInfo> beautyInfos) {
+                mBeautyInfos = beautyInfos;
                 if (beautyInfos != null && beautyInfos.size() >= 1) {
                     checkCollect(beautyInfos);
-                    mView.onShowSuccessView(beautyInfos);
+                    mView.onShowSuccessView(beautyInfos, beautyInfos.size() >= mNum);
                 } else {
                     mView.onShowEmptyView();
                 }
@@ -75,7 +77,16 @@ public class BeautyFragmentPresenter extends BasePresenter {
         mModel.requestData(mPage + 1, mNum, new IBeautyModel.OnResultListener() {
             @Override
             public void onSuccess(List<BeautyItemInfo> beautyInfos) {
-                mView.onLoadMoreSuccess(beautyInfos, beautyInfos.size() >= mNum);
+                int positionStart = 0;
+
+                if (mBeautyInfos != null) {
+                    positionStart = mBeautyInfos.size();
+                    mBeautyInfos.addAll(beautyInfos);
+                } else {
+                    mBeautyInfos = beautyInfos;
+                }
+
+                mView.onLoadMoreSuccess(beautyInfos, positionStart, beautyInfos.size(), beautyInfos.size() >= mNum);
                 mPage++;
             }
 
@@ -89,5 +100,13 @@ public class BeautyFragmentPresenter extends BasePresenter {
     @Override
     public void release() {
         mModel.release();
+    }
+
+    public List<BeautyItemInfo> getBeautyInfos() {
+        return mBeautyInfos;
+    }
+
+    public void setBeautyInfos(List<BeautyItemInfo> beautyInfos) {
+        mBeautyInfos = beautyInfos;
     }
 }

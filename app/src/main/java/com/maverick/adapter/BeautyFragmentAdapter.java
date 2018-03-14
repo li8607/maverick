@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.maverick.DetailActivity;
@@ -41,9 +42,17 @@ public class BeautyFragmentAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
         BeautyHolder beautyHolder = (BeautyHolder) holder;
         beautyHolder.bindData(mList.get(position));
+        if (mOnItemClickListener != null) {
+            beautyHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mOnItemClickListener.onItemClick(holder, position);
+                }
+            });
+        }
     }
 
     @Override
@@ -67,20 +76,18 @@ public class BeautyFragmentAdapter extends RecyclerView.Adapter {
 
     public class BeautyHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private final RatioImageView image;
+        public final ImageView image;
         private final TextView title;
         private BeautyItemInfo mBeautyItemInfo;
         private final View collect;
 
         public BeautyHolder(View itemView) {
             super(itemView);
-            image = (RatioImageView) itemView.findViewById(R.id.image);
+            image = (ImageView) itemView.findViewById(R.id.image);
             title = (TextView) itemView.findViewById(R.id.title);
 
             collect = itemView.findViewById(R.id.collect);
 
-            image.setOriginalSize(1, 1);
-            image.setOnClickListener(this);
             collect.setOnClickListener(this);
         }
 
@@ -114,12 +121,22 @@ public class BeautyFragmentAdapter extends RecyclerView.Adapter {
                         CollectModel.newInstance().insertCollectDB(collect);
                     }
                     break;
-                case R.id.image:
-                    BigImgInfo bigImgInfo = new BigImgInfo();
-                    bigImgInfo.setImg(mBeautyItemInfo.getUrl());
-                    DetailActivity.launch((Activity) mContext, image, bigImgInfo);
-                    break;
+//                case R.id.image:
+//                    BigImgInfo bigImgInfo = new BigImgInfo();
+//                    bigImgInfo.setImg(mBeautyItemInfo.getUrl());
+//                    DetailActivity.launch((Activity) mContext, image, bigImgInfo);
+//                    break;
             }
         }
+    }
+
+    private OnItemClickListener mOnItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mOnItemClickListener = listener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(RecyclerView.ViewHolder viewHolder, int position);
     }
 }
