@@ -35,6 +35,7 @@ public class CaricatureActivity extends BaseActivity implements ICaricatureActiv
 
         if (context == null || info == null || TextUtils.isEmpty(info.getId())) {
 
+
             return;
         }
 
